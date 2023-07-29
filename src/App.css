@@ -1,1 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 
+#header {
+  background-color: bisque;
+  height: 300px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#header-title {
+  color: white;
+  background-color: rgba(1, 1, 1, 0.5);
+  font-size: 36px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}

@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { HotelResponse, getHotels } from "./infrastructure/api";
+import Home from "./components/pages/Home";
+import Hotel from "./components/pages/Hotel";
 
 function App() {
-  const [hotels, setHotels] = useState<HotelResponse[]>([]);
-  useEffect(() => {
-    getHotels().then((hotels) => setHotels(hotels));
-  }, []);
   return (
-    <div>
-      {hotels.map((v) => (
-        <div>
-          {v.name}, 和室{v.hasWashitsu ? "あり" : "なし"}
-        </div>
-      ))}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path={"/"} element={<Home />} />
+        <Route path={"/hotel/:id"} element={<Hotel />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
