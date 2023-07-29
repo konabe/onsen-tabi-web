@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import { HotelResponse, getHotels } from "./infrastructure/api";
 
 function App() {
+  const [hotels, setHotels] = useState<HotelResponse[]>([]);
+  useEffect(() => {
+    getHotels().then((hotels) => setHotels(hotels));
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {hotels.map((v) => (
+        <div>
+          {v.name}, 和室{v.hasWashitsu ? "あり" : "なし"}
+        </div>
+      ))}
     </div>
   );
 }
