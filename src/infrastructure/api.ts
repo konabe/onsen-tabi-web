@@ -38,3 +38,15 @@ export const getOnsen = async (id: number): Promise<OnsenResponse> => {
   const responseData = JSON.parse(JSON.stringify(response.data));
   return responseData as OnsenResponse;
 };
+
+export type AreaResponse = {
+  id: number;
+  name: string;
+  prefecture: string;
+};
+
+export const getAreas = async (): Promise<AreaResponse[]> => {
+  const response = await axios.get("http://localhost:8000/area");
+  const responseData = JSON.parse(JSON.stringify(response.data));
+  return responseData as AreaResponse[];
+};
