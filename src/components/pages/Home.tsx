@@ -39,18 +39,18 @@ const Home: React.FC = () => {
       </header>
       <OnsenAreaList areas={areas} prefectures={prefectures()} />
       <main>
-        <h1>🛏宿一覧</h1>
-        {hotels.map((v) => (
-          <div key={v.id}>
-            <Link to={`/hotel/${v.id}`}>{v.name}</Link>
-          </div>
-        ))}
-      </main>
-      <main>
         <h1>♨温泉一覧</h1>
         {onsens.map((v) => (
           <div key={v.id}>
             <Link to={`/onsen/${v.id}`}>{v.name}</Link>
+          </div>
+        ))}
+      </main>
+      <main>
+        <h1>🛏宿一覧</h1>
+        {hotels.map((v) => (
+          <div key={v.id}>
+            <Link to={`/hotel/${v.id}`}>{v.name}</Link>
           </div>
         ))}
       </main>

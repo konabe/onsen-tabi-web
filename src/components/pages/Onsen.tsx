@@ -6,6 +6,7 @@ import {
   putOnsenDescription,
 } from "../../infrastructure/api";
 
+import headerCoverJpg from "../../header_cover.jpg";
 const Hotel: React.FC = () => {
   const { id } = useParams();
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
@@ -23,6 +24,7 @@ const Hotel: React.FC = () => {
   return (
     <div>
       <h1>{onsen?.name}</h1>
+      <img src={headerCoverJpg}></img>
       {splittedDescription.map((v) => (
         <p key={v}>{v}</p>
       ))}
