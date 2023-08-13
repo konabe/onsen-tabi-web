@@ -1,30 +1,20 @@
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/pages/Home";
 import HotelDetail from "./components/pages/HotelDetail";
 import Onsen from "./components/pages/OnsenDetail";
 
 import styled from "styled-components";
+import NavItem from "./components/molecules/NavItem";
 import HotelList from "./components/pages/HotelList";
 import OnsenList from "./components/pages/OnsenList";
 function App() {
-  const location = useLocation();
   return (
     <>
-      <nav style={{ height: 40, backgroundColor: "grey" }}>
-        <Link to="/">
-          <SNavItem selected={location.pathname === "/"}>TOP</SNavItem>
-        </Link>
-        <Link to="/onsens">
-          <SNavItem selected={location.pathname === "/onsens"}>
-            温泉一覧
-          </SNavItem>
-        </Link>
-        <Link to="/hotels">
-          <SNavItem selected={location.pathname === "/hotels"}>
-            ホテル一覧
-          </SNavItem>
-        </Link>
-      </nav>
+      <SNav>
+        <NavItem path="/" text="トップ" />
+        <NavItem path="/onsens" text="温泉一覧" />
+        <NavItem path="/hotels" text="ホテル一覧" />
+      </SNav>
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/hotels"} element={<HotelList />} />
@@ -37,18 +27,9 @@ function App() {
   );
 }
 
-const SNavItem = styled.button<{ selected: boolean }>`
-  height: 100%;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  color: white;
-  padding: 0px 20px;
-  background-color: ${({ selected }) => (selected ? "brown" : "grey")};
-
-  &:hover {
-    background-color: black;
-  }
+const SNav = styled.nav`
+  height: 40px;
+  background-color: grey;
 `;
 
 export default App;
