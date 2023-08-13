@@ -25,6 +25,7 @@ export type OnsenResponse = {
   liquid: string | null;
   ostomicPressure: string | null;
   form: string;
+  description: string;
 };
 
 export const getOnsens = async (): Promise<OnsenResponse[]> => {
@@ -37,6 +38,18 @@ export const getOnsen = async (id: number): Promise<OnsenResponse> => {
   const response = await axios.get(`http://localhost:8000/onsen/${id}`);
   const responseData = JSON.parse(JSON.stringify(response.data));
   return responseData as OnsenResponse;
+};
+
+export type PutOnsenDescriptionRequest = {
+  description: string;
+};
+
+export const putOnsenDescription = async (
+  id: number,
+  description: string
+): Promise<void> => {
+  const request: PutOnsenDescriptionRequest = { description };
+  await axios.put(`http://localhost:8000/onsen/${id}/description`, request);
 };
 
 export type AreaResponse = {
