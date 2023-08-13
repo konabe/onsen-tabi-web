@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { HotelResponse, getHotel } from "../../infrastructure/api";
 
-const Hotel: React.FC = () => {
+const HotelDetail: React.FC = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
   useEffect(() => {
@@ -18,4 +18,4 @@ const Hotel: React.FC = () => {
   );
 };
 
-export default Hotel;
+export default HotelDetail;

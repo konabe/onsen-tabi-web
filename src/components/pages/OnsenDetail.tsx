@@ -7,7 +7,7 @@ import {
 } from "../../infrastructure/api";
 
 import headerCoverJpg from "../../header_cover.jpg";
-const Hotel: React.FC = () => {
+const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
@@ -50,4 +50,4 @@ const Hotel: React.FC = () => {
   );
 };
 
-export default Hotel;
+export default OnsenDetail;

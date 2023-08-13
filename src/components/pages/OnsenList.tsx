@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import headerCoverJpg from "../../header_cover.jpg";
-import { AreaResponse, getAreas } from "../../infrastructure/api";
-import { prefectures } from "../../share/prefecture";
-import OnsenAreaList from "../organisims/OnsenAreaList";
+import { OnsenResponse, getOnsens } from "../../infrastructure/api";
 
-const Home: React.FC = () => {
-  const [areas, setAreas] = useState<AreaResponse[]>([]);
+const OnsenList: React.FC = () => {
+  const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
   useEffect(() => {
     (async () => {
       (async () => {
-        const areas = await getAreas();
-        setAreas(areas);
+        const onsens = await getOnsens();
+        setOnsens(onsens);
       })();
     })();
   }, []);
@@ -23,7 +22,14 @@ const Home: React.FC = () => {
       >
         <SHeaderText id="header-title">Nの温泉旅記録</SHeaderText>
       </SHeader>
-      <OnsenAreaList areas={areas} prefectures={prefectures()} />
+      <main>
+        <h1>♨温泉一覧</h1>
+        {onsens.map((v) => (
+          <div key={v.id}>
+            <Link to={`/onsen/${v.id}`}>{v.name}</Link>
+          </div>
+        ))}
+      </main>
     </div>
   );
 };
@@ -45,4 +51,4 @@ const SHeaderText = styled.div`
   bottom: 20px;
 `;
 
-export default Home;
+export default OnsenList;
