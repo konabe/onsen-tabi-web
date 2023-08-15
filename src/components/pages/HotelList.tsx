@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import headerCoverJpg from "../../header_cover.jpg";
-import { HotelResponse, getHotels } from "../../infrastructure/api";
+import {
+  HotelResponse,
+  getHotels,
+} from "../../infrastructure/api/HotelApiModel";
 
 const HotelList: React.FC = () => {
   const [hotels, setHotels] = useState<HotelResponse[]>([]);

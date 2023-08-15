@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import headerCoverJpg from "../../header_cover.jpg";
-import { AreaResponse, getAreas } from "../../infrastructure/api";
+import { AreaResponse, getAreas } from "../../infrastructure/api/AreaApiModel";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
+import HotelForm from "../organisims/HotelForm";
 
 const Home: React.FC = () => {
   const [areas, setAreas] = useState<AreaResponse[]>([]);
@@ -24,6 +25,7 @@ const Home: React.FC = () => {
         <SHeaderText id="header-title">Nの温泉旅記録</SHeaderText>
       </SHeader>
       <OnsenAreaList areas={areas} prefectures={prefectures()} />
+      <HotelForm />
     </div>
   );
 };

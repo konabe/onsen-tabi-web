@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { HotelResponse, getHotel } from "../../infrastructure/api";
+import {
+  HotelResponse,
+  getHotel,
+} from "../../infrastructure/api/HotelApiModel";
 
 const HotelDetail: React.FC = () => {
   const { id } = useParams();

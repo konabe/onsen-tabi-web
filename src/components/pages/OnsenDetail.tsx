@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+import headerCoverJpg from "../../header_cover.jpg";
 import {
   OnsenResponse,
   getOnsen,
   putOnsenDescription,
-} from "../../infrastructure/api";
-
-import headerCoverJpg from "../../header_cover.jpg";
+} from "../../infrastructure/api/OnsenApiModel";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);

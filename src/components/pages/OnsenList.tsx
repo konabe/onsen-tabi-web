@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import headerCoverJpg from "../../header_cover.jpg";
-import { OnsenResponse, getOnsens } from "../../infrastructure/api";
+import {
+  getOnsens,
+  OnsenResponse,
+} from "../../infrastructure/api/OnsenApiModel";
 
 const OnsenList: React.FC = () => {
   const [onsens, setOnsens] = useState<OnsenResponse[]>([]);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AreaResponse, getArea } from "../../infrastructure/api";
+import { AreaResponse, getArea } from "../../infrastructure/api/AreaApiModel";
 
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
