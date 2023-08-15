@@ -10,8 +10,16 @@ const AreaDetail: React.FC = () => {
       const area = await getArea(Number(id));
       setArea(area);
     })();
-  }, []);
-  return <div>{area?.name}</div>;
+  }, [id]);
+  return (
+    <div>
+      <h1>{area?.name + "温泉"}</h1>
+      <p>{area?.prefecture}</p>
+      <a href={area?.url} target="_blank" rel="noreferrer">
+        リンク
+      </a>
+    </div>
+  );
 };
 
 export default AreaDetail;

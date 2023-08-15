@@ -4,6 +4,7 @@ export type HotelResponse = {
   id: number;
   name: string;
   hasWashitsu: boolean;
+  url: string;
 };
 
 export const getHotels = async (): Promise<HotelResponse[]> => {
@@ -25,6 +26,7 @@ export type OnsenResponse = {
   liquid: string | null;
   ostomicPressure: string | null;
   form: string;
+  url: string;
   description: string;
 };
 
@@ -56,6 +58,7 @@ export type AreaResponse = {
   id: number;
   name: string;
   prefecture: string;
+  url: string;
 };
 
 export const getAreas = async (): Promise<AreaResponse[]> => {

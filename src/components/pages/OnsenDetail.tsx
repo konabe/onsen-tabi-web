@@ -19,15 +19,18 @@ const OnsenDetail: React.FC = () => {
       setOnsen(onsen);
       setDescription(onsen.description);
     })();
-  }, []);
+  }, [id]);
 
   return (
     <div>
       <h1>{onsen?.name}</h1>
-      <img src={headerCoverJpg}></img>
+      <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
       {splittedDescription.map((v) => (
         <p key={v}>{v}</p>
       ))}
+      <a href={onsen?.url} target="_blank" rel="noreferrer">
+        リンク
+      </a>
       <h1>温泉データ</h1>
       <h2>泉質</h2>
       <p>{onsen?.sprintQuality}</p>

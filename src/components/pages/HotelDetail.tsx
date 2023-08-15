@@ -10,10 +10,13 @@ const HotelDetail: React.FC = () => {
       const hotel = await getHotel(Number(id));
       setHotel(hotel);
     })();
-  }, []);
+  }, [id]);
   return (
     <div>
       {hotel?.name}, 和室{hotel?.hasWashitsu ? "あり" : "なし"}
+      <a href={hotel?.url} target="_blank" rel="noreferrer">
+        リンク
+      </a>
     </div>
   );
 };
