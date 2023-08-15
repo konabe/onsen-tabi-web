@@ -5,6 +5,7 @@ import Onsen from "./components/pages/OnsenDetail";
 
 import styled from "styled-components";
 import NavItem from "./components/molecules/NavItem";
+import AreaDetail from "./components/pages/AreaDetail";
 import HotelList from "./components/pages/HotelList";
 import OnsenList from "./components/pages/OnsenList";
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <Route path={"/hotel/:id"} element={<HotelDetail />} />
         <Route path={"/onsens"} element={<OnsenList />} />
         <Route path={"/onsen/:id"} element={<Onsen />} />
-        <Route path={"/area/:id"} element={<Onsen />} />
+        <Route path={"/area/:id"} element={<AreaDetail />} />
       </Routes>
     </>
   );
