@@ -13,8 +13,10 @@ export type HotelRequest = {
   url: string;
 };
 
-export const getHotels = async (): Promise<HotelResponse[]> => {
-  const response = await axios.get("http://localhost:8000/hotel");
+export const getHotels = async (areaId?: number): Promise<HotelResponse[]> => {
+  const response = await axios.get("http://localhost:8000/hotel", {
+    params: { area_id: areaId },
+  });
   const responseData = JSON.parse(JSON.stringify(response.data));
   return responseData as HotelResponse[];
 };

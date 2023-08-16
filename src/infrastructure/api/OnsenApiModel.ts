@@ -25,8 +25,10 @@ export type OnsenRequest = {
   description: string;
 };
 
-export const getOnsens = async (): Promise<OnsenResponse[]> => {
-  const response = await axios.get("http://localhost:8000/onsen");
+export const getOnsens = async (areaId?: number): Promise<OnsenResponse[]> => {
+  const response = await axios.get("http://localhost:8000/onsen", {
+    params: { area_id: areaId },
+  });
   const responseData = JSON.parse(JSON.stringify(response.data));
   return responseData as OnsenResponse[];
 };
