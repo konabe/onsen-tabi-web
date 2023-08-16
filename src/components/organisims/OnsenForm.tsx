@@ -55,7 +55,7 @@ const OnsenForm: React.FC = () => {
   const onClick = async () => {
     postOnsen({
       name,
-      sprintQuality: quality,
+      springQuality: quality,
       liquid: liquid !== undefined ? liquid : null,
       ostomicPressure: osmoticPressure !== undefined ? osmoticPressure : null,
       form,

@@ -3,7 +3,7 @@ import axios from "axios";
 export type OnsenResponse = {
   id: number;
   name: string;
-  sprintQuality: string;
+  springQuality: string;
   liquid: string | null;
   ostomicPressure: string | null;
   form: string;
@@ -17,7 +17,7 @@ export type PutOnsenDescriptionRequest = {
 
 export type OnsenRequest = {
   name: string;
-  sprintQuality: string;
+  springQuality: string;
   liquid: string | null;
   ostomicPressure: string | null;
   form: string;

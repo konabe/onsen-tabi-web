@@ -33,7 +33,7 @@ const OnsenDetail: React.FC = () => {
       </a>
       <h1>温泉データ</h1>
       <h2>泉質</h2>
-      <p>{onsen?.sprintQuality}</p>
+      <p>{onsen?.springQuality}</p>
       <h2>液性</h2>
       <p>{onsen?.liquid}</p>
       <h2>浸透圧</h2>
