@@ -5,6 +5,7 @@ import { AreaResponse, getAreas } from "../../infrastructure/api/AreaApiModel";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 import HotelForm from "../organisims/HotelForm";
+import OnsenForm from "../organisims/OnsenForm";
 
 const Home: React.FC = () => {
   const [areas, setAreas] = useState<AreaResponse[]>([]);
@@ -26,6 +27,7 @@ const Home: React.FC = () => {
       </SHeader>
       <OnsenAreaList areas={areas} prefectures={prefectures()} />
       <HotelForm />
+      <OnsenForm />
     </div>
   );
 };
