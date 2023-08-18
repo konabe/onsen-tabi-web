@@ -53,7 +53,7 @@ const OnsenForm: React.FC = () => {
       name,
       springQuality: quality,
       liquid: liquid !== undefined ? liquid : null,
-      ostomicPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+      osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
       form,
       url,
       description: "",

@@ -14,7 +14,7 @@ export type OnsenResponse = {
   name: string;
   springQuality: string;
   liquid: LiquidValueOption | null;
-  ostomicPressure: OsmoticPressureOption | null;
+  osmoticPressure: OsmoticPressureOption | null;
   form: FormOption;
   url: string;
   description: string;
@@ -28,7 +28,7 @@ export type OnsenRequest = {
   name: string;
   springQuality: string;
   liquid: string | null;
-  ostomicPressure: string | null;
+  osmoticPressure: string | null;
   form: string;
   url: string;
   description: string;
@@ -49,7 +49,7 @@ export const getLiquidText = (option: LiquidValueOption) => {
   }
 };
 
-export const getOstomicPressureText = (option: OsmoticPressureOption) => {
+export const getOsmoticPressureText = (option: OsmoticPressureOption) => {
   switch (option) {
     case "hypotonic":
       return "低張性";

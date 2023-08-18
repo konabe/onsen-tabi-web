@@ -7,7 +7,7 @@ import {
   getFormText,
   getLiquidText,
   getOnsen,
-  getOstomicPressureText,
+  getOsmoticPressureText,
   putOnsenDescription,
 } from "../../infrastructure/api/OnsenApiModel";
 import styled from "styled-components";
@@ -51,8 +51,8 @@ const OnsenDetail: React.FC = () => {
           <Info>
             <InfoTitle>浸透圧</InfoTitle>
             <span>
-              {onsen.ostomicPressure !== null
-                ? getOstomicPressureText(onsen.ostomicPressure)
+              {onsen.osmoticPressure !== null
+                ? getOsmoticPressureText(onsen.osmoticPressure)
                 : "情報なし"}
             </span>
           </Info>
