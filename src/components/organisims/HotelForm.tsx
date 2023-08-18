@@ -12,6 +12,9 @@ const HotelForm: React.FC = () => {
       hasWashitsu,
       url,
     });
+    setName("");
+    setHasWashitsu(true);
+    setURL("");
   };
   return (
     <SCreateCormContainer>

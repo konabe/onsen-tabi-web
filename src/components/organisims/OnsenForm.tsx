@@ -53,7 +53,7 @@ const OnsenForm: React.FC = () => {
   ];
 
   const onClick = async () => {
-    postOnsen({
+    await postOnsen({
       name,
       springQuality: quality,
       liquid: liquid !== undefined ? liquid : null,
@@ -62,6 +62,12 @@ const OnsenForm: React.FC = () => {
       url,
       description: "",
     });
+    setName("");
+    setQuality("");
+    setLiquid(undefined);
+    setOsmoticPressure(undefined);
+    setForm("sotoyu");
+    setURL("");
   };
   return (
     <SCreateCormContainer>
