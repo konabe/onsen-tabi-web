@@ -1,16 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
-import { postOnsen } from "../../infrastructure/api/OnsenApiModel";
-
-type LiquidValueOption =
-  | "acidic"
-  | "mildly_acidic"
-  | "neutral"
-  | "mildly_alkaline"
-  | "alkaline";
-type OsmoticPressureOption = "hypotonic" | "isotonic" | "hypertonic";
-type FormOption = "uchiyu" | "sotoyu";
+import {
+  FormOption,
+  LiquidValueOption,
+  postOnsen,
+  OsmoticPressureOption,
+} from "../../infrastructure/api/OnsenApiModel";
 
 const OnsenForm: React.FC = () => {
   const [name, setName] = useState<string>("");

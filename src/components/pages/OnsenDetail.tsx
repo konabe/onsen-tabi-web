@@ -4,9 +4,13 @@ import { useParams } from "react-router-dom";
 import headerCoverJpg from "../../header_cover.jpg";
 import {
   OnsenResponse,
+  getFormText,
+  getLiquidText,
   getOnsen,
+  getOstomicPressureText,
   putOnsenDescription,
 } from "../../infrastructure/api/OnsenApiModel";
+import styled from "styled-components";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
@@ -23,34 +27,66 @@ const OnsenDetail: React.FC = () => {
 
   return (
     <div>
-      <h1>{onsen?.name}</h1>
-      <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
-      {splittedDescription.map((v) => (
-        <p key={v}>{v}</p>
-      ))}
-      <a href={onsen?.url} target="_blank" rel="noreferrer">
-        リンク
-      </a>
-      <h1>温泉データ</h1>
-      <h2>泉質</h2>
-      <p>{onsen?.springQuality}</p>
-      <h2>液性</h2>
-      <p>{onsen?.liquid}</p>
-      <h2>浸透圧</h2>
-      <p>{onsen?.ostomicPressure}</p>
-      <h2>その他</h2>
-      <p>{onsen?.form}</p>
-      <form style={{ marginTop: 20 }}>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          cols={50}
-          rows={10}
-        ></textarea>
-        <button onClick={onClickButton}>説明変更</button>
-      </form>
+      {onsen !== undefined ? (
+        <>
+          <h1>{onsen.name}</h1>
+          <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
+          {splittedDescription.map((v) => (
+            <p key={v}>{v}</p>
+          ))}
+          <h1>温泉データ</h1>
+          <a href={onsen.url} target="_blank" rel="noreferrer">
+            リンク
+          </a>
+          <Info>
+            <InfoTitle>泉質</InfoTitle>
+            <span>{onsen.springQuality}</span>
+          </Info>
+          <Info>
+            <InfoTitle>液性</InfoTitle>
+            <span>
+              {onsen.liquid !== null ? getLiquidText(onsen.liquid) : "情報なし"}
+            </span>
+          </Info>
+          <Info>
+            <InfoTitle>浸透圧</InfoTitle>
+            <span>
+              {onsen.ostomicPressure !== null
+                ? getOstomicPressureText(onsen.ostomicPressure)
+                : "情報なし"}
+            </span>
+          </Info>
+          <Info>
+            <InfoTitle>営業形態</InfoTitle>
+            <span>
+              {onsen.form !== null ? getFormText(onsen.form) : "情報なし"}
+            </span>
+          </Info>
+          <form style={{ marginTop: 20 }}>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              cols={50}
+              rows={10}
+            ></textarea>
+            <button onClick={onClickButton}>説明変更</button>
+          </form>
+        </>
+      ) : (
+        <div>Not Found</div>
+      )}
     </div>
   );
 };
 
 export default OnsenDetail;
+
+const Info = styled.span`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+`;
+
+const InfoTitle = styled.span`
+  font-weight: 700;
+`;
