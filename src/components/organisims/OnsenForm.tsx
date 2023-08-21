@@ -48,7 +48,8 @@ const OnsenForm: React.FC = () => {
     { value: "uchiyu", label: "内湯" },
   ];
 
-  const onClick = async () => {
+  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     await postOnsen({
       name,
       springQuality: quality,

@@ -11,12 +11,18 @@ import {
   putOnsenDescription,
 } from "../../infrastructure/api/OnsenApiModel";
 import styled from "styled-components";
+import { getToken } from "../../infrastructure/LocalStorage";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
   const splittedDescription: string[] = (onsen?.description ?? "").split("\n");
-  const onClickButton = () => putOnsenDescription(Number(id), description);
+  const isSignedIn = getToken() !== null;
+
+  const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    putOnsenDescription(Number(id), description);
+  };
   useEffect(() => {
     (async () => {
       const onsen = await getOnsen(Number(id));
@@ -62,15 +68,17 @@ const OnsenDetail: React.FC = () => {
               {onsen.form !== null ? getFormText(onsen.form) : "情報なし"}
             </span>
           </Info>
-          <form style={{ marginTop: 20 }}>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              cols={50}
-              rows={10}
-            ></textarea>
-            <button onClick={onClickButton}>説明変更</button>
-          </form>
+          {isSignedIn ? (
+            <form style={{ marginTop: 20 }}>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                cols={50}
+                rows={10}
+              ></textarea>
+              <button onClick={onClickButton}>説明変更</button>
+            </form>
+          ) : undefined}
         </>
       ) : (
         <div>Not Found</div>

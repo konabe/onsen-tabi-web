@@ -6,9 +6,11 @@ import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 import HotelForm from "../organisims/HotelForm";
 import OnsenForm from "../organisims/OnsenForm";
+import { getToken } from "../../infrastructure/LocalStorage";
 
 const Home: React.FC = () => {
   const [areas, setAreas] = useState<AreaResponse[]>([]);
+  const isSignedIn = getToken() !== null;
   useEffect(() => {
     (async () => {
       (async () => {
@@ -26,8 +28,12 @@ const Home: React.FC = () => {
         <SHeaderText id="header-title">Nの温泉旅記録</SHeaderText>
       </SHeader>
       <OnsenAreaList areas={areas} prefectures={prefectures()} />
-      <HotelForm />
-      <OnsenForm />
+      {isSignedIn ? (
+        <>
+          <HotelForm />
+          <OnsenForm />
+        </>
+      ) : undefined}
     </div>
   );
 };

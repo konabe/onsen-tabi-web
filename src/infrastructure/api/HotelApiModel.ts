@@ -29,7 +29,7 @@ export const getHotel = async (id: number): Promise<HotelResponse> => {
 
 export const postHotel = async (
   request: HotelRequest
-): Promise<HotelRequest> => {
+): Promise<HotelResponse> => {
   const response = await axios.post("http://localhost:8000/hotel", request);
   const responseData = JSON.parse(JSON.stringify(response.data));
   return responseData as HotelResponse;

@@ -11,6 +11,7 @@ const HotelDetail: React.FC = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
+
   useEffect(() => {
     (async () => {
       const hotel = await getHotel(Number(id));

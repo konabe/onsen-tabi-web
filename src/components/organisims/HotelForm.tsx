@@ -6,7 +6,8 @@ const HotelForm: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [hasWashitsu, setHasWashitsu] = useState<boolean>(true);
   const [url, setURL] = useState<string>("");
-  const onClick = async () => {
+  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     await postHotel({
       name,
       hasWashitsu,
