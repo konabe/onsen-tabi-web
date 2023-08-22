@@ -27,11 +27,17 @@ const Signin: React.FC = () => {
     <div>
       <label>
         email
-        <input value={email} onChange={(e) => setEmail(e.target.value)}></input>
+        <input
+          type="email"
+          autoComplete="username"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></input>
       </label>
       <label>
         password
         <input
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></input>
