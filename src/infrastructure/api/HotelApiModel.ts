@@ -1,4 +1,4 @@
-import axios from "axios";
+import { httpGet, httpPost } from "./ApiClient";
 
 export type HotelResponse = {
   id: number;
@@ -14,23 +14,15 @@ export type HotelRequest = {
 };
 
 export const getHotels = async (areaId?: number): Promise<HotelResponse[]> => {
-  const response = await axios.get("http://localhost:8000/hotel", {
-    params: { area_id: areaId },
-  });
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as HotelResponse[];
+  return await httpGet("/hotel", { area_id: areaId });
 };
 
 export const getHotel = async (id: number): Promise<HotelResponse> => {
-  const response = await axios.get(`http://localhost:8000/hotel/${id}`);
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as HotelResponse;
+  return await httpGet(`/hotel/${id}`);
 };
 
 export const postHotel = async (
   request: HotelRequest
 ): Promise<HotelResponse> => {
-  const response = await axios.post("http://localhost:8000/hotel", request);
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as HotelResponse;
+  return await httpPost("/hotel", request);
 };

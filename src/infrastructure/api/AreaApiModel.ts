@@ -1,4 +1,4 @@
-import axios from "axios";
+import { httpGet } from "./ApiClient";
 
 export type AreaResponse = {
   id: number;
@@ -8,13 +8,9 @@ export type AreaResponse = {
 };
 
 export const getAreas = async (): Promise<AreaResponse[]> => {
-  const response = await axios.get("http://localhost:8000/area");
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as AreaResponse[];
+  return await httpGet("/area");
 };
 
 export const getArea = async (id: number): Promise<AreaResponse> => {
-  const response = await axios.get(`http://localhost:8000/area/${id}`);
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as AreaResponse;
+  return await httpGet(`/area/${id}`);
 };
