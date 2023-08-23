@@ -33,7 +33,9 @@ const OnsenDetail: React.FC = () => {
 
   return (
     <div>
-      {onsen !== undefined ? (
+      {onsen === undefined ? (
+        <div>ローディング中 ...</div>
+      ) : (
         <>
           <h1>{onsen.name}</h1>
           <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
@@ -80,8 +82,6 @@ const OnsenDetail: React.FC = () => {
             </form>
           ) : undefined}
         </>
-      ) : (
-        <div>Not Found</div>
       )}
     </div>
   );

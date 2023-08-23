@@ -18,11 +18,15 @@ const OnsenList: React.FC = () => {
   return (
     <>
       <h1>♨温泉一覧</h1>
-      {onsens.map((v) => (
-        <div key={v.id}>
-          <Link to={`/onsen/${v.id}`}>{v.name}</Link>
-        </div>
-      ))}
+      {onsens.length === 0 ? (
+        <div>ローディング中 ...</div>
+      ) : (
+        onsens.map((v) => (
+          <div key={v.id}>
+            <Link to={`/onsen/${v.id}`}>{v.name}</Link>
+          </div>
+        ))
+      )}
     </>
   );
 };

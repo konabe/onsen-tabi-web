@@ -10,7 +10,7 @@ import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 const HotelDetail: React.FC = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
-  const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
+  const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>([]);
 
   useEffect(() => {
     (async () => {
@@ -23,20 +23,26 @@ const HotelDetail: React.FC = () => {
     })();
   }, [id]);
   return (
-    <div>
-      {hotel?.name}, 和室{hotel?.hasWashitsu ? "あり" : "なし"}
-      <a href={hotel?.url} target="_blank" rel="noreferrer">
-        リンク
-      </a>
-      <h2>温泉</h2>
-      <div>
-        {onsens.map((onsen) => (
+    <>
+      {hotel === undefined || onsens === undefined ? (
+        <div>ローディング中 ...</div>
+      ) : (
+        <div>
+          <h2>ホテル</h2>
+          {hotel.name}, 和室{hotel?.hasWashitsu ? "あり" : "なし"}
+          <a href={hotel?.url} target="_blank" rel="noreferrer">
+            リンク
+          </a>
           <div>
-            <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+            {onsens.map((onsen) => (
+              <div>
+                <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

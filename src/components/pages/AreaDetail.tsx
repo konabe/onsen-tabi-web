@@ -13,8 +13,8 @@ import {
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
   const [area, setArea] = useState<AreaResponse | undefined>(undefined);
-  const [hotels, setHotels] = useState<HotelResponse[]>([]);
-  const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
+  const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
+  const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
   useEffect(() => {
     (async () => {
       const area = await getArea(Number(id));
@@ -30,29 +30,35 @@ const AreaDetail: React.FC = () => {
     })();
   }, [id]);
   return (
-    <div>
-      <h1>{area?.name + "温泉"}</h1>
-      <p>{area?.prefecture}</p>
-      <a href={area?.url} target="_blank" rel="noreferrer">
-        リンク
-      </a>
-      <h2>ホテル</h2>
-      <div>
-        {hotels.map((hotel) => (
+    <>
+      {area === undefined || hotels === undefined || onsens === undefined ? (
+        <div>ローディング中 ...</div>
+      ) : (
+        <>
+          <h1>{area?.name + "温泉"}</h1>
+          <p>{area?.prefecture}</p>
+          <a href={area?.url} target="_blank" rel="noreferrer">
+            リンク
+          </a>
+          <h2>ホテル</h2>
           <div>
-            <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
+            {hotels.map((hotel) => (
+              <div>
+                <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <h2>温泉</h2>
-      <div>
-        {onsens.map((onsen) => (
+          <h2>温泉</h2>
           <div>
-            <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+            {onsens.map((onsen) => (
+              <div>
+                <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </>
+      )}
+    </>
   );
 };
 
