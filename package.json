@@ -21,12 +21,15 @@
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
+  "devDependencies": {
+    "@sentry/cli": "^2.20.5"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && yarn run sentry:sourcemaps",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org onsen-tabi --project web ./build && sentry-cli sourcemaps upload --org onsen-tabi --project web ./build"
+    "sentry:sourcemaps": "npx sentry-cli sourcemaps inject --org onsen-tabi --project web ./build && npx sentry-cli sourcemaps upload --org onsen-tabi --project web ./build"
   },
   "eslintConfig": {
     "extends": [
