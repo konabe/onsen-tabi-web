@@ -61,6 +61,4 @@ export default HotelForm;
 
 const SCreateCormContainer = styled.div`
   margin-top: 20px;
-  margin-bottom: 20px;
-  padding-left: 20px;
 `;

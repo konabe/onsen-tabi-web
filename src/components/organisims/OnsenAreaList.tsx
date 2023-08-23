@@ -16,8 +16,7 @@ const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
     areasByPrefecture[area.prefecture].push(area);
   });
   return (
-    <main>
-      <h1>🏞温泉エリア一覧</h1>
+    <div>
       {Object.keys(prefectures).map((prefectureKey) => {
         const areas = areasByPrefecture[prefectureKey];
         if (areas === undefined) {
@@ -36,7 +35,7 @@ const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
           </div>
         );
       })}
-    </main>
+    </div>
   );
 };
 

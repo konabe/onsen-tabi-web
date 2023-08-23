@@ -1,33 +1,44 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import headerCoverJpg from "../../header_cover.jpg";
 import { AreaResponse, getAreas } from "../../infrastructure/api/AreaApiModel";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 import HotelForm from "../organisims/HotelForm";
 import OnsenForm from "../organisims/OnsenForm";
 import { getToken } from "../../infrastructure/LocalStorage";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const isSignedIn = getToken() !== null;
+
   useEffect(() => {
     (async () => {
-      (async () => {
-        const areas = await getAreas();
-        setAreas(areas);
-      })();
+      try {
+        setIsLoading(true);
+        await Promise.all([
+          (async () => {
+            const areas = await getAreas();
+            setAreas(areas);
+          })(),
+        ]);
+        setIsLoading(false);
+      } catch {
+        navigate("/error");
+      }
     })();
-  }, []);
+  }, [navigate]);
+
   return (
     <div>
-      <SHeader
-        id="header"
-        style={{ backgroundImage: `url(${headerCoverJpg})` }}
-      >
-        <SHeaderText id="header-title">Nの温泉旅記録</SHeaderText>
-      </SHeader>
-      <OnsenAreaList areas={areas} prefectures={prefectures()} />
+      <h1>🏞温泉エリア一覧</h1>
+      {isLoading ? (
+        <div>ローディング中 ...</div>
+      ) : (
+        <OnsenAreaList areas={areas} prefectures={prefectures()} />
+      )}
       {isSignedIn ? (
         <>
           <HotelForm />
@@ -37,22 +48,5 @@ const Home: React.FC = () => {
     </div>
   );
 };
-
-const SHeader = styled.header`
-  background-color: bisque;
-  height: 300px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-`;
-
-const SHeaderText = styled.div`
-  color: white;
-  background-color: rgba(1, 1, 1, 0.5);
-  font-size: 36px;
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-`;
 
 export default Home;
