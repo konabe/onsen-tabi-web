@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import headerCoverJpg from "../../header_cover.jpg";
 import { AreaResponse, getAreas } from "../../infrastructure/api/AreaApiModel";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
@@ -21,13 +19,12 @@ const Home: React.FC = () => {
   }, []);
   return (
     <div>
-      <SHeader
-        id="header"
-        style={{ backgroundImage: `url(${headerCoverJpg})` }}
-      >
-        <SHeaderText id="header-title">Nの温泉旅記録</SHeaderText>
-      </SHeader>
-      <OnsenAreaList areas={areas} prefectures={prefectures()} />
+      <h1>🏞温泉エリア一覧</h1>
+      {areas.length === 0 ? (
+        <div>ローディング中 ...</div>
+      ) : (
+        <OnsenAreaList areas={areas} prefectures={prefectures()} />
+      )}
       {isSignedIn ? (
         <>
           <HotelForm />
@@ -37,22 +34,5 @@ const Home: React.FC = () => {
     </div>
   );
 };
-
-const SHeader = styled.header`
-  background-color: bisque;
-  height: 300px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-`;
-
-const SHeaderText = styled.div`
-  color: white;
-  background-color: rgba(1, 1, 1, 0.5);
-  font-size: 36px;
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-`;
 
 export default Home;
