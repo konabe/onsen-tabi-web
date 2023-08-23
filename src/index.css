@@ -8,3 +8,17 @@
 body {
   font-family: "Noto Sans JP", sans-serif;
 }
+
+h1 {
+  margin-bottom: 16px;
+}
+
+h2 {
+  margin-bottom: 8px;
+}
+
+a,
+a:hover,
+a:visited {
+  color: inherit;
+}
