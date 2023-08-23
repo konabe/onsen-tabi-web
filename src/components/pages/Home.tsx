@@ -5,22 +5,36 @@ import OnsenAreaList from "../organisims/OnsenAreaList";
 import HotelForm from "../organisims/HotelForm";
 import OnsenForm from "../organisims/OnsenForm";
 import { getToken } from "../../infrastructure/LocalStorage";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const isSignedIn = getToken() !== null;
+
   useEffect(() => {
     (async () => {
-      (async () => {
-        const areas = await getAreas();
-        setAreas(areas);
-      })();
+      try {
+        setIsLoading(true);
+        await Promise.all([
+          (async () => {
+            const areas = await getAreas();
+            setAreas(areas);
+          })(),
+        ]);
+        setIsLoading(false);
+      } catch {
+        navigate("/error");
+      }
     })();
-  }, []);
+  }, [navigate]);
+
   return (
     <div>
       <h1>🏞温泉エリア一覧</h1>
-      {areas.length === 0 ? (
+      {isLoading ? (
         <div>ローディング中 ...</div>
       ) : (
         <OnsenAreaList areas={areas} prefectures={prefectures()} />

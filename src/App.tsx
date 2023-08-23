@@ -9,6 +9,7 @@ import AreaDetail from "./components/pages/AreaDetail";
 import HotelList from "./components/pages/HotelList";
 import OnsenList from "./components/pages/OnsenList";
 import Signin from "./components/pages/Signin";
+import Error from "./components/pages/Error";
 import axios from "axios";
 import { getToken } from "./infrastructure/LocalStorage";
 
@@ -48,6 +49,7 @@ function App() {
           <Route path={"/onsen/:id"} element={<Onsen />} />
           <Route path={"/area/:id"} element={<AreaDetail />} />
           <Route path={"/signin"} element={<Signin />} />
+          <Route path={"/error"} element={<Error />} />
         </Routes>
       </SMain>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AreaResponse, getArea } from "../../infrastructure/api/AreaApiModel";
 import {
   HotelResponse,
@@ -12,26 +12,42 @@ import {
 
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const [area, setArea] = useState<AreaResponse | undefined>(undefined);
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
+
   useEffect(() => {
     (async () => {
-      const area = await getArea(Number(id));
-      setArea(area);
+      try {
+        setIsLoading(true);
+        await Promise.all([
+          (async () => {
+            const area = await getArea(Number(id));
+            setArea(area);
+            return Promise.resolve();
+          })(),
+          (async () => {
+            const hotels = await getHotels(Number(id));
+            setHotels(hotels);
+          })(),
+          (async () => {
+            const onsens = await getOnsens(Number(id));
+            setOnsens(onsens);
+          })(),
+        ]);
+        setIsLoading(false);
+      } catch {
+        navigate("/error");
+      }
     })();
-    (async () => {
-      const hotels = await getHotels(Number(id));
-      setHotels(hotels);
-    })();
-    (async () => {
-      const onsens = await getOnsens(Number(id));
-      setOnsens(onsens);
-    })();
-  }, [id]);
+  }, [id, navigate]);
+
   return (
     <>
-      {area === undefined || hotels === undefined || onsens === undefined ? (
+      {isLoading ? (
         <div>ローディング中 ...</div>
       ) : (
         <>
@@ -42,7 +58,7 @@ const AreaDetail: React.FC = () => {
           </a>
           <h2>ホテル</h2>
           <div>
-            {hotels.map((hotel) => (
+            {hotels?.map((hotel) => (
               <div>
                 <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
               </div>
@@ -50,7 +66,7 @@ const AreaDetail: React.FC = () => {
           </div>
           <h2>温泉</h2>
           <div>
-            {onsens.map((onsen) => (
+            {onsens?.map((onsen) => (
               <div>
                 <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
               </div>
