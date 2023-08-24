@@ -12,6 +12,7 @@ import {
 } from "../../infrastructure/api/OnsenApiModel";
 import styled from "styled-components";
 import { getToken } from "../../infrastructure/LocalStorage";
+import Loading from "../atoms/Loading";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const OnsenDetail: React.FC = () => {
   return (
     <div>
       {isLoading ? (
-        <div>ローディング中 ...</div>
+        <Loading />
       ) : (
         <>
           <h1>{onsen?.name}</h1>
