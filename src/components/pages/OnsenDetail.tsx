@@ -23,9 +23,26 @@ const OnsenDetail: React.FC = () => {
   const splittedDescription: string[] = (onsen?.description ?? "").split("\n");
   const isSignedIn = getToken() !== null;
 
-  const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    putOnsenDescription(Number(id), description);
+  const onClickChangeTextButton = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    // e.preventDefault();
+    await putOnsenDescription(Number(id), description);
+    (async () => {
+      try {
+        // setIsLoading(true);
+        await Promise.all([
+          (async () => {
+            const onsen = await getOnsen(Number(id));
+            setOnsen(onsen);
+            setDescription(onsen.description);
+          })(),
+        ]);
+        // setIsLoading(false);
+      } catch {
+        navigate("/error");
+      }
+    })();
   };
 
   useEffect(() => {
@@ -86,15 +103,17 @@ const OnsenDetail: React.FC = () => {
             </span>
           </Info>
           {isSignedIn ? (
-            <form style={{ marginTop: 20 }}>
+            <div style={{ marginTop: 20 }}>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols={50}
                 rows={10}
               ></textarea>
-              <button onClick={onClickButton}>説明変更</button>
-            </form>
+              <button type="button" onClick={onClickChangeTextButton}>
+                説明変更
+              </button>
+            </div>
           ) : undefined}
         </>
       )}
