@@ -23,45 +23,39 @@ const OnsenDetail: React.FC = () => {
   const splittedDescription: string[] = (onsen?.description ?? "").split("\n");
   const isSignedIn = getToken() !== null;
 
-  const onClickChangeTextButton = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    // e.preventDefault();
+  const loadPage = async (isFirst: boolean = false) => {
+    try {
+      if (isFirst === true) {
+        setIsLoading(true);
+      }
+      await Promise.all([
+        (async () => {
+          const onsen = await getOnsen(Number(id));
+          setOnsen(onsen);
+          setDescription(onsen.description);
+        })(),
+      ]);
+      if (isFirst === true) {
+        setIsLoading(false);
+      }
+    } catch {
+      navigate("/error");
+    }
+  };
+
+  const onClickChangeTextButton = async () => {
     await putOnsenDescription(Number(id), description);
     (async () => {
-      try {
-        // setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const onsen = await getOnsen(Number(id));
-            setOnsen(onsen);
-            setDescription(onsen.description);
-          })(),
-        ]);
-        // setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
+      loadPage();
     })();
   };
 
   useEffect(() => {
     (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const onsen = await getOnsen(Number(id));
-            setOnsen(onsen);
-            setDescription(onsen.description);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
+      loadPage(true);
     })();
-  }, [id, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
