@@ -9,6 +9,7 @@ import {
   OnsenResponse,
   getOnsens,
 } from "../../infrastructure/api/OnsenApiModel";
+import Loading from "../atoms/Loading";
 
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
@@ -48,7 +49,7 @@ const AreaDetail: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <div>ローディング中 ...</div>
+        <Loading />
       ) : (
         <>
           <h1>{area?.name + "温泉"}</h1>

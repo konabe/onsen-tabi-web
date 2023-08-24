@@ -6,6 +6,7 @@ import HotelForm from "../organisims/HotelForm";
 import OnsenForm from "../organisims/OnsenForm";
 import { getToken } from "../../infrastructure/LocalStorage";
 import { useNavigate } from "react-router-dom";
+import Loading from "../atoms/Loading";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -33,18 +34,20 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>🏞温泉エリア一覧</h1>
       {isLoading ? (
-        <div>ローディング中 ...</div>
+        <Loading />
       ) : (
-        <OnsenAreaList areas={areas} prefectures={prefectures()} />
-      )}
-      {isSignedIn ? (
         <>
-          <HotelForm />
-          <OnsenForm />
+          <h1>🏞温泉エリア一覧</h1>
+          <OnsenAreaList areas={areas} prefectures={prefectures()} />
+          {isSignedIn ? (
+            <>
+              <HotelForm />
+              <OnsenForm />
+            </>
+          ) : undefined}
         </>
-      ) : undefined}
+      )}
     </div>
   );
 };

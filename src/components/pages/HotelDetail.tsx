@@ -6,6 +6,7 @@ import {
 } from "../../infrastructure/api/HotelApiModel";
 import { getOnsens } from "../../infrastructure/api/OnsenApiModel";
 import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
+import Loading from "../atoms/Loading";
 
 const HotelDetail: React.FC = () => {
   const { id } = useParams();
@@ -39,7 +40,7 @@ const HotelDetail: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <div>ローディング中 ...</div>
+        <Loading />
       ) : (
         <div>
           <h1>{hotel?.name}</h1>

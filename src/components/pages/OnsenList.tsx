@@ -4,6 +4,7 @@ import {
   getOnsens,
   OnsenResponse,
 } from "../../infrastructure/api/OnsenApiModel";
+import Loading from "../atoms/Loading";
 
 const OnsenList: React.FC = () => {
   const navigate = useNavigate();
@@ -29,15 +30,17 @@ const OnsenList: React.FC = () => {
 
   return (
     <>
-      <h1>♨温泉一覧</h1>
       {isLoading ? (
-        <div>ローディング中 ...</div>
+        <Loading />
       ) : (
-        onsens.map((v) => (
-          <div key={v.id}>
-            <Link to={`/onsen/${v.id}`}>{v.name}</Link>
-          </div>
-        ))
+        <>
+          <h1>♨温泉一覧</h1>
+          {onsens.map((v) => (
+            <div key={v.id}>
+              <Link to={`/onsen/${v.id}`}>{v.name}</Link>
+            </div>
+          ))}
+        </>
       )}
     </>
   );
