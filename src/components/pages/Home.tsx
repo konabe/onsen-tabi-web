@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AreaResponse, getAreas } from "../../infrastructure/api/AreaApiModel";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
@@ -7,6 +7,7 @@ import OnsenForm from "../organisims/OnsenForm";
 import { getToken } from "../../infrastructure/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import Loading from "../atoms/Loading";
+import { useEffectOnce } from "react-use";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Home: React.FC = () => {
 
   const isSignedIn = getToken() !== null;
 
-  useEffect(() => {
+  useEffectOnce(() => {
     (async () => {
       try {
         setIsLoading(true);
@@ -30,7 +31,7 @@ const Home: React.FC = () => {
         navigate("/error");
       }
     })();
-  }, [navigate]);
+  });
 
   return (
     <div>

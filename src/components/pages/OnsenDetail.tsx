@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import headerCoverJpg from "../../header_cover.jpg";
@@ -13,6 +13,7 @@ import {
 import styled from "styled-components";
 import { getToken } from "../../infrastructure/LocalStorage";
 import Loading from "../atoms/Loading";
+import { useEffectOnce } from "react-use";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -51,12 +52,11 @@ const OnsenDetail: React.FC = () => {
     })();
   };
 
-  useEffect(() => {
+  useEffectOnce(() => {
     (async () => {
       loadPage(true);
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <div>

@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   HotelResponse,
   getHotels,
 } from "../../infrastructure/api/HotelApiModel";
 import Loading from "../atoms/Loading";
+import { useEffectOnce } from "react-use";
 
 const HotelList: React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
-  useEffect(() => {
+  useEffectOnce(() => {
     (async () => {
       try {
         setIsLoading(true);
@@ -26,7 +27,7 @@ const HotelList: React.FC = () => {
         navigate("/error");
       }
     })();
-  }, [navigate]);
+  });
 
   return (
     <>

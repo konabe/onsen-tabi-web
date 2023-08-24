@@ -8,7 +8,6 @@ const Loading: React.FC = () => {
 
   useEffect(() => {
     setPeriods(Array(count).fill(".").join(""));
-    console.log(count);
   }, [count]);
 
   useInterval(() => {
