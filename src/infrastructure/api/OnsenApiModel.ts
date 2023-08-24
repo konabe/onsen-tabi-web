@@ -1,4 +1,3 @@
-import axios from "axios";
 import { httpGet, httpPost, httpPut } from "./ApiClient";
 
 export type LiquidValueOption =

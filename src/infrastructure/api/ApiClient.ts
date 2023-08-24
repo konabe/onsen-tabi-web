@@ -23,3 +23,11 @@ export const httpPost = async <T>(path: string, data: object): Promise<T> => {
   const responseData = JSON.parse(JSON.stringify(response.data));
   return responseData as T;
 };
+
+export const delayForDev = async () => {
+  return await new Promise<void>((resolve, _) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000);
+  });
+};

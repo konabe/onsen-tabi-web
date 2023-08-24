@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import headerCoverJpg from "../../header_cover.jpg";
@@ -12,6 +12,8 @@ import {
 } from "../../infrastructure/api/OnsenApiModel";
 import styled from "styled-components";
 import { getToken } from "../../infrastructure/LocalStorage";
+import Loading from "../atoms/Loading";
+import { useEffectOnce } from "react-use";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,33 +25,43 @@ const OnsenDetail: React.FC = () => {
   const splittedDescription: string[] = (onsen?.description ?? "").split("\n");
   const isSignedIn = getToken() !== null;
 
-  const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    putOnsenDescription(Number(id), description);
+  const loadPage = async (isFirst: boolean = false) => {
+    try {
+      if (isFirst === true) {
+        setIsLoading(true);
+      }
+      await Promise.all([
+        (async () => {
+          const onsen = await getOnsen(Number(id));
+          setOnsen(onsen);
+          setDescription(onsen.description);
+        })(),
+      ]);
+      if (isFirst === true) {
+        setIsLoading(false);
+      }
+    } catch {
+      navigate("/error");
+    }
   };
 
-  useEffect(() => {
+  const onClickChangeTextButton = async () => {
+    await putOnsenDescription(Number(id), description);
     (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const onsen = await getOnsen(Number(id));
-            setOnsen(onsen);
-            setDescription(onsen.description);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
+      loadPage();
     })();
-  }, [id, navigate]);
+  };
+
+  useEffectOnce(() => {
+    (async () => {
+      loadPage(true);
+    })();
+  });
 
   return (
     <div>
       {isLoading ? (
-        <div>ローディング中 ...</div>
+        <Loading />
       ) : (
         <>
           <h1>{onsen?.name}</h1>
@@ -86,15 +98,17 @@ const OnsenDetail: React.FC = () => {
             </span>
           </Info>
           {isSignedIn ? (
-            <form style={{ marginTop: 20 }}>
+            <div style={{ marginTop: 20 }}>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols={50}
                 rows={10}
               ></textarea>
-              <button onClick={onClickButton}>説明変更</button>
-            </form>
+              <button type="button" onClick={onClickChangeTextButton}>
+                説明変更
+              </button>
+            </div>
           ) : undefined}
         </>
       )}

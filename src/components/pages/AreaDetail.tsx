@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AreaResponse, getArea } from "../../infrastructure/api/AreaApiModel";
 import {
@@ -9,6 +9,8 @@ import {
   OnsenResponse,
   getOnsens,
 } from "../../infrastructure/api/OnsenApiModel";
+import Loading from "../atoms/Loading";
+import { useEffectOnce } from "react-use";
 
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
@@ -19,7 +21,7 @@ const AreaDetail: React.FC = () => {
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     (async () => {
       try {
         setIsLoading(true);
@@ -43,12 +45,12 @@ const AreaDetail: React.FC = () => {
         navigate("/error");
       }
     })();
-  }, [id, navigate]);
+  });
 
   return (
     <>
       {isLoading ? (
-        <div>ローディング中 ...</div>
+        <Loading />
       ) : (
         <>
           <h1>{area?.name + "温泉"}</h1>
@@ -59,7 +61,7 @@ const AreaDetail: React.FC = () => {
           <h2>ホテル</h2>
           <div>
             {hotels?.map((hotel) => (
-              <div>
+              <div key={hotel.id}>
                 <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
               </div>
             ))}
@@ -67,7 +69,7 @@ const AreaDetail: React.FC = () => {
           <h2>温泉</h2>
           <div>
             {onsens?.map((onsen) => (
-              <div>
+              <div key={onsen.id}>
                 <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
               </div>
             ))}
