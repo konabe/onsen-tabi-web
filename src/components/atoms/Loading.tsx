@@ -1,21 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useInterval } from "react-use";
 import styled from "styled-components";
 
 const Loading: React.FC = () => {
-  const [periodCount, setPeriodCount] = useState<number>(0);
-  setInterval(() => {
-    if (periodCount >= 10) {
-      setPeriodCount(0);
+  const [count, setCount] = useState<number>(0);
+  const [periods, setPeriods] = useState<string>("");
+
+  useEffect(() => {
+    setPeriods(Array(count).fill(".").join(""));
+    console.log(count);
+  }, [count]);
+
+  useInterval(() => {
+    rotateCount();
+  }, 300);
+
+  const rotateCount = () => {
+    if (count >= 10) {
+      setCount(0);
       return;
     }
-    setPeriodCount(periodCount + 1);
-  }, 300);
+    setCount(count + 1);
+  };
+
   return (
     <SContainer>
-      <SText>
-        {Array(periodCount).fill(".")} ローディング中{" "}
-        {Array(periodCount).fill(".")}
-      </SText>
+      <SText>{`${periods} ローディング中 ${periods}`}</SText>
     </SContainer>
   );
 };
