@@ -35,7 +35,9 @@ const OnsenList: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <h1>♨温泉一覧</h1>
+          <h1 style={{ fontFamily: "BIZ UDPMincho", fontWeight: 400 }}>
+            ♨ 温泉一覧
+          </h1>
           {onsens.map((v) => (
             <div key={v.id}>
               <Link to={`/onsen/${v.id}`}>{v.name}</Link>

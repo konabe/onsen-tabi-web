@@ -39,7 +39,7 @@ const Home: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <h1>🏞温泉エリア一覧</h1>
+          <h1>🏞 温泉エリア一覧</h1>
           <OnsenAreaList areas={areas} prefectures={prefectures()} />
           {isSignedIn ? (
             <>

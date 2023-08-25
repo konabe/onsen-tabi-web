@@ -35,7 +35,7 @@ const HotelList: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <h1>🛏宿一覧</h1>{" "}
+          <h1>🛏 宿一覧</h1>{" "}
           {hotels.map((v) => (
             <div key={v.id}>
               <Link to={`/hotel/${v.id}`}>{v.name}</Link>

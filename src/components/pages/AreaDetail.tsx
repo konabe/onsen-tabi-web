@@ -77,7 +77,7 @@ const AreaDetail: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <h1>{`🏞${area?.name}温泉 (${area?.prefecture})`}</h1>
+          <h1>{`🏞 ${area?.name}温泉 (${area?.prefecture})`}</h1>
           <SContent>
             <a href={area?.url} target="_blank" rel="noreferrer">
               リンク
