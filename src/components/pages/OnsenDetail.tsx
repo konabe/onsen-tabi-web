@@ -14,6 +14,8 @@ import styled from "styled-components";
 import { getToken } from "../../infrastructure/LocalStorage";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
+import { Button } from "../atoms/Button";
+import TextArea from "../atoms/TextArea";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -49,7 +51,6 @@ const OnsenDetail: React.FC = () => {
     try {
       const sentDescription = description;
       await putOnsenDescription(Number(id), description);
-      console.log("aaa");
       if (onsen !== undefined) {
         setOnsen({ ...onsen, description: sentDescription });
       }
@@ -105,15 +106,13 @@ const OnsenDetail: React.FC = () => {
           </Info>
           {isSignedIn ? (
             <div style={{ marginTop: 20 }}>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                cols={50}
-                rows={10}
-              ></textarea>
-              <button type="button" onClick={onClickChangeTextButton}>
-                説明変更
-              </button>
+              <div>
+                <TextArea
+                  value={description}
+                  onChange={async (e) => setDescription(e.target.value)}
+                />
+              </div>
+              <Button title={"説明変更"} onClick={onClickChangeTextButton} />
             </div>
           ) : undefined}
         </>
