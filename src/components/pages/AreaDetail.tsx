@@ -19,6 +19,7 @@ import { getToken } from "../../infrastructure/LocalStorage";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 import styled from "styled-components";
+import Description from "../molecules/Description";
 
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
@@ -30,7 +31,6 @@ const AreaDetail: React.FC = () => {
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
 
-  const splittedDescription: string[] = (area?.description ?? "").split("\n");
   const isSignedIn = getToken() !== null;
 
   useEffectOnce(() => {
@@ -82,9 +82,7 @@ const AreaDetail: React.FC = () => {
             <a href={area?.url} target="_blank" rel="noreferrer">
               リンク
             </a>
-            {splittedDescription.map((v) => (
-              <p key={v}>{v}</p>
-            ))}
+            <Description text={description} />
           </SContent>
           <h2>ホテル</h2>
           <SContent>

@@ -13,6 +13,7 @@ import { getToken } from "../../infrastructure/LocalStorage";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 import styled from "styled-components";
+import Description from "../molecules/Description";
 
 const HotelDetail: React.FC = () => {
   const { id } = useParams();
@@ -23,7 +24,6 @@ const HotelDetail: React.FC = () => {
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>([]);
   const [description, setDescription] = useState<string>("");
 
-  const splittedDescription: string[] = (hotel?.description ?? "").split("\n");
   const isSignedIn = getToken() !== null;
 
   useEffectOnce(() => {
@@ -72,9 +72,7 @@ const HotelDetail: React.FC = () => {
             <a href={hotel?.url} target="_blank" rel="noreferrer">
               リンク
             </a>
-            {splittedDescription.map((v) => (
-              <p key={v}>{v}</p>
-            ))}
+            <Description text={description} />
           </SContent>
           <h2>温泉</h2>
           <SContent>

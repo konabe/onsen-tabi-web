@@ -16,6 +16,7 @@ import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import { Button } from "../atoms/Button";
 import TextArea from "../atoms/TextArea";
+import Description from "../molecules/Description";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -24,7 +25,6 @@ const OnsenDetail: React.FC = () => {
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
 
-  const splittedDescription: string[] = (onsen?.description ?? "").split("\n");
   const isSignedIn = getToken() !== null;
 
   const loadPage = async (isFirst: boolean = false) => {
@@ -73,9 +73,7 @@ const OnsenDetail: React.FC = () => {
         <>
           <h1>{`♨${onsen?.name}`}</h1>
           <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
-          {splittedDescription.map((v) => (
-            <p key={v}>{v}</p>
-          ))}
+          <Description text={description} />
           <h2>温泉データ</h2>
           <a href={onsen?.url} target="_blank" rel="noreferrer">
             リンク
