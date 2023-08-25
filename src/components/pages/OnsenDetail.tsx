@@ -46,10 +46,16 @@ const OnsenDetail: React.FC = () => {
   };
 
   const onClickChangeTextButton = async () => {
-    await putOnsenDescription(Number(id), description);
-    (async () => {
-      loadPage();
-    })();
+    try {
+      const sentDescription = description;
+      await putOnsenDescription(Number(id), description);
+      console.log("aaa");
+      if (onsen !== undefined) {
+        setOnsen({ ...onsen, description: sentDescription });
+      }
+    } catch {
+      navigate("/error");
+    }
   };
 
   useEffectOnce(() => {
