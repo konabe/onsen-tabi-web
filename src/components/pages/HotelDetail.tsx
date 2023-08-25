@@ -12,6 +12,7 @@ import { useEffectOnce } from "react-use";
 import { getToken } from "../../infrastructure/LocalStorage";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
+import styled from "styled-components";
 
 const HotelDetail: React.FC = () => {
   const { id } = useParams();
@@ -65,33 +66,35 @@ const HotelDetail: React.FC = () => {
         <Loading />
       ) : (
         <div>
-          <h1>{hotel?.name}</h1>
-          和室{hotel?.hasWashitsu ? "あり" : "なし"}
-          <a href={hotel?.url} target="_blank" rel="noreferrer">
-            リンク
-          </a>
-          {splittedDescription.map((v) => (
-            <p key={v}>{v}</p>
-          ))}
-          <div>
-            <h2>温泉</h2>
+          <h1>{`🛏${hotel?.name}`}</h1>
+          <SContent>
+            和室{hotel?.hasWashitsu ? "あり" : "なし"}
+            <a href={hotel?.url} target="_blank" rel="noreferrer">
+              リンク
+            </a>
+            {splittedDescription.map((v) => (
+              <p key={v}>{v}</p>
+            ))}
+          </SContent>
+          <h2>温泉</h2>
+          <SContent>
             {onsens?.map((onsen) => (
               <div key={onsen.id}>
                 <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
               </div>
             ))}
-          </div>
-          {isSignedIn ? (
-            <div style={{ marginTop: 20 }}>
-              <div>
-                <TextArea
-                  value={description}
-                  onChange={async (e) => setDescription(e.target.value)}
-                />
+            {isSignedIn ? (
+              <div style={{ marginTop: 20 }}>
+                <div>
+                  <TextArea
+                    value={description}
+                    onChange={async (e) => setDescription(e.target.value)}
+                  />
+                </div>
+                <Button title={"説明変更"} onClick={onClickChangeTextButton} />
               </div>
-              <Button title={"説明変更"} onClick={onClickChangeTextButton} />
-            </div>
-          ) : undefined}
+            ) : undefined}
+          </SContent>
         </div>
       )}
     </>
@@ -99,3 +102,7 @@ const HotelDetail: React.FC = () => {
 };
 
 export default HotelDetail;
+
+const SContent = styled.div`
+  margin-bottom: 20px;
+`;

@@ -18,6 +18,7 @@ import { useEffectOnce } from "react-use";
 import { getToken } from "../../infrastructure/LocalStorage";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
+import styled from "styled-components";
 
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
@@ -76,30 +77,31 @@ const AreaDetail: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <h1>{area?.name + "温泉"}</h1>
-          <p>{area?.prefecture}</p>
-          <a href={area?.url} target="_blank" rel="noreferrer">
-            リンク
-          </a>
-          {splittedDescription.map((v) => (
-            <p key={v}>{v}</p>
-          ))}
+          <h1>{`🏞${area?.name}温泉 (${area?.prefecture})`}</h1>
+          <SContent>
+            <a href={area?.url} target="_blank" rel="noreferrer">
+              リンク
+            </a>
+            {splittedDescription.map((v) => (
+              <p key={v}>{v}</p>
+            ))}
+          </SContent>
           <h2>ホテル</h2>
-          <div>
+          <SContent>
             {hotels?.map((hotel) => (
               <div key={hotel.id}>
                 <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
               </div>
             ))}
-          </div>
+          </SContent>
           <h2>温泉</h2>
-          <div>
+          <SContent>
             {onsens?.map((onsen) => (
               <div key={onsen.id}>
                 <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
               </div>
             ))}
-          </div>
+          </SContent>
           {isSignedIn ? (
             <div style={{ marginTop: 20 }}>
               <div>
@@ -118,3 +120,7 @@ const AreaDetail: React.FC = () => {
 };
 
 export default AreaDetail;
+
+const SContent = styled.div`
+  margin-bottom: 20px;
+`;

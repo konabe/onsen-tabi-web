@@ -71,7 +71,7 @@ const OnsenDetail: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <h1>{onsen?.name}</h1>
+          <h1>{`♨${onsen?.name}`}</h1>
           <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
           {splittedDescription.map((v) => (
             <p key={v}>{v}</p>
