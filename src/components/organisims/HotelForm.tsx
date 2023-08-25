@@ -12,6 +12,7 @@ const HotelForm: React.FC = () => {
       name,
       hasWashitsu,
       url,
+      description: "",
     });
     setName("");
     setHasWashitsu(true);

@@ -14,6 +14,9 @@ import styled from "styled-components";
 import { getToken } from "../../infrastructure/LocalStorage";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
+import { Button } from "../atoms/Button";
+import TextArea from "../atoms/TextArea";
+import Description from "../molecules/Description";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -22,7 +25,6 @@ const OnsenDetail: React.FC = () => {
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
 
-  const splittedDescription: string[] = (onsen?.description ?? "").split("\n");
   const isSignedIn = getToken() !== null;
 
   const loadPage = async (isFirst: boolean = false) => {
@@ -46,10 +48,15 @@ const OnsenDetail: React.FC = () => {
   };
 
   const onClickChangeTextButton = async () => {
-    await putOnsenDescription(Number(id), description);
-    (async () => {
-      loadPage();
-    })();
+    try {
+      const sentDescription = description;
+      await putOnsenDescription(Number(id), description);
+      if (onsen !== undefined) {
+        setOnsen({ ...onsen, description: sentDescription });
+      }
+    } catch {
+      navigate("/error");
+    }
   };
 
   useEffectOnce(() => {
@@ -64,11 +71,9 @@ const OnsenDetail: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <h1>{onsen?.name}</h1>
+          <h1>{`♨${onsen?.name}`}</h1>
           <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
-          {splittedDescription.map((v) => (
-            <p key={v}>{v}</p>
-          ))}
+          <Description text={description} />
           <h2>温泉データ</h2>
           <a href={onsen?.url} target="_blank" rel="noreferrer">
             リンク
@@ -99,15 +104,13 @@ const OnsenDetail: React.FC = () => {
           </Info>
           {isSignedIn ? (
             <div style={{ marginTop: 20 }}>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                cols={50}
-                rows={10}
-              ></textarea>
-              <button type="button" onClick={onClickChangeTextButton}>
-                説明変更
-              </button>
+              <div>
+                <TextArea
+                  value={description}
+                  onChange={async (e) => setDescription(e.target.value)}
+                />
+              </div>
+              <Button title={"説明変更"} onClick={onClickChangeTextButton} />
             </div>
           ) : undefined}
         </>
