@@ -34,7 +34,7 @@ export default Loading;
 const SContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
-  width: 100vw;
+  width: 100%;
   text-align: center;
 `;
 
