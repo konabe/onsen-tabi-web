@@ -73,7 +73,7 @@ const SRightNav = styled.div`
 
 const SHeader = styled.header`
   background-color: bisque;
-  height: 150px;
+  height: 30vh;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -82,14 +82,21 @@ const SHeader = styled.header`
 const SHeaderText = styled.div`
   color: white;
   background-color: rgba(1, 1, 1, 0.5);
+  padding: 8px 16px;
   font-size: 36px;
   position: absolute;
-  right: 20px;
-  bottom: 20px;
+  right: 16px;
+  bottom: 16px;
+  font-family: "BIZ UDPMincho";
+  font-weight: 400;
 `;
 
 const SMain = styled.main`
-  padding: 20px;
+  padding: 40px 80px;
+  @media screen and (max-width: 767px) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 `;
 
 export default App;

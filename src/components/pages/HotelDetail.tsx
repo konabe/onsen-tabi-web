@@ -66,7 +66,7 @@ const HotelDetail: React.FC = () => {
         <Loading />
       ) : (
         <div>
-          <h1>{`🛏${hotel?.name}`}</h1>
+          <h1>{`🛏 ${hotel?.name}`}</h1>
           <SContent>
             和室{hotel?.hasWashitsu ? "あり" : "なし"}
             <a href={hotel?.url} target="_blank" rel="noreferrer">
