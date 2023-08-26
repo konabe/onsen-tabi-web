@@ -1,5 +1,5 @@
 {
-  "short_name": "onsen tab",
+  "short_name": "onsen tabi",
   "name": "温泉旅記録",
   "icons": [
     {
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "icon.png",
+      "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "icon.png",
+      "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
