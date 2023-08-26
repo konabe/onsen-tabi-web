@@ -38,7 +38,7 @@ function App() {
         id="header"
         style={{ backgroundImage: `url(${headerCoverJpg})` }}
       >
-        <SHeaderText id="header-title">Nの温泉旅記録</SHeaderText>
+        <SHeaderText id="header-title">静かに温泉旅がしたい！</SHeaderText>
       </SHeader>
       <SMain>
         <Routes>
