@@ -24,6 +24,13 @@ export const getHotel = async (id: number): Promise<HotelResponse> => {
   return await httpGet(`/hotel/${id}`);
 };
 
+export const putHotel = async (
+  id: number,
+  request: HotelRequest
+): Promise<void> => {
+  return await httpPut(`/hotel/${id}`, request);
+};
+
 export const putHotelDescription = async (
   id: number,
   description: string

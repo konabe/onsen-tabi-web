@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HotelModel } from "../../share/hotel";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 
 type Props = {
+  value?: HotelModel;
+  onChange?: (hotel: HotelModel) => void;
   onSubmitClick?: (hotel: HotelModel) => void;
 };
 
-const HotelForm: React.FC<Props> = ({ onSubmitClick }) => {
+const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
   const [name, setName] = useState<string>("");
   const [hasWashitsu, setHasWashitsu] = useState<boolean>(true);
   const [url, setURL] = useState<string>("");
@@ -26,6 +28,23 @@ const HotelForm: React.FC<Props> = ({ onSubmitClick }) => {
     setURL("");
     setDescription("");
   };
+
+  useEffect(() => {
+    onChange?.({
+      name,
+      hasWashitsu,
+      url,
+      description,
+    });
+  }, [description, hasWashitsu, name, onChange, url]);
+
+  useEffect(() => {
+    setName(value?.name ?? "");
+    setHasWashitsu(value?.hasWashitsu ?? true);
+    setURL(value?.url ?? "");
+    setDescription(value?.description ?? "");
+  }, [value]);
+
   return (
     <SCreateCormContainer>
       <fieldset>
