@@ -1,22 +1,30 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { postHotel } from "../../infrastructure/api/HotelApiModel";
+import { HotelModel } from "../../share/hotel";
+import TextArea from "../atoms/TextArea";
+import { Button } from "../atoms/Button";
 
-const HotelForm: React.FC = () => {
+type Props = {
+  onSubmitClick?: (hotel: HotelModel) => void;
+};
+
+const HotelForm: React.FC<Props> = ({ onSubmitClick }) => {
   const [name, setName] = useState<string>("");
   const [hasWashitsu, setHasWashitsu] = useState<boolean>(true);
   const [url, setURL] = useState<string>("");
-  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await postHotel({
+  const [description, setDescription] = useState<string>("");
+
+  const onClick = async () => {
+    onSubmitClick?.({
       name,
       hasWashitsu,
       url,
-      description: "",
+      description,
     });
     setName("");
     setHasWashitsu(true);
     setURL("");
+    setDescription("");
   };
   return (
     <SCreateCormContainer>
@@ -52,7 +60,16 @@ const HotelForm: React.FC = () => {
             />
           </label>
         </div>
-        <button onClick={onClick}>送信</button>
+        <div>
+          <label>
+            説明
+            <TextArea
+              value={description}
+              onChange={async (e) => setDescription(e.target.value)}
+            />
+          </label>
+        </div>
+        <Button title="送信" onClick={onClick} />
       </fieldset>
     </SCreateCormContainer>
   );

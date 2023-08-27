@@ -11,6 +11,8 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import { OnsenModel } from "../../share/onsen";
 import { postOnsen } from "../../infrastructure/api/OnsenApiModel";
+import { HotelModel } from "../../share/hotel";
+import { postHotel } from "../../infrastructure/api/HotelApiModel";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -21,6 +23,9 @@ const Home: React.FC = () => {
 
   const onOnsenSubmitClick = async (onsen: OnsenModel) => {
     await postOnsen(onsen);
+  };
+  const onHotelSubmitClick = async (hotel: HotelModel) => {
+    await postHotel(hotel);
   };
 
   useEffectOnce(() => {
@@ -64,7 +69,7 @@ const Home: React.FC = () => {
           <OnsenAreaList areas={areas} prefectures={prefectures()} />
           {isSignedIn ? (
             <>
-              <HotelForm />
+              <HotelForm onSubmitClick={onHotelSubmitClick} />
               <OnsenForm onSubmitClick={onOnsenSubmitClick} />
             </>
           ) : undefined}

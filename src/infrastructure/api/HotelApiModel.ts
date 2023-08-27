@@ -1,12 +1,9 @@
+import { HotelModel } from "../../share/hotel";
 import { httpGet, httpPost, httpPut } from "./ApiClient";
 
 export type HotelResponse = {
   id: number;
-  name: string;
-  hasWashitsu: boolean;
-  url: string;
-  description: string;
-};
+} & HotelModel;
 
 export type PutHotelDescriptionRequest = {
   description: string;
