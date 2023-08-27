@@ -10,7 +10,7 @@ import {
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 
-export type Props = {
+type Props = {
   onSubmitClick?: (onsen: OnsenModel) => void;
 };
 
