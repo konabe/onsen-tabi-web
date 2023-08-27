@@ -39,7 +39,7 @@ function App() {
         style={{ backgroundImage: `url(${headerCoverJpg})` }}
       >
         <SHeaderText>
-          <SHeaderIcon src="img/logo.png" alt="サイトアイコン" />
+          <SHeaderIcon src="./img/logo.png" alt="サイトアイコン" />
           静かに温泉旅がしたい！
         </SHeaderText>
       </SHeader>
