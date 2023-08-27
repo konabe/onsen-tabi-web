@@ -73,7 +73,7 @@ const OnsenDetail: React.FC = () => {
         <>
           <h1>{`♨ ${onsen?.name}`}</h1>
           <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
-          <Description text={description} />
+          <Description text={onsen?.description ?? ""} />
           <h2>温泉データ</h2>
           <a href={onsen?.url} target="_blank" rel="noreferrer">
             リンク

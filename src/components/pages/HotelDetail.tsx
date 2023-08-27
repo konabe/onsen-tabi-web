@@ -72,7 +72,7 @@ const HotelDetail: React.FC = () => {
             <a href={hotel?.url} target="_blank" rel="noreferrer">
               リンク
             </a>
-            <Description text={description} />
+            <Description text={hotel?.description ?? ""} />
           </SContent>
           <h2>温泉</h2>
           <SContent>

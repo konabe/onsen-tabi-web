@@ -82,7 +82,7 @@ const AreaDetail: React.FC = () => {
             <a href={area?.url} target="_blank" rel="noreferrer">
               リンク
             </a>
-            <Description text={description} />
+            <Description text={area?.description ?? ""} />
           </SContent>
           <h2>ホテル</h2>
           <SContent>
