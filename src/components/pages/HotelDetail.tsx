@@ -18,7 +18,7 @@ import Description from "../molecules/Description";
 const HotelDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>([]);

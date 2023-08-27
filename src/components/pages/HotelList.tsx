@@ -9,7 +9,7 @@ import { useEffectOnce } from "react-use";
 
 const HotelList: React.FC = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
   useEffectOnce(() => {

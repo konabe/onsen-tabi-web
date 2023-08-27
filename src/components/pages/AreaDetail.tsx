@@ -24,7 +24,7 @@ import Description from "../molecules/Description";
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [area, setArea] = useState<AreaResponse | undefined>(undefined);
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
