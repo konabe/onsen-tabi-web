@@ -6,6 +6,7 @@ import {
 } from "../../infrastructure/api/HotelApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
+import styled from "styled-components";
 
 const HotelList: React.FC = () => {
   const navigate = useNavigate();
@@ -36,11 +37,13 @@ const HotelList: React.FC = () => {
       ) : (
         <>
           <h1>🛏 宿一覧</h1>{" "}
-          {hotels.map((v) => (
-            <div key={v.id}>
-              <Link to={`/hotel/${v.id}`}>{v.name}</Link>
-            </div>
-          ))}
+          <SListContainer>
+            {hotels.map((v) => (
+              <div key={v.id}>
+                <Link to={`/hotel/${v.id}`}>{v.name}</Link>
+              </div>
+            ))}
+          </SListContainer>
         </>
       )}
     </>
@@ -48,3 +51,9 @@ const HotelList: React.FC = () => {
 };
 
 export default HotelList;
+
+const SListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+`;

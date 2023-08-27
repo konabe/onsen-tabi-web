@@ -92,7 +92,7 @@ const SHeaderText = styled.div`
 `;
 
 const SMain = styled.main`
-  padding: 40px 80px;
+  padding: 48px 80px;
   @media screen and (max-width: 767px) {
     padding-left: 24px;
     padding-right: 24px;

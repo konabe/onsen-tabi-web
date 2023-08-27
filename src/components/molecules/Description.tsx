@@ -19,9 +19,11 @@ const Description: React.FC<Props> = ({ text }) => {
 export default Description;
 
 const DescriptionContainer = styled.div`
+  box-sizing: border-box;
+  width: 100%;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
+
   background-color: #f5f5f5;
-  width: 500px;
 `;
