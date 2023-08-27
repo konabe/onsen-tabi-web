@@ -20,7 +20,7 @@ import Description from "../molecules/Description";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
@@ -73,7 +73,7 @@ const OnsenDetail: React.FC = () => {
         <>
           <h1>{`♨ ${onsen?.name}`}</h1>
           <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
-          <Description text={description} />
+          <Description text={onsen?.description ?? ""} />
           <h2>温泉データ</h2>
           <a href={onsen?.url} target="_blank" rel="noreferrer">
             リンク

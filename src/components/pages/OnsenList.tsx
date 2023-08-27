@@ -6,10 +6,11 @@ import {
 } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
+import styled from "styled-components";
 
 const OnsenList: React.FC = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
   useEffectOnce(() => {
@@ -38,11 +39,13 @@ const OnsenList: React.FC = () => {
           <h1 style={{ fontFamily: "BIZ UDPMincho", fontWeight: 400 }}>
             ♨ 温泉一覧
           </h1>
-          {onsens.map((v) => (
-            <div key={v.id}>
-              <Link to={`/onsen/${v.id}`}>{v.name}</Link>
-            </div>
-          ))}
+          <SListContainer>
+            {onsens.map((v) => (
+              <div key={v.id}>
+                <Link to={`/onsen/${v.id}`}>{v.name}</Link>
+              </div>
+            ))}
+          </SListContainer>
         </>
       )}
     </>
@@ -50,3 +53,9 @@ const OnsenList: React.FC = () => {
 };
 
 export default OnsenList;
+
+const SListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+`;

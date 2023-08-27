@@ -13,7 +13,7 @@ import styled from "styled-components";
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const isSignedIn = getToken() !== null;
 

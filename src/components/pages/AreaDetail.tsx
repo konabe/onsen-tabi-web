@@ -24,7 +24,7 @@ import Description from "../molecules/Description";
 const AreaDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [area, setArea] = useState<AreaResponse | undefined>(undefined);
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
@@ -82,7 +82,7 @@ const AreaDetail: React.FC = () => {
             <a href={area?.url} target="_blank" rel="noreferrer">
               リンク
             </a>
-            <Description text={description} />
+            <Description text={area?.description ?? ""} />
           </SContent>
           <h2>ホテル</h2>
           <SContent>
