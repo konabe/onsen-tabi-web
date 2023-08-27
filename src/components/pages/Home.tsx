@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
+import { OnsenModel } from "../../share/onsen";
+import { postOnsen } from "../../infrastructure/api/OnsenApiModel";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -16,6 +18,10 @@ const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const isSignedIn = getToken() !== null;
+
+  const onOnsenSubmitClick = async (onsen: OnsenModel) => {
+    await postOnsen(onsen);
+  };
 
   useEffectOnce(() => {
     (async () => {
@@ -59,7 +65,7 @@ const Home: React.FC = () => {
           {isSignedIn ? (
             <>
               <HotelForm />
-              <OnsenForm />
+              <OnsenForm onSubmitClick={onOnsenSubmitClick} />
             </>
           ) : undefined}
         </>

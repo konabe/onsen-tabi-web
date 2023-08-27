@@ -1,24 +1,14 @@
+import {
+  FormOption,
+  LiquidValueOption,
+  OnsenModel,
+  OsmoticPressureOption,
+} from "../../share/onsen";
 import { httpGet, httpPost, httpPut } from "./ApiClient";
-
-export type LiquidValueOption =
-  | "acidic"
-  | "mildly_acidic"
-  | "neutral"
-  | "mildly_alkaline"
-  | "alkaline";
-export type OsmoticPressureOption = "hypotonic" | "isotonic" | "hypertonic";
-export type FormOption = "uchiyu" | "sotoyu";
 
 export type OnsenResponse = {
   id: number;
-  name: string;
-  springQuality: string;
-  liquid: LiquidValueOption | null;
-  osmoticPressure: OsmoticPressureOption | null;
-  form: FormOption;
-  url: string;
-  description: string;
-};
+} & OnsenModel;
 
 export type PutOnsenDescriptionRequest = {
   description: string;

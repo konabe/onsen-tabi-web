@@ -4,11 +4,17 @@ import Select from "react-select";
 import {
   FormOption,
   LiquidValueOption,
-  postOnsen,
+  OnsenModel,
   OsmoticPressureOption,
-} from "../../infrastructure/api/OnsenApiModel";
+} from "../../share/onsen";
+import TextArea from "../atoms/TextArea";
+import { Button } from "../atoms/Button";
 
-const OnsenForm: React.FC = () => {
+export type Props = {
+  onSubmitClick?: (onsen: OnsenModel) => void;
+};
+
+const OnsenForm: React.FC<Props> = ({ onSubmitClick }) => {
   const [name, setName] = useState<string>("");
   const [quality, setQuality] = useState<string>("");
   const [liquid, setLiquid] = useState<LiquidValueOption | undefined>(
@@ -19,6 +25,7 @@ const OnsenForm: React.FC = () => {
   >(undefined);
   const [form, setForm] = useState<FormOption>("sotoyu");
   const [url, setURL] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   const liquidValueOptions: {
     value: LiquidValueOption | undefined;
@@ -48,16 +55,15 @@ const OnsenForm: React.FC = () => {
     { value: "uchiyu", label: "内湯" },
   ];
 
-  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await postOnsen({
+  const onClick = async () => {
+    onSubmitClick?.({
       name,
       springQuality: quality,
       liquid: liquid !== undefined ? liquid : null,
       osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
       form,
       url,
-      description: "",
+      description,
     });
     setName("");
     setQuality("");
@@ -65,6 +71,7 @@ const OnsenForm: React.FC = () => {
     setOsmoticPressure(undefined);
     setForm("sotoyu");
     setURL("");
+    setDescription("");
   };
   return (
     <SCreateCormContainer>
@@ -130,7 +137,16 @@ const OnsenForm: React.FC = () => {
             />
           </label>
         </div>
-        <button onClick={onClick}>送信</button>
+        <div>
+          <label>
+            説明
+            <TextArea
+              value={description}
+              onChange={async (e) => setDescription(e.target.value)}
+            />
+          </label>
+        </div>
+        <Button title="送信" onClick={onClick} />
       </fieldset>
     </SCreateCormContainer>
   );
