@@ -38,7 +38,10 @@ function App() {
         id="header"
         style={{ backgroundImage: `url(${headerCoverJpg})` }}
       >
-        <SHeaderText id="header-title">静かに温泉旅がしたい！</SHeaderText>
+        <SHeaderText>
+          <SHeaderIcon src="img/logo.png" alt="サイトアイコン" />
+          静かに温泉旅がしたい！
+        </SHeaderText>
       </SHeader>
       <SMain>
         <Routes>
@@ -79,6 +82,18 @@ const SHeader = styled.header`
   position: relative;
 `;
 
+const SHeaderIcon = styled.img`
+  vertical-align: bottom;
+  height: 36px;
+  margin-right: 8px;
+  border-radius: 10px;
+
+  @media screen and (max-width: 767px) {
+    height: 24px;
+    border-radius: 6px;
+  }
+`;
+
 const SHeaderText = styled.div`
   color: white;
   background-color: rgba(1, 1, 1, 0.5);
@@ -89,6 +104,10 @@ const SHeaderText = styled.div`
   bottom: 16px;
   font-family: "BIZ UDPMincho";
   font-weight: 400;
+
+  @media screen and (max-width: 767px) {
+    font-size: 24px;
+  }
 `;
 
 const SMain = styled.main`
