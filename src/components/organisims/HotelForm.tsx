@@ -7,7 +7,7 @@ import { Button } from "../atoms/Button";
 type Props = {
   value?: HotelModel;
   onChange?: (hotel: HotelModel) => void;
-  onSubmitClick?: (hotel: HotelModel) => void;
+  onSubmitClick?: (hotel: HotelModel) => Promise<void>;
 };
 
 const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
@@ -17,7 +17,7 @@ const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
   const [description, setDescription] = useState<string>("");
 
   const onClick = async () => {
-    onSubmitClick?.({
+    await onSubmitClick?.({
       name,
       hasWashitsu,
       url,

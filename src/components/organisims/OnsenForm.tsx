@@ -13,7 +13,7 @@ import { Button } from "../atoms/Button";
 type Props = {
   value?: OnsenModel;
   onChange?: (onsen: OnsenModel) => void;
-  onSubmitClick?: (onsen: OnsenModel) => void;
+  onSubmitClick?: (onsen: OnsenModel) => Promise<void>;
 };
 
 const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
@@ -64,7 +64,7 @@ const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
   const formCurrentValue = formOptions.find((v) => v.value === form);
 
   const onClick = async () => {
-    onSubmitClick?.({
+    await onSubmitClick?.({
       name,
       springQuality: quality,
       liquid: liquid !== undefined ? liquid : null,
