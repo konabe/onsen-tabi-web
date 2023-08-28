@@ -23,33 +23,26 @@ const HotelDetail: React.FC = () => {
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>([]);
 
-  const [editingHotel, setEditingHotel] = useState<HotelModel | undefined>(
-    undefined
-  );
-
   const isSignedIn = getToken() !== null;
 
-  useEffectOnce(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const hotel = await getHotel(Number(id));
-            setHotel(hotel);
-            setEditingHotel(hotel);
-          })(),
-          (async () => {
-            const onsens = await getOnsens(undefined, Number(id));
-            setOnsens(onsens);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
-    })();
-  });
+  const loadPage = async () => {
+    try {
+      setIsLoading(true);
+      await Promise.all([
+        (async () => {
+          const hotel = await getHotel(Number(id));
+          setHotel(hotel);
+        })(),
+        (async () => {
+          const onsens = await getOnsens(undefined, Number(id));
+          setOnsens(onsens);
+        })(),
+      ]);
+      setIsLoading(false);
+    } catch {
+      navigate("/error");
+    }
+  };
 
   const onHotelSubmitClick = async (hotel: HotelModel) => {
     try {
@@ -61,6 +54,12 @@ const HotelDetail: React.FC = () => {
       navigate("/error");
     }
   };
+
+  useEffectOnce(() => {
+    (async () => {
+      loadPage();
+    })();
+  });
 
   return (
     <>
@@ -85,11 +84,7 @@ const HotelDetail: React.FC = () => {
             ))}
             {isSignedIn ? (
               <div style={{ marginTop: 20 }}>
-                <HotelForm
-                  value={hotel}
-                  onChange={(e) => setEditingHotel(e)}
-                  onSubmitClick={onHotelSubmitClick}
-                />
+                <HotelForm value={hotel} onSubmitClick={onHotelSubmitClick} />
               </div>
             ) : undefined}
           </SContent>
