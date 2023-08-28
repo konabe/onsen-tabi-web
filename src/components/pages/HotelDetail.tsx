@@ -3,17 +3,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   HotelResponse,
   getHotel,
-  putHotelDescription,
+  putHotel,
 } from "../../infrastructure/api/HotelApiModel";
 import { getOnsens } from "../../infrastructure/api/OnsenApiModel";
 import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import { getToken } from "../../infrastructure/LocalStorage";
-import TextArea from "../atoms/TextArea";
-import { Button } from "../atoms/Button";
 import styled from "styled-components";
 import Description from "../molecules/Description";
+import HotelForm from "../organisims/HotelForm";
+import { HotelModel } from "../../share/hotel";
 
 const HotelDetail: React.FC = () => {
   const { id } = useParams();
@@ -22,43 +22,44 @@ const HotelDetail: React.FC = () => {
 
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>([]);
-  const [description, setDescription] = useState<string>("");
 
   const isSignedIn = getToken() !== null;
 
-  useEffectOnce(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const hotel = await getHotel(Number(id));
-            setHotel(hotel);
-            setDescription(hotel.description);
-          })(),
-          (async () => {
-            const onsens = await getOnsens(undefined, Number(id));
-            setOnsens(onsens);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
-    })();
-  });
-
-  const onClickChangeTextButton = async () => {
+  const loadPage = async () => {
     try {
-      const sentDescription = description;
-      await putHotelDescription(Number(id), description);
+      setIsLoading(true);
+      await Promise.all([
+        (async () => {
+          const hotel = await getHotel(Number(id));
+          setHotel(hotel);
+        })(),
+        (async () => {
+          const onsens = await getOnsens(undefined, Number(id));
+          setOnsens(onsens);
+        })(),
+      ]);
+      setIsLoading(false);
+    } catch {
+      navigate("/error");
+    }
+  };
+
+  const onHotelSubmitClick = async (hotel: HotelModel) => {
+    try {
+      await putHotel(Number(id), hotel);
       if (hotel !== undefined) {
-        setHotel({ ...hotel, description: sentDescription });
+        setHotel({ ...hotel, id: Number(id) });
       }
     } catch {
       navigate("/error");
     }
   };
+
+  useEffectOnce(() => {
+    (async () => {
+      loadPage();
+    })();
+  });
 
   return (
     <>
@@ -83,13 +84,7 @@ const HotelDetail: React.FC = () => {
             ))}
             {isSignedIn ? (
               <div style={{ marginTop: 20 }}>
-                <div>
-                  <TextArea
-                    value={description}
-                    onChange={async (e) => setDescription(e.target.value)}
-                  />
-                </div>
-                <Button title={"説明変更"} onClick={onClickChangeTextButton} />
+                <HotelForm value={hotel} onSubmitClick={onHotelSubmitClick} />
               </div>
             ) : undefined}
           </SContent>

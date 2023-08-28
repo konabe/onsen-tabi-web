@@ -1,23 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { postHotel } from "../../infrastructure/api/HotelApiModel";
+import { HotelModel } from "../../share/hotel";
+import TextArea from "../atoms/TextArea";
+import { Button } from "../atoms/Button";
 
-const HotelForm: React.FC = () => {
+type Props = {
+  value?: HotelModel;
+  onChange?: (hotel: HotelModel) => void;
+  onSubmitClick?: (hotel: HotelModel) => Promise<void>;
+};
+
+const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
   const [name, setName] = useState<string>("");
   const [hasWashitsu, setHasWashitsu] = useState<boolean>(true);
   const [url, setURL] = useState<string>("");
-  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await postHotel({
+  const [description, setDescription] = useState<string>("");
+
+  const onClick = async () => {
+    await onSubmitClick?.({
       name,
       hasWashitsu,
       url,
-      description: "",
+      description,
     });
     setName("");
     setHasWashitsu(true);
     setURL("");
+    setDescription("");
   };
+
+  useEffect(() => {
+    onChange?.({
+      name,
+      hasWashitsu,
+      url,
+      description,
+    });
+  }, [description, hasWashitsu, name, onChange, url]);
+
+  useEffect(() => {
+    setName(value?.name ?? "");
+    setHasWashitsu(value?.hasWashitsu ?? true);
+    setURL(value?.url ?? "");
+    setDescription(value?.description ?? "");
+  }, [value]);
+
   return (
     <SCreateCormContainer>
       <fieldset>
@@ -52,7 +79,16 @@ const HotelForm: React.FC = () => {
             />
           </label>
         </div>
-        <button onClick={onClick}>送信</button>
+        <div>
+          <label>
+            説明
+            <TextArea
+              value={description}
+              onChange={async (e) => setDescription(e.target.value)}
+            />
+          </label>
+        </div>
+        <Button title="送信" onClick={onClick} />
       </fieldset>
     </SCreateCormContainer>
   );

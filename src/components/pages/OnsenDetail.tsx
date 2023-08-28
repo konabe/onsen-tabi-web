@@ -8,51 +8,44 @@ import {
   getLiquidText,
   getOnsen,
   getOsmoticPressureText,
-  putOnsenDescription,
+  putOnsen,
 } from "../../infrastructure/api/OnsenApiModel";
 import styled from "styled-components";
 import { getToken } from "../../infrastructure/LocalStorage";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
-import { Button } from "../atoms/Button";
-import TextArea from "../atoms/TextArea";
 import Description from "../molecules/Description";
+import OnsenForm from "../organisims/OnsenForm";
+import { OnsenModel } from "../../share/onsen";
 const OnsenDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
-  const [description, setDescription] = useState<string>("");
 
   const isSignedIn = getToken() !== null;
 
-  const loadPage = async (isFirst: boolean = false) => {
+  const loadPage = async () => {
     try {
-      if (isFirst === true) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       await Promise.all([
         (async () => {
           const onsen = await getOnsen(Number(id));
           setOnsen(onsen);
-          setDescription(onsen.description);
         })(),
       ]);
-      if (isFirst === true) {
-        setIsLoading(false);
-      }
+      setIsLoading(false);
     } catch {
       navigate("/error");
     }
   };
 
-  const onClickChangeTextButton = async () => {
+  const onOnsenSubmitClick = async (onsen: OnsenModel) => {
     try {
-      const sentDescription = description;
-      await putOnsenDescription(Number(id), description);
+      await putOnsen(Number(id), onsen);
       if (onsen !== undefined) {
-        setOnsen({ ...onsen, description: sentDescription });
+        setOnsen({ ...onsen, id: Number(id) });
       }
     } catch {
       navigate("/error");
@@ -61,7 +54,7 @@ const OnsenDetail: React.FC = () => {
 
   useEffectOnce(() => {
     (async () => {
-      loadPage(true);
+      loadPage();
     })();
   });
 
@@ -104,13 +97,7 @@ const OnsenDetail: React.FC = () => {
           </Info>
           {isSignedIn ? (
             <div style={{ marginTop: 20 }}>
-              <div>
-                <TextArea
-                  value={description}
-                  onChange={async (e) => setDescription(e.target.value)}
-                />
-              </div>
-              <Button title={"説明変更"} onClick={onClickChangeTextButton} />
+              <OnsenForm value={onsen} onSubmitClick={onOnsenSubmitClick} />
             </div>
           ) : undefined}
         </>

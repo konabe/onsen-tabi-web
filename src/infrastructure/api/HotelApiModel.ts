@@ -1,12 +1,9 @@
+import { HotelModel } from "../../share/hotel";
 import { httpGet, httpPost, httpPut } from "./ApiClient";
 
 export type HotelResponse = {
   id: number;
-  name: string;
-  hasWashitsu: boolean;
-  url: string;
-  description: string;
-};
+} & HotelModel;
 
 export type PutHotelDescriptionRequest = {
   description: string;
@@ -25,6 +22,13 @@ export const getHotels = async (areaId?: number): Promise<HotelResponse[]> => {
 
 export const getHotel = async (id: number): Promise<HotelResponse> => {
   return await httpGet(`/hotel/${id}`);
+};
+
+export const putHotel = async (
+  id: number,
+  request: HotelRequest
+): Promise<void> => {
+  return await httpPut(`/hotel/${id}`, request);
 };
 
 export const putHotelDescription = async (
