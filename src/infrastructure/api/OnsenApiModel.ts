@@ -71,6 +71,13 @@ export const getOnsen = async (id: number): Promise<OnsenResponse> => {
   return await httpGet(`/onsen/${id}`);
 };
 
+export const putOnsen = async (
+  id: number,
+  request: OnsenRequest
+): Promise<void> => {
+  return await httpPut(`/onsen/${id}`, request);
+};
+
 export const putOnsenDescription = async (
   id: number,
   description: string

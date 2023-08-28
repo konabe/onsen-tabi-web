@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
 import {
@@ -11,10 +11,12 @@ import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 
 type Props = {
+  value?: OnsenModel;
+  onChange?: (onsen: OnsenModel) => void;
   onSubmitClick?: (onsen: OnsenModel) => void;
 };
 
-const OnsenForm: React.FC<Props> = ({ onSubmitClick }) => {
+const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
   const [name, setName] = useState<string>("");
   const [quality, setQuality] = useState<string>("");
   const [liquid, setLiquid] = useState<LiquidValueOption | undefined>(
@@ -55,6 +57,12 @@ const OnsenForm: React.FC<Props> = ({ onSubmitClick }) => {
     { value: "uchiyu", label: "内湯" },
   ];
 
+  const liquidCurrentValue = liquidValueOptions.find((v) => v.value === liquid);
+  const osmoticPressureCurrentValue = osmoticPressureOptions.find(
+    (v) => v.value === osmoticPressure
+  );
+  const formCurrentValue = formOptions.find((v) => v.value === form);
+
   const onClick = async () => {
     onSubmitClick?.({
       name,
@@ -73,6 +81,40 @@ const OnsenForm: React.FC<Props> = ({ onSubmitClick }) => {
     setURL("");
     setDescription("");
   };
+
+  useEffect(() => {
+    onChange?.({
+      name,
+      springQuality: quality,
+      liquid: liquid !== undefined ? liquid : null,
+      osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+      form,
+      url,
+      description,
+    });
+  }, [
+    description,
+    form,
+    liquid,
+    name,
+    onChange,
+    osmoticPressure,
+    quality,
+    url,
+  ]);
+
+  useEffect(() => {
+    setName(value?.name ?? "");
+    setQuality(value?.springQuality ?? "");
+    setLiquid(value?.liquid != null ? value.liquid : undefined);
+    setOsmoticPressure(
+      value?.osmoticPressure != null ? value.osmoticPressure : undefined
+    );
+    setForm(value?.form ?? "sotoyu");
+    setURL(value?.url ?? "");
+    setDescription(value?.description ?? "");
+  }, [value]);
+
   return (
     <SCreateCormContainer>
       <fieldset>
@@ -102,6 +144,7 @@ const OnsenForm: React.FC<Props> = ({ onSubmitClick }) => {
             液性
             <Select
               options={liquidValueOptions}
+              value={liquidCurrentValue}
               defaultValue={undefined}
               onChange={(v) => setLiquid(v?.value)}
             />
@@ -112,6 +155,7 @@ const OnsenForm: React.FC<Props> = ({ onSubmitClick }) => {
             浸透圧
             <Select
               options={osmoticPressureOptions}
+              value={osmoticPressureCurrentValue}
               defaultValue={undefined}
               onChange={(v) => setOsmoticPressure(v?.value)}
             />
@@ -122,6 +166,7 @@ const OnsenForm: React.FC<Props> = ({ onSubmitClick }) => {
             形態
             <Select
               options={formOptions}
+              value={formCurrentValue}
               defaultValue={formOptions[0]}
               onChange={(v) => setForm(v?.value ?? "sotoyu")}
             />
