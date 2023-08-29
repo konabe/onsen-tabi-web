@@ -4,7 +4,6 @@ import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 import HotelForm from "../organisims/HotelForm";
 import OnsenForm from "../organisims/OnsenForm";
-import { getToken } from "../../infrastructure/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
@@ -13,13 +12,12 @@ import { OnsenModel } from "../../share/onsen";
 import { postOnsen } from "../../infrastructure/api/OnsenApiModel";
 import { HotelModel } from "../../share/hotel";
 import { postHotel } from "../../infrastructure/api/HotelApiModel";
+import { CommonPageProps } from "../../App";
 
-const Home: React.FC = () => {
+const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const isSignedIn = getToken() !== null;
 
   const onOnsenSubmitClick = async (onsen: OnsenModel) => {
     await postOnsen(onsen);
@@ -52,7 +50,7 @@ const Home: React.FC = () => {
         <p>当サイトへようこそ。</p>
         <p>温泉巡りに出会ってから月１以上は温泉旅行に行くようになりました。</p>
         <p>
-          しかし、温泉巡りに関するユーザー投稿型のサイトはなかなか存在せず、自分で作ってしまえと思ったのがこのサイトです。
+          しかし、温泉巡りに関するユーザー投稿型のサイトはなかなか存在せず、それなら自分で作ってしまえと思い作ったのがこのサイトです。
         </p>
         <p>
           現在は、管理人が訪れた温泉の記録しかできませんが、ゆくゆくはユーザーの評価やコメント、ユーザーの旅行記録機能等、温泉旅という趣味をより楽しめるサイトを目指していきます。

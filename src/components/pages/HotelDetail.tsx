@@ -9,21 +9,19 @@ import { getOnsens } from "../../infrastructure/api/OnsenApiModel";
 import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
-import { getToken } from "../../infrastructure/LocalStorage";
 import styled from "styled-components";
 import Description from "../molecules/Description";
 import HotelForm from "../organisims/HotelForm";
 import { HotelModel } from "../../share/hotel";
+import { CommonPageProps } from "../../App";
 
-const HotelDetail: React.FC = () => {
+const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>([]);
-
-  const isSignedIn = getToken() !== null;
 
   const loadPage = async () => {
     try {

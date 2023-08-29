@@ -15,13 +15,13 @@ import {
 } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
-import { getToken } from "../../infrastructure/LocalStorage";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 import styled from "styled-components";
 import Description from "../molecules/Description";
+import { CommonPageProps } from "../../App";
 
-const AreaDetail: React.FC = () => {
+const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -30,8 +30,6 @@ const AreaDetail: React.FC = () => {
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
-
-  const isSignedIn = getToken() !== null;
 
   useEffectOnce(() => {
     (async () => {

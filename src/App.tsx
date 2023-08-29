@@ -15,6 +15,11 @@ import { useEffectOnce } from "react-use";
 import { getToken, setToken } from "./infrastructure/LocalStorage";
 import jwtDecode from "jwt-decode";
 
+export type CommonPageProps = {
+  isSignedIn?: boolean;
+  onChangeToken?: (token: string) => void;
+};
+
 const App: React.FC = () => {
   const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
   const isSignedIn = accessToken !== undefined;
@@ -62,18 +67,27 @@ const App: React.FC = () => {
         style={{ backgroundImage: `url(${headerCoverJpg})` }}
       >
         <SHeaderText>
-          <SHeaderIcon src="./img/logo.png" alt="サイトアイコン" />
+          <SHeaderIcon src="/img/logo.png" alt="サイトアイコン" />
           静かに温泉旅がしたい！
         </SHeaderText>
       </SHeader>
       <SMain>
         <Routes>
-          <Route path={"/"} element={<Home />} />
+          <Route path={"/"} element={<Home isSignedIn={isSignedIn} />} />
           <Route path={"/hotels"} element={<HotelList />} />
-          <Route path={"/hotel/:id"} element={<HotelDetail />} />
+          <Route
+            path={"/hotel/:id"}
+            element={<HotelDetail isSignedIn={isSignedIn} />}
+          />
           <Route path={"/onsens"} element={<OnsenList />} />
-          <Route path={"/onsen/:id"} element={<Onsen />} />
-          <Route path={"/area/:id"} element={<AreaDetail />} />
+          <Route
+            path={"/onsen/:id"}
+            element={<Onsen isSignedIn={isSignedIn} />}
+          />
+          <Route
+            path={"/area/:id"}
+            element={<AreaDetail isSignedIn={isSignedIn} />}
+          />
           <Route
             path={"/signin"}
             element={<Signin onChangeToken={onChangeToken} />}
