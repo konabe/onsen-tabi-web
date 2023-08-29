@@ -27,14 +27,12 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const loadPage = async () => {
     try {
-      setIsLoading(true);
       await Promise.all([
         (async () => {
           const onsen = await getOnsen(Number(id));
           setOnsen(onsen);
         })(),
       ]);
-      setIsLoading(false);
     } catch {
       navigate("/error");
     }
@@ -43,9 +41,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onOnsenSubmitClick = async (onsen: OnsenModel) => {
     try {
       await putOnsen(Number(id), onsen);
-      if (onsen !== undefined) {
-        setOnsen({ ...onsen, id: Number(id) });
-      }
+      loadPage();
     } catch {
       navigate("/error");
     }
@@ -53,7 +49,9 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   useEffectOnce(() => {
     (async () => {
-      loadPage();
+      setIsLoading(true);
+      await loadPage();
+      setIsLoading(false);
     })();
   });
 

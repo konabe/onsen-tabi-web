@@ -25,7 +25,6 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const loadPage = async () => {
     try {
-      setIsLoading(true);
       await Promise.all([
         (async () => {
           const hotel = await getHotel(Number(id));
@@ -36,7 +35,6 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           setOnsens(onsens);
         })(),
       ]);
-      setIsLoading(false);
     } catch {
       navigate("/error");
     }
@@ -45,9 +43,7 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onHotelSubmitClick = async (hotel: HotelModel) => {
     try {
       await putHotel(Number(id), hotel);
-      if (hotel !== undefined) {
-        setHotel({ ...hotel, id: Number(id) });
-      }
+      loadPage();
     } catch {
       navigate("/error");
     }
@@ -55,7 +51,9 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   useEffectOnce(() => {
     (async () => {
-      loadPage();
+      setIsLoading(true);
+      await loadPage();
+      setIsLoading(false);
     })();
   });
 

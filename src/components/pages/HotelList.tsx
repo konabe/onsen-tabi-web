@@ -18,24 +18,33 @@ const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
 
+  const loadPage = async () => {
+    try {
+      await Promise.all([
+        (async () => {
+          const hotels = await getHotels();
+          setHotels(hotels);
+        })(),
+      ]);
+    } catch {
+      navigate("/error");
+    }
+  };
+
   const onHotelSubmitClick = async (hotel: HotelModel) => {
-    await postHotel(hotel);
+    try {
+      await postHotel(hotel);
+      loadPage();
+    } catch {
+      navigate("/error");
+    }
   };
 
   useEffectOnce(() => {
     (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const hotels = await getHotels();
-            setHotels(hotels);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
+      setIsLoading(true);
+      await loadPage();
+      setIsLoading(false);
     })();
   });
 

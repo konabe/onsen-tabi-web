@@ -18,24 +18,33 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
 
+  const loadPage = async () => {
+    try {
+      await Promise.all([
+        (async () => {
+          const onsens = await getOnsens();
+          setOnsens(onsens);
+        })(),
+      ]);
+    } catch {
+      navigate("/error");
+    }
+  };
+
   const onOnsenSubmitClick = async (onsen: OnsenModel) => {
-    await postOnsen(onsen);
+    try {
+      await postOnsen(onsen);
+      loadPage();
+    } catch {
+      navigate("/error");
+    }
   };
 
   useEffectOnce(() => {
     (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const onsens = await getOnsens();
-            setOnsens(onsens);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
+      setIsLoading(true);
+      await loadPage();
+      setIsLoading(false);
     })();
   });
 

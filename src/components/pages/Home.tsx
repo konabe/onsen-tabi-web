@@ -13,20 +13,24 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const loadPage = async () => {
+    try {
+      await Promise.all([
+        (async () => {
+          const areas = await getAreas();
+          setAreas(areas);
+        })(),
+      ]);
+    } catch {
+      navigate("/error");
+    }
+  };
+
   useEffectOnce(() => {
     (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const areas = await getAreas();
-            setAreas(areas);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
+      setIsLoading(true);
+      await loadPage();
+      setIsLoading(false);
     })();
   });
 
