@@ -1,28 +1,25 @@
 import React, { useState } from "react";
 import { postSignin } from "../../infrastructure/api/UserApiModel";
-import {
-  deleteToken,
-  getToken,
-  setToken,
-} from "../../infrastructure/LocalStorage";
 import { useNavigate } from "react-router-dom";
 
-const Signin: React.FC = () => {
+type Props = {
+  onChangeToken: (token: string | undefined) => void;
+};
+
+const Signin: React.FC<Props> = ({ onChangeToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const onClickButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const onClickSigninButton = async () => {
     const response = await postSignin({ email, password });
-    setToken(response.token);
+    onChangeToken(response.token);
     navigate("/");
   };
+  const onClickSingoutButton = () => {
+    onChangeToken(undefined);
+  };
 
-  const isSignedIn = getToken()?.length !== 0 ?? false;
-  if (isSignedIn) {
-    deleteToken();
-  }
   return (
     <div>
       <label>
@@ -42,7 +39,8 @@ const Signin: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </label>
-      <button onClick={onClickButton}>ログイン</button>
+      <button onClick={onClickSigninButton}>ログイン</button>
+      <button onClick={onClickSingoutButton}>ログアウト</button>
     </div>
   );
 };
