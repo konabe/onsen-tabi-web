@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/pages/Home";
 import HotelDetail from "./components/pages/HotelDetail";
 import Onsen from "./components/pages/OnsenDetail";
@@ -10,14 +10,42 @@ import HotelList from "./components/pages/HotelList";
 import OnsenList from "./components/pages/OnsenList";
 import Signin from "./components/pages/Signin";
 import Error from "./components/pages/Error";
-import axios from "axios";
-import { getToken } from "./infrastructure/LocalStorage";
+import React, { useState } from "react";
+import { useEffectOnce } from "react-use";
+import { getToken, setToken } from "./infrastructure/LocalStorage";
+import jwtDecode from "jwt-decode";
 
-function App() {
-  const isSignedIn = getToken() !== null;
-  if (isSignedIn) {
-    axios.defaults.headers.common.Authorization = `Bearer ${getToken()}`;
-  }
+export type CommonPageProps = {
+  isSignedIn?: boolean;
+  onChangeToken?: (token: string) => void;
+};
+
+const App: React.FC = () => {
+  const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
+  const isSignedIn = accessToken !== undefined;
+  const navigate = useNavigate();
+
+  const onChangeToken = (token: string | undefined) => {
+    setAccessToken(token);
+    setToken(token);
+  };
+
+  useEffectOnce(() => {
+    const token = getToken();
+    if (token === undefined) {
+      return;
+    }
+    const decoded: any = jwtDecode(token);
+    const expiresDate = decoded.exp * 1000;
+    if (expiresDate < new Date().getTime()) {
+      setToken(undefined);
+      setAccessToken(undefined);
+      navigate("/signin");
+      return;
+    }
+    setAccessToken(token);
+  });
+
   return (
     <>
       <SNav>
@@ -39,25 +67,43 @@ function App() {
         style={{ backgroundImage: `url(${headerCoverJpg})` }}
       >
         <SHeaderText>
-          <SHeaderIcon src="./img/logo.png" alt="サイトアイコン" />
+          <SHeaderIcon src="/img/logo.png" alt="サイトアイコン" />
           静かに温泉旅がしたい！
         </SHeaderText>
       </SHeader>
       <SMain>
         <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"/hotels"} element={<HotelList />} />
-          <Route path={"/hotel/:id"} element={<HotelDetail />} />
-          <Route path={"/onsens"} element={<OnsenList />} />
-          <Route path={"/onsen/:id"} element={<Onsen />} />
-          <Route path={"/area/:id"} element={<AreaDetail />} />
-          <Route path={"/signin"} element={<Signin />} />
+          <Route path={"/"} element={<Home isSignedIn={isSignedIn} />} />
+          <Route
+            path={"/hotels"}
+            element={<HotelList isSignedIn={isSignedIn} />}
+          />
+          <Route
+            path={"/hotel/:id"}
+            element={<HotelDetail isSignedIn={isSignedIn} />}
+          />
+          <Route
+            path={"/onsens"}
+            element={<OnsenList isSignedIn={isSignedIn} />}
+          />
+          <Route
+            path={"/onsen/:id"}
+            element={<Onsen isSignedIn={isSignedIn} />}
+          />
+          <Route
+            path={"/area/:id"}
+            element={<AreaDetail isSignedIn={isSignedIn} />}
+          />
+          <Route
+            path={"/signin"}
+            element={<Signin onChangeToken={onChangeToken} />}
+          />
           <Route path={"/error"} element={<Error />} />
         </Routes>
       </SMain>
     </>
   );
-}
+};
 
 const SNav = styled.nav`
   height: 40px;

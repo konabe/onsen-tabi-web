@@ -15,13 +15,13 @@ import {
 } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
-import { getToken } from "../../infrastructure/LocalStorage";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 import styled from "styled-components";
 import Description from "../molecules/Description";
+import { CommonPageProps } from "../../App";
 
-const AreaDetail: React.FC = () => {
+const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -31,45 +31,44 @@ const AreaDetail: React.FC = () => {
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
 
-  const isSignedIn = getToken() !== null;
-
-  useEffectOnce(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        await Promise.all([
-          (async () => {
-            const area = await getArea(Number(id));
-            setArea(area);
-            setDescription(area.description);
-          })(),
-          (async () => {
-            const hotels = await getHotels(Number(id));
-            setHotels(hotels);
-          })(),
-          (async () => {
-            const onsens = await getOnsens(Number(id));
-            setOnsens(onsens);
-          })(),
-        ]);
-        setIsLoading(false);
-      } catch {
-        navigate("/error");
-      }
-    })();
-  });
-
-  const onClickChangeTextButton = async () => {
+  const loadPage = async () => {
     try {
-      const sentDescription = description;
-      await putAreaDescription(Number(id), description);
-      if (area !== undefined) {
-        setArea({ ...area, description: sentDescription });
-      }
+      await Promise.all([
+        (async () => {
+          const area = await getArea(Number(id));
+          setArea(area);
+          setDescription(area.description);
+        })(),
+        (async () => {
+          const hotels = await getHotels(Number(id));
+          setHotels(hotels);
+        })(),
+        (async () => {
+          const onsens = await getOnsens(Number(id));
+          setOnsens(onsens);
+        })(),
+      ]);
     } catch {
       navigate("/error");
     }
   };
+
+  const onClickChangeTextButton = async () => {
+    try {
+      await putAreaDescription(Number(id), description);
+      loadPage();
+    } catch {
+      navigate("/error");
+    }
+  };
+
+  useEffectOnce(() => {
+    (async () => {
+      setIsLoading(true);
+      await loadPage();
+      setIsLoading(false);
+    })();
+  });
 
   return (
     <>

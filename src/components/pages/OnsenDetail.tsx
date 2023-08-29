@@ -11,31 +11,28 @@ import {
   putOnsen,
 } from "../../infrastructure/api/OnsenApiModel";
 import styled from "styled-components";
-import { getToken } from "../../infrastructure/LocalStorage";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import Description from "../molecules/Description";
 import OnsenForm from "../organisims/OnsenForm";
 import { OnsenModel } from "../../share/onsen";
-const OnsenDetail: React.FC = () => {
+import { CommonPageProps } from "../../App";
+
+const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const [onsen, setOnsen] = useState<OnsenResponse | undefined>(undefined);
 
-  const isSignedIn = getToken() !== null;
-
   const loadPage = async () => {
     try {
-      setIsLoading(true);
       await Promise.all([
         (async () => {
           const onsen = await getOnsen(Number(id));
           setOnsen(onsen);
         })(),
       ]);
-      setIsLoading(false);
     } catch {
       navigate("/error");
     }
@@ -44,9 +41,7 @@ const OnsenDetail: React.FC = () => {
   const onOnsenSubmitClick = async (onsen: OnsenModel) => {
     try {
       await putOnsen(Number(id), onsen);
-      if (onsen !== undefined) {
-        setOnsen({ ...onsen, id: Number(id) });
-      }
+      loadPage();
     } catch {
       navigate("/error");
     }
@@ -54,7 +49,9 @@ const OnsenDetail: React.FC = () => {
 
   useEffectOnce(() => {
     (async () => {
-      loadPage();
+      setIsLoading(true);
+      await loadPage();
+      setIsLoading(false);
     })();
   });
 
