@@ -3,16 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   getOnsens,
   OnsenResponse,
+  postOnsen,
 } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
+import OnsenForm from "../organisims/OnsenForm";
+import { OnsenModel } from "../../share/onsen";
+import { CommonPageProps } from "../../App";
 
-const OnsenList: React.FC = () => {
+const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
+
+  const onOnsenSubmitClick = async (onsen: OnsenModel) => {
+    await postOnsen(onsen);
+  };
+
   useEffectOnce(() => {
     (async () => {
       try {
@@ -46,6 +55,11 @@ const OnsenList: React.FC = () => {
               </div>
             ))}
           </SListContainer>
+          {isSignedIn ? (
+            <>
+              <OnsenForm onSubmitClick={onOnsenSubmitClick} />
+            </>
+          ) : undefined}
         </>
       )}
     </>

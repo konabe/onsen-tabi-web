@@ -3,16 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   HotelResponse,
   getHotels,
+  postHotel,
 } from "../../infrastructure/api/HotelApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
+import HotelForm from "../organisims/HotelForm";
+import { CommonPageProps } from "../../App";
+import { HotelModel } from "../../share/hotel";
 
-const HotelList: React.FC = () => {
+const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
+
+  const onHotelSubmitClick = async (hotel: HotelModel) => {
+    await postHotel(hotel);
+  };
+
   useEffectOnce(() => {
     (async () => {
       try {
@@ -44,6 +53,11 @@ const HotelList: React.FC = () => {
               </div>
             ))}
           </SListContainer>
+          {isSignedIn ? (
+            <>
+              <HotelForm onSubmitClick={onHotelSubmitClick} />
+            </>
+          ) : undefined}
         </>
       )}
     </>

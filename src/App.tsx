@@ -74,12 +74,18 @@ const App: React.FC = () => {
       <SMain>
         <Routes>
           <Route path={"/"} element={<Home isSignedIn={isSignedIn} />} />
-          <Route path={"/hotels"} element={<HotelList />} />
+          <Route
+            path={"/hotels"}
+            element={<HotelList isSignedIn={isSignedIn} />}
+          />
           <Route
             path={"/hotel/:id"}
             element={<HotelDetail isSignedIn={isSignedIn} />}
           />
-          <Route path={"/onsens"} element={<OnsenList />} />
+          <Route
+            path={"/onsens"}
+            element={<OnsenList isSignedIn={isSignedIn} />}
+          />
           <Route
             path={"/onsen/:id"}
             element={<Onsen isSignedIn={isSignedIn} />}
