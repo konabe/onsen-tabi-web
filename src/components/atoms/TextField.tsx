@@ -42,7 +42,7 @@ const SInput = styled.input`
   border-radius: 4px;
   font-size: 16px;
 
-  padding: 6px 8px;
+  padding: 0.5em;
   outline-color: #56c198;
 `;
 
