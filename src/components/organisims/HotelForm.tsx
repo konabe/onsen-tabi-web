@@ -48,7 +48,7 @@ const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
 
   return (
     <SCreateCormContainer>
-      <fieldset>
+      <SFieldSet>
         <legend>ホテルの追加</legend>
         <div>
           <TextField label="名前" value={name} onChange={(v) => setName(v)} />
@@ -67,16 +67,14 @@ const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
           <TextField label="URL" value={url} onChange={(v) => setURL(v)} />
         </div>
         <div>
-          <label>
-            説明
-            <TextArea
-              value={description}
-              onChange={async (e) => setDescription(e.target.value)}
-            />
-          </label>
+          <TextArea
+            label="説明"
+            value={description}
+            onChange={async (e) => setDescription(e.target.value)}
+          />
         </div>
         <Button title="送信" onClick={onClick} />
-      </fieldset>
+      </SFieldSet>
     </SCreateCormContainer>
   );
 };
@@ -85,4 +83,12 @@ export default HotelForm;
 
 const SCreateCormContainer = styled.div`
   margin-top: 20px;
+`;
+
+const SFieldSet = styled.fieldset`
+  padding: 8px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 `;

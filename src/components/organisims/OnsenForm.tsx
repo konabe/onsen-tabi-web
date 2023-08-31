@@ -175,13 +175,11 @@ const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
           />
         </div>
         <div>
-          <label>
-            説明
-            <TextArea
-              value={description}
-              onChange={async (e) => setDescription(e.target.value)}
-            />
-          </label>
+          <TextArea
+            label="説明"
+            value={description}
+            onChange={async (e) => setDescription(e.target.value)}
+          />
         </div>
         <Button title="送信" onClick={onClick} />
       </SFieldSet>
