@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { postSignin } from "../../infrastructure/api/UserApiModel";
 import { useNavigate } from "react-router-dom";
+import TextField from "../atoms/TextField";
+import { Button } from "../atoms/Button";
 
 type Props = {
   onChangeToken: (token: string | undefined) => void;
@@ -16,21 +18,18 @@ const Signin: React.FC<Props> = ({ onChangeToken }) => {
     onChangeToken(response.token);
     navigate("/");
   };
-  const onClickSingoutButton = () => {
+  const onClickSingoutButton = async () => {
     onChangeToken(undefined);
   };
 
   return (
     <div>
-      <label>
-        email
-        <input
-          type="email"
-          autoComplete="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        ></input>
-      </label>
+      <TextField
+        label="メールアドレス"
+        value={email}
+        onChange={(v) => setEmail(v)}
+        autoComplete="username"
+      />
       <label>
         password
         <input
@@ -39,8 +38,8 @@ const Signin: React.FC<Props> = ({ onChangeToken }) => {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </label>
-      <button onClick={onClickSigninButton}>ログイン</button>
-      <button onClick={onClickSingoutButton}>ログアウト</button>
+      <Button onClick={onClickSigninButton} title="ログイン" />
+      <Button onClick={onClickSingoutButton} title="ログアウト" />
     </div>
   );
 };
