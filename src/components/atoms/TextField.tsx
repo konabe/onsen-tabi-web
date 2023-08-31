@@ -3,43 +3,47 @@ import styled from "styled-components";
 type Props = {
   label?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {};
+  onChange: (value: string) => void;
+  autoComplete?: string;
 };
 
-const TextArea: React.FC<Props> = ({ label, value, onChange }) => {
-  const textAreaEl = (
-    <STextArea
+const TextField: React.FC<Props> = ({
+  label,
+  value,
+  onChange,
+  autoComplete,
+}) => {
+  const inputEl = (
+    <SInput
+      type="text"
       value={value}
-      onChange={(e) => onChange(e)}
-      rows={10}
-    ></STextArea>
+      autoComplete={autoComplete}
+      onChange={(e) => onChange(e.target.value)}
+    />
   );
   if (label === undefined) {
-    return textAreaEl;
+    return inputEl;
   }
   return (
     <div>
       <SLabel>
         {label}
-        {textAreaEl}
+        {inputEl}
       </SLabel>
     </div>
   );
 };
 
-export default TextArea;
+export default TextField;
 
-const STextArea = styled.textarea`
+const SInput = styled.input`
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
-
-  box-sizing: border-box;
-  width: 100%;
   font-size: 16px;
+
   padding: 0.5em;
   outline-color: #56c198;
-  resize: none;
 `;
 
 const SLabel = styled.label`

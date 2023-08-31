@@ -9,6 +9,7 @@ import {
 } from "../../share/onsen";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
+import TextField from "../atoms/TextField";
 
 type Props = {
   value?: OnsenModel;
@@ -117,27 +118,21 @@ const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
 
   return (
     <SCreateCormContainer>
-      <fieldset>
+      <SFieldSet>
         <legend>温泉の追加</legend>
         <div>
-          <label>
-            名前
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
+          <TextField
+            label="名前"
+            value={name}
+            onChange={(value) => setName(value)}
+          />
         </div>
         <div>
-          <label>
-            泉質
-            <input
-              type="text"
-              value={quality}
-              onChange={(e) => setQuality(e.target.value)}
-            />
-          </label>
+          <TextField
+            label="泉質"
+            value={quality}
+            onChange={(value) => setQuality(value)}
+          />
         </div>
         <div>
           <label>
@@ -173,26 +168,21 @@ const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
           </label>
         </div>
         <div>
-          <label>
-            URL
-            <input
-              type="text"
-              value={url}
-              onChange={(e) => setURL(e.target.value)}
-            />
-          </label>
+          <TextField
+            label="URL"
+            value={url}
+            onChange={(value) => setURL(value)}
+          />
         </div>
         <div>
-          <label>
-            説明
-            <TextArea
-              value={description}
-              onChange={async (e) => setDescription(e.target.value)}
-            />
-          </label>
+          <TextArea
+            label="説明"
+            value={description}
+            onChange={async (e) => setDescription(e.target.value)}
+          />
         </div>
         <Button title="送信" onClick={onClick} />
-      </fieldset>
+      </SFieldSet>
     </SCreateCormContainer>
   );
 };
@@ -201,4 +191,12 @@ export default OnsenForm;
 
 const SCreateCormContainer = styled.div`
   margin-top: 20px;
+`;
+
+const SFieldSet = styled.fieldset`
+  padding: 8px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 `;
