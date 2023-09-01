@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mainColor } from "./colors";
 
 type Props = {
   label?: string;
@@ -43,7 +44,7 @@ const SInput = styled.input`
   font-size: 16px;
 
   padding: 0.5em;
-  outline-color: #56c198;
+  outline-color: ${mainColor};
 `;
 
 const SLabel = styled.label`
@@ -52,6 +53,6 @@ const SLabel = styled.label`
   flex-direction: column;
 
   &:focus-within {
-    color: #56c198;
+    color: ${mainColor};
   }
 `;
