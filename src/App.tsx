@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { useEffectOnce } from "react-use";
 import { getToken, setToken } from "./infrastructure/LocalStorage";
 import jwtDecode from "jwt-decode";
+import NavBar from "./components/molecules/NavBar";
 
 export type CommonPageProps = {
   isSignedIn?: boolean;
@@ -48,20 +49,24 @@ const App: React.FC = () => {
 
   return (
     <>
-      <SNav>
-        <SLeftNav>
-          <NavItem path="/" text="トップ" />
-          <NavItem path="/onsens" text="温泉一覧" />
-          <NavItem path="/hotels" text="ホテル一覧" />
-        </SLeftNav>
-        <SRightNav>
-          {isSignedIn ? (
-            <NavItem path="/signin" text="ログアウト" />
-          ) : (
-            <NavItem path="/signin" text="管理者ログイン" />
-          )}
-        </SRightNav>
-      </SNav>
+      <NavBar
+        leftNav={
+          <>
+            <NavItem path="/" text="トップ" />
+            <NavItem path="/onsens" text="温泉一覧" />
+            <NavItem path="/hotels" text="ホテル一覧" />
+          </>
+        }
+        rightNav={
+          <>
+            {isSignedIn ? (
+              <NavItem path="/signin" text="ログアウト" />
+            ) : (
+              <NavItem path="/signin" text="管理者ログイン" />
+            )}
+          </>
+        }
+      />
       <SHeader
         id="header"
         style={{ backgroundImage: `url(${headerCoverJpg})` }}
@@ -105,23 +110,7 @@ const App: React.FC = () => {
   );
 };
 
-const SNav = styled.nav`
-  height: 40px;
-  background-color: grey;
-`;
-
-const SLeftNav = styled.div`
-  float: left;
-  height: 100%;
-`;
-
-const SRightNav = styled.div`
-  float: right;
-  height: 100%;
-`;
-
 const SHeader = styled.header`
-  background-color: bisque;
   height: 30vh;
   background-repeat: no-repeat;
   background-size: cover;
