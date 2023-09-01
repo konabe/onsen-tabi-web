@@ -8,7 +8,7 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import { CommonPageProps } from "../../App";
 
-const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+const Home: React.FC<CommonPageProps> = () => {
   const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);

@@ -2,7 +2,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/pages/Home";
 import HotelDetail from "./components/pages/HotelDetail";
 import Onsen from "./components/pages/OnsenDetail";
-import headerCoverJpg from "./header_cover.jpg";
 import styled from "styled-components";
 import NavItem from "./components/molecules/NavItem";
 import AreaDetail from "./components/pages/AreaDetail";
@@ -15,6 +14,7 @@ import { useEffectOnce } from "react-use";
 import { getToken, setToken } from "./infrastructure/LocalStorage";
 import jwtDecode from "jwt-decode";
 import NavBar from "./components/molecules/NavBar";
+import Header from "./components/organisims/Header";
 
 export type CommonPageProps = {
   isSignedIn?: boolean;
@@ -67,15 +67,7 @@ const App: React.FC = () => {
           </>
         }
       />
-      <SHeader
-        id="header"
-        style={{ backgroundImage: `url(${headerCoverJpg})` }}
-      >
-        <SHeaderText>
-          <SHeaderIcon src="/img/logo.png" alt="サイトアイコン" />
-          静かに温泉旅がしたい！
-        </SHeaderText>
-      </SHeader>
+      <Header />
       <SMain>
         <Routes>
           <Route path={"/"} element={<Home isSignedIn={isSignedIn} />} />
@@ -109,41 +101,6 @@ const App: React.FC = () => {
     </>
   );
 };
-
-const SHeader = styled.header`
-  height: 30vh;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-`;
-
-const SHeaderIcon = styled.img`
-  vertical-align: bottom;
-  height: 36px;
-  margin-right: 8px;
-  border-radius: 10px;
-
-  @media screen and (max-width: 767px) {
-    height: 24px;
-    border-radius: 6px;
-  }
-`;
-
-const SHeaderText = styled.div`
-  color: white;
-  background-color: rgba(1, 1, 1, 0.5);
-  padding: 8px 16px;
-  font-size: 36px;
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  font-family: "BIZ UDPMincho";
-  font-weight: 400;
-
-  @media screen and (max-width: 767px) {
-    font-size: 24px;
-  }
-`;
 
 const SMain = styled.main`
   padding: 48px 80px;
