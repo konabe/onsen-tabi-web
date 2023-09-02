@@ -1,11 +1,10 @@
-import { httpGet, httpPut } from "./ApiClient";
+import { AreaModel } from "../../share/area";
+import { httpGet, httpPost, httpPut } from "./ApiClient";
 
-export type AreaResponse = {
+export type AreaRequest = AreaModel;
+
+export type AreaResponse = AreaModel & {
   id: number;
-  name: string;
-  prefecture: string;
-  url: string;
-  description: string;
 };
 
 export type PutAreaDescriptionRequest = {
@@ -20,10 +19,21 @@ export const getArea = async (id: number): Promise<AreaResponse> => {
   return await httpGet(`/area/${id}`);
 };
 
+export const putArea = async (
+  id: number,
+  request: AreaRequest
+): Promise<void> => {
+  return await httpPut(`/area/${id}`, request);
+};
+
 export const putAreaDescription = async (
   id: number,
   description: string
 ): Promise<void> => {
   const request: PutAreaDescriptionRequest = { description };
   return await httpPut(`/area/${id}/description`, request);
+};
+
+export const postArea = async (request: AreaRequest): Promise<AreaResponse> => {
+  return await httpPost(`/area/`, request);
 };
