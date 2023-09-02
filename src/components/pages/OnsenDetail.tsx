@@ -92,6 +92,12 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
               {onsen?.form != null ? getFormText(onsen.form) : "情報なし"}
             </span>
           </Info>
+          {onsen?.isDayUse != null ? (
+            <Info>
+              <InfoTitle>日帰り入浴</InfoTitle>
+              <span>{onsen.isDayUse ? "あり" : "なし"}</span>
+            </Info>
+          ) : undefined}
           {isSignedIn ? (
             <div style={{ marginTop: 20 }}>
               <OnsenForm value={onsen} onSubmitClick={onOnsenSubmitClick} />

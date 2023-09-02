@@ -11,6 +11,7 @@ import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 import TextField from "../atoms/TextField";
 import { subColor } from "../atoms/colors";
+import SingleCheckBox from "../atoms/SingleCheckBox";
 
 type Props = {
   formTitle?: string;
@@ -34,6 +35,7 @@ const OnsenForm: React.FC<Props> = ({
     OsmoticPressureOption | undefined
   >(undefined);
   const [form, setForm] = useState<FormOption>("sotoyu");
+  const [isDayUse, setIsDayUse] = useState<boolean>(false);
   const [url, setURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -78,6 +80,7 @@ const OnsenForm: React.FC<Props> = ({
       liquid: liquid !== undefined ? liquid : null,
       osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
       form,
+      isDayUse,
       url,
       description,
     });
@@ -97,12 +100,14 @@ const OnsenForm: React.FC<Props> = ({
       liquid: liquid !== undefined ? liquid : null,
       osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
       form,
+      isDayUse,
       url,
       description,
     });
   }, [
     description,
     form,
+    isDayUse,
     liquid,
     name,
     onChange,
@@ -119,6 +124,7 @@ const OnsenForm: React.FC<Props> = ({
       value?.osmoticPressure != null ? value.osmoticPressure : undefined
     );
     setForm(value?.form ?? "sotoyu");
+    setIsDayUse(value?.isDayUse ?? false);
     setURL(value?.url ?? "");
     setDescription(value?.description ?? "");
   }, [value]);
@@ -166,6 +172,13 @@ const OnsenForm: React.FC<Props> = ({
             value={formCurrentValue}
             defaultValue={formOptions[0]}
             onChange={(v) => setForm(v?.value ?? "sotoyu")}
+          />
+        </div>
+        <div>
+          <SingleCheckBox
+            label="日帰り入力あり"
+            value={isDayUse}
+            onChange={(v) => setIsDayUse(v)}
           />
         </div>
         <div>

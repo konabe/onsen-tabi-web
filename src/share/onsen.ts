@@ -13,6 +13,7 @@ export type OnsenModel = {
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
   form: FormOption;
+  isDayUse: boolean | undefined;
   url: string;
   description: string;
 };

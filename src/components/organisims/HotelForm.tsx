@@ -63,6 +63,7 @@ const HotelForm: React.FC<Props> = ({
         </div>
         <div>
           <SingleCheckBox
+            label="和室あり"
             value={hasWashitsu}
             onChange={(v) => {
               setHasWashitsu(v);

@@ -20,6 +20,7 @@ export type OnsenRequest = {
   liquid: string | null;
   osmoticPressure: string | null;
   form: string;
+  isDayUse: boolean | undefined;
   url: string;
   description: string;
 };
