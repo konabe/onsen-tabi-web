@@ -52,6 +52,9 @@ const MySelect: React.FC<Props> = ({
       }}
     />
   );
+  if (label === undefined) {
+    return selectEl;
+  }
   return (
     <div>
       <SLabel>

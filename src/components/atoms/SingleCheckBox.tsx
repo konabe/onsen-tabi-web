@@ -2,19 +2,21 @@ import styled from "styled-components";
 import { mainColor } from "./colors";
 
 type Props = {
+  label?: string;
   value: boolean;
   onChange: (value: boolean) => void;
 };
 
-const SingleCheckBox: React.FC<Props> = ({ value, onChange }) => {
+const SingleCheckBox: React.FC<Props> = ({ label, value, onChange }) => {
+  const inputEl = (
+    <SInput type="checkbox" checked={value} onChange={() => onChange(!value)} />
+  );
+  if (label === undefined) {
+    return inputEl;
+  }
   return (
     <SLabel>
-      和室あり
-      <SInput
-        type="checkbox"
-        checked={value}
-        onChange={() => onChange(!value)}
-      />
+      {label} {inputEl}
     </SLabel>
   );
 };
