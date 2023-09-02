@@ -32,7 +32,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
 
-  const villageText = area?.village != null ? `${area.village}、` : "";
+  const villageText = area?.village != null ? `${area.village}温泉郷、` : "";
 
   const loadPage = async () => {
     try {
