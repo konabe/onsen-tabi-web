@@ -20,7 +20,7 @@ import Description from "../molecules/Description";
 import { CommonPageProps } from "../../App";
 import { AreaModel } from "../../share/area";
 import AreaForm from "../organisims/AreaForm";
-import { mainColor, subColor } from "../atoms/colors";
+import { mainColor } from "../atoms/colors";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -30,7 +30,6 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const [area, setArea] = useState<AreaResponse | undefined>(undefined);
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
-  const [description, setDescription] = useState<string>("");
 
   const villageText = area?.village != null ? `${area.village}温泉郷、` : "";
 
@@ -40,7 +39,6 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         (async () => {
           const area = await getArea(Number(id));
           setArea(area);
-          setDescription(area.description);
         })(),
         (async () => {
           const hotels = await getHotels(Number(id));

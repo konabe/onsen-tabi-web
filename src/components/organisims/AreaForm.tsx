@@ -28,11 +28,13 @@ const AreaForm: React.FC<Props> = ({
   const [description, setDescription] = useState<string>("");
 
   const onClick = async () => {
+    const villageResult: string | undefined =
+      village === "" ? undefined : village;
     await onSubmitClick?.({
       name,
       prefecture,
       nationalResort,
-      village,
+      village: villageResult,
       url,
       description,
     });
