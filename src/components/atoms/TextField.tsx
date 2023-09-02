@@ -6,6 +6,7 @@ type Props = {
   value: string;
   onChange: (value: string) => void;
   autoComplete?: string;
+  isPassword?: boolean;
 };
 
 const TextField: React.FC<Props> = ({
@@ -13,10 +14,12 @@ const TextField: React.FC<Props> = ({
   value,
   onChange,
   autoComplete,
+  isPassword,
 }) => {
+  const type = isPassword ?? false ? "password" : "text";
   const inputEl = (
     <SInput
-      type="text"
+      type={type}
       value={value}
       autoComplete={autoComplete}
       onChange={(e) => onChange(e.target.value)}
