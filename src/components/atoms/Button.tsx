@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { mainColor, subColor } from "./colors";
+import { subColor } from "./colors";
 
 type Props = {
   title: string;
