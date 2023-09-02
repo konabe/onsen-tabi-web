@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { mainColor, subColor } from "../atoms/colors";
 
 type Props = {
   path: string;
@@ -22,7 +23,7 @@ const SNavItem = styled.button<{ selected: boolean }>`
   outline: none;
   color: white;
   padding: 0px 20px;
-  background-color: ${({ selected }) => (selected ? "saddlebrown" : "grey")};
+  background-color: ${({ selected }) => (selected ? mainColor : subColor)};
   opacity: 1;
   box-sizing: border-box;
 

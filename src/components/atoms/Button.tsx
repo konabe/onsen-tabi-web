@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { mainColor, subColor } from "./colors";
 
 type Props = {
   title: string;
@@ -27,7 +28,7 @@ const SButton = styled.button`
   border-radius: 4px;
   border: none;
   color: white;
-  background-color: brown;
+  background-color: ${subColor};
   opacity: 0.95;
 
   &:hover {

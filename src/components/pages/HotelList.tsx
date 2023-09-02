@@ -64,7 +64,10 @@ const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           </SListContainer>
           {isSignedIn ? (
             <>
-              <HotelForm onSubmitClick={onHotelSubmitClick} />
+              <HotelForm
+                formTitle="ホテルの追加"
+                onSubmitClick={onHotelSubmitClick}
+              />
             </>
           ) : undefined}
         </>

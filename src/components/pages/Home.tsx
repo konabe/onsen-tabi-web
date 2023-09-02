@@ -8,10 +8,18 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import { CommonPageProps } from "../../App";
 
-const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+const Home: React.FC<CommonPageProps> = () => {
   const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const noticeSentences = [
+    "当サイトへようこそ。",
+    "温泉巡りに出会ってから月１以上は温泉旅行に行くようになりました。",
+    "しかし、温泉巡りに関するユーザー投稿型のサイトはなかなか存在せず、それなら自分で作ってしまえと思い作ったのがこのサイトです。",
+    "現在は、管理人が訪れた温泉の記録しかできませんが、ゆくゆくはユーザーの評価やコメント、ユーザーの旅行記録機能等、温泉旅という趣味をより楽しめるサイトを目指していきます。",
+    "※現在はβ版のため、機能の安定性は保証いたしません。ご了承ください。",
+  ];
 
   const loadPage = async () => {
     try {
@@ -38,17 +46,9 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     <div>
       <SNotice>
         <h1>📌 お知らせ</h1>
-        <p>当サイトへようこそ。</p>
-        <p>温泉巡りに出会ってから月１以上は温泉旅行に行くようになりました。</p>
-        <p>
-          しかし、温泉巡りに関するユーザー投稿型のサイトはなかなか存在せず、それなら自分で作ってしまえと思い作ったのがこのサイトです。
-        </p>
-        <p>
-          現在は、管理人が訪れた温泉の記録しかできませんが、ゆくゆくはユーザーの評価やコメント、ユーザーの旅行記録機能等、温泉旅という趣味をより楽しめるサイトを目指していきます。
-        </p>
-        <p>
-          ※現在はβ版のため、機能の安定性は保証いたしません。ご了承ください。
-        </p>
+        {noticeSentences.map((v, i) => (
+          <p key={i}>{v}</p>
+        ))}
       </SNotice>
       {isLoading ? (
         <Loading />

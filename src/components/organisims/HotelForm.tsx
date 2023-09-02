@@ -4,14 +4,22 @@ import { HotelModel } from "../../share/hotel";
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 import TextField from "../atoms/TextField";
+import { subColor } from "../atoms/colors";
+import SingleCheckBox from "../atoms/SingleCheckBox";
 
 type Props = {
+  formTitle?: string;
   value?: HotelModel;
   onChange?: (hotel: HotelModel) => void;
   onSubmitClick?: (hotel: HotelModel) => Promise<void>;
 };
 
-const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
+const HotelForm: React.FC<Props> = ({
+  formTitle,
+  value,
+  onSubmitClick,
+  onChange,
+}) => {
   const [name, setName] = useState<string>("");
   const [hasWashitsu, setHasWashitsu] = useState<boolean>(true);
   const [url, setURL] = useState<string>("");
@@ -49,19 +57,17 @@ const HotelForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
   return (
     <SCreateCormContainer>
       <SFieldSet>
-        <legend>ホテルの追加</legend>
+        {formTitle !== undefined ? <legend>{formTitle}</legend> : undefined}
         <div>
           <TextField label="名前" value={name} onChange={(v) => setName(v)} />
         </div>
         <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={hasWashitsu}
-              onChange={() => setHasWashitsu((prevState) => !prevState)}
-            />
-            和室あり
-          </label>
+          <SingleCheckBox
+            value={hasWashitsu}
+            onChange={(v) => {
+              setHasWashitsu(v);
+            }}
+          />
         </div>
         <div>
           <TextField label="URL" value={url} onChange={(v) => setURL(v)} />
@@ -86,7 +92,8 @@ const SCreateCormContainer = styled.div`
 `;
 
 const SFieldSet = styled.fieldset`
-  padding: 8px;
+  border-color: ${subColor};
+  padding: 16px;
 
   display: flex;
   flex-direction: column;

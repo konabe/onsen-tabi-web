@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { mainColor } from "./colors";
 
 type Props = {
   label?: string;
   value: string;
   onChange: (value: string) => void;
   autoComplete?: string;
+  isPassword?: boolean;
 };
 
 const TextField: React.FC<Props> = ({
@@ -12,10 +14,12 @@ const TextField: React.FC<Props> = ({
   value,
   onChange,
   autoComplete,
+  isPassword,
 }) => {
+  const type = isPassword ?? false ? "password" : "text";
   const inputEl = (
     <SInput
-      type="text"
+      type={type}
       value={value}
       autoComplete={autoComplete}
       onChange={(e) => onChange(e.target.value)}
@@ -43,7 +47,7 @@ const SInput = styled.input`
   font-size: 16px;
 
   padding: 0.5em;
-  outline-color: #56c198;
+  outline-color: ${mainColor};
 `;
 
 const SLabel = styled.label`
@@ -52,6 +56,6 @@ const SLabel = styled.label`
   flex-direction: column;
 
   &:focus-within {
-    color: #56c198;
+    color: ${mainColor};
   }
 `;

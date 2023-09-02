@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Select from "react-select";
+import Select from "../atoms/Select";
 import {
   FormOption,
   LiquidValueOption,
@@ -10,14 +10,21 @@ import {
 import TextArea from "../atoms/TextArea";
 import { Button } from "../atoms/Button";
 import TextField from "../atoms/TextField";
+import { subColor } from "../atoms/colors";
 
 type Props = {
+  formTitle?: string;
   value?: OnsenModel;
   onChange?: (onsen: OnsenModel) => void;
   onSubmitClick?: (onsen: OnsenModel) => Promise<void>;
 };
 
-const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
+const OnsenForm: React.FC<Props> = ({
+  formTitle,
+  value,
+  onSubmitClick,
+  onChange,
+}) => {
   const [name, setName] = useState<string>("");
   const [quality, setQuality] = useState<string>("");
   const [liquid, setLiquid] = useState<LiquidValueOption | undefined>(
@@ -119,7 +126,7 @@ const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
   return (
     <SCreateCormContainer>
       <SFieldSet>
-        <legend>温泉の追加</legend>
+        {formTitle !== undefined ? <legend>{formTitle}</legend> : undefined}
         <div>
           <TextField
             label="名前"
@@ -135,37 +142,31 @@ const OnsenForm: React.FC<Props> = ({ value, onSubmitClick, onChange }) => {
           />
         </div>
         <div>
-          <label>
-            液性
-            <Select
-              options={liquidValueOptions}
-              value={liquidCurrentValue}
-              defaultValue={undefined}
-              onChange={(v) => setLiquid(v?.value)}
-            />
-          </label>
+          <Select
+            label="液性"
+            options={liquidValueOptions}
+            value={liquidCurrentValue}
+            defaultValue={undefined}
+            onChange={(v) => setLiquid(v?.value)}
+          />
         </div>
         <div>
-          <label>
-            浸透圧
-            <Select
-              options={osmoticPressureOptions}
-              value={osmoticPressureCurrentValue}
-              defaultValue={undefined}
-              onChange={(v) => setOsmoticPressure(v?.value)}
-            />
-          </label>
+          <Select
+            label="浸透圧"
+            options={osmoticPressureOptions}
+            value={osmoticPressureCurrentValue}
+            defaultValue={undefined}
+            onChange={(v) => setOsmoticPressure(v?.value)}
+          />
         </div>
         <div>
-          <label>
-            形態
-            <Select
-              options={formOptions}
-              value={formCurrentValue}
-              defaultValue={formOptions[0]}
-              onChange={(v) => setForm(v?.value ?? "sotoyu")}
-            />
-          </label>
+          <Select
+            label="形態"
+            options={formOptions}
+            value={formCurrentValue}
+            defaultValue={formOptions[0]}
+            onChange={(v) => setForm(v?.value ?? "sotoyu")}
+          />
         </div>
         <div>
           <TextField
@@ -194,7 +195,8 @@ const SCreateCormContainer = styled.div`
 `;
 
 const SFieldSet = styled.fieldset`
-  padding: 8px;
+  border-color: ${subColor};
+  padding: 16px;
 
   display: flex;
   flex-direction: column;
