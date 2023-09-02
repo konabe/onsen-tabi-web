@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   AreaResponse,
   getArea,
-  putAreaDescription,
+  putArea,
 } from "../../infrastructure/api/AreaApiModel";
 import {
   HotelResponse,
@@ -15,11 +15,12 @@ import {
 } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
-import TextArea from "../atoms/TextArea";
-import { Button } from "../atoms/Button";
 import styled from "styled-components";
 import Description from "../molecules/Description";
 import { CommonPageProps } from "../../App";
+import { AreaModel } from "../../share/area";
+import AreaForm from "../organisims/AreaForm";
+import { mainColor } from "../atoms/colors";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -29,7 +30,8 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const [area, setArea] = useState<AreaResponse | undefined>(undefined);
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
-  const [description, setDescription] = useState<string>("");
+
+  const villageText = area?.village != null ? `${area.village}温泉郷、` : "";
 
   const loadPage = async () => {
     try {
@@ -37,7 +39,6 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         (async () => {
           const area = await getArea(Number(id));
           setArea(area);
-          setDescription(area.description);
         })(),
         (async () => {
           const hotels = await getHotels(Number(id));
@@ -53,9 +54,9 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     }
   };
 
-  const onClickChangeTextButton = async () => {
+  const onAreaSubmitClick = async (area: AreaModel) => {
     try {
-      await putAreaDescription(Number(id), description);
+      await putArea(Number(id), area);
       loadPage();
     } catch {
       navigate("/error");
@@ -76,11 +77,16 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         <Loading />
       ) : (
         <>
-          <h1>{`🏞 ${area?.name}温泉 (${area?.prefecture})`}</h1>
+          <h1>{`🏞 ${area?.name}温泉 (${villageText}${area?.prefecture})`}</h1>
           <SContent>
             <a href={area?.url} target="_blank" rel="noreferrer">
               リンク
             </a>
+            {area?.nationalResort ?? false ? (
+              <STagContainer>
+                <STag>国民保養温泉地</STag>
+              </STagContainer>
+            ) : undefined}
             <Description text={area?.description ?? ""} />
           </SContent>
           <h2>ホテル</h2>
@@ -101,13 +107,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           </SContent>
           {isSignedIn ? (
             <div style={{ marginTop: 20 }}>
-              <div>
-                <TextArea
-                  value={description}
-                  onChange={async (e) => setDescription(e.target.value)}
-                />
-              </div>
-              <Button title={"説明変更"} onClick={onClickChangeTextButton} />
+              <AreaForm value={area} onSubmitClick={onAreaSubmitClick} />
             </div>
           ) : undefined}
         </>
@@ -120,4 +120,17 @@ export default AreaDetail;
 
 const SContent = styled.div`
   margin-bottom: 20px;
+`;
+
+const STagContainer = styled.div`
+  margin-top: 8px;
+`;
+
+const STag = styled.span`
+  display: inline-block;
+  background-color: ${mainColor};
+  color: white;
+  font-size: 12px;
+  padding: 4px;
+  box-sizing: border-box;
 `;

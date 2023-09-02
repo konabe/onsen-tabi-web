@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { AreaResponse, getAreas } from "../../infrastructure/api/AreaApiModel";
+import {
+  AreaResponse,
+  getAreas,
+  postArea,
+} from "../../infrastructure/api/AreaApiModel";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +11,10 @@ import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import { CommonPageProps } from "../../App";
+import AreaForm from "../organisims/AreaForm";
+import { AreaModel } from "../../share/area";
 
-const Home: React.FC<CommonPageProps> = () => {
+const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,6 +35,14 @@ const Home: React.FC<CommonPageProps> = () => {
           setAreas(areas);
         })(),
       ]);
+    } catch {
+      navigate("/error");
+    }
+  };
+  const onAreaSubmitClick = async (area: AreaModel) => {
+    try {
+      await postArea(area);
+      loadPage();
     } catch {
       navigate("/error");
     }
@@ -58,6 +72,7 @@ const Home: React.FC<CommonPageProps> = () => {
           <OnsenAreaList areas={areas} prefectures={prefectures()} />
         </>
       )}
+      {isSignedIn ? <AreaForm onSubmitClick={onAreaSubmitClick} /> : undefined}
     </div>
   );
 };
