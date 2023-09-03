@@ -88,6 +88,9 @@ const AreaForm: React.FC<Props> = ({
           />
         </div>
         <div>
+          <TextField label="URL" value={url} onChange={(v) => setURL(v)} />
+        </div>
+        <div>
           <SingleCheckBox
             label="国民保養温泉地"
             value={nationalResort}
