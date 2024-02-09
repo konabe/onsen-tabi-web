@@ -5,6 +5,7 @@ export type AreaRequest = AreaModel;
 
 export type AreaResponse = AreaModel & {
   id: number;
+  onsenIds: number[];
 };
 
 export type PutAreaDescriptionRequest = {

@@ -69,7 +69,10 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
       ) : (
         <>
           <h1>🏞 温泉エリア一覧</h1>
-          <OnsenAreaList areas={areas} prefectures={prefectures()} />
+          <OnsenAreaList
+            areas={areas.filter((v) => isSignedIn || v.onsenIds.length > 0)}
+            prefectures={prefectures()}
+          />
         </>
       )}
       {isSignedIn ? <AreaForm onSubmitClick={onAreaSubmitClick} /> : undefined}
