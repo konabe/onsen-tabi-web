@@ -21,6 +21,7 @@ import { CommonPageProps } from "../../App";
 import { AreaModel } from "../../share/area";
 import AreaForm from "../organisims/AreaForm";
 import { mainColor } from "../atoms/colors";
+import Head from "../atoms/Head";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -77,7 +78,10 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         <Loading />
       ) : (
         <>
-          <h1>{`🏞 ${area?.name}温泉 (${villageText}${area?.prefecture})`}</h1>
+          <Head
+            emoji="🏞"
+            title={`${area?.name}温泉 (${villageText}${area?.prefecture})`}
+          />
           <SContent>
             <a href={area?.url} target="_blank" rel="noreferrer">
               リンク

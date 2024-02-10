@@ -11,6 +11,7 @@ import styled from "styled-components";
 import OnsenForm from "../organisims/OnsenForm";
 import { OnsenModel } from "../../share/onsen";
 import { CommonPageProps } from "../../App";
+import Head from "../atoms/Head";
 
 const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
@@ -54,9 +55,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         <Loading />
       ) : (
         <>
-          <h1 style={{ fontFamily: "BIZ UDPMincho", fontWeight: 400 }}>
-            ♨ 温泉一覧
-          </h1>
+          <Head emoji="♨" title="温泉一覧" />
           <SListContainer>
             {onsens.map((v) => (
               <div key={v.id}>

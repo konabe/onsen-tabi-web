@@ -17,6 +17,7 @@ import Description from "../molecules/Description";
 import OnsenForm from "../organisims/OnsenForm";
 import { OnsenModel } from "../../share/onsen";
 import { CommonPageProps } from "../../App";
+import Head from "../atoms/Head";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -61,7 +62,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         <Loading />
       ) : (
         <>
-          <h1>{`♨ ${onsen?.name}`}</h1>
+          <Head emoji="♨" title={`${onsen?.name}`} />
           <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
           <Description text={onsen?.description ?? ""} />
           <h2>温泉データ</h2>

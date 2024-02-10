@@ -6,6 +6,7 @@ import {
 } from "../../infrastructure/api/AreaApiModel";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
+import Head from "../atoms/Head";
 import { useNavigate } from "react-router-dom";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
@@ -59,7 +60,7 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   return (
     <div>
       <SNotice>
-        <h1>📌 お知らせ</h1>
+        <Head emoji="📌" title="お知らせ" />
         {noticeSentences.map((v, i) => (
           <p key={i}>{v}</p>
         ))}
@@ -68,7 +69,7 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         <Loading />
       ) : (
         <>
-          <h1>🏞 温泉エリア一覧</h1>
+          <Head emoji="🏞" title="温泉エリア一覧" />
           <OnsenAreaList
             areas={areas.filter((v) => isSignedIn || v.onsenIds.length > 0)}
             prefectures={prefectures()}

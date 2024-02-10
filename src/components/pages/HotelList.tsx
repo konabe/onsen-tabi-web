@@ -11,6 +11,7 @@ import styled from "styled-components";
 import HotelForm from "../organisims/HotelForm";
 import { CommonPageProps } from "../../App";
 import { HotelModel } from "../../share/hotel";
+import Head from "../atoms/Head";
 
 const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         <Loading />
       ) : (
         <>
-          <h1>🛏 宿一覧</h1>{" "}
+          <Head emoji="🛏" title="宿一覧" />
           <SListContainer>
             {hotels.map((v) => (
               <div key={v.id}>
