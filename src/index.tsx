@@ -9,10 +9,13 @@ import * as Sentry from "@sentry/react";
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
-    new Sentry.BrowserTracing({
+    Sentry.browserTracingIntegration({
       tracePropagationTargets: ["localhost", process.env.REACT_APP_BASE_URL!],
     }),
-    new Sentry.Replay(),
+    Sentry.replayIntegration(),
+    Sentry.feedbackIntegration({
+      colorScheme: "system",
+    }),
   ],
   tracesSampleRate: 1.0,
   replaysSessionSampleRate: 0.1,
