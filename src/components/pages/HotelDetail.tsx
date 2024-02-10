@@ -14,6 +14,7 @@ import Description from "../molecules/Description";
 import HotelForm from "../organisims/HotelForm";
 import { HotelModel } from "../../share/hotel";
 import { CommonPageProps } from "../../App";
+import Head from "../atoms/Head";
 
 const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -63,7 +64,7 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
         <Loading />
       ) : (
         <div>
-          <h1>{`🛏 ${hotel?.name}`}</h1>
+          <Head emoji="🛏" title={`${hotel?.name}`} />
           <SContent>
             和室{hotel?.hasWashitsu ? "あり" : "なし"}
             <a href={hotel?.url} target="_blank" rel="noreferrer">

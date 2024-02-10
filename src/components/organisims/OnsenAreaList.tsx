@@ -51,18 +51,22 @@ const Container = styled.div`
 const SPrefectureOnsenContainer = styled.div`
   display: flex;
   flex-direction: row;
+  column-gap: 16px;
   @media screen and (max-width: 767px) {
     flex-direction: column;
   }
 `;
 
 const SPrefectureContainer = styled.div`
+  flex-shrink: 0;
+  width: 4em;
+
   font-weight: 700;
-  width: 80px;
 `;
 
 const OnsenListContainer = styled.div`
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   column-gap: 10px;
   row-gap: 0px;

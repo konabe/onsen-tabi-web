@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { postSignin } from "../../infrastructure/api/UserApiModel";
 import { useNavigate } from "react-router-dom";
 import TextField from "../atoms/TextField";
-import { Button } from "../atoms/Button";
+import Button from "../atoms/Button";
 import styled from "styled-components";
 
 type Props = {
