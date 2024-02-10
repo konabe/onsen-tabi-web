@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HotelModel } from "../../share/hotel";
 import TextArea from "../atoms/TextArea";
-import { Button } from "../atoms/Button";
+import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
 import { subColor } from "../atoms/colors";
 import SingleCheckBox from "../atoms/SingleCheckBox";

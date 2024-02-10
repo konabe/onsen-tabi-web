@@ -6,13 +6,15 @@ type Props = {
   onClick: () => {};
 };
 
-export const Button: React.FC<Props> = ({ title, onClick }) => {
+const Button: React.FC<Props> = ({ title, onClick }) => {
   return (
     <SButton type="button" onClick={onClick}>
       {title}
     </SButton>
   );
 };
+
+export default Button;
 
 const fadeIn = keyframes`
   from {
