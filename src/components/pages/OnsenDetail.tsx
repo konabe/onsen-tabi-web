@@ -18,6 +18,7 @@ import OnsenForm from "../organisims/OnsenForm";
 import { OnsenModel } from "../../share/onsen";
 import { CommonPageProps } from "../../App";
 import Head from "../atoms/Head";
+import ChemicalTag from "../molecules/onsen/ChemicalTag";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -71,7 +72,20 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           </a>
           <Info>
             <InfoTitle>泉質</InfoTitle>
-            <span>{onsen?.springQuality}</span>
+            <span>
+              {onsen?.quality?.name} {/* TODO: 移行が完了したら消す */}
+              {onsen?.springQuality !== "" ? `(${onsen?.springQuality})` : ""}
+            </span>
+          </Info>
+          <Info>
+            <InfoTitle>成分タグ</InfoTitle>
+            <span>
+              <ChemicalTagContainer>
+                {onsen?.quality?.chemicals.map((c) => (
+                  <ChemicalTag chemical={c} />
+                )) ?? "情報なし"}
+              </ChemicalTagContainer>
+            </span>
           </Info>
           <Info>
             <InfoTitle>液性</InfoTitle>
@@ -120,4 +134,10 @@ const Info = styled.span`
 
 const InfoTitle = styled.span`
   font-weight: 700;
+`;
+
+const ChemicalTagContainer = styled.span`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 `;

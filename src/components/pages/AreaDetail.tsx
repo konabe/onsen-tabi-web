@@ -20,8 +20,8 @@ import Description from "../molecules/Description";
 import { CommonPageProps } from "../../App";
 import { AreaModel } from "../../share/area";
 import AreaForm from "../organisims/AreaForm";
-import { mainColor } from "../atoms/colors";
 import Head from "../atoms/Head";
+import Tag from "../atoms/Tag";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -88,7 +88,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             </a>
             {area?.nationalResort ?? false ? (
               <STagContainer>
-                <STag>国民保養温泉地</STag>
+                <Tag text={"国民保養温泉地"} />
               </STagContainer>
             ) : undefined}
             <Description text={area?.description ?? ""} />
@@ -128,13 +128,4 @@ const SContent = styled.div`
 
 const STagContainer = styled.div`
   margin-top: 8px;
-`;
-
-const STag = styled.span`
-  display: inline-block;
-  background-color: ${mainColor};
-  color: white;
-  font-size: 12px;
-  padding: 4px;
-  box-sizing: border-box;
 `;
