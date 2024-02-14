@@ -1,4 +1,5 @@
 import {
+  Chemical,
   FormOption,
   LiquidValueOption,
   OnsenModel,
@@ -8,6 +9,10 @@ import { httpGet, httpPost, httpPut } from "./ApiClient";
 
 export type OnsenResponse = {
   id: number;
+  quality?: {
+    name: string;
+    chemicals: Chemical[];
+  };
 } & OnsenModel;
 
 export type PutOnsenDescriptionRequest = {
