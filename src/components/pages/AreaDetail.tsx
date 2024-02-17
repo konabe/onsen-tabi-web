@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  AreaRepository,
-  AreaResponse,
-} from "../../infrastructure/repositories/areaRepository";
+import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
 import {
   HotelResponse,
   getHotels,
@@ -17,10 +14,12 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import Description from "../molecules/Description";
 import { CommonPageProps } from "../../App";
-import { AreaModel } from "../../share/area";
+import { AreaEntity } from "../../domain/models/area";
 import AreaForm from "../organisims/AreaForm";
 import Head from "../atoms/Head";
 import Tag from "../atoms/Tag";
+import RelatedContents from "../organisims/RelatedContents";
+import Article from "../organisims/Article";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const areaRepository = new AreaRepository();
@@ -29,7 +28,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [area, setArea] = useState<AreaResponse | undefined>(undefined);
+  const [area, setArea] = useState<AreaEntity | undefined>(undefined);
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
 
@@ -39,8 +38,8 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     try {
       await Promise.all([
         (async () => {
-          const area = await areaRepository.readArea(Number(id));
-          setArea(area);
+          const areaEntity = await areaRepository.read(Number(id));
+          setArea(areaEntity);
         })(),
         (async () => {
           const hotels = await getHotels(Number(id));
@@ -56,9 +55,9 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     }
   };
 
-  const onAreaSubmitClick = async (area: AreaModel) => {
+  const onAreaSubmitClick = async (area: AreaEntity) => {
     try {
-      await areaRepository.updateArea(Number(id), area);
+      await areaRepository.update(Number(id), area);
       loadPage();
     } catch {
       navigate("/error");
@@ -74,57 +73,68 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   });
 
   return (
-    <>
+    <SContents>
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          <Head
-            emoji="🏞"
-            title={`${area?.name}温泉 (${villageText}${area?.prefecture})`}
-          />
-          <SContent>
-            <a href={area?.url} target="_blank" rel="noreferrer">
-              リンク
-            </a>
-            {area?.nationalResort ?? false ? (
-              <STagContainer>
-                <Tag text={"国民保養温泉地"} />
-              </STagContainer>
-            ) : undefined}
-            <Description text={area?.description ?? ""} />
-          </SContent>
-          <h2>ホテル</h2>
-          <SContent>
-            {hotels?.map((hotel) => (
-              <div key={hotel.id}>
-                <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
+          <div>
+            <Article
+              emoji="🏞️"
+              title={`${area?.name}温泉 (${villageText}${area?.prefecture})`}
+            >
+              <div>
+                <a href={area?.url} target="_blank" rel="noreferrer">
+                  リンク
+                </a>
+                {area?.isNationalResort ?? false ? (
+                  <STagContainer>
+                    <Tag text={"国民保養温泉地"} />
+                  </STagContainer>
+                ) : undefined}
+                <Description text={area?.description ?? ""} />
               </div>
-            ))}
-          </SContent>
-          <h2>温泉</h2>
-          <SContent>
-            {onsens?.map((onsen) => (
-              <div key={onsen.id}>
-                <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+            </Article>
+          </div>
+          <div>
+            <RelatedContents title="ホテル">
+              <div>
+                {hotels?.map((hotel) => (
+                  <div key={hotel.id}>
+                    <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
+                  </div>
+                ))}
               </div>
-            ))}
-          </SContent>
-          {isSignedIn ? (
-            <div style={{ marginTop: 20 }}>
+            </RelatedContents>
+          </div>
+          <div>
+            <RelatedContents title="温泉">
+              <div>
+                {onsens?.map((onsen) => (
+                  <div key={onsen.id}>
+                    <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+                  </div>
+                ))}
+              </div>
+            </RelatedContents>
+          </div>
+          <div>
+            {isSignedIn ? (
               <AreaForm value={area} onSubmitClick={onAreaSubmitClick} />
-            </div>
-          ) : undefined}
+            ) : undefined}
+          </div>
         </>
       )}
-    </>
+    </SContents>
   );
 };
 
 export default AreaDetail;
 
-const SContent = styled.div`
-  margin-bottom: 20px;
+const SContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
 `;
 
 const STagContainer = styled.div`

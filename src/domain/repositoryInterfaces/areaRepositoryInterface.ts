@@ -1,11 +1,8 @@
-import {
-  AreaRequest,
-  AreaResponse,
-} from "../../infrastructure/repositories/areaRepository";
+import { AreaEntity } from "../models/area";
 
 export interface IAreaRepository {
-  createArea: (request: AreaRequest) => Promise<AreaResponse>;
-  readAreaAll: () => Promise<AreaResponse[]>;
-  readArea: (id: number) => Promise<AreaResponse>;
-  updateArea: (id: number, request: AreaRequest) => Promise<void>;
+  create: (area: AreaEntity) => Promise<AreaEntity>;
+  readAll: () => Promise<AreaEntity[]>;
+  read: (id: number) => Promise<AreaEntity>;
+  update: (id: number, area: AreaEntity) => Promise<void>;
 }

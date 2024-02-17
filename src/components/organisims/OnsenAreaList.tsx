@@ -1,48 +1,80 @@
 import { Link } from "react-router-dom";
-import { Prefecture } from "../../share/prefecture";
 import styled from "styled-components";
+import { Prefecture } from "../../share/prefecture";
+import { AreaEntity } from "../../domain/models/area";
+import React from "react";
+
+type AreaLinkViewModel = { areaId: number; name: string };
 
 type Props = {
-  areas: { id: number; name: string; prefecture: string }[];
+  areas: AreaEntity[];
   prefectures: Record<string, Prefecture>;
 };
 
 const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
-  let areasByPrefecture: Record<string, { id: number; name: string }[]> = {};
+  let areasByPrefecture: Record<string, AreaLinkViewModel[]> = {};
   areas.forEach((area) => {
+    const areaLinkViewModel: AreaLinkViewModel = {
+      areaId: area.id,
+      name: area.name,
+    };
     if (areasByPrefecture[area.prefecture] === undefined) {
-      areasByPrefecture[area.prefecture] = [area];
+      areasByPrefecture[area.prefecture] = [areaLinkViewModel];
       return;
     }
-    areasByPrefecture[area.prefecture].push(area);
+    areasByPrefecture[area.prefecture].push(areaLinkViewModel);
   });
+
+  const AreaLink: React.FC<AreaLinkViewModel> = ({ areaId, name }) => {
+    return (
+      <div>
+        <Link to={`/area/${areaId}`}>{name}温泉</Link>
+      </div>
+    );
+  };
+
+  const PrefectureRow: React.FC<{
+    prefecture: string;
+    areaLinks: AreaLinkViewModel[];
+  }> = ({ prefecture, areaLinks }) => {
+    return (
+      <SPrefectureOnsenContainer>
+        <SPrefectureContainer>{prefecture}</SPrefectureContainer>
+        <SOnsenListContainer>
+          {areaLinks.map((areaLink) => (
+            <AreaLink
+              key={areaLink.areaId}
+              areaId={areaLink.areaId}
+              name={areaLink.name}
+            />
+          ))}
+        </SOnsenListContainer>
+      </SPrefectureOnsenContainer>
+    );
+  };
+
   return (
-    <Container>
+    <SContainer>
       {Object.keys(prefectures).map((prefectureKey) => {
-        const areas = areasByPrefecture[prefectureKey];
-        if (areas === undefined) {
+        const areaLinks = areasByPrefecture[prefectureKey];
+        if (areaLinks === undefined) {
           return undefined;
         }
         return (
-          <SPrefectureOnsenContainer key={prefectureKey}>
-            <SPrefectureContainer>{prefectureKey}</SPrefectureContainer>
-            <OnsenListContainer>
-              {areas.map((area) => (
-                <div key={area.id}>
-                  <Link to={`/area/${area.id}`}>{area.name}温泉</Link>
-                </div>
-              ))}
-            </OnsenListContainer>
-          </SPrefectureOnsenContainer>
+          <PrefectureRow
+            prefecture={prefectureKey}
+            areaLinks={areaLinks}
+            key={prefectureKey}
+          />
         );
       })}
-    </Container>
+    </SContainer>
   );
 };
 
 export default OnsenAreaList;
 
-const Container = styled.div`
+const SContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
@@ -64,7 +96,7 @@ const SPrefectureContainer = styled.div`
   font-weight: 700;
 `;
 
-const OnsenListContainer = styled.div`
+const SOnsenListContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

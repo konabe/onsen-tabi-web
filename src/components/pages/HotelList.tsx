@@ -11,7 +11,7 @@ import styled from "styled-components";
 import HotelForm from "../organisims/HotelForm";
 import { CommonPageProps } from "../../App";
 import { HotelModel } from "../../share/hotel";
-import Head from "../atoms/Head";
+import Article from "../organisims/Article";
 
 const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
@@ -50,34 +50,43 @@ const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   });
 
   return (
-    <>
+    <SContents>
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          <Head emoji="🛏" title="宿一覧" />
-          <SListContainer>
-            {hotels.map((v) => (
-              <div key={v.id}>
-                <Link to={`/hotel/${v.id}`}>{v.name}</Link>
-              </div>
-            ))}
-          </SListContainer>
+          <div>
+            <Article emoji="🏕️" title="宿一覧">
+              <SListContainer>
+                {hotels.map((v) => (
+                  <div key={v.id}>
+                    <Link to={`/hotel/${v.id}`}>{v.name}</Link>
+                  </div>
+                ))}
+              </SListContainer>
+            </Article>
+          </div>
           {isSignedIn ? (
-            <>
+            <div>
               <HotelForm
                 formTitle="ホテルの追加"
                 onSubmitClick={onHotelSubmitClick}
               />
-            </>
+            </div>
           ) : undefined}
         </>
       )}
-    </>
+    </SContents>
   );
 };
 
 export default HotelList;
+
+const SContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+`;
 
 const SListContainer = styled.div`
   display: flex;
