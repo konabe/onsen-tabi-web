@@ -18,9 +18,23 @@ export type OnsenResponse = {
 export type OnsenRequest = {
   name: string;
   springQuality: string;
-  liquid: string | null;
-  osmoticPressure: string | null;
-  form: string;
+  chemicals: {
+    naIon: boolean;
+    caIon: boolean;
+    mgIon: boolean;
+    clIon: boolean;
+    hco3Ion: boolean;
+    so4Ion: boolean;
+    co2Ion: boolean;
+    feIon: boolean;
+    hIon: boolean;
+    iIon: boolean;
+    s: boolean;
+    rn: boolean;
+  } | null;
+  liquid: LiquidValueOption | null;
+  osmoticPressure: OsmoticPressureOption | null;
+  form: FormOption;
   isDayUse: boolean | undefined;
   url: string;
   description: string;

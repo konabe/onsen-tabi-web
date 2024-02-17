@@ -28,6 +28,7 @@ const OnsenForm: React.FC<Props> = ({
   onChange,
 }) => {
   const [name, setName] = useState<string>("");
+  const [userQuality, setUserQuality] = useState<string>("");
   const [quality, setQuality] = useState<string>("");
   const [chemicals, setChemicals] = useState<string[]>([]);
   const [liquid, setLiquid] = useState<LiquidValueOption | undefined>(
@@ -99,6 +100,8 @@ const OnsenForm: React.FC<Props> = ({
     await onSubmitClick?.({
       name,
       springQuality: quality,
+      springQualityUser: userQuality,
+      chemicals: (chemicals ?? []) as Chemical[],
       liquid: liquid !== undefined ? liquid : null,
       osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
       form,
@@ -107,7 +110,9 @@ const OnsenForm: React.FC<Props> = ({
       description,
     });
     setName("");
+    setUserQuality("");
     setQuality("");
+    setChemicals([]);
     setLiquid(undefined);
     setOsmoticPressure(undefined);
     setForm("sotoyu");
@@ -118,7 +123,9 @@ const OnsenForm: React.FC<Props> = ({
   useEffect(() => {
     onChange?.({
       name,
+      springQualityUser: userQuality,
       springQuality: quality,
+      chemicals: [],
       liquid: liquid !== undefined ? liquid : null,
       osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
       form,
@@ -134,12 +141,15 @@ const OnsenForm: React.FC<Props> = ({
     name,
     onChange,
     osmoticPressure,
+    userQuality,
     quality,
     url,
   ]);
 
   useEffect(() => {
     setName(value?.name ?? "");
+    setChemicals(value?.chemicals ?? []);
+    setUserQuality(value?.springQualityUser ?? "");
     setQuality(value?.springQuality ?? "");
     setLiquid(value?.liquid != null ? value.liquid : undefined);
     setOsmoticPressure(
@@ -165,8 +175,8 @@ const OnsenForm: React.FC<Props> = ({
         <div>
           <TextField
             label="泉質"
-            value={quality}
-            onChange={(value) => setQuality(value)}
+            value={userQuality}
+            onChange={(value) => setUserQuality(value)}
           />
         </div>
         <div>
