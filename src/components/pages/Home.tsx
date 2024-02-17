@@ -1,23 +1,22 @@
 import { useState } from "react";
-import {
-  AreaResponse,
-  getAreas,
-  postArea,
-} from "../../infrastructure/api/AreaApiModel";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 import Head from "../atoms/Head";
-import { useNavigate } from "react-router-dom";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
-import styled from "styled-components";
 import { CommonPageProps } from "../../App";
 import AreaForm from "../organisims/AreaForm";
-import { AreaModel } from "../../share/area";
+import { AreaEntity } from "../../domain/models/area";
+import Article from "../organisims/Article";
 
 const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+  const areaRepository = new AreaRepository();
+
   const navigate = useNavigate();
-  const [areas, setAreas] = useState<AreaResponse[]>([]);
+  const [areas, setAreas] = useState<AreaEntity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const noticeSentences = [
@@ -32,7 +31,7 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     try {
       await Promise.all([
         (async () => {
-          const areas = await getAreas();
+          const areas = await areaRepository.readAll();
           setAreas(areas);
         })(),
       ]);
@@ -40,9 +39,9 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
       navigate("/error");
     }
   };
-  const onAreaSubmitClick = async (area: AreaModel) => {
+  const onAreaSubmitClick = async (area: AreaEntity) => {
     try {
-      await postArea(area);
+      await areaRepository.create(area);
       loadPage();
     } catch {
       navigate("/error");
@@ -58,31 +57,41 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   });
 
   return (
-    <div>
-      <SNotice>
-        <Head emoji="📌" title="お知らせ" />
-        {noticeSentences.map((v, i) => (
-          <p key={i}>{v}</p>
-        ))}
-      </SNotice>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <Head emoji="🏞" title="温泉エリア一覧" />
-          <OnsenAreaList
-            areas={areas.filter((v) => isSignedIn || v.onsenIds.length > 0)}
-            prefectures={prefectures()}
-          />
-        </>
-      )}
-      {isSignedIn ? <AreaForm onSubmitClick={onAreaSubmitClick} /> : undefined}
-    </div>
+    <SContents>
+      <div>
+        <Article emoji="📌" title="お知らせ">
+          {noticeSentences.map((v, i) => (
+            <p key={i}>{v}</p>
+          ))}
+        </Article>
+      </div>
+      <div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Article emoji="🏞️" title="温泉エリア一覧">
+            <div>
+              <OnsenAreaList
+                areas={areas.filter((v) => isSignedIn || v.onsenIds.length > 0)}
+                prefectures={prefectures()}
+              />
+            </div>
+          </Article>
+        )}
+      </div>
+      {isSignedIn ? (
+        <div>
+          <AreaForm onSubmitClick={onAreaSubmitClick} />
+        </div>
+      ) : undefined}
+    </SContents>
   );
 };
 
 export default Home;
 
-const SNotice = styled.div`
-  margin-bottom: 40px;
+const SContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
 `;

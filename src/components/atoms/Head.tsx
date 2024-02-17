@@ -6,7 +6,7 @@ type Props = {
   title: string;
 };
 
-type HeadEmoji = "📌" | "🛏" | "♨" | "🏞";
+export type HeadEmoji = "📌" | "🏕️" | "♨" | "🏞️";
 
 const Head: React.FC<Props> = ({ emoji, title }) => {
   return (

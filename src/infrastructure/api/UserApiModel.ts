@@ -1,4 +1,4 @@
-import { httpPost } from "./ApiClient";
+import { APIClient } from "./ApiClient";
 
 export type AuthResponse = {
   token: string;
@@ -12,11 +12,11 @@ export type AuthRequest = {
 export const postSignup = async (
   request: AuthRequest
 ): Promise<AuthResponse> => {
-  return await httpPost(`/signup`, request);
+  return await new APIClient().send("POST", "/signup", request);
 };
 
 export const postSignin = async (
   request: AuthRequest
 ): Promise<AuthResponse> => {
-  return await httpPost(`/signin`, request);
+  return await new APIClient().send("POST", "/signin", request);
 };

@@ -14,7 +14,8 @@ import Description from "../molecules/Description";
 import HotelForm from "../organisims/HotelForm";
 import { HotelModel } from "../../share/hotel";
 import { CommonPageProps } from "../../App";
-import Head from "../atoms/Head";
+import Article from "../organisims/Article";
+import RelatedContents from "../organisims/RelatedContents";
 
 const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -59,40 +60,46 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   });
 
   return (
-    <>
+    <SContents>
       {isLoading ? (
         <Loading />
       ) : (
-        <div>
-          <Head emoji="🛏" title={`${hotel?.name}`} />
-          <SContent>
-            和室{hotel?.hasWashitsu ? "あり" : "なし"}
-            <a href={hotel?.url} target="_blank" rel="noreferrer">
-              リンク
-            </a>
-            <Description text={hotel?.description ?? ""} />
-          </SContent>
-          <h2>温泉</h2>
-          <SContent>
-            {onsens?.map((onsen) => (
-              <div key={onsen.id}>
-                <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+        <>
+          <div>
+            <Article emoji="🏕️" title={`${hotel?.name}`}>
+              <div>
+                和室{hotel?.hasWashitsu ? "あり" : "なし"}
+                <a href={hotel?.url} target="_blank" rel="noreferrer">
+                  リンク
+                </a>
+                <Description text={hotel?.description ?? ""} />
               </div>
-            ))}
-            {isSignedIn ? (
-              <div style={{ marginTop: 20 }}>
-                <HotelForm value={hotel} onSubmitClick={onHotelSubmitClick} />
-              </div>
-            ) : undefined}
-          </SContent>
-        </div>
+            </Article>
+          </div>
+          <div>
+            <RelatedContents title="温泉">
+              {onsens?.map((onsen) => (
+                <div key={onsen.id}>
+                  <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+                </div>
+              ))}
+              {isSignedIn ? (
+                <div style={{ marginTop: 20 }}>
+                  <HotelForm value={hotel} onSubmitClick={onHotelSubmitClick} />
+                </div>
+              ) : undefined}
+            </RelatedContents>
+          </div>
+        </>
       )}
-    </>
+    </SContents>
   );
 };
 
 export default HotelDetail;
 
-const SContent = styled.div`
-  margin-bottom: 20px;
+const SContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
 `;

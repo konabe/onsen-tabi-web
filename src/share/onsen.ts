@@ -40,6 +40,8 @@ export const chemicalDictionary: Record<Chemical, string> = {
 export type OnsenModel = {
   name: string;
   springQuality: string;
+  springQualityUser: string;
+  chemicals: Chemical[];
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
   form: FormOption;

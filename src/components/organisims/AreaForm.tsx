@@ -5,13 +5,13 @@ import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
 import { subColor } from "../atoms/colors";
 import SingleCheckBox from "../atoms/SingleCheckBox";
-import { AreaModel } from "../../share/area";
+import { AreaEntity } from "../../domain/models/area";
 
 type Props = {
   formTitle?: string;
-  value?: AreaModel;
-  onChange?: (area: AreaModel) => void;
-  onSubmitClick?: (area: AreaModel) => Promise<void>;
+  value?: AreaEntity;
+  onChange?: (area: AreaEntity) => void;
+  onSubmitClick?: (area: AreaEntity) => Promise<void>;
 };
 
 const AreaForm: React.FC<Props> = ({
@@ -30,14 +30,18 @@ const AreaForm: React.FC<Props> = ({
   const onClick = async () => {
     const villageResult: string | undefined =
       village === "" ? undefined : village;
-    await onSubmitClick?.({
-      name,
-      prefecture,
-      nationalResort,
-      village: villageResult,
-      url,
-      description,
-    });
+    await onSubmitClick?.(
+      new AreaEntity({
+        id: -1,
+        name,
+        prefecture,
+        nationalResort,
+        village: villageResult,
+        url,
+        description,
+        onsenIds: [],
+      })
+    );
     setName("");
     setPrefecture("");
     setNationalResort(false);
@@ -48,26 +52,28 @@ const AreaForm: React.FC<Props> = ({
 
   useEffect(() => {
     onChange?.({
+      id: -1,
       name,
       prefecture,
-      nationalResort,
+      isNationalResort: nationalResort,
       village,
       url,
       description,
+      onsenIds: [],
     });
   }, [description, nationalResort, village, prefecture, name, onChange, url]);
 
   useEffect(() => {
     setName(value?.name ?? "");
     setPrefecture(value?.prefecture ?? "");
-    setNationalResort(value?.nationalResort ?? false);
+    setNationalResort(value?.isNationalResort ?? false);
     setVillage(value?.village ?? "");
     setURL(value?.url ?? "");
     setDescription(value?.description ?? "");
   }, [value]);
 
   return (
-    <SCreateCormContainer>
+    <div>
       <SFieldSet>
         {formTitle !== undefined ? <legend>{formTitle}</legend> : undefined}
         <div>
@@ -108,15 +114,11 @@ const AreaForm: React.FC<Props> = ({
         </div>
         <Button title="送信" onClick={onClick} />
       </SFieldSet>
-    </SCreateCormContainer>
+    </div>
   );
 };
 
 export default AreaForm;
-
-const SCreateCormContainer = styled.div`
-  margin-top: 20px;
-`;
 
 const SFieldSet = styled.fieldset`
   border-color: ${subColor};

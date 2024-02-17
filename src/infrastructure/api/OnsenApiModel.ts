@@ -5,7 +5,7 @@ import {
   OnsenModel,
   OsmoticPressureOption,
 } from "../../share/onsen";
-import { httpGet, httpPost, httpPut } from "./ApiClient";
+import { APIClient } from "./ApiClient";
 
 export type OnsenResponse = {
   id: number;
@@ -15,16 +15,26 @@ export type OnsenResponse = {
   };
 } & OnsenModel;
 
-export type PutOnsenDescriptionRequest = {
-  description: string;
-};
-
 export type OnsenRequest = {
   name: string;
   springQuality: string;
-  liquid: string | null;
-  osmoticPressure: string | null;
-  form: string;
+  chemicals: {
+    naIon: boolean;
+    caIon: boolean;
+    mgIon: boolean;
+    clIon: boolean;
+    hco3Ion: boolean;
+    so4Ion: boolean;
+    co2Ion: boolean;
+    feIon: boolean;
+    hIon: boolean;
+    iIon: boolean;
+    s: boolean;
+    rn: boolean;
+  } | null;
+  liquid: LiquidValueOption | null;
+  osmoticPressure: OsmoticPressureOption | null;
+  form: FormOption;
   isDayUse: boolean | undefined;
   url: string;
   description: string;
@@ -70,30 +80,25 @@ export const getOnsens = async (
   areaId?: number,
   hotelId?: number
 ): Promise<OnsenResponse[]> => {
-  return await httpGet("/onsen", { area_id: areaId, hotel_id: hotelId });
+  return await new APIClient().send("GET", "/onsen", {
+    area_id: areaId,
+    hotel_id: hotelId,
+  });
 };
 
 export const getOnsen = async (id: number): Promise<OnsenResponse> => {
-  return await httpGet(`/onsen/${id}`);
+  return await new APIClient().send("GET", `/onsen/${id}`);
 };
 
 export const putOnsen = async (
   id: number,
   request: OnsenRequest
 ): Promise<void> => {
-  return await httpPut(`/onsen/${id}`, request);
-};
-
-export const putOnsenDescription = async (
-  id: number,
-  description: string
-): Promise<void> => {
-  const request: PutOnsenDescriptionRequest = { description };
-  return await httpPut(`/onsen/${id}/description`, request);
+  return await new APIClient().send("PUT", `/onsen/${id}`, request);
 };
 
 export const postOnsen = async (
   request: OnsenRequest
 ): Promise<OnsenResponse> => {
-  return await httpPost(`/onsen`, request);
+  return await new APIClient().send("POST", "/onsen", request);
 };
