@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  AreaRepository,
   AreaResponse,
-  getArea,
-  putArea,
-} from "../../infrastructure/api/AreaApiModel";
+} from "../../infrastructure/repositories/areaRepository";
 import {
   HotelResponse,
   getHotels,
@@ -24,6 +23,8 @@ import Head from "../atoms/Head";
 import Tag from "../atoms/Tag";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+  const areaRepository = new AreaRepository();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +39,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     try {
       await Promise.all([
         (async () => {
-          const area = await getArea(Number(id));
+          const area = await areaRepository.readArea(Number(id));
           setArea(area);
         })(),
         (async () => {
@@ -57,7 +58,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const onAreaSubmitClick = async (area: AreaModel) => {
     try {
-      await putArea(Number(id), area);
+      await areaRepository.updateArea(Number(id), area);
       loadPage();
     } catch {
       navigate("/error");

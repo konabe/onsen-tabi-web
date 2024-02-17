@@ -1,9 +1,8 @@
 import { useState } from "react";
 import {
+  AreaRepository,
   AreaResponse,
-  getAreas,
-  postArea,
-} from "../../infrastructure/api/AreaApiModel";
+} from "../../infrastructure/repositories/areaRepository";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 import Head from "../atoms/Head";
@@ -16,6 +15,8 @@ import AreaForm from "../organisims/AreaForm";
 import { AreaModel } from "../../share/area";
 
 const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+  const areaRepository = new AreaRepository();
+
   const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +33,7 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     try {
       await Promise.all([
         (async () => {
-          const areas = await getAreas();
+          const areas = await areaRepository.readAreaAll();
           setAreas(areas);
         })(),
       ]);
@@ -42,7 +43,7 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   };
   const onAreaSubmitClick = async (area: AreaModel) => {
     try {
-      await postArea(area);
+      await areaRepository.createArea(area);
       loadPage();
     } catch {
       navigate("/error");
