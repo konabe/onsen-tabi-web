@@ -5,10 +5,6 @@ export type HotelResponse = {
   id: number;
 } & HotelModel;
 
-export type PutHotelDescriptionRequest = {
-  description: string;
-};
-
 export type HotelRequest = {
   name: string;
   hasWashitsu: boolean;
@@ -29,14 +25,6 @@ export const putHotel = async (
   request: HotelRequest
 ): Promise<void> => {
   return await httpPut(`/hotel/${id}`, request);
-};
-
-export const putHotelDescription = async (
-  id: number,
-  description: string
-): Promise<void> => {
-  const request: PutHotelDescriptionRequest = { description };
-  return await httpPut(`/hotel/${id}/description`, request);
 };
 
 export const postHotel = async (

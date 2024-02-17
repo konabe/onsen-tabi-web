@@ -8,10 +8,6 @@ export type AreaResponse = AreaModel & {
   onsenIds: number[];
 };
 
-export type PutAreaDescriptionRequest = {
-  description: string;
-};
-
 export const getAreas = async (): Promise<AreaResponse[]> => {
   return await httpGet("/area");
 };
@@ -25,14 +21,6 @@ export const putArea = async (
   request: AreaRequest
 ): Promise<void> => {
   return await httpPut(`/area/${id}`, request);
-};
-
-export const putAreaDescription = async (
-  id: number,
-  description: string
-): Promise<void> => {
-  const request: PutAreaDescriptionRequest = { description };
-  return await httpPut(`/area/${id}/description`, request);
 };
 
 export const postArea = async (request: AreaRequest): Promise<AreaResponse> => {
