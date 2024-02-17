@@ -15,10 +15,6 @@ export type OnsenResponse = {
   };
 } & OnsenModel;
 
-export type PutOnsenDescriptionRequest = {
-  description: string;
-};
-
 export type OnsenRequest = {
   name: string;
   springQuality: string;
@@ -82,14 +78,6 @@ export const putOnsen = async (
   request: OnsenRequest
 ): Promise<void> => {
   return await httpPut(`/onsen/${id}`, request);
-};
-
-export const putOnsenDescription = async (
-  id: number,
-  description: string
-): Promise<void> => {
-  const request: PutOnsenDescriptionRequest = { description };
-  return await httpPut(`/onsen/${id}/description`, request);
 };
 
 export const postOnsen = async (
