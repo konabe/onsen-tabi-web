@@ -1,34 +1,32 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { getToken } from "../LocalStorage";
 
-const baseURL = () => process.env.REACT_APP_BASE_URL;
-
-export const httpGet = async <T>(path: string, query?: object): Promise<T> => {
-  const config: AxiosRequestConfig = {};
-  if (query !== undefined) {
-    config.params = { ...query };
+export class APIClient {
+  private _instance: AxiosInstance;
+  constructor() {
+    this._instance = axios.create({
+      baseURL: process.env.REACT_APP_BASE_URL,
+      timeout: 30_000,
+    });
   }
-  config.headers = { Authorization: `Bearer ${getToken()}` };
-  const response = await axios.get(`${baseURL()}${path}`, config);
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as T;
-};
 
-export const httpPut = async <T>(path: string, data: object): Promise<T> => {
-  const config: AxiosRequestConfig = {};
-  config.headers = { Authorization: `Bearer ${getToken()}` };
-  const response = await axios.put(`${baseURL()}${path}`, data, config);
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as T;
-};
-
-export const httpPost = async <T>(path: string, data: object): Promise<T> => {
-  const config: AxiosRequestConfig = {};
-  config.headers = { Authorization: `Bearer ${getToken()}` };
-  const response = await axios.post(`${baseURL()}${path}`, data, config);
-  const responseData = JSON.parse(JSON.stringify(response.data));
-  return responseData as T;
-};
+  async send(method: "GET" | "POST" | "PUT", path: string, data?: object) {
+    const extraConfig = {
+      params: method === "GET" ? data : undefined,
+      data: ["POST", "PUT"].includes(method) ? data : undefined,
+    };
+    const response = await this._instance.request({
+      method,
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+      },
+      url: path,
+      ...extraConfig,
+    });
+    return response.data;
+  }
+}
 
 export const delayForDev = async () => {
   return await new Promise<void>((resolve, _) => {

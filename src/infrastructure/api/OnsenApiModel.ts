@@ -5,7 +5,7 @@ import {
   OnsenModel,
   OsmoticPressureOption,
 } from "../../share/onsen";
-import { httpGet, httpPost, httpPut } from "./ApiClient";
+import { APIClient } from "./ApiClient";
 
 export type OnsenResponse = {
   id: number;
@@ -80,22 +80,25 @@ export const getOnsens = async (
   areaId?: number,
   hotelId?: number
 ): Promise<OnsenResponse[]> => {
-  return await httpGet("/onsen", { area_id: areaId, hotel_id: hotelId });
+  return await new APIClient().send("GET", "/onsen", {
+    area_id: areaId,
+    hotel_id: hotelId,
+  });
 };
 
 export const getOnsen = async (id: number): Promise<OnsenResponse> => {
-  return await httpGet(`/onsen/${id}`);
+  return await new APIClient().send("GET", `/onsen/${id}`);
 };
 
 export const putOnsen = async (
   id: number,
   request: OnsenRequest
 ): Promise<void> => {
-  return await httpPut(`/onsen/${id}`, request);
+  return await new APIClient().send("PUT", `/onsen/${id}`, request);
 };
 
 export const postOnsen = async (
   request: OnsenRequest
 ): Promise<OnsenResponse> => {
-  return await httpPost(`/onsen`, request);
+  return await new APIClient().send("POST", "/onsen", request);
 };
