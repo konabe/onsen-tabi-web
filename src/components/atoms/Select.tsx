@@ -2,18 +2,33 @@ import Select, { GroupBase, OptionsOrGroups } from "react-select";
 import { mainColor, subColor } from "./colors";
 import styled from "styled-components";
 
-type Props = {
-  label?: string;
-  options: OptionsOrGroups<any, GroupBase<any>>;
-  value: any;
-  defaultValue: any;
-  onChange: (v: any) => void;
-};
+type ValueType = any;
+type Option = { key: string; value: string };
+
+type Props =
+  | {
+      label?: string;
+      options: OptionsOrGroups<any, GroupBase<any>>;
+    } & (
+      | {
+          isMulti: false;
+          value: ValueType;
+          defaultValue: ValueType;
+          onChange: (v: Option) => void;
+        }
+      | {
+          isMulti: true;
+          value: ValueType[];
+          defaultValue: ValueType[];
+          onChange: (v: Option[]) => void;
+        }
+    );
 
 const MySelect: React.FC<Props> = ({
   label,
   options,
   value,
+  isMulti,
   defaultValue,
   onChange,
 }) => {
@@ -22,6 +37,7 @@ const MySelect: React.FC<Props> = ({
       options={options}
       value={value}
       defaultValue={defaultValue}
+      isMulti={isMulti ?? false}
       onChange={onChange}
       styles={{
         control: (provided, state) => ({

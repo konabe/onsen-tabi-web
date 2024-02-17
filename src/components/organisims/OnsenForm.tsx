@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "../atoms/Select";
 import {
+  Chemical,
   FormOption,
   LiquidValueOption,
   OnsenModel,
@@ -28,6 +29,7 @@ const OnsenForm: React.FC<Props> = ({
 }) => {
   const [name, setName] = useState<string>("");
   const [quality, setQuality] = useState<string>("");
+  const [chemicals, setChemicals] = useState<string[]>([]);
   const [liquid, setLiquid] = useState<LiquidValueOption | undefined>(
     undefined
   );
@@ -39,6 +41,23 @@ const OnsenForm: React.FC<Props> = ({
   const [url, setURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+  const chemicalsValueOptions: {
+    value: Chemical;
+    label: string;
+  }[] = [
+    { value: "NaIon", label: "ナトリウムイオン" },
+    { value: "CaIon", label: "カルシウムイオン" },
+    { value: "MgIon", label: "マグネシウムイオン" },
+    { value: "ClIon", label: "塩化物イオン" },
+    { value: "HCO3Ion", label: "炭酸水素イオン" },
+    { value: "SO4Ion", label: "硫酸イオン" },
+    { value: "CO2", label: "二酸化炭素" },
+    { value: "FeIon", label: "鉄イオン" },
+    { value: "HIon", label: "水素イオン" },
+    { value: "IIon", label: "ヨウ素イオン" },
+    { value: "S", label: "硫黄" },
+    { value: "Rn", label: "ラドン" },
+  ];
   const liquidValueOptions: {
     value: LiquidValueOption | undefined;
     label: string;
@@ -67,6 +86,9 @@ const OnsenForm: React.FC<Props> = ({
     { value: "uchiyu", label: "内湯" },
   ];
 
+  const chemicalsCurrentValue = chemicals?.map((v) =>
+    chemicalsValueOptions.find((c) => c.value === v)
+  );
   const liquidCurrentValue = liquidValueOptions.find((v) => v.value === liquid);
   const osmoticPressureCurrentValue = osmoticPressureOptions.find(
     (v) => v.value === osmoticPressure
@@ -149,11 +171,24 @@ const OnsenForm: React.FC<Props> = ({
         </div>
         <div>
           <Select
+            label="成分"
+            options={chemicalsValueOptions}
+            value={chemicalsCurrentValue}
+            isMulti={true}
+            defaultValue={[]}
+            onChange={(v) => setChemicals(v.map((c: any) => c.value))}
+          />
+        </div>
+        <div>
+          <Select
             label="液性"
             options={liquidValueOptions}
             value={liquidCurrentValue}
+            isMulti={false}
             defaultValue={undefined}
-            onChange={(v) => setLiquid(v?.value)}
+            onChange={(v) =>
+              setLiquid(v?.value as LiquidValueOption | undefined)
+            }
           />
         </div>
         <div>
@@ -161,8 +196,11 @@ const OnsenForm: React.FC<Props> = ({
             label="浸透圧"
             options={osmoticPressureOptions}
             value={osmoticPressureCurrentValue}
+            isMulti={false}
             defaultValue={undefined}
-            onChange={(v) => setOsmoticPressure(v?.value)}
+            onChange={(v) =>
+              setOsmoticPressure(v?.value as OsmoticPressureOption | undefined)
+            }
           />
         </div>
         <div>
@@ -170,8 +208,9 @@ const OnsenForm: React.FC<Props> = ({
             label="形態"
             options={formOptions}
             value={formCurrentValue}
+            isMulti={false}
             defaultValue={formOptions[0]}
-            onChange={(v) => setForm(v?.value ?? "sotoyu")}
+            onChange={(v) => setForm((v?.value ?? "sotoyu") as FormOption)}
           />
         </div>
         <div>
