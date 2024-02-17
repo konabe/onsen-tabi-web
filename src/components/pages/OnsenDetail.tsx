@@ -82,7 +82,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <span>
               <ChemicalTagContainer>
                 {onsen?.quality?.chemicals.map((c) => (
-                  <ChemicalTag chemical={c} />
+                  <ChemicalTag chemical={c} key={c} />
                 )) ?? "情報なし"}
               </ChemicalTagContainer>
             </span>
