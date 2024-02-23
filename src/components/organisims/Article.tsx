@@ -20,5 +20,5 @@ export default Article;
 const SContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 0px; // h2のマージンを消す
+  row-gap: 16px;
 `;

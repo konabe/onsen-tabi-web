@@ -5,9 +5,9 @@ import {
   Chemical,
   FormOption,
   LiquidValueOption,
-  OnsenModel,
+  OnsenEntity,
   OsmoticPressureOption,
-} from "../../share/onsen";
+} from "../../domain/models/onsen";
 import TextArea from "../atoms/TextArea";
 import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
@@ -16,9 +16,9 @@ import SingleCheckBox from "../atoms/SingleCheckBox";
 
 type Props = {
   formTitle?: string;
-  value?: OnsenModel;
-  onChange?: (onsen: OnsenModel) => void;
-  onSubmitClick?: (onsen: OnsenModel) => Promise<void>;
+  value?: OnsenEntity;
+  onChange?: (onsen: OnsenEntity) => void;
+  onSubmitClick?: (onsen: OnsenEntity) => Promise<void>;
 };
 
 const OnsenForm: React.FC<Props> = ({
@@ -97,18 +97,21 @@ const OnsenForm: React.FC<Props> = ({
   const formCurrentValue = formOptions.find((v) => v.value === form);
 
   const onClick = async () => {
-    await onSubmitClick?.({
-      name,
-      springQuality: quality,
-      springQualityUser: userQuality,
-      chemicals: (chemicals ?? []) as Chemical[],
-      liquid: liquid !== undefined ? liquid : null,
-      osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
-      form,
-      isDayUse,
-      url,
-      description,
-    });
+    await onSubmitClick?.(
+      new OnsenEntity({
+        id: -1,
+        name,
+        springQuality: quality,
+        springQualityUser: userQuality,
+        chemicals: (chemicals ?? []) as Chemical[],
+        liquid: liquid !== undefined ? liquid : null,
+        osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+        form,
+        isDayUse,
+        url,
+        description,
+      })
+    );
     setName("");
     setUserQuality("");
     setQuality("");
@@ -121,18 +124,21 @@ const OnsenForm: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    onChange?.({
-      name,
-      springQualityUser: userQuality,
-      springQuality: quality,
-      chemicals: [],
-      liquid: liquid !== undefined ? liquid : null,
-      osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
-      form,
-      isDayUse,
-      url,
-      description,
-    });
+    onChange?.(
+      new OnsenEntity({
+        id: -1,
+        name,
+        springQuality: quality,
+        springQualityUser: userQuality,
+        chemicals: (chemicals ?? []) as Chemical[],
+        liquid: liquid !== undefined ? liquid : null,
+        osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+        form,
+        isDayUse,
+        url,
+        description,
+      })
+    );
   }, [
     description,
     form,
@@ -144,6 +150,7 @@ const OnsenForm: React.FC<Props> = ({
     userQuality,
     quality,
     url,
+    chemicals,
   ]);
 
   useEffect(() => {
@@ -220,7 +227,7 @@ const OnsenForm: React.FC<Props> = ({
             value={formCurrentValue}
             isMulti={false}
             defaultValue={formOptions[0]}
-            onChange={(v) => setForm((v?.value ?? "sotoyu") as FormOption)}
+            onChange={(v) => setForm(v.value as FormOption)}
           />
         </div>
         <div>

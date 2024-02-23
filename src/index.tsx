@@ -7,10 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 import * as Sentry from "@sentry/react";
 
 Sentry.init({
-  dsn: process.env.REACT_APP_SENTRY_DSN,
+  dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [
     Sentry.browserTracingIntegration({
-      tracePropagationTargets: ["localhost", process.env.REACT_APP_BASE_URL!],
+      tracePropagationTargets: ["localhost", import.meta.env.VITE_BASE_URL!],
     }),
     Sentry.replayIntegration(),
     Sentry.feedbackIntegration({

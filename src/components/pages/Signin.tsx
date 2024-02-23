@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import { postSignin } from "../../infrastructure/api/UserApiModel";
 import { useNavigate } from "react-router-dom";
 import TextField from "../atoms/TextField";
 import Button from "../atoms/Button";
 import styled from "styled-components";
+import { UserRepository } from "../../infrastructure/repositories/userRepository";
 
 type Props = {
   onChangeToken: (token: string | undefined) => void;
 };
 
 const Signin: React.FC<Props> = ({ onChangeToken }) => {
+  const userRepository = new UserRepository();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const onClickSigninButton = async () => {
-    const response = await postSignin({ email, password });
-    onChangeToken(response.token);
+    const token = await userRepository.signIn(email, password);
+    onChangeToken(token);
     navigate("/");
   };
   const onClickSingoutButton = async () => {

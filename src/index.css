@@ -10,22 +10,6 @@ body {
   font-family: "Noto Sans JP", sans-serif;
 }
 
-h1 {
-  margin-bottom: 16px;
-  color: #173a3c;
-  font-size: 24px;
-  font-family: "BIZ UDPMincho";
-  font-weight: 400;
-}
-
-h2 {
-  margin-bottom: 8px;
-  color: #173a3c;
-  font-size: 20px;
-  font-family: "BIZ UDPMincho";
-  font-weight: 400;
-}
-
 a,
 a:hover,
 a:visited {
