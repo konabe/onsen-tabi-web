@@ -3,7 +3,7 @@ import { subColor } from "./colors";
 
 type Props = {
   title: string;
-  onClick: () => {};
+  onClick: () => void;
 };
 
 const Button: React.FC<Props> = ({ title, onClick }) => {

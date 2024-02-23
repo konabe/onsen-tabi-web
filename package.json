@@ -9,11 +9,21 @@
     "serve": "vite preview",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "sentry:sourcemaps": "npx sentry-cli sourcemaps inject --org onsen-tabi --project web ./build && npx sentry-cli sourcemaps upload --org onsen-tabi --project web ./build"
+    "sentry:sourcemaps": "npx sentry-cli sourcemaps inject --org onsen-tabi --project web ./build && npx sentry-cli sourcemaps upload --org onsen-tabi --project web ./build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@sentry/cli": "^2.20.5",
     "@sentry/react": "^7.100.1",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/addon-onboarding": "1.0.11",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/react": "^7.6.17",
+    "@storybook/react-vite": "^7.6.17",
+    "@storybook/test": "^7.6.17",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
@@ -23,6 +33,7 @@
     "@types/testing-library__user-event": "^4.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "axios": "^1.6.7",
+    "eslint-plugin-storybook": "^0.8.0",
     "happy-dom": "^13.4.1",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
@@ -30,6 +41,7 @@
     "react-router-dom": "^6.14.2",
     "react-select": "^5.7.4",
     "react-use": "^17.4.0",
+    "storybook": "^7.6.17",
     "styled-components": "^6.1.8",
     "typescript": "^5.3.3",
     "vite": "^5.1.4",
@@ -39,7 +51,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
