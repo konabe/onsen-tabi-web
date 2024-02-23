@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import "sanitize.css";
-import "sanitize.css/forms.css";
-import "sanitize.css/typography.css";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
