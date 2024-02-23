@@ -12,7 +12,6 @@ const SubHead: React.FC<Props> = ({ title }) => {
 export default SubHead;
 
 const SH2 = styled.h2`
-  margin-bottom: 8px;
   color: ${subColor};
   font-size: 20px;
   font-family: "BIZ UDPMincho";

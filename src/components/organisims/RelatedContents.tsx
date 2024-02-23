@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import SubHead from "../atoms/SubHead";
 
 const RelatedContents: React.FC<{
@@ -5,11 +6,19 @@ const RelatedContents: React.FC<{
   children: React.ReactNode;
 }> = ({ title, children }) => {
   return (
-    <div>
-      <SubHead title={title} />
-      {children}
-    </div>
+    <SContainer>
+      <div>
+        <SubHead title={title} />
+      </div>
+      <div>{children}</div>
+    </SContainer>
   );
 };
 
 export default RelatedContents;
+
+const SContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+`;

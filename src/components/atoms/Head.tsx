@@ -19,7 +19,6 @@ const Head: React.FC<Props> = ({ emoji, title }) => {
 export default Head;
 
 const SH1 = styled.h1`
-  margin-bottom: 16px;
   color: ${subColor};
   font-size: 24px;
   font-family: "BIZ UDPMincho";
