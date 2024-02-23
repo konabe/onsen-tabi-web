@@ -19,6 +19,7 @@ import { CommonPageProps } from "../../App";
 import Head from "../atoms/Head";
 import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
+import RelatedContents from "../organisims/RelatedContents";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const { id } = useParams();
@@ -89,57 +90,58 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title={`${onsen?.name}`}>
               <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
               <Description text={onsen?.description ?? ""} />
-              <h2>温泉データ</h2>
-              <a href={onsen?.url} target="_blank" rel="noreferrer">
-                リンク
-              </a>
-              <Info>
-                <InfoTitle>泉質</InfoTitle>
-                <span>
-                  {onsen?.springQuality}{" "}
-                  {onsen?.springQualityUser !== ""
-                    ? `(${onsen?.springQualityUser})`
-                    : ""}
-                </span>
-              </Info>
-              <Info>
-                <InfoTitle>成分タグ</InfoTitle>
-                <span>
-                  <ChemicalTagContainer>
-                    {onsen?.chemicals.map((c) => (
-                      <ChemicalTag chemical={c} key={c} />
-                    )) ?? "情報なし"}
-                  </ChemicalTagContainer>
-                </span>
-              </Info>
-              <Info>
-                <InfoTitle>液性</InfoTitle>
-                <span>
-                  {onsen?.liquid != null
-                    ? getLiquidText(onsen.liquid)
-                    : "情報なし"}
-                </span>
-              </Info>
-              <Info>
-                <InfoTitle>浸透圧</InfoTitle>
-                <span>
-                  {onsen?.osmoticPressure != null
-                    ? getOsmoticPressureText(onsen.osmoticPressure)
-                    : "情報なし"}
-                </span>
-              </Info>
-              <Info>
-                <InfoTitle>営業形態</InfoTitle>
-                <span>
-                  {onsen?.form != null ? getFormText(onsen.form) : "情報なし"}
-                </span>
-              </Info>
-              {onsen?.isDayUse != null ? (
+              <RelatedContents title="温泉データ">
+                <a href={onsen?.url} target="_blank" rel="noreferrer">
+                  リンク
+                </a>
                 <Info>
-                  <InfoTitle>日帰り入浴</InfoTitle>
-                  <span>{onsen.isDayUse ? "あり" : "なし"}</span>
+                  <InfoTitle>泉質</InfoTitle>
+                  <span>
+                    {onsen?.springQuality}{" "}
+                    {onsen?.springQualityUser !== ""
+                      ? `(${onsen?.springQualityUser})`
+                      : ""}
+                  </span>
                 </Info>
-              ) : undefined}
+                <Info>
+                  <InfoTitle>成分タグ</InfoTitle>
+                  <span>
+                    <ChemicalTagContainer>
+                      {onsen?.chemicals.map((c) => (
+                        <ChemicalTag chemical={c} key={c} />
+                      )) ?? "情報なし"}
+                    </ChemicalTagContainer>
+                  </span>
+                </Info>
+                <Info>
+                  <InfoTitle>液性</InfoTitle>
+                  <span>
+                    {onsen?.liquid != null
+                      ? getLiquidText(onsen.liquid)
+                      : "情報なし"}
+                  </span>
+                </Info>
+                <Info>
+                  <InfoTitle>浸透圧</InfoTitle>
+                  <span>
+                    {onsen?.osmoticPressure != null
+                      ? getOsmoticPressureText(onsen.osmoticPressure)
+                      : "情報なし"}
+                  </span>
+                </Info>
+                <Info>
+                  <InfoTitle>営業形態</InfoTitle>
+                  <span>
+                    {onsen?.form != null ? getFormText(onsen.form) : "情報なし"}
+                  </span>
+                </Info>
+                {onsen?.isDayUse != null ? (
+                  <Info>
+                    <InfoTitle>日帰り入浴</InfoTitle>
+                    <span>{onsen.isDayUse ? "あり" : "なし"}</span>
+                  </Info>
+                ) : undefined}
+              </RelatedContents>
             </Article>
           </div>
           {isSignedIn ? (
