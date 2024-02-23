@@ -1,6 +1,45 @@
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
+import {
+  Chemical,
+  FormOption,
+  LiquidValueOption,
+  OnsenModel,
+  OsmoticPressureOption,
+} from "../../share/onsen";
 import { APIClient } from "../api/ApiClient";
-import { OnsenRequest, OnsenResponse } from "../api/OnsenApiModel";
+
+export type OnsenResponse = {
+  id: number;
+  quality?: {
+    name: string;
+    chemicals: Chemical[];
+  };
+} & OnsenModel;
+
+export type OnsenRequest = {
+  name: string;
+  springQuality: string;
+  chemicals: {
+    naIon: boolean;
+    caIon: boolean;
+    mgIon: boolean;
+    clIon: boolean;
+    hco3Ion: boolean;
+    so4Ion: boolean;
+    co2Ion: boolean;
+    feIon: boolean;
+    hIon: boolean;
+    iIon: boolean;
+    s: boolean;
+    rn: boolean;
+  } | null;
+  liquid: LiquidValueOption | null;
+  osmoticPressure: OsmoticPressureOption | null;
+  form: FormOption;
+  isDayUse: boolean | undefined;
+  url: string;
+  description: string;
+};
 
 export class OnsenRepository implements IOnsenRepository {
   constructor(private _apiClient: APIClient = new APIClient()) {}

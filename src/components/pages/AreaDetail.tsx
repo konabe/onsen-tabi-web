@@ -5,7 +5,6 @@ import {
   HotelResponse,
   getHotels,
 } from "../../infrastructure/api/HotelApiModel";
-import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
@@ -16,7 +15,10 @@ import AreaForm from "../organisims/AreaForm";
 import Tag from "../atoms/Tag";
 import RelatedContents from "../organisims/RelatedContents";
 import Article from "../organisims/Article";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import {
+  OnsenRepository,
+  OnsenResponse,
+} from "../../infrastructure/repositories/onsenRepository";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const areaRepository = new AreaRepository();

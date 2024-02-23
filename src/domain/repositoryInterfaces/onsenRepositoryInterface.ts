@@ -1,7 +1,7 @@
 import {
   OnsenRequest,
   OnsenResponse,
-} from "../../infrastructure/api/OnsenApiModel";
+} from "../../infrastructure/repositories/onsenRepository";
 
 export interface IOnsenRepository {
   create: (onsen: OnsenRequest) => Promise<OnsenResponse>;

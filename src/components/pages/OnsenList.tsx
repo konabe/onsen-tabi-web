@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
@@ -8,7 +7,10 @@ import OnsenForm from "../organisims/OnsenForm";
 import { OnsenModel } from "../../share/onsen";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import {
+  OnsenRepository,
+  OnsenResponse,
+} from "../../infrastructure/repositories/onsenRepository";
 
 const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();

@@ -6,7 +6,7 @@ import {
   getFormText,
   getLiquidText,
   getOsmoticPressureText,
-} from "../../infrastructure/api/OnsenApiModel";
+} from "../../share/onsen";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";

@@ -5,7 +5,6 @@ import {
   getHotel,
   putHotel,
 } from "../../infrastructure/api/HotelApiModel";
-import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
@@ -15,7 +14,10 @@ import { HotelModel } from "../../share/hotel";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import {
+  OnsenRepository,
+  OnsenResponse,
+} from "../../infrastructure/repositories/onsenRepository";
 
 const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();

@@ -49,3 +49,38 @@ export type OnsenModel = {
   url: string;
   description: string;
 };
+export const getLiquidText = (option: LiquidValueOption) => {
+  switch (option) {
+    case "acidic":
+      return "酸性";
+    case "mildly_acidic":
+      return "弱酸性";
+    case "neutral":
+      return "中性";
+    case "mildly_alkaline":
+      return "弱アルカリ性";
+    case "alkaline":
+      return "アルカリ性";
+  }
+};
+
+export const getOsmoticPressureText = (option: OsmoticPressureOption) => {
+  switch (option) {
+    case "hypotonic":
+      return "低張性";
+    case "isotonic":
+      return "等張性";
+    case "hypertonic":
+      return "高張性";
+  }
+};
+
+// 内風呂、露天風呂とは区別する
+export const getFormText = (option: FormOption) => {
+  switch (option) {
+    case "sotoyu":
+      return "外湯";
+    case "uchiyu":
+      return "内湯";
+  }
+};
