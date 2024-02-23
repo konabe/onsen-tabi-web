@@ -5,7 +5,6 @@ import {
   getHotel,
   putHotel,
 } from "../../infrastructure/api/HotelApiModel";
-import { getOnsens } from "../../infrastructure/api/OnsenApiModel";
 import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
@@ -16,8 +15,11 @@ import { HotelModel } from "../../share/hotel";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 
 const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+  const onsenRepository = new OnsenRepository();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +35,7 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           setHotel(hotel);
         })(),
         (async () => {
-          const onsens = await getOnsens(undefined, Number(id));
+          const onsens = await onsenRepository.readAll(undefined, Number(id));
           setOnsens(onsens);
         })(),
       ]);

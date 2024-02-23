@@ -5,10 +5,7 @@ import {
   HotelResponse,
   getHotels,
 } from "../../infrastructure/api/HotelApiModel";
-import {
-  OnsenResponse,
-  getOnsens,
-} from "../../infrastructure/api/OnsenApiModel";
+import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
@@ -16,13 +13,14 @@ import Description from "../molecules/Description";
 import { CommonPageProps } from "../../App";
 import { AreaEntity } from "../../domain/models/area";
 import AreaForm from "../organisims/AreaForm";
-import Head from "../atoms/Head";
 import Tag from "../atoms/Tag";
 import RelatedContents from "../organisims/RelatedContents";
 import Article from "../organisims/Article";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const areaRepository = new AreaRepository();
+  const onsenRepository = new OnsenRepository();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -46,7 +44,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           setHotels(hotels);
         })(),
         (async () => {
-          const onsens = await getOnsens(Number(id));
+          const onsens = await onsenRepository.readAll(Number(id));
           setOnsens(onsens);
         })(),
       ]);

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  getOnsens,
   OnsenResponse,
   postOnsen,
 } from "../../infrastructure/api/OnsenApiModel";
@@ -12,8 +11,11 @@ import OnsenForm from "../organisims/OnsenForm";
 import { OnsenModel } from "../../share/onsen";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 
 const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+  const onsenRepository = new OnsenRepository();
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,7 +25,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     try {
       await Promise.all([
         (async () => {
-          const onsens = await getOnsens();
+          const onsens = await onsenRepository.readAll();
           setOnsens(onsens);
         })(),
       ]);

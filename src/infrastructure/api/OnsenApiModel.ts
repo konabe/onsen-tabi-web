@@ -76,16 +76,6 @@ export const getFormText = (option: FormOption) => {
   }
 };
 
-export const getOnsens = async (
-  areaId?: number,
-  hotelId?: number
-): Promise<OnsenResponse[]> => {
-  return await new APIClient().send("GET", "/onsen", {
-    area_id: areaId,
-    hotel_id: hotelId,
-  });
-};
-
 export const getOnsen = async (id: number): Promise<OnsenResponse> => {
   return await new APIClient().send("GET", `/onsen/${id}`);
 };
