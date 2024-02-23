@@ -24,22 +24,30 @@ export class HotelRepository implements IHotelRepository {
     const request: HotelRequest = {
       ...hotel,
     };
-    const response = await this._apiClient.send("POST", "/hotel", request);
+    const response: HotelResponse = await this._apiClient.send(
+      "POST",
+      "/hotel",
+      request
+    );
     return new HotelEntity(response);
   }
 
   async readAll(areaId?: number): Promise<HotelEntity[]> {
-    const response = (await this._apiClient.send("GET", "/hotel", {
-      area_id: areaId,
-    })) as HotelResponse[];
+    const response: HotelResponse[] = await this._apiClient.send(
+      "GET",
+      "/hotel",
+      {
+        area_id: areaId,
+      }
+    );
     return response.map((hotel) => new HotelEntity(hotel));
   }
 
   async read(id: number): Promise<HotelEntity> {
-    const response = (await this._apiClient.send(
+    const response: HotelResponse = await this._apiClient.send(
       "GET",
       `/hotel/${id}`
-    )) as HotelResponse;
+    );
     return new HotelEntity(response);
   }
 

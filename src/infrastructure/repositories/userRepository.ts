@@ -17,11 +17,11 @@ export class UserRepository {
       email,
       password,
     };
-    const response = (await this._apiClient.send(
+    const response: AuthResponse = await this._apiClient.send(
       "POST",
       "/signup",
       request
-    )) as AuthResponse;
+    );
     return response.token;
   }
 
@@ -30,11 +30,11 @@ export class UserRepository {
       email,
       password,
     };
-    const response = (await this._apiClient.send(
+    const response: AuthResponse = await this._apiClient.send(
       "POST",
       "/signin",
       request
-    )) as AuthResponse;
+    );
     return response.token;
   }
 }

@@ -73,15 +73,23 @@ export class OnsenRepository implements IOnsenRepository {
         rn: onsen.chemicals.includes("Rn"),
       },
     };
-    const response = await this._apiClient.send("POST", "/onsen", request);
+    const response: OnsenResponse = await this._apiClient.send(
+      "POST",
+      "/onsen",
+      request
+    );
     return new OnsenEntity(response);
   }
 
   async readAll(areaId?: number, hotelId?: number): Promise<OnsenEntity[]> {
-    const repsonse = await this._apiClient.send("GET", "/onsen", {
-      area_id: areaId,
-      hotel_id: hotelId,
-    });
+    const repsonse: OnsenResponse[] = await this._apiClient.send(
+      "GET",
+      "/onsen",
+      {
+        area_id: areaId,
+        hotel_id: hotelId,
+      }
+    );
     return repsonse.map(
       (v: OnsenResponse) =>
         new OnsenEntity({
@@ -94,7 +102,10 @@ export class OnsenRepository implements IOnsenRepository {
   }
 
   async read(id: number): Promise<OnsenEntity> {
-    const response = await this._apiClient.send("GET", `/onsen/${id}`);
+    const response: OnsenResponse = await this._apiClient.send(
+      "GET",
+      `/onsen/${id}`
+    );
     return new OnsenEntity({
       ...response,
       chemicals: response.quality?.chemicals ?? [],
@@ -122,6 +133,6 @@ export class OnsenRepository implements IOnsenRepository {
         rn: onsen.chemicals.includes("Rn"),
       },
     };
-    return await this._apiClient.send("PUT", `/onsen/${id}`, request);
+    await this._apiClient.send("PUT", `/onsen/${id}`, request);
   }
 }
