@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  OnsenResponse,
-  postOnsen,
-} from "../../infrastructure/api/OnsenApiModel";
+import { OnsenResponse } from "../../infrastructure/api/OnsenApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
@@ -36,7 +33,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const onOnsenSubmitClick = async (onsen: OnsenModel) => {
     try {
-      await postOnsen({
+      await onsenRepository.create({
         ...onsen,
         springQuality: onsen.springQualityUser,
         chemicals: {

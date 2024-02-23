@@ -5,9 +5,7 @@ import headerCoverJpg from "../../header_cover.jpg";
 import {
   getFormText,
   getLiquidText,
-  getOnsen,
   getOsmoticPressureText,
-  putOnsen,
 } from "../../infrastructure/api/OnsenApiModel";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
@@ -16,12 +14,14 @@ import Description from "../molecules/Description";
 import OnsenForm from "../organisims/OnsenForm";
 import { OnsenModel } from "../../share/onsen";
 import { CommonPageProps } from "../../App";
-import Head from "../atoms/Head";
 import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+  const onsenRepository = new OnsenRepository();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +32,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     try {
       await Promise.all([
         (async () => {
-          const onsenResponse = await getOnsen(Number(id));
+          const onsenResponse = await onsenRepository.read(Number(id));
           setOnsen({
             ...onsenResponse,
             chemicals: onsenResponse?.quality?.chemicals ?? [],
@@ -48,7 +48,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const onOnsenSubmitClick = async (onsen: OnsenModel) => {
     try {
-      await putOnsen(Number(id), {
+      await onsenRepository.update(Number(id), {
         ...onsen,
         springQuality: onsen.springQualityUser,
         chemicals: {

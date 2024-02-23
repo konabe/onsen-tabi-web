@@ -75,20 +75,3 @@ export const getFormText = (option: FormOption) => {
       return "内湯";
   }
 };
-
-export const getOnsen = async (id: number): Promise<OnsenResponse> => {
-  return await new APIClient().send("GET", `/onsen/${id}`);
-};
-
-export const putOnsen = async (
-  id: number,
-  request: OnsenRequest
-): Promise<void> => {
-  return await new APIClient().send("PUT", `/onsen/${id}`, request);
-};
-
-export const postOnsen = async (
-  request: OnsenRequest
-): Promise<OnsenResponse> => {
-  return await new APIClient().send("POST", "/onsen", request);
-};
