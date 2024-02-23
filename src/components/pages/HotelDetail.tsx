@@ -14,10 +14,8 @@ import { HotelModel } from "../../share/hotel";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
-import {
-  OnsenRepository,
-  OnsenResponse,
-} from "../../infrastructure/repositories/onsenRepository";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { OnsenEntity } from "../../domain/models/onsen";
 
 const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -27,7 +25,7 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [hotel, setHotel] = useState<HotelResponse | undefined>(undefined);
-  const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>([]);
+  const [onsens, setOnsens] = useState<OnsenEntity[] | undefined>([]);
 
   const loadPage = async () => {
     try {

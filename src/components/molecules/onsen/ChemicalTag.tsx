@@ -1,4 +1,4 @@
-import { Chemical, chemicalDictionary } from "../../../share/onsen";
+import { Chemical, chemicalDictionary } from "../../../domain/models/onsen";
 import Tag from "../../atoms/Tag";
 
 type Props = {

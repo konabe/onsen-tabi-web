@@ -3,9 +3,9 @@ import {
   Chemical,
   FormOption,
   LiquidValueOption,
-  OnsenModel,
+  OnsenEntity,
   OsmoticPressureOption,
-} from "../../share/onsen";
+} from "../../domain/models/onsen";
 import { APIClient } from "../api/ApiClient";
 
 export type OnsenResponse = {
@@ -14,7 +14,17 @@ export type OnsenResponse = {
     name: string;
     chemicals: Chemical[];
   };
-} & OnsenModel;
+  name: string;
+  springQuality: string;
+  springQualityUser: string;
+  chemicals: Chemical[];
+  liquid: LiquidValueOption | null;
+  osmoticPressure: OsmoticPressureOption | null;
+  form: FormOption;
+  isDayUse: boolean | undefined;
+  url: string;
+  description: string;
+};
 
 export type OnsenRequest = {
   name: string;
@@ -44,22 +54,74 @@ export type OnsenRequest = {
 export class OnsenRepository implements IOnsenRepository {
   constructor(private _apiClient: APIClient = new APIClient()) {}
 
-  async create(onsen: OnsenRequest): Promise<OnsenResponse> {
-    return await this._apiClient.send("POST", "/onsen", onsen);
+  async create(onsen: OnsenEntity): Promise<OnsenEntity> {
+    const request: OnsenRequest = {
+      ...onsen,
+      springQuality: onsen.springQualityUser,
+      chemicals: {
+        naIon: onsen.chemicals.includes("NaIon"),
+        caIon: onsen.chemicals.includes("CaIon"),
+        mgIon: onsen.chemicals.includes("MgIon"),
+        clIon: onsen.chemicals.includes("ClIon"),
+        hco3Ion: onsen.chemicals.includes("HCO3Ion"),
+        so4Ion: onsen.chemicals.includes("SO4Ion"),
+        co2Ion: onsen.chemicals.includes("CO2"),
+        feIon: onsen.chemicals.includes("FeIon"),
+        hIon: onsen.chemicals.includes("HIon"),
+        iIon: onsen.chemicals.includes("IIon"),
+        s: onsen.chemicals.includes("S"),
+        rn: onsen.chemicals.includes("Rn"),
+      },
+    };
+    const response = await this._apiClient.send("POST", "/onsen", request);
+    return new OnsenEntity(response);
   }
 
-  async readAll(areaId?: number, hotelId?: number): Promise<OnsenResponse[]> {
-    return await this._apiClient.send("GET", "/onsen", {
+  async readAll(areaId?: number, hotelId?: number): Promise<OnsenEntity[]> {
+    const repsonse = await this._apiClient.send("GET", "/onsen", {
       area_id: areaId,
       hotel_id: hotelId,
     });
+    return repsonse.map(
+      (v: OnsenResponse) =>
+        new OnsenEntity({
+          ...v,
+          chemicals: v.quality?.chemicals ?? [],
+          springQuality: v.quality?.name ?? "",
+          springQualityUser: v.springQuality,
+        })
+    );
   }
 
-  async read(id: number): Promise<OnsenResponse> {
-    return await this._apiClient.send("GET", `/onsen/${id}`);
+  async read(id: number): Promise<OnsenEntity> {
+    const response = await this._apiClient.send("GET", `/onsen/${id}`);
+    return new OnsenEntity({
+      ...response,
+      chemicals: response.quality?.chemicals ?? [],
+      springQuality: response.quality?.name ?? "",
+      springQualityUser: response.springQuality,
+    });
   }
 
-  async update(id: number, onsen: OnsenRequest): Promise<void> {
-    return await this._apiClient.send("PUT", `/onsen/${id}`, onsen);
+  async update(id: number, onsen: OnsenEntity): Promise<void> {
+    const request: OnsenRequest = {
+      ...onsen,
+      springQuality: onsen.springQualityUser,
+      chemicals: {
+        naIon: onsen.chemicals.includes("NaIon"),
+        caIon: onsen.chemicals.includes("CaIon"),
+        mgIon: onsen.chemicals.includes("MgIon"),
+        clIon: onsen.chemicals.includes("ClIon"),
+        hco3Ion: onsen.chemicals.includes("HCO3Ion"),
+        so4Ion: onsen.chemicals.includes("SO4Ion"),
+        co2Ion: onsen.chemicals.includes("CO2"),
+        feIon: onsen.chemicals.includes("FeIon"),
+        hIon: onsen.chemicals.includes("HIon"),
+        iIon: onsen.chemicals.includes("IIon"),
+        s: onsen.chemicals.includes("S"),
+        rn: onsen.chemicals.includes("Rn"),
+      },
+    };
+    return await this._apiClient.send("PUT", `/onsen/${id}`, request);
   }
 }

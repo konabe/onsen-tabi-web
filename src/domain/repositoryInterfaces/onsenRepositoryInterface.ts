@@ -1,11 +1,8 @@
-import {
-  OnsenRequest,
-  OnsenResponse,
-} from "../../infrastructure/repositories/onsenRepository";
+import { OnsenEntity } from "../models/onsen";
 
 export interface IOnsenRepository {
-  create: (onsen: OnsenRequest) => Promise<OnsenResponse>;
-  readAll: (areaId?: number, hotelId?: number) => Promise<OnsenResponse[]>;
-  read: (id: number) => Promise<OnsenResponse>;
-  update: (id: number, onsen: OnsenRequest) => Promise<void>;
+  create: (onsen: OnsenEntity) => Promise<OnsenEntity>;
+  readAll: (areaId?: number, hotelId?: number) => Promise<OnsenEntity[]>;
+  read: (id: number) => Promise<OnsenEntity>;
+  update: (id: number, onsen: OnsenEntity) => Promise<void>;
 }

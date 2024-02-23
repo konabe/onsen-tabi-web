@@ -4,13 +4,10 @@ import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import OnsenForm from "../organisims/OnsenForm";
-import { OnsenModel } from "../../share/onsen";
+import { OnsenEntity } from "../../domain/models/onsen";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
-import {
-  OnsenRepository,
-  OnsenResponse,
-} from "../../infrastructure/repositories/onsenRepository";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 
 const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -18,7 +15,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [onsens, setOnsens] = useState<OnsenResponse[]>([]);
+  const [onsens, setOnsens] = useState<OnsenEntity[]>([]);
 
   const loadPage = async () => {
     try {
@@ -33,26 +30,9 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     }
   };
 
-  const onOnsenSubmitClick = async (onsen: OnsenModel) => {
+  const onOnsenSubmitClick = async (onsen: OnsenEntity) => {
     try {
-      await onsenRepository.create({
-        ...onsen,
-        springQuality: onsen.springQualityUser,
-        chemicals: {
-          naIon: onsen.chemicals.includes("NaIon"),
-          caIon: onsen.chemicals.includes("CaIon"),
-          mgIon: onsen.chemicals.includes("MgIon"),
-          clIon: onsen.chemicals.includes("ClIon"),
-          hco3Ion: onsen.chemicals.includes("HCO3Ion"),
-          so4Ion: onsen.chemicals.includes("SO4Ion"),
-          co2Ion: onsen.chemicals.includes("CO2"),
-          feIon: onsen.chemicals.includes("FeIon"),
-          hIon: onsen.chemicals.includes("HIon"),
-          iIon: onsen.chemicals.includes("IIon"),
-          s: onsen.chemicals.includes("S"),
-          rn: onsen.chemicals.includes("Rn"),
-        },
-      });
+      await onsenRepository.create(onsen);
       loadPage();
     } catch {
       navigate("/error");

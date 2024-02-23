@@ -37,18 +37,6 @@ export const chemicalDictionary: Record<Chemical, string> = {
   Rn: "ラドン",
 };
 
-export type OnsenModel = {
-  name: string;
-  springQuality: string;
-  springQualityUser: string;
-  chemicals: Chemical[];
-  liquid: LiquidValueOption | null;
-  osmoticPressure: OsmoticPressureOption | null;
-  form: FormOption;
-  isDayUse: boolean | undefined;
-  url: string;
-  description: string;
-};
 export const getLiquidText = (option: LiquidValueOption) => {
   switch (option) {
     case "acidic":
@@ -75,12 +63,66 @@ export const getOsmoticPressureText = (option: OsmoticPressureOption) => {
   }
 };
 
-// 内風呂、露天風呂とは区別する
-export const getFormText = (option: FormOption) => {
-  switch (option) {
-    case "sotoyu":
-      return "外湯";
-    case "uchiyu":
-      return "内湯";
-  }
+type OnsenEntityParameter = {
+  id: number;
+  name: string;
+  springQuality: string;
+  springQualityUser: string;
+  chemicals: Chemical[];
+  liquid: LiquidValueOption | null;
+  osmoticPressure: OsmoticPressureOption | null;
+  form: FormOption;
+  isDayUse: boolean | undefined;
+  url: string;
+  description: string;
 };
+
+export class OnsenEntity {
+  readonly id: number;
+  readonly name: string;
+  readonly springQuality: string;
+  readonly springQualityUser: string;
+  readonly chemicals: Chemical[];
+  readonly liquid: LiquidValueOption | null;
+  readonly osmoticPressure: OsmoticPressureOption | null;
+  readonly form: FormOption;
+  readonly isDayUse: boolean | undefined;
+  readonly url: string;
+  readonly description: string;
+
+  constructor({
+    id,
+    name,
+    springQuality,
+    springQualityUser,
+    chemicals,
+    liquid,
+    osmoticPressure,
+    form,
+    isDayUse,
+    url,
+    description,
+  }: OnsenEntityParameter) {
+    this.id = id;
+    this.name = name;
+    this.springQuality = springQuality;
+    this.springQualityUser = springQualityUser;
+    this.chemicals = chemicals;
+    this.liquid = liquid;
+    this.osmoticPressure = osmoticPressure;
+    this.form = form;
+    this.isDayUse = isDayUse;
+    this.url = url;
+    this.description = description;
+  }
+
+  // 内風呂、露天風呂とは区別する
+  getFormText() {
+    switch (this.form) {
+      case "sotoyu":
+        return "外湯";
+      case "uchiyu":
+        return "内湯";
+    }
+  }
+}

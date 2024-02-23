@@ -15,10 +15,8 @@ import AreaForm from "../organisims/AreaForm";
 import Tag from "../atoms/Tag";
 import RelatedContents from "../organisims/RelatedContents";
 import Article from "../organisims/Article";
-import {
-  OnsenRepository,
-  OnsenResponse,
-} from "../../infrastructure/repositories/onsenRepository";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { OnsenEntity } from "../../domain/models/onsen";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const areaRepository = new AreaRepository();
@@ -30,7 +28,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const [area, setArea] = useState<AreaEntity | undefined>(undefined);
   const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
-  const [onsens, setOnsens] = useState<OnsenResponse[] | undefined>(undefined);
+  const [onsens, setOnsens] = useState<OnsenEntity[] | undefined>(undefined);
 
   const villageText = area?.village != null ? `${area.village}温泉郷、` : "";
 

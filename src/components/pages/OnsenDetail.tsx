@@ -3,16 +3,15 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import headerCoverJpg from "../../header_cover.jpg";
 import {
-  getFormText,
   getLiquidText,
   getOsmoticPressureText,
-} from "../../share/onsen";
+} from "../../domain/models/onsen";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import Description from "../molecules/Description";
 import OnsenForm from "../organisims/OnsenForm";
-import { OnsenModel } from "../../share/onsen";
+import { OnsenEntity } from "../../domain/models/onsen";
 import { CommonPageProps } from "../../App";
 import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
@@ -26,19 +25,14 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [onsen, setOnsen] = useState<OnsenModel | undefined>(undefined);
+  const [onsen, setOnsen] = useState<OnsenEntity | undefined>(undefined);
 
   const loadPage = async () => {
     try {
       await Promise.all([
         (async () => {
-          const onsenResponse = await onsenRepository.read(Number(id));
-          setOnsen({
-            ...onsenResponse,
-            chemicals: onsenResponse?.quality?.chemicals ?? [],
-            springQuality: onsenResponse?.quality?.name ?? "",
-            springQualityUser: onsenResponse?.springQuality ?? "",
-          });
+          const onsenEntity = await onsenRepository.read(Number(id));
+          setOnsen(onsenEntity);
         })(),
       ]);
     } catch {
@@ -46,26 +40,9 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     }
   };
 
-  const onOnsenSubmitClick = async (onsen: OnsenModel) => {
+  const onOnsenSubmitClick = async (onsen: OnsenEntity) => {
     try {
-      await onsenRepository.update(Number(id), {
-        ...onsen,
-        springQuality: onsen.springQualityUser,
-        chemicals: {
-          naIon: onsen.chemicals.includes("NaIon"),
-          caIon: onsen.chemicals.includes("CaIon"),
-          mgIon: onsen.chemicals.includes("MgIon"),
-          clIon: onsen.chemicals.includes("ClIon"),
-          hco3Ion: onsen.chemicals.includes("HCO3Ion"),
-          so4Ion: onsen.chemicals.includes("SO4Ion"),
-          co2Ion: onsen.chemicals.includes("CO2"),
-          feIon: onsen.chemicals.includes("FeIon"),
-          hIon: onsen.chemicals.includes("HIon"),
-          iIon: onsen.chemicals.includes("IIon"),
-          s: onsen.chemicals.includes("S"),
-          rn: onsen.chemicals.includes("Rn"),
-        },
-      });
+      await onsenRepository.update(Number(id), onsen);
       loadPage();
     } catch {
       navigate("/error");
@@ -132,7 +109,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                 <Info>
                   <InfoTitle>営業形態</InfoTitle>
                   <span>
-                    {onsen?.form != null ? getFormText(onsen.form) : "情報なし"}
+                    {onsen?.form != null ? onsen.getFormText() : "情報なし"}
                   </span>
                 </Info>
                 {onsen?.isDayUse != null ? (
