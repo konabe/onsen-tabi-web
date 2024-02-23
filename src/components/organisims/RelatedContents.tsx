@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { subColor } from "../atoms/colors";
+import SubHead from "../atoms/SubHead";
 
 const RelatedContents: React.FC<{
   title: string;
@@ -7,17 +6,10 @@ const RelatedContents: React.FC<{
 }> = ({ title, children }) => {
   return (
     <div>
-      <SH2>{title}</SH2>
+      <SubHead title={title} />
       {children}
     </div>
   );
 };
-export default RelatedContents;
 
-const SH2 = styled.h2`
-  margin-bottom: 8px;
-  color: ${subColor};
-  font-size: 20px;
-  font-family: "BIZ UDPMincho";
-  font-weight: 400;
-`;
+export default RelatedContents;

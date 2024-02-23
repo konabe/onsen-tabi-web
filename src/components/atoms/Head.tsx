@@ -10,14 +10,18 @@ export type HeadEmoji = "📌" | "🏕️" | "♨" | "🏞️";
 
 const Head: React.FC<Props> = ({ emoji, title }) => {
   return (
-    <SHead>
+    <SH1>
       {emoji} {title}
-    </SHead>
+    </SH1>
   );
 };
 
 export default Head;
 
-const SHead = styled.h1`
+const SH1 = styled.h1`
+  margin-bottom: 16px;
   color: ${subColor};
+  font-size: 24px;
+  font-family: "BIZ UDPMincho";
+  font-weight: 400;
 `;
