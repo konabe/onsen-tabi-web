@@ -37,32 +37,6 @@ export const chemicalDictionary: Record<Chemical, string> = {
   Rn: "ラドン",
 };
 
-export const getLiquidText = (option: LiquidValueOption) => {
-  switch (option) {
-    case "acidic":
-      return "酸性";
-    case "mildly_acidic":
-      return "弱酸性";
-    case "neutral":
-      return "中性";
-    case "mildly_alkaline":
-      return "弱アルカリ性";
-    case "alkaline":
-      return "アルカリ性";
-  }
-};
-
-export const getOsmoticPressureText = (option: OsmoticPressureOption) => {
-  switch (option) {
-    case "hypotonic":
-      return "低張性";
-    case "isotonic":
-      return "等張性";
-    case "hypertonic":
-      return "高張性";
-  }
-};
-
 type OnsenEntityParameter = {
   id: number;
   name: string;
@@ -123,6 +97,38 @@ export class OnsenEntity {
         return "外湯";
       case "uchiyu":
         return "内湯";
+    }
+  }
+
+  getLiquidText(): string | undefined {
+    if (this.liquid === null) {
+      return undefined;
+    }
+    switch (this.liquid) {
+      case "acidic":
+        return "酸性";
+      case "mildly_acidic":
+        return "弱酸性";
+      case "neutral":
+        return "中性";
+      case "mildly_alkaline":
+        return "弱アルカリ性";
+      case "alkaline":
+        return "アルカリ性";
+    }
+  }
+
+  getOsmoticPressureText(): string | undefined {
+    if (this.osmoticPressure === null) {
+      return undefined;
+    }
+    switch (this.osmoticPressure) {
+      case "hypotonic":
+        return "低張性";
+      case "isotonic":
+        return "等張性";
+      case "hypertonic":
+        return "高張性";
     }
   }
 }

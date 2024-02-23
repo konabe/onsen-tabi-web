@@ -2,10 +2,6 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import headerCoverJpg from "../../header_cover.jpg";
-import {
-  getLiquidText,
-  getOsmoticPressureText,
-} from "../../domain/models/onsen";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
@@ -92,19 +88,11 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                 </Info>
                 <Info>
                   <InfoTitle>液性</InfoTitle>
-                  <span>
-                    {onsen?.liquid != null
-                      ? getLiquidText(onsen.liquid)
-                      : "情報なし"}
-                  </span>
+                  <span>{onsen?.getLiquidText() ?? "情報なし"}</span>
                 </Info>
                 <Info>
                   <InfoTitle>浸透圧</InfoTitle>
-                  <span>
-                    {onsen?.osmoticPressure != null
-                      ? getOsmoticPressureText(onsen.osmoticPressure)
-                      : "情報なし"}
-                  </span>
+                  <span>{onsen?.getOsmoticPressureText() ?? "情報なし"}</span>
                 </Info>
                 <Info>
                   <InfoTitle>営業形態</InfoTitle>
