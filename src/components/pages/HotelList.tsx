@@ -1,29 +1,27 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  HotelResponse,
-  getHotels,
-  postHotel,
-} from "../../infrastructure/api/HotelApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import HotelForm from "../organisims/HotelForm";
 import { CommonPageProps } from "../../App";
-import { HotelModel } from "../../share/hotel";
+import { HotelEntity } from "../../domain/models/hotel";
 import Article from "../organisims/Article";
+import { HotelRepository } from "../../infrastructure/repositories/hotelRepository";
 
 const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
+  const hotelRepository = new HotelRepository();
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [hotels, setHotels] = useState<HotelResponse[]>([]);
+  const [hotels, setHotels] = useState<HotelEntity[]>([]);
 
   const loadPage = async () => {
     try {
       await Promise.all([
         (async () => {
-          const hotels = await getHotels();
+          const hotels = await hotelRepository.readAll();
           setHotels(hotels);
         })(),
       ]);
@@ -32,9 +30,9 @@ const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     }
   };
 
-  const onHotelSubmitClick = async (hotel: HotelModel) => {
+  const onHotelSubmitClick = async (hotel: HotelEntity) => {
     try {
-      await postHotel(hotel);
+      await hotelRepository.create(hotel);
       loadPage();
     } catch {
       navigate("/error");

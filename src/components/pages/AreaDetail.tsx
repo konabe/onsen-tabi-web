@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
-import {
-  HotelResponse,
-  getHotels,
-} from "../../infrastructure/api/HotelApiModel";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
@@ -17,10 +13,15 @@ import RelatedContents from "../organisims/RelatedContents";
 import Article from "../organisims/Article";
 import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 import { OnsenEntity } from "../../domain/models/onsen";
+import {
+  HotelRepository,
+  HotelResponse,
+} from "../../infrastructure/repositories/hotelRepository";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const areaRepository = new AreaRepository();
   const onsenRepository = new OnsenRepository();
+  const hoterRepository = new HotelRepository();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           setArea(areaEntity);
         })(),
         (async () => {
-          const hotels = await getHotels(Number(id));
+          const hotels = await hoterRepository.readAll(Number(id));
           setHotels(hotels);
         })(),
         (async () => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { HotelModel } from "../../share/hotel";
+import { HotelEntity } from "../../domain/models/hotel";
 import TextArea from "../atoms/TextArea";
 import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
@@ -9,9 +9,9 @@ import SingleCheckBox from "../atoms/SingleCheckBox";
 
 type Props = {
   formTitle?: string;
-  value?: HotelModel;
-  onChange?: (hotel: HotelModel) => void;
-  onSubmitClick?: (hotel: HotelModel) => Promise<void>;
+  value?: HotelEntity;
+  onChange?: (hotel: HotelEntity) => void;
+  onSubmitClick?: (hotel: HotelEntity) => Promise<void>;
 };
 
 const HotelForm: React.FC<Props> = ({
@@ -27,6 +27,7 @@ const HotelForm: React.FC<Props> = ({
 
   const onClick = async () => {
     await onSubmitClick?.({
+      id: -1,
       name,
       hasWashitsu,
       url,
@@ -40,6 +41,7 @@ const HotelForm: React.FC<Props> = ({
 
   useEffect(() => {
     onChange?.({
+      id: -1,
       name,
       hasWashitsu,
       url,
