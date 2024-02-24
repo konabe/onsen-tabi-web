@@ -1,11 +1,7 @@
-export type LiquidValueOption =
-  | "acidic"
-  | "mildly_acidic"
-  | "neutral"
-  | "mildly_alkaline"
-  | "alkaline";
+import { BusinessForm, FormOption } from "./onsen/businessForm";
+import { Liquid, LiquidValueOption } from "./onsen/liquid";
+
 export type OsmoticPressureOption = "hypotonic" | "isotonic" | "hypertonic";
-export type FormOption = "uchiyu" | "sotoyu";
 const chemicals = [
   "NaIon",
   "NaIon",
@@ -71,9 +67,9 @@ export class OnsenEntity {
   readonly springQuality: string;
   readonly springQualityUser: string;
   readonly chemicals: Chemical[];
-  readonly liquid: LiquidValueOption | null;
+  _liquid: Liquid | null;
   readonly osmoticPressure: OsmoticPressureOption | null;
-  readonly form: FormOption;
+  _bussinessForm: BusinessForm;
   readonly isDayUse: boolean | undefined;
   readonly url: string;
   readonly description: string;
@@ -96,40 +92,33 @@ export class OnsenEntity {
     this.springQuality = springQuality;
     this.springQualityUser = springQualityUser;
     this.chemicals = chemicals;
-    this.liquid = liquid;
+    this._liquid = liquid != null ? new Liquid(liquid) : null;
     this.osmoticPressure = osmoticPressure;
-    this.form = form;
+    this._bussinessForm = new BusinessForm(form);
     this.isDayUse = isDayUse;
     this.url = url;
     this.description = description;
   }
 
-  // 内風呂、露天風呂とは区別する
+  get liquid(): LiquidValueOption | null {
+    return this._liquid?.value ?? null;
+  }
+  set liquid(value: LiquidValueOption | null) {
+    this._liquid = value !== null ? new Liquid(value) : null;
+  }
+  get form(): FormOption {
+    return this._bussinessForm.value;
+  }
+  set form(value: FormOption) {
+    this._bussinessForm = new BusinessForm(value);
+  }
+
   getFormText() {
-    switch (this.form) {
-      case "sotoyu":
-        return "外湯";
-      case "uchiyu":
-        return "内湯";
-    }
+    return this._bussinessForm.getText();
   }
 
   getLiquidText(): string | undefined {
-    if (this.liquid === null) {
-      return undefined;
-    }
-    switch (this.liquid) {
-      case "acidic":
-        return "酸性";
-      case "mildly_acidic":
-        return "弱酸性";
-      case "neutral":
-        return "中性";
-      case "mildly_alkaline":
-        return "弱アルカリ性";
-      case "alkaline":
-        return "アルカリ性";
-    }
+    return this._liquid?.getText() ?? undefined;
   }
 
   getOsmoticPressureText(): string | undefined {

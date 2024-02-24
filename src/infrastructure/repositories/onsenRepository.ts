@@ -1,12 +1,12 @@
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import {
   Chemical,
-  FormOption,
-  LiquidValueOption,
   OnsenEntity,
   OsmoticPressureOption,
 } from "../../domain/models/onsen";
 import { APIClient } from "../api/ApiClient";
+import { LiquidValueOption } from "../../domain/models/onsen/liquid";
+import { FormOption } from "../../domain/models/onsen/businessForm";
 
 export type OnsenResponse = {
   id: number;
@@ -57,6 +57,8 @@ export class OnsenRepository implements IOnsenRepository {
   async create(onsen: OnsenEntity): Promise<OnsenEntity> {
     const request: OnsenRequest = {
       ...onsen,
+      liquid: onsen.liquid,
+      form: onsen.form,
       springQuality: onsen.springQualityUser,
       chemicals: {
         naIon: onsen.chemicals.includes("NaIon"),
@@ -117,6 +119,8 @@ export class OnsenRepository implements IOnsenRepository {
   async update(id: number, onsen: OnsenEntity): Promise<void> {
     const request: OnsenRequest = {
       ...onsen,
+      liquid: onsen.liquid,
+      form: onsen.form,
       springQuality: onsen.springQualityUser,
       chemicals: {
         naIon: onsen.chemicals.includes("NaIon"),

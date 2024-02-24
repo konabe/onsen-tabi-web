@@ -3,8 +3,6 @@ import styled from "styled-components";
 import Select from "../atoms/Select";
 import {
   Chemical,
-  FormOption,
-  LiquidValueOption,
   OnsenEntity,
   OsmoticPressureOption,
 } from "../../domain/models/onsen";
@@ -13,6 +11,8 @@ import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
 import { subColor } from "../atoms/colors";
 import SingleCheckBox from "../atoms/SingleCheckBox";
+import { LiquidValueOption } from "../../domain/models/onsen/liquid";
+import { FormOption } from "../../domain/models/onsen/businessForm";
 
 type Props = {
   formTitle?: string;
@@ -104,7 +104,7 @@ const OnsenForm: React.FC<Props> = ({
         springQuality: quality,
         springQualityUser: userQuality,
         chemicals: (chemicals ?? []) as Chemical[],
-        liquid: liquid !== undefined ? liquid : null,
+        liquid: liquid != undefined ? liquid : null,
         osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
         form,
         isDayUse,
@@ -131,7 +131,7 @@ const OnsenForm: React.FC<Props> = ({
         springQuality: quality,
         springQualityUser: userQuality,
         chemicals: (chemicals ?? []) as Chemical[],
-        liquid: liquid !== undefined ? liquid : null,
+        liquid: liquid != undefined ? liquid : null,
         osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
         form,
         isDayUse,
