@@ -101,8 +101,9 @@ const OnsenForm: React.FC<Props> = ({
         springQuality: quality,
         springQualityUser: userQuality,
         chemicals: (chemicals ?? []) as Chemical[],
-        liquid: liquid != undefined ? liquid : null,
-        osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+        liquid: liquid !== undefined ? liquid : undefined,
+        osmoticPressure:
+          osmoticPressure !== undefined ? osmoticPressure : undefined,
         form,
         isDayUse,
         url,
@@ -128,8 +129,9 @@ const OnsenForm: React.FC<Props> = ({
         springQuality: quality,
         springQualityUser: userQuality,
         chemicals: (chemicals ?? []) as Chemical[],
-        liquid: liquid != undefined ? liquid : null,
-        osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+        liquid: liquid !== undefined ? liquid : undefined,
+        osmoticPressure:
+          osmoticPressure !== undefined ? osmoticPressure : undefined,
         form,
         isDayUse,
         url,
@@ -155,9 +157,9 @@ const OnsenForm: React.FC<Props> = ({
     setChemicals(value?.chemicals ?? []);
     setUserQuality(value?.springQualityUser ?? "");
     setQuality(value?.springQuality ?? "");
-    setLiquid(value?.liquid != null ? value.liquid : undefined);
+    setLiquid(value?.liquid !== undefined ? value.liquid : undefined);
     setOsmoticPressure(
-      value?.osmoticPressure != null ? value.osmoticPressure : undefined
+      value?.osmoticPressure !== undefined ? value.osmoticPressure : undefined
     );
     setForm(value?.form ?? "sotoyu");
     setIsDayUse(value?.isDayUse ?? false);

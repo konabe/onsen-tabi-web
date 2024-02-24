@@ -100,14 +100,12 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                 </Info>
                 <Info>
                   <InfoTitle>営業形態</InfoTitle>
-                  <span>
-                    {onsen?.form != null ? onsen.getFormText() : "情報なし"}
-                  </span>
+                  <span>{onsen?.getFormText() ?? "情報なし"}</span>
                 </Info>
-                {onsen?.isDayUse != null ? (
+                {onsen?.isDayUse ?? false ? (
                   <Info>
                     <InfoTitle>日帰り入浴</InfoTitle>
-                    <span>{onsen.isDayUse ? "あり" : "なし"}</span>
+                    <span>あり</span>
                   </Info>
                 ) : undefined}
               </RelatedContents>

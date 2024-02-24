@@ -56,10 +56,10 @@ export type OnsenEntityParameter = {
   springQuality: string;
   springQualityUser: string;
   chemicals: Chemical[];
-  liquid: LiquidValueOption | null;
-  osmoticPressure: OsmoticPressureOption | null;
+  liquid: LiquidValueOption | undefined | null;
+  osmoticPressure: OsmoticPressureOption | undefined | null;
   form: FormOption;
-  isDayUse: boolean | undefined;
+  isDayUse: boolean;
   url: string;
   description: string;
 };
@@ -70,10 +70,10 @@ export class OnsenEntity {
   readonly springQuality: string;
   readonly springQualityUser: string;
   readonly chemicals: Chemical[];
-  _liquid: Liquid | null;
-  _osmoticPressure: OsmoticPressure | null;
+  _liquid: Liquid | undefined;
+  _osmoticPressure: OsmoticPressure | undefined;
   _bussinessForm: BusinessForm;
-  readonly isDayUse: boolean | undefined;
+  readonly isDayUse: boolean;
   readonly url: string;
   readonly description: string;
 
@@ -95,20 +95,22 @@ export class OnsenEntity {
     this.springQuality = springQuality;
     this.springQualityUser = springQualityUser;
     this.chemicals = chemicals;
-    this._liquid = liquid != null ? new Liquid(liquid) : null;
+    this._liquid = liquid != null ? new Liquid(liquid) : undefined;
     this._osmoticPressure =
-      osmoticPressure != null ? new OsmoticPressure(osmoticPressure) : null;
+      osmoticPressure != null
+        ? new OsmoticPressure(osmoticPressure)
+        : undefined;
     this._bussinessForm = new BusinessForm(form);
     this.isDayUse = isDayUse;
     this.url = url;
     this.description = description;
   }
 
-  get liquid(): LiquidValueOption | null {
-    return this._liquid?.value ?? null;
+  get liquid(): LiquidValueOption | undefined {
+    return this._liquid?.value ?? undefined;
   }
-  set liquid(value: LiquidValueOption | null) {
-    this._liquid = value !== null ? new Liquid(value) : null;
+  set liquid(value: LiquidValueOption | undefined) {
+    this._liquid = value !== undefined ? new Liquid(value) : undefined;
   }
   get form(): FormOption {
     return this._bussinessForm.value;
@@ -116,11 +118,12 @@ export class OnsenEntity {
   set form(value: FormOption) {
     this._bussinessForm = new BusinessForm(value);
   }
-  get osmoticPressure(): OsmoticPressureOption | null {
-    return this._osmoticPressure?.value ?? null;
+  get osmoticPressure(): OsmoticPressureOption | undefined {
+    return this._osmoticPressure?.value ?? undefined;
   }
-  set osmoticPressure(value: OsmoticPressureOption | null) {
-    this._osmoticPressure = value !== null ? new OsmoticPressure(value) : null;
+  set osmoticPressure(value: OsmoticPressureOption | undefined) {
+    this._osmoticPressure =
+      value !== undefined ? new OsmoticPressure(value) : undefined;
   }
 
   getFormText(): string {
