@@ -20,6 +20,17 @@ describe("BussinessForm", () => {
     });
   });
 
+  describe("#getOmittedText", () => {
+    it.each`
+      value       | expected
+      ${"uchiyu"} | ${"内"}
+      ${"sotoyu"} | ${"外"}
+    `("should return $expected", ({ value, expected }) => {
+      const form = new BusinessForm(value);
+      expect(form.getOmittedText()).toBe(expected);
+    });
+  });
+
   describe("#equals", () => {
     it("should return true", () => {
       const form1 = new BusinessForm("uchiyu");

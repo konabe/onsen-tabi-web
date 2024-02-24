@@ -2,7 +2,7 @@ import { ValueObject } from "../../ddd";
 
 export type FormOption = "uchiyu" | "sotoyu";
 
-export class BusinessForm extends ValueObject {
+export class BusinessForm extends ValueObject implements OmittableText {
   constructor(private readonly _value: FormOption) {
     super();
   }
@@ -18,6 +18,15 @@ export class BusinessForm extends ValueObject {
         return "内湯";
       case "sotoyu":
         return "外湯";
+    }
+  }
+
+  getOmittedText(): string | undefined {
+    switch (this._value) {
+      case "uchiyu":
+        return "内";
+      case "sotoyu":
+        return "外";
     }
   }
 

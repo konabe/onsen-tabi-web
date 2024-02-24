@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "../atoms/Select";
-import {
-  Chemical,
-  OnsenEntity,
-  OsmoticPressureOption,
-} from "../../domain/models/onsen";
+import { Chemical, OnsenEntity } from "../../domain/models/onsen";
 import TextArea from "../atoms/TextArea";
 import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
@@ -13,6 +9,7 @@ import { subColor } from "../atoms/colors";
 import SingleCheckBox from "../atoms/SingleCheckBox";
 import { LiquidValueOption } from "../../domain/models/onsen/liquid";
 import { FormOption } from "../../domain/models/onsen/businessForm";
+import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
 
 type Props = {
   formTitle?: string;

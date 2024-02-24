@@ -1,7 +1,10 @@
 import { BusinessForm, FormOption } from "./onsen/businessForm";
 import { Liquid, LiquidValueOption } from "./onsen/liquid";
+import {
+  OsmoticPressure,
+  OsmoticPressureOption,
+} from "./onsen/osmoticPressure";
 
-export type OsmoticPressureOption = "hypotonic" | "isotonic" | "hypertonic";
 const chemicals = [
   "NaIon",
   "NaIon",
@@ -68,7 +71,7 @@ export class OnsenEntity {
   readonly springQualityUser: string;
   readonly chemicals: Chemical[];
   _liquid: Liquid | null;
-  readonly osmoticPressure: OsmoticPressureOption | null;
+  _osmoticPressure: OsmoticPressure | null;
   _bussinessForm: BusinessForm;
   readonly isDayUse: boolean | undefined;
   readonly url: string;
@@ -93,7 +96,8 @@ export class OnsenEntity {
     this.springQualityUser = springQualityUser;
     this.chemicals = chemicals;
     this._liquid = liquid != null ? new Liquid(liquid) : null;
-    this.osmoticPressure = osmoticPressure;
+    this._osmoticPressure =
+      osmoticPressure != null ? new OsmoticPressure(osmoticPressure) : null;
     this._bussinessForm = new BusinessForm(form);
     this.isDayUse = isDayUse;
     this.url = url;
@@ -112,8 +116,14 @@ export class OnsenEntity {
   set form(value: FormOption) {
     this._bussinessForm = new BusinessForm(value);
   }
+  get osmoticPressure(): OsmoticPressureOption | null {
+    return this._osmoticPressure?.value ?? null;
+  }
+  set osmoticPressure(value: OsmoticPressureOption | null) {
+    this._osmoticPressure = value !== null ? new OsmoticPressure(value) : null;
+  }
 
-  getFormText() {
+  getFormText(): string {
     return this._bussinessForm.getText();
   }
 
@@ -122,17 +132,7 @@ export class OnsenEntity {
   }
 
   getOsmoticPressureText(): string | undefined {
-    if (this.osmoticPressure === null) {
-      return undefined;
-    }
-    switch (this.osmoticPressure) {
-      case "hypotonic":
-        return "低張性";
-      case "isotonic":
-        return "等張性";
-      case "hypertonic":
-        return "高張性";
-    }
+    return this._osmoticPressure?.getText() ?? undefined;
   }
 
   getSubText(): string {
