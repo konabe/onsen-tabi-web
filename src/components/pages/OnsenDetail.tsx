@@ -22,6 +22,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [onsen, setOnsen] = useState<OnsenEntity | undefined>(undefined);
+  const simillarSearchLink = `/onsens?chemicals=${onsen?.chemicals.join(",")}`;
 
   const loadPage = async () => {
     try {
@@ -85,6 +86,9 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                       )) ?? "情報なし"}
                     </ChemicalTagContainer>
                   </span>
+                  <SimillaryOnsenAnchor href={simillarSearchLink}>
+                    類似の温泉を探す
+                  </SimillaryOnsenAnchor>
                 </Info>
                 <Info>
                   <InfoTitle>液性</InfoTitle>
@@ -130,6 +134,7 @@ const SContents = styled.div`
 
 const Info = styled.span`
   display: flex;
+  align-items: flex-end;
   flex-direction: row;
   gap: 8px;
 `;
@@ -140,6 +145,11 @@ const InfoTitle = styled.span`
 
 const ChemicalTagContainer = styled.span`
   display: flex;
+  align-items: center;
   flex-direction: row;
   gap: 8px;
+`;
+
+const SimillaryOnsenAnchor = styled.a`
+  font-size: 12px;
 `;
