@@ -1,20 +1,21 @@
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
-import { Chemical, OnsenEntity } from "../../domain/models/onsen";
+import { OnsenEntity } from "../../domain/models/onsen";
 import { APIClient } from "../api/ApiClient";
 import { LiquidValueOption } from "../../domain/models/onsen/liquid";
 import { FormOption } from "../../domain/models/onsen/businessForm";
 import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
+import { ChemicalOption } from "../../domain/models/onsen/chemical";
 
 export type OnsenResponse = {
   id: number;
   quality?: {
     name: string;
-    chemicals: Chemical[];
+    chemicals: ChemicalOption[];
   };
   name: string;
   springQuality: string;
   springQualityUser: string;
-  chemicals: Chemical[];
+  chemicals: ChemicalOption[];
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
   form: FormOption;

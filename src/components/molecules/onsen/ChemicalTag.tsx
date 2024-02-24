@@ -1,17 +1,17 @@
 import {
-  Chemical,
+  ChemicalOption,
   chemicalDictionary,
   chemicalDictionaryOmitted,
-} from "../../../domain/models/onsen";
+} from "../../../domain/models/onsen/chemical";
 import Tag from "../../atoms/Tag";
 
 type Props = {
-  chemical: Chemical;
+  chemical: ChemicalOption;
   isOmitted?: boolean;
 };
 
 const ChemicalTag: React.FC<Props> = ({ chemical, isOmitted }) => {
-  const colorDictionary: Record<Chemical, string> = {
+  const colorDictionary: Record<ChemicalOption, string> = {
     NaIon: "#007bff",
     CaIon: "#28a745",
     MgIon: "#17a2b8",

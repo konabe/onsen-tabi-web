@@ -4,12 +4,13 @@ import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 import OnsenForm from "../organisims/OnsenForm";
-import { Chemical, OnsenEntity } from "../../domain/models/onsen";
+import { OnsenEntity } from "../../domain/models/onsen";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
 import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 import OnsenCard from "../organisims/OnsenCard";
 import Select from "../atoms/Select";
+import { ChemicalOption } from "../../domain/models/onsen/chemical";
 
 const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -20,9 +21,9 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const [onsens, setOnsens] = useState<OnsenEntity[]>([]);
 
-  const [chemicals, setChemicals] = useState<Chemical[]>([]);
+  const [chemicals, setChemicals] = useState<ChemicalOption[]>([]);
   const chemicalsValueOptions: {
-    value: Chemical;
+    value: ChemicalOption;
     label: string;
   }[] = [
     { value: "NaIon", label: "ナトリウムイオン" },
@@ -73,7 +74,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   useEffectOnce(() => {
     setChemicals(
-      (searchParams.get("chemicals")?.split(",") ?? []) as Chemical[]
+      (searchParams.get("chemicals")?.split(",") ?? []) as ChemicalOption[]
     );
     (async () => {
       setIsLoading(true);

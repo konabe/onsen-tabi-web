@@ -1,61 +1,17 @@
 import { BusinessForm, FormOption } from "./onsen/businessForm";
+import { ChemicalOption } from "./onsen/chemical";
 import { Liquid, LiquidValueOption } from "./onsen/liquid";
 import {
   OsmoticPressure,
   OsmoticPressureOption,
 } from "./onsen/osmoticPressure";
 
-const chemicals = [
-  "NaIon",
-  "NaIon",
-  "CaIon",
-  "MgIon",
-  "ClIon",
-  "HCO3Ion",
-  "SO4Ion",
-  "CO2",
-  "FeIon",
-  "HIon",
-  "IIon",
-  "S",
-  "Rn",
-] as const;
-export type Chemical = (typeof chemicals)[number];
-export const chemicalDictionary: Record<Chemical, string> = {
-  NaIon: "ナトリウムイオン",
-  CaIon: "カルシウムイオン",
-  MgIon: "マグネシウムイオン",
-  ClIon: "塩化物イオン",
-  HCO3Ion: "炭酸水素イオン",
-  SO4Ion: "硫酸イオン",
-  CO2: "二酸化炭素",
-  FeIon: "鉄イオン",
-  HIon: "水素イオン",
-  IIon: "ヨウ素イオン",
-  S: "硫黄",
-  Rn: "ラドン",
-};
-export const chemicalDictionaryOmitted: Record<Chemical, string> = {
-  NaIon: "ナ",
-  CaIon: "カ",
-  MgIon: "マ",
-  ClIon: "塩",
-  HCO3Ion: "炭水",
-  SO4Ion: "硫",
-  CO2: "二酸",
-  FeIon: "鉄",
-  HIon: "酸性",
-  IIon: "ヨ",
-  S: "硫黄",
-  Rn: "放射",
-};
-
 export type OnsenEntityParameter = {
   id: number;
   name: string;
   springQuality: string;
   springQualityUser: string;
-  chemicals: Chemical[];
+  chemicals: ChemicalOption[];
   liquid: LiquidValueOption | undefined | null;
   osmoticPressure: OsmoticPressureOption | undefined | null;
   form: FormOption;
@@ -69,7 +25,7 @@ export class OnsenEntity {
   readonly name: string;
   readonly springQuality: string;
   readonly springQualityUser: string;
-  readonly chemicals: Chemical[];
+  readonly chemicals: ChemicalOption[];
   _liquid: Liquid | undefined;
   _osmoticPressure: OsmoticPressure | undefined;
   _bussinessForm: BusinessForm;
