@@ -13,6 +13,7 @@ import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
 import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { Chemical } from "../../domain/models/onsen/chemical";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -82,7 +83,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                   <span>
                     <ChemicalTagContainer>
                       {onsen?.chemicals.map((c) => (
-                        <ChemicalTag chemical={c} key={c} />
+                        <ChemicalTag chemical={new Chemical(c)} key={c} />
                       )) ?? "情報なし"}
                     </ChemicalTagContainer>
                   </span>
@@ -100,14 +101,12 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                 </Info>
                 <Info>
                   <InfoTitle>営業形態</InfoTitle>
-                  <span>
-                    {onsen?.form != null ? onsen.getFormText() : "情報なし"}
-                  </span>
+                  <span>{onsen?.getFormText() ?? "情報なし"}</span>
                 </Info>
-                {onsen?.isDayUse != null ? (
+                {onsen?.isDayUse ?? false ? (
                   <Info>
                     <InfoTitle>日帰り入浴</InfoTitle>
-                    <span>{onsen.isDayUse ? "あり" : "なし"}</span>
+                    <span>あり</span>
                   </Info>
                 ) : undefined}
               </RelatedContents>

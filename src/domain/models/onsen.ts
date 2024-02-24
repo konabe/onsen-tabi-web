@@ -1,66 +1,21 @@
-export type LiquidValueOption =
-  | "acidic"
-  | "mildly_acidic"
-  | "neutral"
-  | "mildly_alkaline"
-  | "alkaline";
-export type OsmoticPressureOption = "hypotonic" | "isotonic" | "hypertonic";
-export type FormOption = "uchiyu" | "sotoyu";
-const chemicals = [
-  "NaIon",
-  "NaIon",
-  "CaIon",
-  "MgIon",
-  "ClIon",
-  "HCO3Ion",
-  "SO4Ion",
-  "CO2",
-  "FeIon",
-  "HIon",
-  "IIon",
-  "S",
-  "Rn",
-] as const;
-export type Chemical = (typeof chemicals)[number];
-export const chemicalDictionary: Record<Chemical, string> = {
-  NaIon: "ナトリウムイオン",
-  CaIon: "カルシウムイオン",
-  MgIon: "マグネシウムイオン",
-  ClIon: "塩化物イオン",
-  HCO3Ion: "炭酸水素イオン",
-  SO4Ion: "硫酸イオン",
-  CO2: "二酸化炭素",
-  FeIon: "鉄イオン",
-  HIon: "水素イオン",
-  IIon: "ヨウ素イオン",
-  S: "硫黄",
-  Rn: "ラドン",
-};
-export const chemicalDictionaryOmitted: Record<Chemical, string> = {
-  NaIon: "ナ",
-  CaIon: "カ",
-  MgIon: "マ",
-  ClIon: "塩",
-  HCO3Ion: "炭水",
-  SO4Ion: "硫",
-  CO2: "二酸",
-  FeIon: "鉄",
-  HIon: "酸性",
-  IIon: "ヨ",
-  S: "硫黄",
-  Rn: "放射",
-};
+import { BusinessForm, FormOption } from "./onsen/businessForm";
+import { ChemicalOption } from "./onsen/chemical";
+import { Liquid, LiquidValueOption } from "./onsen/liquid";
+import {
+  OsmoticPressure,
+  OsmoticPressureOption,
+} from "./onsen/osmoticPressure";
 
-type OnsenEntityParameter = {
+export type OnsenEntityParameter = {
   id: number;
   name: string;
   springQuality: string;
   springQualityUser: string;
-  chemicals: Chemical[];
-  liquid: LiquidValueOption | null;
-  osmoticPressure: OsmoticPressureOption | null;
+  chemicals: ChemicalOption[];
+  liquid: LiquidValueOption | undefined | null;
+  osmoticPressure: OsmoticPressureOption | undefined | null;
   form: FormOption;
-  isDayUse: boolean | undefined;
+  isDayUse: boolean;
   url: string;
   description: string;
 };
@@ -70,11 +25,11 @@ export class OnsenEntity {
   readonly name: string;
   readonly springQuality: string;
   readonly springQualityUser: string;
-  readonly chemicals: Chemical[];
-  readonly liquid: LiquidValueOption | null;
-  readonly osmoticPressure: OsmoticPressureOption | null;
-  readonly form: FormOption;
-  readonly isDayUse: boolean | undefined;
+  readonly chemicals: ChemicalOption[];
+  _liquid: Liquid | undefined;
+  _osmoticPressure: OsmoticPressure | undefined;
+  _bussinessForm: BusinessForm;
+  readonly isDayUse: boolean;
   readonly url: string;
   readonly description: string;
 
@@ -96,54 +51,47 @@ export class OnsenEntity {
     this.springQuality = springQuality;
     this.springQualityUser = springQualityUser;
     this.chemicals = chemicals;
-    this.liquid = liquid;
-    this.osmoticPressure = osmoticPressure;
-    this.form = form;
+    this._liquid = liquid != null ? new Liquid(liquid) : undefined;
+    this._osmoticPressure =
+      osmoticPressure != null
+        ? new OsmoticPressure(osmoticPressure)
+        : undefined;
+    this._bussinessForm = new BusinessForm(form);
     this.isDayUse = isDayUse;
     this.url = url;
     this.description = description;
   }
 
-  // 内風呂、露天風呂とは区別する
-  getFormText() {
-    switch (this.form) {
-      case "sotoyu":
-        return "外湯";
-      case "uchiyu":
-        return "内湯";
-    }
+  get liquid(): LiquidValueOption | undefined {
+    return this._liquid?.value ?? undefined;
+  }
+  set liquid(value: LiquidValueOption | undefined) {
+    this._liquid = value !== undefined ? new Liquid(value) : undefined;
+  }
+  get form(): FormOption {
+    return this._bussinessForm.value;
+  }
+  set form(value: FormOption) {
+    this._bussinessForm = new BusinessForm(value);
+  }
+  get osmoticPressure(): OsmoticPressureOption | undefined {
+    return this._osmoticPressure?.value ?? undefined;
+  }
+  set osmoticPressure(value: OsmoticPressureOption | undefined) {
+    this._osmoticPressure =
+      value !== undefined ? new OsmoticPressure(value) : undefined;
+  }
+
+  getFormText(): string {
+    return this._bussinessForm.getText();
   }
 
   getLiquidText(): string | undefined {
-    if (this.liquid === null) {
-      return undefined;
-    }
-    switch (this.liquid) {
-      case "acidic":
-        return "酸性";
-      case "mildly_acidic":
-        return "弱酸性";
-      case "neutral":
-        return "中性";
-      case "mildly_alkaline":
-        return "弱アルカリ性";
-      case "alkaline":
-        return "アルカリ性";
-    }
+    return this._liquid?.getText() ?? undefined;
   }
 
   getOsmoticPressureText(): string | undefined {
-    if (this.osmoticPressure === null) {
-      return undefined;
-    }
-    switch (this.osmoticPressure) {
-      case "hypotonic":
-        return "低張性";
-      case "isotonic":
-        return "等張性";
-      case "hypertonic":
-        return "高張性";
-    }
+    return this._osmoticPressure?.getText() ?? undefined;
   }
 
   getSubText(): string {

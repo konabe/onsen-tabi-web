@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "../atoms/Select";
-import {
-  Chemical,
-  FormOption,
-  LiquidValueOption,
-  OnsenEntity,
-  OsmoticPressureOption,
-} from "../../domain/models/onsen";
+import { OnsenEntity } from "../../domain/models/onsen";
 import TextArea from "../atoms/TextArea";
 import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
 import { subColor } from "../atoms/colors";
 import SingleCheckBox from "../atoms/SingleCheckBox";
+import { LiquidValueOption } from "../../domain/models/onsen/liquid";
+import { FormOption } from "../../domain/models/onsen/businessForm";
+import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
+import { ChemicalOption } from "../../domain/models/onsen/chemical";
 
 type Props = {
   formTitle?: string;
@@ -43,7 +41,7 @@ const OnsenForm: React.FC<Props> = ({
   const [description, setDescription] = useState<string>("");
 
   const chemicalsValueOptions: {
-    value: Chemical;
+    value: ChemicalOption;
     label: string;
   }[] = [
     { value: "NaIon", label: "ナトリウムイオン" },
@@ -103,9 +101,10 @@ const OnsenForm: React.FC<Props> = ({
         name,
         springQuality: quality,
         springQualityUser: userQuality,
-        chemicals: (chemicals ?? []) as Chemical[],
-        liquid: liquid !== undefined ? liquid : null,
-        osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+        chemicals: (chemicals ?? []) as ChemicalOption[],
+        liquid: liquid !== undefined ? liquid : undefined,
+        osmoticPressure:
+          osmoticPressure !== undefined ? osmoticPressure : undefined,
         form,
         isDayUse,
         url,
@@ -130,9 +129,10 @@ const OnsenForm: React.FC<Props> = ({
         name,
         springQuality: quality,
         springQualityUser: userQuality,
-        chemicals: (chemicals ?? []) as Chemical[],
-        liquid: liquid !== undefined ? liquid : null,
-        osmoticPressure: osmoticPressure !== undefined ? osmoticPressure : null,
+        chemicals: (chemicals ?? []) as ChemicalOption[],
+        liquid: liquid !== undefined ? liquid : undefined,
+        osmoticPressure:
+          osmoticPressure !== undefined ? osmoticPressure : undefined,
         form,
         isDayUse,
         url,
@@ -158,9 +158,9 @@ const OnsenForm: React.FC<Props> = ({
     setChemicals(value?.chemicals ?? []);
     setUserQuality(value?.springQualityUser ?? "");
     setQuality(value?.springQuality ?? "");
-    setLiquid(value?.liquid != null ? value.liquid : undefined);
+    setLiquid(value?.liquid !== undefined ? value.liquid : undefined);
     setOsmoticPressure(
-      value?.osmoticPressure != null ? value.osmoticPressure : undefined
+      value?.osmoticPressure !== undefined ? value.osmoticPressure : undefined
     );
     setForm(value?.form ?? "sotoyu");
     setIsDayUse(value?.isDayUse ?? false);

@@ -53,8 +53,8 @@ const App: React.FC = () => {
         leftNav={
           <>
             <NavItem path="/" text="トップ" />
-            <NavItem path="/onsens" text="温泉一覧" />
-            <NavItem path="/hotels" text="ホテル一覧" />
+            <NavItem path="/onsens" text="温泉" />
+            <NavItem path="/hotels" text="ホテル" />
           </>
         }
         rightNav={
