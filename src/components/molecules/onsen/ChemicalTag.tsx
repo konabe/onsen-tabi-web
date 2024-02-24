@@ -1,11 +1,16 @@
-import { Chemical, chemicalDictionary } from "../../../domain/models/onsen";
+import {
+  Chemical,
+  chemicalDictionary,
+  chemicalDictionaryOmitted,
+} from "../../../domain/models/onsen";
 import Tag from "../../atoms/Tag";
 
 type Props = {
   chemical: Chemical;
+  isOmitted?: boolean;
 };
 
-const ChemicalTag: React.FC<Props> = ({ chemical }) => {
+const ChemicalTag: React.FC<Props> = ({ chemical, isOmitted }) => {
   const colorDictionary: Record<Chemical, string> = {
     NaIon: "#007bff",
     CaIon: "#28a745",
@@ -21,7 +26,10 @@ const ChemicalTag: React.FC<Props> = ({ chemical }) => {
     Rn: "#6c757d",
   };
   const hexColor = colorDictionary[chemical];
-  return <Tag text={chemicalDictionary[chemical]} hexColor={hexColor} />;
+  const displayingText = isOmitted
+    ? chemicalDictionaryOmitted[chemical]
+    : chemicalDictionary[chemical];
+  return <Tag text={displayingText} hexColor={hexColor} />;
 };
 
 export default ChemicalTag;

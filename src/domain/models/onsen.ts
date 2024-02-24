@@ -36,6 +36,20 @@ export const chemicalDictionary: Record<Chemical, string> = {
   S: "硫黄",
   Rn: "ラドン",
 };
+export const chemicalDictionaryOmitted: Record<Chemical, string> = {
+  NaIon: "ナ",
+  CaIon: "カ",
+  MgIon: "マ",
+  ClIon: "塩",
+  HCO3Ion: "炭水",
+  SO4Ion: "硫",
+  CO2: "二酸",
+  FeIon: "鉄",
+  HIon: "酸性",
+  IIon: "ヨ",
+  S: "硫黄",
+  Rn: "放射",
+};
 
 type OnsenEntityParameter = {
   id: number;
@@ -130,5 +144,11 @@ export class OnsenEntity {
       case "hypertonic":
         return "高張性";
     }
+  }
+
+  getSubText(): string {
+    return `(${this.getOsmoticPressureText() ?? "？"}・${
+      this.getLiquidText() ?? "？"
+    }${/*ここに温度情報*/ ""})`;
   }
 }
