@@ -51,7 +51,7 @@ export const chemicalDictionaryOmitted: Record<Chemical, string> = {
   Rn: "放射",
 };
 
-type OnsenEntityParameter = {
+export type OnsenEntityParameter = {
   id: number;
   name: string;
   springQuality: string;
