@@ -13,6 +13,7 @@ import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
 import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { Chemical } from "../../domain/models/onsen/chemical";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -82,7 +83,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                   <span>
                     <ChemicalTagContainer>
                       {onsen?.chemicals.map((c) => (
-                        <ChemicalTag chemical={c} key={c} />
+                        <ChemicalTag chemical={new Chemical(c)} key={c} />
                       )) ?? "情報なし"}
                     </ChemicalTagContainer>
                   </span>

@@ -15,7 +15,6 @@ export type OnsenResponse = {
   name: string;
   springQuality: string;
   springQualityUser: string;
-  chemicals: ChemicalOption[];
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
   form: FormOption;
@@ -59,7 +58,7 @@ export class OnsenRepository implements IOnsenRepository {
       "/onsen",
       request
     );
-    return new OnsenEntity(response);
+    return this.createEntity(response);
   }
 
   async readAll(areaId?: number, hotelId?: number): Promise<OnsenEntity[]> {
@@ -71,15 +70,7 @@ export class OnsenRepository implements IOnsenRepository {
         hotel_id: hotelId,
       }
     );
-    return repsonse.map(
-      (v: OnsenResponse) =>
-        new OnsenEntity({
-          ...v,
-          chemicals: v.quality?.chemicals ?? [],
-          springQuality: v.quality?.name ?? "",
-          springQualityUser: v.springQuality,
-        })
-    );
+    return repsonse.map((v: OnsenResponse) => this.createEntity(v));
   }
 
   async read(id: number): Promise<OnsenEntity> {
@@ -87,12 +78,7 @@ export class OnsenRepository implements IOnsenRepository {
       "GET",
       `/onsen/${id}`
     );
-    return new OnsenEntity({
-      ...response,
-      chemicals: response.quality?.chemicals ?? [],
-      springQuality: response.quality?.name ?? "",
-      springQualityUser: response.springQuality,
-    });
+    return this.createEntity(response);
   }
 
   async update(id: number, onsen: OnsenEntity): Promise<void> {
@@ -122,5 +108,14 @@ export class OnsenRepository implements IOnsenRepository {
         rn: onsen.chemicals.includes("Rn"),
       },
     };
+  }
+
+  private createEntity(response: OnsenResponse): OnsenEntity {
+    return new OnsenEntity({
+      ...response,
+      chemicals: response.quality?.chemicals ?? [],
+      springQuality: response.quality?.name ?? "",
+      springQualityUser: response.springQuality,
+    });
   }
 }

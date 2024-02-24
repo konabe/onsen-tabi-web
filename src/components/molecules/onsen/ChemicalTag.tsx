@@ -1,12 +1,12 @@
+import { text } from "../../../domain/models/display/text";
 import {
+  Chemical,
   ChemicalOption,
-  chemicalDictionary,
-  chemicalDictionaryOmitted,
 } from "../../../domain/models/onsen/chemical";
 import Tag from "../../atoms/Tag";
 
 type Props = {
-  chemical: ChemicalOption;
+  chemical: Chemical;
   isOmitted?: boolean;
 };
 
@@ -25,10 +25,8 @@ const ChemicalTag: React.FC<Props> = ({ chemical, isOmitted }) => {
     S: "#343a40",
     Rn: "#6c757d",
   };
-  const hexColor = colorDictionary[chemical];
-  const displayingText = isOmitted
-    ? chemicalDictionaryOmitted[chemical]
-    : chemicalDictionary[chemical];
+  const hexColor = colorDictionary[chemical.value];
+  const displayingText = text(chemical, isOmitted ?? false) ?? "";
   return <Tag text={displayingText} hexColor={hexColor} />;
 };
 
