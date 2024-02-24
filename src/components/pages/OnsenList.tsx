@@ -8,6 +8,7 @@ import { OnsenEntity } from "../../domain/models/onsen";
 import { CommonPageProps } from "../../App";
 import Article from "../organisims/Article";
 import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import OnsenCard from "../organisims/OnsenCard";
 
 const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -57,9 +58,9 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title="温泉一覧">
               <SListContainer>
                 {onsens.map((v) => (
-                  <div key={v.id}>
-                    <Link to={`/onsen/${v.id}`}>{v.name}</Link>
-                  </div>
+                  <SListItemContainer>
+                    <OnsenCard key={v.id} onsen={v} />
+                  </SListItemContainer>
                 ))}
               </SListContainer>
             </Article>
@@ -88,6 +89,21 @@ const SContents = styled.div`
 
 const SListContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  row-gap: 4px;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+  column-gap: 16px;
+  row-gap: 16px;
+`;
+
+const SListItemContainer = styled.div`
+  flex: 0 0 300px;
+  width: 300px;
+  @media screen and (max-width: 767px) {
+    flex: 0 0 auto;
+    width: 100%;
+  }
 `;
