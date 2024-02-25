@@ -1,5 +1,6 @@
 import { BusinessForm, FormOption } from "./onsen/businessForm";
 import { ChemicalOption } from "./onsen/chemical";
+import { ChemicalTagOption } from "./onsen/chemicalTagModel";
 import { Liquid, LiquidValueOption } from "./onsen/liquid";
 import {
   OsmoticPressure,
@@ -9,8 +10,8 @@ import {
 export type OnsenEntityParameter = {
   id: number;
   name: string;
-  springQuality: string;
-  springQualityUser: string;
+  generatedSpringQuality: string | undefined;
+  userSpringQuality: string;
   chemicals: ChemicalOption[];
   liquid: LiquidValueOption | undefined | null;
   osmoticPressure: OsmoticPressureOption | undefined | null;
@@ -23,9 +24,9 @@ export type OnsenEntityParameter = {
 export class OnsenEntity {
   readonly id: number;
   readonly name: string;
-  readonly springQuality: string;
-  readonly springQualityUser: string;
-  readonly chemicals: ChemicalOption[];
+  _generatedSpringQuality: string | undefined;
+  _userSpringQuality: string;
+  _chemicals: ChemicalOption[];
   _liquid: Liquid | undefined;
   _osmoticPressure: OsmoticPressure | undefined;
   _bussinessForm: BusinessForm;
@@ -36,8 +37,8 @@ export class OnsenEntity {
   constructor({
     id,
     name,
-    springQuality,
-    springQualityUser,
+    generatedSpringQuality,
+    userSpringQuality,
     chemicals,
     liquid,
     osmoticPressure,
@@ -48,9 +49,9 @@ export class OnsenEntity {
   }: OnsenEntityParameter) {
     this.id = id;
     this.name = name;
-    this.springQuality = springQuality;
-    this.springQualityUser = springQualityUser;
-    this.chemicals = chemicals;
+    this._generatedSpringQuality = generatedSpringQuality;
+    this._userSpringQuality = userSpringQuality;
+    this._chemicals = chemicals;
     this._liquid = liquid != null ? new Liquid(liquid) : undefined;
     this._osmoticPressure =
       osmoticPressure != null
@@ -62,6 +63,9 @@ export class OnsenEntity {
     this.description = description;
   }
 
+  get chemicals(): ChemicalOption[] {
+    return this._chemicals;
+  }
   get liquid(): LiquidValueOption | undefined {
     return this._liquid?.value ?? undefined;
   }
@@ -81,6 +85,26 @@ export class OnsenEntity {
     this._osmoticPressure =
       value !== undefined ? new OsmoticPressure(value) : undefined;
   }
+  get generatedSprintQuality(): string | undefined {
+    return this._generatedSpringQuality;
+  }
+  get userSpringQuality(): string {
+    return this._userSpringQuality;
+  }
+  set userSpringQuality(value: string) {
+    this._userSpringQuality = value;
+  }
+
+  getQualityText(): string {
+    const altText =
+      this._userSpringQuality !== "" ? `(${this._userSpringQuality})` : "";
+    const separatedText =
+      this._userSpringQuality !== "" &&
+      this._generatedSpringQuality !== undefined
+        ? " "
+        : "";
+    return `${this._generatedSpringQuality ?? ""}${separatedText}${altText}`;
+  }
 
   getFormText(): string {
     return this._bussinessForm.getText();
@@ -98,5 +122,12 @@ export class OnsenEntity {
     return `(${this.getOsmoticPressureText() ?? "？"}・${
       this.getLiquidText() ?? "？"
     }${/*ここに温度情報*/ ""})`;
+  }
+
+  getChemicalTags(): ChemicalTagOption[] {
+    if (this._chemicals.length === 0) {
+      return ["Simple"];
+    }
+    return this._chemicals.map((c) => c);
   }
 }

@@ -21,8 +21,8 @@ export const Primary: Story = {
     onsen: new OnsenEntity({
       id: 1,
       name: "大滝乃湯",
-      springQuality: "ナトリウム塩化物泉",
-      springQualityUser: "",
+      generatedSpringQuality: "ナトリウム塩化物泉",
+      userSpringQuality: "",
       chemicals: ["NaIon", "ClIon"],
       liquid: "mildly_alkaline",
       osmoticPressure: "isotonic",

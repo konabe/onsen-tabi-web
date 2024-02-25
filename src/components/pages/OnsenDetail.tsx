@@ -13,7 +13,7 @@ import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
 import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
-import { Chemical } from "../../domain/models/onsen/chemical";
+import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -23,7 +23,9 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [onsen, setOnsen] = useState<OnsenEntity | undefined>(undefined);
-  const simillarSearchLink = `/onsens?chemicals=${onsen?.chemicals.join(",")}`;
+  const simillarSearchLink = `/onsens?chemicals=${onsen
+    ?.getChemicalTags()
+    .join(",")}`;
 
   const loadPage = async () => {
     try {
@@ -67,24 +69,24 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
               <Description text={onsen?.description ?? ""} />
               <RelatedContents title="温泉データ">
                 <a href={onsen?.url} target="_blank" rel="noreferrer">
-                  リンク
+                  🔗外部リンク
                 </a>
                 <Info>
                   <InfoTitle>泉質</InfoTitle>
-                  <span>
-                    {onsen?.springQuality}{" "}
-                    {onsen?.springQualityUser !== ""
-                      ? `(${onsen?.springQualityUser})`
-                      : ""}
-                  </span>
+                  <span>{onsen?.getQualityText() ?? "情報なし"}</span>
                 </Info>
                 <Info>
                   <InfoTitle>成分タグ</InfoTitle>
                   <span>
                     <ChemicalTagContainer>
-                      {onsen?.chemicals.map((c) => (
-                        <ChemicalTag chemical={new Chemical(c)} key={c} />
-                      )) ?? "情報なし"}
+                      {onsen
+                        ?.getChemicalTags()
+                        .map((c) => (
+                          <ChemicalTag
+                            chemical={new ChemicalTagModel(c)}
+                            key={c}
+                          />
+                        )) ?? "情報なし"}
                     </ChemicalTagContainer>
                   </span>
                   <SimillaryOnsenAnchor href={simillarSearchLink}>

@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { subColor } from "../atoms/colors";
 import { OnsenEntity } from "../../domain/models/onsen";
 import ChemicalTag from "../molecules/onsen/ChemicalTag";
-import { Chemical } from "../../domain/models/onsen/chemical";
+import {
+  ChemicalTagModel,
+  ChemicalTagOption,
+} from "../../domain/models/onsen/chemicalTagModel";
 
 type Props = {
   onsen: OnsenEntity;
@@ -22,8 +25,12 @@ const OnsenCard: React.FC<Props> = ({ onsen }) => {
       <Sub>{onsen.getSubText()}</Sub>
       <Content>{onsen.description}</Content>
       <TagContainer>
-        {onsen.chemicals.map((v) => (
-          <ChemicalTag key={v} chemical={new Chemical(v)} isOmitted={true} />
+        {onsen.getChemicalTags().map((v: ChemicalTagOption) => (
+          <ChemicalTag
+            key={v}
+            chemical={new ChemicalTagModel(v)}
+            isOmitted={true}
+          />
         ))}
       </TagContainer>
     </Container>
