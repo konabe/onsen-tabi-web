@@ -11,6 +11,7 @@ import { OnsenRepository } from "../../infrastructure/repositories/onsenReposito
 import OnsenCard from "../organisims/OnsenCard";
 import Select from "../atoms/Select";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
+import { ChemicalTagOption } from "../../domain/models/onsen/chemicalTagModel";
 
 const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -21,9 +22,9 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
 
   const [onsens, setOnsens] = useState<OnsenEntity[]>([]);
 
-  const [chemicals, setChemicals] = useState<ChemicalOption[]>([]);
+  const [chemicals, setChemicals] = useState<ChemicalTagOption[]>([]);
   const chemicalsValueOptions: {
-    value: ChemicalOption;
+    value: ChemicalTagOption;
     label: string;
   }[] = [
     { value: "NaIon", label: "ナトリウムイオン" },
@@ -38,6 +39,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     { value: "IIon", label: "ヨウ素イオン" },
     { value: "S", label: "硫黄" },
     { value: "Rn", label: "ラドン" },
+    { value: "Simple", label: "単純温泉" },
   ];
   const chemicalsCurrentValue = chemicals?.map((v) =>
     chemicalsValueOptions.find((c) => c.value === v)
@@ -47,7 +49,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
     if (chemicals.length === 0) {
       return true;
     }
-    return chemicals.every((c) => onsen.chemicals.includes(c));
+    return chemicals.every((c) => onsen.getChemicalTags().includes(c));
   });
 
   const loadPage = async () => {
@@ -93,7 +95,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title="温泉一覧">
               <FilterContainer>
                 <Select
-                  label="成分"
+                  label="成分タグ"
                   options={chemicalsValueOptions}
                   value={chemicalsCurrentValue}
                   isMulti={true}

@@ -92,7 +92,7 @@ export class OnsenRepository implements IOnsenRepository {
       liquid: onsen?.liquid ?? null,
       form: onsen.form,
       osmoticPressure: onsen?.osmoticPressure ?? null,
-      springQuality: onsen.springQualityUser,
+      springQuality: onsen.userSpringQuality,
       chemicals: {
         naIon: onsen.chemicals.includes("NaIon"),
         caIon: onsen.chemicals.includes("CaIon"),
@@ -114,8 +114,8 @@ export class OnsenRepository implements IOnsenRepository {
     return new OnsenEntity({
       ...response,
       chemicals: response.quality?.chemicals ?? [],
-      springQuality: response.quality?.name ?? "",
-      springQualityUser: response.springQuality,
+      generatedSpringQuality: response.quality?.name,
+      userSpringQuality: response.springQuality,
     });
   }
 }

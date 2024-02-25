@@ -8,8 +8,8 @@ describe("Onsen", () => {
   const commonParams: OnsenEntityParameter = {
     id: 1,
     name: "大滝乃湯",
-    springQuality: "ナトリウム塩化物泉",
-    springQualityUser: "",
+    generatedSpringQuality: "ナトリウム塩化物泉",
+    userSpringQuality: "ナトリウム塩化物泉",
     chemicals: ["NaIon", "ClIon"],
     liquid: "mildly_alkaline",
     osmoticPressure: "isotonic",
@@ -25,6 +25,26 @@ describe("Onsen", () => {
       const onsen = new OnsenEntity(commonParams);
       expect(onsen).toBeDefined();
     });
+  });
+
+  describe("#getQualityText", () => {
+    it.each`
+      userSpringQuality           | generatedSpringQuality    | expected
+      ${"ナトリウム塩化物強塩泉"} | ${"ナトリウムー塩化物泉"} | ${"ナトリウムー塩化物泉 (ナトリウム塩化物強塩泉)"}
+      ${"ナトリウム塩化物強塩泉"} | ${undefined}              | ${"(ナトリウム塩化物強塩泉)"}
+      ${""}                       | ${"ナトリウムー塩化物泉"} | ${"ナトリウムー塩化物泉"}
+      ${""}                       | ${undefined}              | ${""}
+    `(
+      "should return $expected",
+      ({ userSpringQuality, generatedSpringQuality, expected }) => {
+        const onsen = new OnsenEntity({
+          ...commonParams,
+          userSpringQuality,
+          generatedSpringQuality,
+        });
+        expect(onsen.getQualityText()).toBe(expected);
+      }
+    );
   });
 
   describe("#getFormText", () => {
