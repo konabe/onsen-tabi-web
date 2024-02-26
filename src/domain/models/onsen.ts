@@ -6,6 +6,10 @@ import {
   OsmoticPressure,
   OsmoticPressureOption,
 } from "./onsen/osmoticPressure";
+import {
+  Temperature,
+  TemperatureOption as TemperatureOption,
+} from "./onsen/temperature";
 
 export type OnsenEntityParameter = {
   id: number;
@@ -15,6 +19,7 @@ export type OnsenEntityParameter = {
   chemicals: ChemicalOption[];
   liquid: LiquidValueOption | undefined | null;
   osmoticPressure: OsmoticPressureOption | undefined | null;
+  temperature: TemperatureOption | undefined | null;
   form: FormOption;
   isDayUse: boolean;
   url: string;
@@ -29,6 +34,7 @@ export class OnsenEntity {
   _chemicals: ChemicalOption[];
   _liquid: Liquid | undefined;
   _osmoticPressure: OsmoticPressure | undefined;
+  _temperture: Temperature | undefined;
   _bussinessForm: BusinessForm;
   readonly isDayUse: boolean;
   readonly url: string;
@@ -42,6 +48,7 @@ export class OnsenEntity {
     chemicals,
     liquid,
     osmoticPressure,
+    temperature,
     form,
     isDayUse,
     url,
@@ -57,6 +64,8 @@ export class OnsenEntity {
       osmoticPressure != null
         ? new OsmoticPressure(osmoticPressure)
         : undefined;
+    this._temperture =
+      temperature != null ? new Temperature(temperature) : undefined;
     this._bussinessForm = new BusinessForm(form);
     this.isDayUse = isDayUse;
     this.url = url;
@@ -84,6 +93,12 @@ export class OnsenEntity {
   set osmoticPressure(value: OsmoticPressureOption | undefined) {
     this._osmoticPressure =
       value !== undefined ? new OsmoticPressure(value) : undefined;
+  }
+  get temperature(): TemperatureOption | undefined {
+    return this._temperture?.value ?? undefined;
+  }
+  set temperature(value: TemperatureOption | undefined) {
+    this._temperture = value !== undefined ? new Temperature(value) : undefined;
   }
   get generatedSprintQuality(): string | undefined {
     return this._generatedSpringQuality;
