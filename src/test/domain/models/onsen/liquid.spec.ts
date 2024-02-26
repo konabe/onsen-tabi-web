@@ -23,6 +23,20 @@ describe("Liquid", () => {
     });
   });
 
+  describe("#getTextWithInstruction", () => {
+    it.each`
+      value                | expected
+      ${"acidic"}          | ${"酸性(pH3未満)"}
+      ${"mildly_acidic"}   | ${"弱酸性(pH3以上～6未満)"}
+      ${"neutral"}         | ${"中性(pH6以上～7.5未満)"}
+      ${"mildly_alkaline"} | ${"弱アルカリ性(pH7.5以上～8.5未満)"}
+      ${"alkaline"}        | ${"アルカリ性(pH8.5以上)"}
+    `("should return $expected", ({ value, expected }) => {
+      const liquid = new Liquid(value);
+      expect(liquid.getTextWithInstruction()).toBe(expected);
+    });
+  });
+
   describe("#getOmittedText", () => {
     it.each`
       value                | expected
