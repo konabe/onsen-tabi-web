@@ -133,10 +133,14 @@ export class OnsenEntity {
     return this._osmoticPressure?.getText() ?? undefined;
   }
 
+  getTemperatureText(): string | undefined {
+    return this._temperture?.getText() ?? undefined;
+  }
+
   getSubText(): string {
     return `(${this.getOsmoticPressureText() ?? "？"}・${
       this.getLiquidText() ?? "？"
-    }${/*ここに温度情報*/ ""})`;
+    }・${this.getTemperatureText() ?? "？"})`;
   }
 
   getChemicalTags(): ChemicalTagOption[] {
