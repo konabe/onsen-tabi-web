@@ -11,6 +11,10 @@ import { Liquid, LiquidValueOption } from "../../domain/models/onsen/liquid";
 import { FormOption } from "../../domain/models/onsen/businessForm";
 import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
+import {
+  Temperature,
+  TemperatureOption,
+} from "../../domain/models/onsen/temperature";
 
 type Props = {
   formTitle?: string;
@@ -35,6 +39,9 @@ const OnsenForm: React.FC<Props> = ({
   const [osmoticPressure, setOsmoticPressure] = useState<
     OsmoticPressureOption | undefined
   >(undefined);
+  const [temperature, setTemperature] = useState<TemperatureOption | undefined>(
+    undefined
+  );
   const [form, setForm] = useState<FormOption>("sotoyu");
   const [isDayUse, setIsDayUse] = useState<boolean>(false);
   const [url, setURL] = useState<string>("");
@@ -86,6 +93,19 @@ const OnsenForm: React.FC<Props> = ({
     { value: "isotonic", label: "等張性" },
     { value: "hypertonic", label: "高張性" },
   ];
+  const temperatureOptions: {
+    value: TemperatureOption | undefined;
+    label: string;
+  }[] = [
+    { value: undefined, label: "選択なし" },
+    { value: "hot", label: new Temperature("hot").getTextWithInstruction() },
+    {
+      value: "normal",
+      label: new Temperature("normal").getTextWithInstruction(),
+    },
+    { value: "cool", label: new Temperature("cool").getTextWithInstruction() },
+    { value: "cold", label: new Temperature("cold").getTextWithInstruction() },
+  ];
   const formOptions: {
     value: FormOption;
     label: string;
@@ -101,6 +121,9 @@ const OnsenForm: React.FC<Props> = ({
   const osmoticPressureCurrentValue = osmoticPressureOptions.find(
     (v) => v.value === osmoticPressure
   );
+  const temperatureCurrentValue = temperatureOptions.find(
+    (v) => v.value === temperature
+  );
   const formCurrentValue = formOptions.find((v) => v.value === form);
 
   const onClick = async () => {
@@ -111,9 +134,9 @@ const OnsenForm: React.FC<Props> = ({
         generatedSpringQuality: quality,
         userSpringQuality: userQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
-        liquid: liquid !== undefined ? liquid : undefined,
-        osmoticPressure:
-          osmoticPressure !== undefined ? osmoticPressure : undefined,
+        liquid,
+        osmoticPressure,
+        temperature,
         form,
         isDayUse,
         url,
@@ -126,6 +149,7 @@ const OnsenForm: React.FC<Props> = ({
     setChemicals([]);
     setLiquid(undefined);
     setOsmoticPressure(undefined);
+    setTemperature(undefined);
     setForm("sotoyu");
     setURL("");
     setDescription("");
@@ -139,9 +163,9 @@ const OnsenForm: React.FC<Props> = ({
         generatedSpringQuality: quality,
         userSpringQuality: userQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
-        liquid: liquid !== undefined ? liquid : undefined,
-        osmoticPressure:
-          osmoticPressure !== undefined ? osmoticPressure : undefined,
+        liquid,
+        osmoticPressure,
+        temperature,
         form,
         isDayUse,
         url,
@@ -153,6 +177,7 @@ const OnsenForm: React.FC<Props> = ({
     form,
     isDayUse,
     liquid,
+    temperature,
     name,
     onChange,
     osmoticPressure,
@@ -167,10 +192,9 @@ const OnsenForm: React.FC<Props> = ({
     setChemicals(value?.chemicals ?? []);
     setUserQuality(value?.userSpringQuality ?? "");
     setQuality(value?.generatedSprintQuality ?? "");
-    setLiquid(value?.liquid !== undefined ? value.liquid : undefined);
-    setOsmoticPressure(
-      value?.osmoticPressure !== undefined ? value.osmoticPressure : undefined
-    );
+    setLiquid(value?.liquid);
+    setOsmoticPressure(value?.osmoticPressure);
+    setTemperature(value?.temperature);
     setForm(value?.form ?? "sotoyu");
     setIsDayUse(value?.isDayUse ?? false);
     setURL(value?.url ?? "");
@@ -226,6 +250,18 @@ const OnsenForm: React.FC<Props> = ({
             defaultValue={undefined}
             onChange={(v) =>
               setOsmoticPressure(v?.value as OsmoticPressureOption | undefined)
+            }
+          />
+        </div>
+        <div>
+          <Select
+            label="温度"
+            options={temperatureOptions}
+            value={temperatureCurrentValue}
+            isMulti={false}
+            defaultValue={undefined}
+            onChange={(v) =>
+              setTemperature(v?.value as TemperatureOption | undefined)
             }
           />
         </div>

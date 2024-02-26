@@ -13,6 +13,7 @@ describe("Onsen", () => {
     chemicals: ["NaIon", "ClIon"],
     liquid: "mildly_alkaline",
     osmoticPressure: "isotonic",
+    temperature: "hot",
     form: "sotoyu",
     isDayUse: true,
     url: "https://onsen-kusatsu.com/ohtakinoyu/",
@@ -34,6 +35,7 @@ describe("Onsen", () => {
       expect(onsen.liquid).toBe("mildly_alkaline");
       expect(onsen.form).toBe("sotoyu");
       expect(onsen.osmoticPressure).toBe("isotonic");
+      expect(onsen.temperature).toBe("hot");
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.userSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen).toBeDefined();
@@ -44,10 +46,12 @@ describe("Onsen", () => {
       onsen.liquid = "neutral";
       onsen.form = "uchiyu";
       onsen.osmoticPressure = "hypertonic";
+      onsen.temperature = "cold";
       onsen.userSpringQuality = "メタケイ酸泉";
       expect(onsen.liquid).toBe("neutral");
       expect(onsen.form).toBe("uchiyu");
       expect(onsen.osmoticPressure).toBe("hypertonic");
+      expect(onsen.temperature).toBe("cold");
       expect(onsen.userSpringQuality).toBe("メタケイ酸泉");
       expect(onsen).toBeDefined();
     });
@@ -126,10 +130,24 @@ describe("Onsen", () => {
     });
   });
 
+  describe("#getTemperatureText", () => {
+    it.each`
+      temperature | expected
+      ${"hot"}    | ${"高温泉"}
+      ${"normal"} | ${"温泉"}
+      ${"cool"}   | ${"低温泉"}
+      ${"cold"}   | ${"冷鉱泉"}
+      ${null}     | ${undefined}
+    `("should return $expected", ({ temperature, expected }) => {
+      const onsen = new OnsenEntity({ ...commonParams, temperature });
+      expect(onsen.getTemperatureText()).toBe(expected);
+    });
+  });
+
   describe("#getSubText", () => {
     it("should return ", () => {
       const onsen = new OnsenEntity(commonParams);
-      expect(onsen.getSubText()).toBe("(等張性・弱アルカリ性)");
+      expect(onsen.getSubText()).toBe("(等張性・弱アルカリ性・高温泉)");
     });
   });
 

@@ -26,6 +26,7 @@ export const Primary: Story = {
       chemicals: ["NaIon", "ClIon"],
       liquid: "mildly_alkaline",
       osmoticPressure: "isotonic",
+      temperature: "hot",
       form: "sotoyu",
       isDayUse: true,
       url: "https://onsen-kusatsu.com/ohtakinoyu/",

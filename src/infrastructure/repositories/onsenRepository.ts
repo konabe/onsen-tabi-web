@@ -5,6 +5,10 @@ import { LiquidValueOption } from "../../domain/models/onsen/liquid";
 import { FormOption } from "../../domain/models/onsen/businessForm";
 import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
+import {
+  Temperature,
+  TemperatureOption,
+} from "../../domain/models/onsen/temperature";
 
 export type OnsenResponse = {
   id: number;
@@ -17,6 +21,7 @@ export type OnsenResponse = {
   springQualityUser: string;
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
+  temperature: TemperatureOption | null;
   form: FormOption;
   isDayUse: boolean;
   url: string;
@@ -42,6 +47,7 @@ export type OnsenRequest = {
   } | null;
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
+  temperature: TemperatureOption | null;
   form: FormOption;
   isDayUse: boolean;
   url: string;
@@ -92,6 +98,7 @@ export class OnsenRepository implements IOnsenRepository {
       liquid: onsen?.liquid ?? null,
       form: onsen.form,
       osmoticPressure: onsen?.osmoticPressure ?? null,
+      temperature: onsen?.temperature ?? null,
       springQuality: onsen.userSpringQuality,
       chemicals: {
         naIon: onsen.chemicals.includes("NaIon"),

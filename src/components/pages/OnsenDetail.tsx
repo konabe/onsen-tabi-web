@@ -102,6 +102,10 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                   <span>{onsen?.getOsmoticPressureText() ?? "情報なし"}</span>
                 </Info>
                 <Info>
+                  <InfoTitle>温度</InfoTitle>
+                  <span>{onsen?.getTemperatureText() ?? "情報なし"}</span>
+                </Info>
+                <Info>
                   <InfoTitle>営業形態</InfoTitle>
                   <span>{onsen?.getFormText() ?? "情報なし"}</span>
                 </Info>
