@@ -31,6 +31,10 @@ export class Liquid extends ValueObject implements OmittableText {
     }
   }
 
+  getTextWithInstruction(): string {
+    return `${this.getText()}(${this.getPhIntervalText()})`;
+  }
+
   getOmittedText(): string | undefined {
     switch (this._value) {
       case "acidic":
@@ -52,5 +56,31 @@ export class Liquid extends ValueObject implements OmittableText {
 
   copy(): Liquid {
     return new Liquid(this._value);
+  }
+
+  private getPhInterval(): [number | undefined, number | undefined] {
+    switch (this._value) {
+      case "acidic":
+        return [undefined, 3];
+      case "mildly_acidic":
+        return [3, 6];
+      case "neutral":
+        return [6, 7.5];
+      case "mildly_alkaline":
+        return [7.5, 8.5];
+      case "alkaline":
+        return [8.5, undefined];
+    }
+  }
+
+  private getPhIntervalText(): string {
+    const [min, max] = this.getPhInterval();
+    if (min === undefined) {
+      return `pH${max}未満`;
+    }
+    if (max === undefined) {
+      return `pH${min}以上`;
+    }
+    return `pH${min}以上～${max}未満`;
   }
 }

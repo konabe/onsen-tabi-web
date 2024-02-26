@@ -7,7 +7,7 @@ import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
 import { subColor } from "../atoms/colors";
 import SingleCheckBox from "../atoms/SingleCheckBox";
-import { LiquidValueOption } from "../../domain/models/onsen/liquid";
+import { Liquid, LiquidValueOption } from "../../domain/models/onsen/liquid";
 import { FormOption } from "../../domain/models/onsen/businessForm";
 import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
@@ -62,11 +62,20 @@ const OnsenForm: React.FC<Props> = ({
     label: string;
   }[] = [
     { value: undefined, label: "選択なし" },
-    { value: "acidic", label: "酸性" },
-    { value: "mildly_acidic", label: "弱酸性" },
-    { value: "neutral", label: "中性" },
-    { value: "mildly_alkaline", label: "弱アルカリ性" },
-    { value: "alkaline", label: "アルカリ性" },
+    { value: "acidic", label: new Liquid("acidic").getTextWithInstruction() },
+    {
+      value: "mildly_acidic",
+      label: new Liquid("mildly_acidic").getTextWithInstruction(),
+    },
+    { value: "neutral", label: new Liquid("neutral").getTextWithInstruction() },
+    {
+      value: "mildly_alkaline",
+      label: new Liquid("mildly_alkaline").getTextWithInstruction(),
+    },
+    {
+      value: "alkaline",
+      label: new Liquid("alkaline").getTextWithInstruction(),
+    },
   ];
   const osmoticPressureOptions: {
     value: OsmoticPressureOption | undefined;
