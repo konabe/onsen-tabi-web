@@ -35,6 +35,7 @@ describe("Onsen", () => {
       expect(onsen.liquid).toBe("mildly_alkaline");
       expect(onsen.form).toBe("sotoyu");
       expect(onsen.osmoticPressure).toBe("isotonic");
+      expect(onsen.temperature).toBe("hot");
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.userSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen).toBeDefined();
@@ -45,10 +46,12 @@ describe("Onsen", () => {
       onsen.liquid = "neutral";
       onsen.form = "uchiyu";
       onsen.osmoticPressure = "hypertonic";
+      onsen.temperature = "cold";
       onsen.userSpringQuality = "メタケイ酸泉";
       expect(onsen.liquid).toBe("neutral");
       expect(onsen.form).toBe("uchiyu");
       expect(onsen.osmoticPressure).toBe("hypertonic");
+      expect(onsen.temperature).toBe("cold");
       expect(onsen.userSpringQuality).toBe("メタケイ酸泉");
       expect(onsen).toBeDefined();
     });

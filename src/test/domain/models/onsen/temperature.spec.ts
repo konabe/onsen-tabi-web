@@ -2,6 +2,13 @@ import { describe, expect, it } from "vitest";
 import { Temperature } from "../../../../domain/models/onsen/temperature";
 
 describe("Temperature", () => {
+  describe("#value", () => {
+    it("should return the value", () => {
+      const temperature = new Temperature("hot");
+      expect(temperature.value).toBe("hot");
+    });
+  });
+
   describe("#getText", () => {
     it.each`
       value       | expected
