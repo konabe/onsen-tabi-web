@@ -67,7 +67,10 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title={`${onsen?.name}`}>
               <TopContentsContainer>
                 <TopContentsMainContainer>
-                  <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
+                  <OnsenImg
+                    src={headerCoverJpg}
+                    alt={onsen?.name + "の画像"}
+                  ></OnsenImg>
                 </TopContentsMainContainer>
                 <TopContentsSubContainer>
                   <div>
@@ -179,20 +182,29 @@ const TopContentsContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   column-gap: 48px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 979px) {
     flex-direction: column;
   }
 `;
 
-const TopContentsMainContainer = styled.div``;
+const TopContentsMainContainer = styled.div`
+  flex-grow: 0;
+  min-width: 400px;
+`;
 
 const TopContentsSubContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 20px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 979px) {
     margin-top: 20px;
   }
+
+  flex-grow: 1;
+`;
+
+const OnsenImg = styled.img`
+  width: 100%;
 `;
 
 const InfoContainer = styled.div`
