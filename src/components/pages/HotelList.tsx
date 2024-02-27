@@ -8,6 +8,7 @@ import { CommonPageProps } from "../../App";
 import { HotelEntity } from "../../domain/models/hotel";
 import Article from "../organisims/Article";
 import { HotelRepository } from "../../infrastructure/repositories/hotelRepository";
+import HotelCard from "../organisims/HotelCard";
 
 const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const hotelRepository = new HotelRepository();
@@ -57,9 +58,9 @@ const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="🏕️" title="宿一覧">
               <SListContainer>
                 {hotels.map((v) => (
-                  <div key={v.id}>
-                    <Link to={`/hotel/${v.id}`}>{v.name}</Link>
-                  </div>
+                  <SListItemContainer key={v.id}>
+                    <HotelCard hotel={v} />
+                  </SListItemContainer>
                 ))}
               </SListContainer>
             </Article>
@@ -88,6 +89,21 @@ const SContents = styled.div`
 
 const SListContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  row-gap: 4px;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+  column-gap: 16px;
+  row-gap: 16px;
+`;
+
+const SListItemContainer = styled.div`
+  flex: 0 0 300px;
+  width: 300px;
+  @media screen and (max-width: 767px) {
+    flex: 0 0 auto;
+    width: 100%;
+  }
 `;
