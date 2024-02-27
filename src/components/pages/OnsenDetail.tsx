@@ -68,9 +68,6 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
               <img src={headerCoverJpg} alt={onsen?.name + "の画像"}></img>
               <Description text={onsen?.description ?? ""} />
               <RelatedContents title="温泉データ">
-                <a href={onsen?.url} target="_blank" rel="noreferrer">
-                  🔗外部リンク
-                </a>
                 <InfoContainer>
                   <Info>
                     <InfoTitle>泉質</InfoTitle>
@@ -128,6 +125,18 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                       <InfoValueContainer>あり</InfoValueContainer>
                     </Info>
                   ) : undefined}
+                  <Info>
+                    <InfoTitle>外部サイト</InfoTitle>
+                    <InfoValueContainer>
+                      {onsen?.url === "" ? (
+                        "情報なし"
+                      ) : (
+                        <a href={onsen?.url} target="_blank" rel="noreferrer">
+                          {onsen?.url}
+                        </a>
+                      )}
+                    </InfoValueContainer>
+                  </Info>
                 </InfoContainer>
               </RelatedContents>
             </Article>
@@ -162,7 +171,10 @@ const Info = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 8px;
+  gap: 64px;
+  @media screen and (max-width: 767px) {
+    gap: 16px;
+  }
 
   padding-bottom: 2px;
   border-bottom: 2px solid #eee;
