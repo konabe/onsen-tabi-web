@@ -6,6 +6,7 @@ import {
   ChemicalTagModel,
   ChemicalTagOption,
 } from "../../domain/models/onsen/chemicalTagModel";
+import Card from "../molecules/Card";
 
 type Props = {
   onsen: OnsenEntity;
@@ -13,27 +14,29 @@ type Props = {
 
 const OnsenCard: React.FC<Props> = ({ onsen }) => {
   return (
-    <Container>
-      <Header>
-        <NameContainer>
-          <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
-        </NameContainer>
-        <LinkContainer>
-          {onsen.url !== "" ? <a href={onsen.url}>🔗</a> : undefined}
-        </LinkContainer>
-      </Header>
-      <Sub>{onsen.getSubText()}</Sub>
-      <Content>{onsen.description}</Content>
-      <TagContainer>
-        {onsen.getChemicalTags().map((v: ChemicalTagOption) => (
-          <ChemicalTag
-            key={v}
-            chemical={new ChemicalTagModel(v)}
-            isOmitted={true}
-          />
-        ))}
-      </TagContainer>
-    </Container>
+    <Card>
+      <Container>
+        <Header>
+          <NameContainer>
+            <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+          </NameContainer>
+          <LinkContainer>
+            {onsen.url !== "" ? <a href={onsen.url}>🔗</a> : undefined}
+          </LinkContainer>
+        </Header>
+        <Sub>{onsen.getSubText()}</Sub>
+        <Content>{onsen.description}</Content>
+        <TagContainer>
+          {onsen.getChemicalTags().map((v: ChemicalTagOption) => (
+            <ChemicalTag
+              key={v}
+              chemical={new ChemicalTagModel(v)}
+              isOmitted={true}
+            />
+          ))}
+        </TagContainer>
+      </Container>
+    </Card>
   );
 };
 
@@ -41,11 +44,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  border: 1px solid ${subColor};
-  padding: 16px;
 `;
 
 const Header = styled.div`

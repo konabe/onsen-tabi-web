@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { subColor } from "../atoms/colors";
 import { HotelEntity } from "../../domain/models/hotel";
+import Card from "../molecules/Card";
 
 type Props = {
   hotel: HotelEntity;
@@ -8,17 +9,19 @@ type Props = {
 
 const HotelCard: React.FC<Props> = ({ hotel }) => {
   return (
-    <Container>
-      <Header>
-        <NameContainer>
-          <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
-        </NameContainer>
-        <LinkContainer>
-          {hotel.url !== "" ? <a href={hotel.url}>🔗</a> : undefined}
-        </LinkContainer>
-      </Header>
-      <Content>{hotel.description}</Content>
-    </Container>
+    <Card>
+      <Container>
+        <Header>
+          <NameContainer>
+            <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
+          </NameContainer>
+          <LinkContainer>
+            {hotel.url !== "" ? <a href={hotel.url}>🔗</a> : undefined}
+          </LinkContainer>
+        </Header>
+        <Content>{hotel.description}</Content>
+      </Container>
+    </Card>
   );
 };
 
@@ -26,11 +29,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  border: 1px solid ${subColor};
-  padding: 16px;
 `;
 
 const Header = styled.div`
