@@ -1,40 +1,25 @@
 import styled from "styled-components";
 import { subColor } from "../atoms/colors";
-import { OnsenEntity } from "../../domain/models/onsen";
-import ChemicalTag from "../molecules/onsen/ChemicalTag";
-import {
-  ChemicalTagModel,
-  ChemicalTagOption,
-} from "../../domain/models/onsen/chemicalTagModel";
+import { HotelEntity } from "../../domain/models/hotel";
 import Card from "../molecules/Card";
 
 type Props = {
-  onsen: OnsenEntity;
+  hotel: HotelEntity;
 };
 
-const OnsenCard: React.FC<Props> = ({ onsen }) => {
+const HotelCard: React.FC<Props> = ({ hotel }) => {
   return (
     <Card>
       <Container>
         <Header>
           <NameContainer>
-            <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+            <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
           </NameContainer>
           <LinkContainer>
-            {onsen.url !== "" ? <a href={onsen.url}>🔗</a> : undefined}
+            {hotel.url !== "" ? <a href={hotel.url}>🔗</a> : undefined}
           </LinkContainer>
         </Header>
-        <Sub>{onsen.getSubText()}</Sub>
-        <Content>{onsen.description}</Content>
-        <TagContainer>
-          {onsen.getChemicalTags().map((v: ChemicalTagOption) => (
-            <ChemicalTag
-              key={v}
-              chemical={new ChemicalTagModel(v)}
-              isOmitted={true}
-            />
-          ))}
-        </TagContainer>
+        <Content>{hotel.description}</Content>
       </Container>
     </Card>
   );
@@ -68,10 +53,6 @@ const LinkContainer = styled.div`
   }
 `;
 
-const Sub = styled.div`
-  font-size: 12px;
-`;
-
 const Content = styled.div`
   font-size: 12px;
   overflow: hidden;
@@ -83,10 +64,4 @@ const Content = styled.div`
   -webkit-line-clamp: 3;
 `;
 
-const TagContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-`;
-
-export default OnsenCard;
+export default HotelCard;

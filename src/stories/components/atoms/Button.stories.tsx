@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryFn, StoryObj } from "@storybook/react";
 import Button from "../../../components/atoms/Button";
 
 const meta = {
@@ -21,4 +21,16 @@ export const Primary: Story = {
     title: "送信",
     onClick: () => console.log("Click"),
   },
+};
+
+const FlexTemplate: StoryFn<typeof Button> = (args) => (
+  <div style={{ width: "300px", display: "flex", flexDirection: "column" }}>
+    <Button {...args} />
+  </div>
+);
+
+export const Flex = FlexTemplate.bind({});
+Flex.args = {
+  title: "送信",
+  onClick: () => console.log("Click"),
 };

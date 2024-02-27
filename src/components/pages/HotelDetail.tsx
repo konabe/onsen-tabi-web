@@ -71,7 +71,9 @@ const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                 <a href={hotel?.url} target="_blank" rel="noreferrer">
                   リンク
                 </a>
-                <Description text={hotel?.description ?? ""} />
+                <DescriptionContainer>
+                  <Description text={hotel?.description ?? ""} />
+                </DescriptionContainer>
               </div>
             </Article>
           </div>
@@ -101,4 +103,9 @@ const SContents = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 32px;
+`;
+
+const DescriptionContainer = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
