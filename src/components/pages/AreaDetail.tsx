@@ -91,7 +91,9 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                     <Tag text={"国民保養温泉地"} />
                   </STagContainer>
                 ) : undefined}
-                <Description text={area?.description ?? ""} />
+                <DescriptionContainer>
+                  <Description text={area?.description ?? ""} />
+                </DescriptionContainer>
               </div>
             </Article>
           </div>
@@ -138,4 +140,9 @@ const SContents = styled.div`
 
 const STagContainer = styled.div`
   margin-top: 8px;
+`;
+
+const DescriptionContainer = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
