@@ -15,6 +15,7 @@ export default defineConfig({
     strictPort: true,
   },
   test: {
+    globals: true,
     environment: "happy-dom",
     include: ["src/test/**/*.spec.{js,ts,jsx,tsx}"],
     alias: {
