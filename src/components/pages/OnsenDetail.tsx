@@ -71,50 +71,64 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                 <a href={onsen?.url} target="_blank" rel="noreferrer">
                   🔗外部リンク
                 </a>
-                <Info>
-                  <InfoTitle>泉質</InfoTitle>
-                  <span>{onsen?.getQualityText() ?? "情報なし"}</span>
-                </Info>
-                <Info>
-                  <InfoTitle>成分タグ</InfoTitle>
-                  <span>
-                    <ChemicalTagContainer>
-                      {onsen
-                        ?.getChemicalTags()
-                        .map((c) => (
-                          <ChemicalTag
-                            chemical={new ChemicalTagModel(c)}
-                            key={c}
-                          />
-                        )) ?? "情報なし"}
-                    </ChemicalTagContainer>
-                  </span>
-                  <SimillaryOnsenAnchor href={simillarSearchLink}>
-                    類似の温泉を探す
-                  </SimillaryOnsenAnchor>
-                </Info>
-                <Info>
-                  <InfoTitle>液性</InfoTitle>
-                  <span>{onsen?.getLiquidText() ?? "情報なし"}</span>
-                </Info>
-                <Info>
-                  <InfoTitle>浸透圧</InfoTitle>
-                  <span>{onsen?.getOsmoticPressureText() ?? "情報なし"}</span>
-                </Info>
-                <Info>
-                  <InfoTitle>温度</InfoTitle>
-                  <span>{onsen?.getTemperatureText() ?? "情報なし"}</span>
-                </Info>
-                <Info>
-                  <InfoTitle>営業形態</InfoTitle>
-                  <span>{onsen?.getFormText() ?? "情報なし"}</span>
-                </Info>
-                {onsen?.isDayUse ?? false ? (
+                <InfoContainer>
                   <Info>
-                    <InfoTitle>日帰り入浴</InfoTitle>
-                    <span>あり</span>
+                    <InfoTitle>泉質</InfoTitle>
+                    <InfoValueContainer>
+                      {onsen?.getQualityText() ?? "情報なし"}
+                    </InfoValueContainer>
                   </Info>
-                ) : undefined}
+                  <Info>
+                    <InfoTitle>成分タグ</InfoTitle>
+                    <InfoValueContainer>
+                      <ChemicalTagContainer>
+                        {onsen
+                          ?.getChemicalTags()
+                          .map((c) => (
+                            <ChemicalTag
+                              chemical={new ChemicalTagModel(c)}
+                              key={c}
+                            />
+                          )) ?? "情報なし"}
+                        <div>
+                          <SimillaryOnsenAnchor href={simillarSearchLink}>
+                            類似の温泉を探す
+                          </SimillaryOnsenAnchor>
+                        </div>
+                      </ChemicalTagContainer>
+                    </InfoValueContainer>
+                  </Info>
+                  <Info>
+                    <InfoTitle>液性</InfoTitle>
+                    <InfoValueContainer>
+                      {onsen?.getLiquidText() ?? "情報なし"}
+                    </InfoValueContainer>
+                  </Info>
+                  <Info>
+                    <InfoTitle>浸透圧</InfoTitle>
+                    <InfoValueContainer>
+                      {onsen?.getOsmoticPressureText() ?? "情報なし"}
+                    </InfoValueContainer>
+                  </Info>
+                  <Info>
+                    <InfoTitle>温度</InfoTitle>
+                    <InfoValueContainer>
+                      {onsen?.getTemperatureText() ?? "情報なし"}
+                    </InfoValueContainer>
+                  </Info>
+                  <Info>
+                    <InfoTitle>営業形態</InfoTitle>
+                    <InfoValueContainer>
+                      {onsen?.getFormText() ?? "情報なし"}
+                    </InfoValueContainer>
+                  </Info>
+                  {onsen?.isDayUse ?? false ? (
+                    <Info>
+                      <InfoTitle>日帰り入浴</InfoTitle>
+                      <InfoValueContainer>あり</InfoValueContainer>
+                    </Info>
+                  ) : undefined}
+                </InfoContainer>
               </RelatedContents>
             </Article>
           </div>
@@ -137,21 +151,37 @@ const SContents = styled.div`
   row-gap: 32px;
 `;
 
-const Info = styled.span`
+const InfoContainer = styled.div`
   display: flex;
-  align-items: flex-end;
-  flex-direction: row;
-  gap: 8px;
+  flex-direction: column;
+  row-gap: 8px;
+  margin-top: 16px;
 `;
 
-const InfoTitle = styled.span`
+const Info = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+
+  padding-bottom: 2px;
+  border-bottom: 2px solid #eee;
+`;
+
+const InfoTitle = styled.div`
+  flex-shrink: 0;
+  width: 5em;
+  text-align: left;
   font-weight: 700;
 `;
 
-const ChemicalTagContainer = styled.span`
+const InfoValueContainer = styled.div``;
+
+const ChemicalTagContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 8px;
 `;
 
