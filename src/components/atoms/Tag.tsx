@@ -8,15 +8,16 @@ type Props = {
 
 const Tag: React.FC<Props> = ({ text, hexColor: color }) => {
   const backgroundColor = color ?? mainColor;
-  return <STag style={{ backgroundColor }}>{text}</STag>;
+  return <TagContainer style={{ backgroundColor }}>{text}</TagContainer>;
 };
 
 export default Tag;
 
-const STag = styled.span`
+const TagContainer = styled.div`
   display: inline-block;
   color: white;
   font-size: 12px;
   padding: 4px;
   box-sizing: border-box;
+  white-space: nowrap;
 `;
