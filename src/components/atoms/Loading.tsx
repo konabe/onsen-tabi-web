@@ -23,7 +23,7 @@ const Loading: React.FC = () => {
   };
 
   return (
-    <SContainer>
+    <SContainer role="loading-container">
       <SText>{`${periods} ローディング中 ${periods}`}</SText>
     </SContainer>
   );
