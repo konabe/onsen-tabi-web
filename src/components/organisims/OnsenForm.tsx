@@ -140,6 +140,7 @@ const OnsenForm: React.FC<Props> = ({
         form,
         isDayUse,
         url,
+        imgUrl: null,
         description,
       })
     );
@@ -169,6 +170,7 @@ const OnsenForm: React.FC<Props> = ({
         form,
         isDayUse,
         url,
+        imgUrl: value?.imgUrl ?? null,
         description,
       })
     );
