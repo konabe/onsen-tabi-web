@@ -1,5 +1,6 @@
 import type { Meta, StoryFn, StoryObj } from "@storybook/react";
-import Button from "../../../components/atoms/Button";
+import { action } from "@storybook/addon-actions";
+import Button from "./Button";
 
 const meta = {
   title: "components/atoms/Button",
@@ -10,6 +11,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     title: { control: "text" },
+    onClick: { action: "clicked" },
   },
 } satisfies Meta<typeof Button>;
 
@@ -19,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     title: "送信",
-    onClick: () => console.log("Click"),
+    onClick: action("clicked"),
   },
 };
 
@@ -32,5 +34,5 @@ const FlexTemplate: StoryFn<typeof Button> = (args) => (
 export const Flex = FlexTemplate.bind({});
 Flex.args = {
   title: "送信",
-  onClick: () => console.log("Click"),
+  onClick: action("clicked"),
 };

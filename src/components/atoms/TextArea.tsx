@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mainColor } from "./colors";
 
 type Props = {
   label?: string;
@@ -38,7 +39,7 @@ const STextArea = styled.textarea`
   width: 100%;
   font-size: 16px;
   padding: 0.5em;
-  outline-color: #56c198;
+  outline-color: ${mainColor};
   resize: none;
 `;
 
@@ -48,6 +49,6 @@ const SLabel = styled.label`
   flex-direction: column;
 
   &:focus-within {
-    color: #56c198;
+    color: ${mainColor};
   }
 `;

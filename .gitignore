@@ -29,6 +29,9 @@ yarn-error.log*
 # storybook
 storybook-static
 
+# chromatic
+build-storybook.log
+
 # Yarn v3
 .pnp.*
 .yarn/*
