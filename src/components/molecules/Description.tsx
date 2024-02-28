@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { grey1 } from "../atoms/colors";
 
 type Props = {
   text?: string;
@@ -23,5 +24,5 @@ const DescriptionContainer = styled.div`
   width: 100%;
   padding: 20px;
 
-  background-color: #f5f5f5;
+  background-color: ${grey1};
 `;

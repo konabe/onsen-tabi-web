@@ -13,6 +13,7 @@ import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
 import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
+import { grey2 } from "../atoms/colors";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();
@@ -223,7 +224,7 @@ const Info = styled.div`
   }
 
   padding-bottom: 2px;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid ${grey2};
 `;
 
 const InfoTitle = styled.div`

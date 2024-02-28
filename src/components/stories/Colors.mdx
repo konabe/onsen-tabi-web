@@ -1,0 +1,26 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+import { mainColor, subColor, grey1, grey2 } from "../atoms/colors";
+
+<Meta title="Common/Colors" />
+
+<ColorPalette>
+  <ColorItem
+    title="theme.color"
+    subtitle="No name"
+    colors={{ mainColor, subColor }}
+  />
+  <ColorItem
+    title="theme.color.greyscale"
+    colors={{ White: "#FFFFFF", grey1, grey2 }}
+  />
+  <ColorItem
+    title="theme.color.positive"
+    subtitle="TODO: サンプルとして残しておく"
+    colors={{
+      Apple: "rgba(102,191,60,1)",
+      Apple80: "rgba(102,191,60,.8)",
+      Apple60: "rgba(102,191,60,.6)",
+      Apple30: "rgba(102,191,60,.3)",
+    }}
+  />
+</ColorPalette>
