@@ -5,6 +5,7 @@ import styled from "styled-components";
 const Loading: React.FC = () => {
   const [count, setCount] = useState<number>(0);
   const [periods, setPeriods] = useState<string>("");
+  const loadingText = "ローディング中";
 
   useEffect(() => {
     setPeriods(Array(count).fill(".").join(""));
@@ -24,7 +25,7 @@ const Loading: React.FC = () => {
 
   return (
     <SContainer role="loading-container">
-      <SText>{`${periods} ローディング中 ${periods}`}</SText>
+      <SText>{`${periods} ${loadingText} ${periods}`}</SText>
     </SContainer>
   );
 };
