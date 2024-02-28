@@ -17,6 +17,7 @@
   "devDependencies": {
     "@sentry/cli": "^2.28.6",
     "@sentry/react": "^7.103.0",
+    "@storybook/addon-actions": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
