@@ -25,3 +25,15 @@ yarn-error.log*
 
 # Sentry Auth Token
 .sentryclirc
+
+# storybook
+storybook-static
+
+# Yarn v3
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
