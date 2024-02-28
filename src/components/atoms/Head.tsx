@@ -9,11 +9,8 @@ type Props = {
 export type HeadEmoji = "📌" | "🏕️" | "♨" | "🏞️";
 
 const Head: React.FC<Props> = ({ emoji, title }) => {
-  return (
-    <SH1>
-      {emoji} {title}
-    </SH1>
-  );
+  const text = `${emoji} ${title}`;
+  return <SH1>{text}</SH1>;
 };
 
 export default Head;
