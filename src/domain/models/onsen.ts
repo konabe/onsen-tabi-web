@@ -23,7 +23,7 @@ export type OnsenEntityParameter = {
   form: FormOption;
   isDayUse: boolean;
   url: string;
-  imgUrl: string | null;
+  imgURL: string | null;
   description: string;
 };
 
@@ -39,7 +39,7 @@ export class OnsenEntity {
   _bussinessForm: BusinessForm;
   readonly isDayUse: boolean;
   readonly url: string;
-  _imgUrl: string | undefined;
+  _imgURL: string | undefined;
   readonly description: string;
 
   constructor({
@@ -54,7 +54,7 @@ export class OnsenEntity {
     form,
     isDayUse,
     url,
-    imgUrl,
+    imgURL,
     description,
   }: OnsenEntityParameter) {
     this.id = id;
@@ -72,7 +72,7 @@ export class OnsenEntity {
     this._bussinessForm = new BusinessForm(form);
     this.isDayUse = isDayUse;
     this.url = url;
-    this._imgUrl = imgUrl ?? undefined;
+    this._imgURL = imgURL ?? undefined;
     this.description = description;
   }
 
@@ -113,8 +113,8 @@ export class OnsenEntity {
   set userSpringQuality(value: string) {
     this._userSpringQuality = value;
   }
-  get imgUrl(): string | undefined {
-    return this._imgUrl;
+  get imgURL(): string | undefined {
+    return this._imgURL;
   }
 
   getQualityText(): string {

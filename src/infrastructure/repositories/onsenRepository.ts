@@ -113,7 +113,7 @@ export class OnsenRepository implements IOnsenRepository {
         s: onsen.chemicals.includes("S"),
         rn: onsen.chemicals.includes("Rn"),
       },
-      imgUrl: onsen.imgUrl ?? null,
+      imgUrl: onsen.imgURL ?? null,
     };
   }
 
@@ -123,6 +123,7 @@ export class OnsenRepository implements IOnsenRepository {
       chemicals: response.quality?.chemicals ?? [],
       generatedSpringQuality: response.quality?.name,
       userSpringQuality: response.springQuality,
+      imgURL: response.imgUrl,
     });
   }
 }
