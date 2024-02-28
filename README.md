@@ -6,6 +6,10 @@
 - `yarn start`: 開発サーバー
 - `yarn build`: 本番用ビルド
 
+## Storybook
+
+[storybook|main](https://onsen-tabi-web-storybook.vercel.app)
+
 ## テストカバレッジ
 
 ![sunburst](https://codecov.io/gh/konabe/onsen-tabi-web/graphs/sunburst.svg?token=XM6J4Q321N)
