@@ -6,10 +6,11 @@
 - `yarn start`: 開発サーバー
 - `yarn build`: 本番用ビルド
 
-## Storybook
+## 品質管理
 
-[storybook|main](https://onsen-tabi-web-storybook.vercel.app)
+- [Storybook|main](https://onsen-tabi-web-storybook.vercel.app)
+- [Chomatic](https://www.chromatic.com/library?appId=65df5648f66d26026a58533f&branch=main)
 
-## テストカバレッジ
+### テストカバレッジ
 
 ![sunburst](https://codecov.io/gh/konabe/onsen-tabi-web/graphs/sunburst.svg?token=XM6J4Q321N)
