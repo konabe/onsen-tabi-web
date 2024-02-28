@@ -5,10 +5,7 @@ import { LiquidValueOption } from "../../domain/models/onsen/liquid";
 import { FormOption } from "../../domain/models/onsen/businessForm";
 import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
-import {
-  Temperature,
-  TemperatureOption,
-} from "../../domain/models/onsen/temperature";
+import { TemperatureOption } from "../../domain/models/onsen/temperature";
 
 export type OnsenResponse = {
   id: number;
@@ -25,6 +22,7 @@ export type OnsenResponse = {
   form: FormOption;
   isDayUse: boolean;
   url: string;
+  imgUrl: string | null;
   description: string;
 };
 
@@ -51,6 +49,7 @@ export type OnsenRequest = {
   form: FormOption;
   isDayUse: boolean;
   url: string;
+  imgUrl: string | null;
   description: string;
 };
 
@@ -114,6 +113,7 @@ export class OnsenRepository implements IOnsenRepository {
         s: onsen.chemicals.includes("S"),
         rn: onsen.chemicals.includes("Rn"),
       },
+      imgUrl: onsen.imgUrl ?? null,
     };
   }
 

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import headerCoverJpg from "../../header_cover.jpg";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
@@ -26,6 +25,9 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const simillarSearchLink = `/onsens?chemicals=${onsen
     ?.getChemicalTags()
     .join(",")}`;
+  const imageUrl = onsen?.imgUrl ?? "/img/onsen_default.png";
+  const imageAlt =
+    onsen?.imgUrl !== undefined ? onsen.name + "の画像" : "温泉のイメージ画像";
 
   const loadPage = async () => {
     try {
@@ -67,10 +69,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title={`${onsen?.name}`}>
               <TopContentsContainer>
                 <TopContentsMainContainer>
-                  <OnsenImg
-                    src={headerCoverJpg}
-                    alt={onsen?.name + "の画像"}
-                  ></OnsenImg>
+                  <OnsenImg src={imageUrl} alt={imageAlt} />
                 </TopContentsMainContainer>
                 <TopContentsSubContainer>
                   <div>
