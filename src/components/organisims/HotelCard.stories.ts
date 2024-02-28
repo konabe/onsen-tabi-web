@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import HotelCard from "../../../components/organisims/HotelCard";
-import { HotelEntity } from "../../../domain/models/hotel";
+import HotelCard from "./HotelCard";
+import { HotelEntity } from "../../domain/models/hotel";
 const meta = {
   title: "components/orgnaisms/HotelCard",
   component: HotelCard,

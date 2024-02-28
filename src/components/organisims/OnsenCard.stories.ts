@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import OnsenCard from "../../../components/organisims/OnsenCard";
-import { OnsenEntity } from "../../../domain/models/onsen";
+import OnsenCard from "./OnsenCard";
+import { OnsenEntity } from "../../domain/models/onsen";
 const meta = {
   title: "components/orgnaisms/OnsenCard",
   component: OnsenCard,
