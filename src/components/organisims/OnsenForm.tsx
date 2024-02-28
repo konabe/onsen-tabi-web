@@ -45,6 +45,7 @@ const OnsenForm: React.FC<Props> = ({
   const [form, setForm] = useState<FormOption>("sotoyu");
   const [isDayUse, setIsDayUse] = useState<boolean>(false);
   const [url, setURL] = useState<string>("");
+  const [imgURL, setImgURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
   const chemicalsValueOptions: {
@@ -140,7 +141,7 @@ const OnsenForm: React.FC<Props> = ({
         form,
         isDayUse,
         url,
-        imgUrl: null,
+        imgURL: imgURL === "" ? null : imgURL,
         description,
       })
     );
@@ -153,6 +154,7 @@ const OnsenForm: React.FC<Props> = ({
     setTemperature(undefined);
     setForm("sotoyu");
     setURL("");
+    setImgURL("");
     setDescription("");
   };
 
@@ -170,7 +172,7 @@ const OnsenForm: React.FC<Props> = ({
         form,
         isDayUse,
         url,
-        imgUrl: value?.imgUrl ?? null,
+        imgURL: imgURL === "" ? null : imgURL,
         description,
       })
     );
@@ -200,6 +202,7 @@ const OnsenForm: React.FC<Props> = ({
     setForm(value?.form ?? "sotoyu");
     setIsDayUse(value?.isDayUse ?? false);
     setURL(value?.url ?? "");
+    setImgURL(value?.imgURL ?? "");
     setDescription(value?.description ?? "");
   }, [value]);
 
@@ -289,6 +292,13 @@ const OnsenForm: React.FC<Props> = ({
             label="URL"
             value={url}
             onChange={(value) => setURL(value)}
+          />
+        </div>
+        <div>
+          <TextField
+            label="画像URL"
+            value={imgURL}
+            onChange={(value) => setImgURL(value)}
           />
         </div>
         <div>

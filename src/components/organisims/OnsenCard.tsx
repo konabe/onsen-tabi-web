@@ -14,7 +14,7 @@ type Props = {
 
 const OnsenCard: React.FC<Props> = ({ onsen }) => {
   return (
-    <Card imgUrl={onsen.imgUrl ?? "/img/onsen_default.png"}>
+    <Card imgUrl={onsen.imgURL ?? "/img/onsen_default.png"}>
       <Container>
         <Header>
           <NameContainer>
