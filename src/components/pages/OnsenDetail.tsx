@@ -25,6 +25,9 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const simillarSearchLink = `/onsens?chemicals=${onsen
     ?.getChemicalTags()
     .join(",")}`;
+  const imageUrl = onsen?.imgUrl ?? "/img/onsen_default.png";
+  const imageAlt =
+    onsen?.imgUrl !== undefined ? onsen.name + "の画像" : "温泉のイメージ画像";
 
   const loadPage = async () => {
     try {
@@ -66,14 +69,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title={`${onsen?.name}`}>
               <TopContentsContainer>
                 <TopContentsMainContainer>
-                  {onsen?.imgUrl !== undefined ? (
-                    <OnsenImg
-                      src={onsen?.imgUrl}
-                      alt={onsen?.name + "の画像"}
-                    ></OnsenImg>
-                  ) : (
-                    <OnsenImg src="/img/onsen_default.png" alt="代替画像" />
-                  )}
+                  <OnsenImg src={imageUrl} alt={imageAlt} />
                 </TopContentsMainContainer>
                 <TopContentsSubContainer>
                   <div>
