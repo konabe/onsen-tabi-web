@@ -17,6 +17,7 @@ describe("Onsen", () => {
     form: "sotoyu",
     isDayUse: true,
     url: "https://onsen-kusatsu.com/ohtakinoyu/",
+    imgUrl: "https://placehold.jp/150x150.png",
     description:
       "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。\nその独特の空気感はまさにテーマパークのよう。\n大浴場も広々としていて、まさに草津的な余裕感に癒される。\n白濁の日には清掃によって剥がされた湯の花が一斉に解き放たれる。贅沢な気分になりたいのであれば狙って通うとよい。",
   };
@@ -38,6 +39,7 @@ describe("Onsen", () => {
       expect(onsen.temperature).toBe("hot");
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.userSpringQuality).toBe("ナトリウム塩化物泉");
+      expect(onsen.imgUrl).toBe("https://placehold.jp/150x150.png");
       expect(onsen).toBeDefined();
     });
 
