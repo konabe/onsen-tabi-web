@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import headerCoverJpg from "../../header_cover.jpg";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
@@ -67,10 +66,14 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title={`${onsen?.name}`}>
               <TopContentsContainer>
                 <TopContentsMainContainer>
-                  <OnsenImg
-                    src={headerCoverJpg}
-                    alt={onsen?.name + "の画像"}
-                  ></OnsenImg>
+                  {onsen?.imgUrl !== undefined ? (
+                    <OnsenImg
+                      src={onsen?.imgUrl}
+                      alt={onsen?.name + "の画像"}
+                    ></OnsenImg>
+                  ) : (
+                    <OnsenImg src="/img/onsen_default.png" alt="代替画像" />
+                  )}
                 </TopContentsMainContainer>
                 <TopContentsSubContainer>
                   <div>

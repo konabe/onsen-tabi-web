@@ -114,7 +114,7 @@ export class OnsenEntity {
     this._userSpringQuality = value;
   }
   get imgUrl(): string | undefined {
-    return this.imgUrl;
+    return this._imgUrl;
   }
 
   getQualityText(): string {
