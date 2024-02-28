@@ -12,7 +12,7 @@ import Error from "./components/pages/Error";
 import React, { useState } from "react";
 import { useEffectOnce } from "react-use";
 import { getToken, setToken } from "./infrastructure/LocalStorage";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import NavBar from "./components/molecules/NavBar";
 import Header from "./components/organisims/Header";
 
@@ -36,8 +36,8 @@ const App: React.FC = () => {
     if (token === undefined) {
       return;
     }
-    const decoded: any = jwtDecode(token);
-    const expiresDate = decoded.exp * 1000;
+    const decoded = jwtDecode(token);
+    const expiresDate = (decoded?.exp ?? 0) * 1000;
     if (expiresDate < new Date().getTime()) {
       setToken(undefined);
       setAccessToken(undefined);
