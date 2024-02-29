@@ -190,6 +190,10 @@ const TopContentsContainer = styled.div`
 const TopContentsMainContainer = styled.div`
   flex-grow: 0;
   min-width: 400px;
+  max-width: 800px;
+  @media screen and (max-width: 979px) {
+    min-width: 100%;
+  }
 `;
 
 const TopContentsSubContainer = styled.div`
