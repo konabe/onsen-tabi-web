@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import selectEvent from "react-select-event";
 import userEvent from "@testing-library/user-event";
@@ -7,9 +7,14 @@ import MySelect from "../../../components/atoms/Select";
 // see. https://testing-library.com/docs/ecosystem-react-select-event/
 
 describe("Select", () => {
+  const onChange = vi.fn();
+
+  beforeEach(() => {
+    onChange.mockClear();
+  });
+
   describe("Single", () => {
     it("should call onChange when selected", async () => {
-      const onChange = vi.fn();
       render(
         <MySelect
           label="選択肢"
@@ -43,7 +48,6 @@ describe("Select", () => {
 
   describe("Mujlti", () => {
     it("should call onChange when selected", async () => {
-      const onChange = vi.fn();
       render(
         <MySelect
           label="選択肢"
