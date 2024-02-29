@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import Select from "./Select";
 import { useState } from "react";
 
@@ -35,7 +36,10 @@ export const Single: Story = {
         <Select
           {...{ ...args, isMulti: false }}
           value={value}
-          onChange={(v: any) => setValue(v)}
+          onChange={(v: any) => {
+            setValue(v);
+            action("onChange")(v);
+          }}
         />
       </div>
     );
@@ -62,7 +66,10 @@ export const Multi: Story = {
         <Select
           {...{ ...args, isMulti: true }}
           value={value}
-          onChange={(v: any) => setValue(v)}
+          onChange={(v: any) => {
+            setValue(v);
+            action("onChange")(v);
+          }}
         />
       </div>
     );
