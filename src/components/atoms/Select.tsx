@@ -8,6 +8,7 @@ type Option = { key: string; value: string };
 type Props =
   | {
       label?: string;
+      name: string;
       options: OptionsOrGroups<any, GroupBase<any>>;
     } & (
       | {
@@ -26,6 +27,7 @@ type Props =
 
 const MySelect: React.FC<Props> = ({
   label,
+  name,
   options,
   value,
   isMulti,
@@ -34,6 +36,8 @@ const MySelect: React.FC<Props> = ({
 }) => {
   const selectEl = (
     <Select
+      name={name}
+      inputId={name}
       options={options}
       value={value}
       defaultValue={defaultValue}
@@ -73,10 +77,8 @@ const MySelect: React.FC<Props> = ({
   }
   return (
     <div>
-      <SLabel>
-        {label}
-        {selectEl}
-      </SLabel>
+      <SLabel htmlFor={name}>{label}</SLabel>
+      {selectEl}
     </div>
   );
 };

@@ -226,6 +226,7 @@ const OnsenForm: React.FC<Props> = ({
         </div>
         <div>
           <Select
+            name="chemicals"
             label="成分"
             options={chemicalsValueOptions}
             value={chemicalsCurrentValue}
@@ -236,6 +237,7 @@ const OnsenForm: React.FC<Props> = ({
         </div>
         <div>
           <Select
+            name="liquid"
             label="液性"
             options={liquidValueOptions}
             value={liquidCurrentValue}
@@ -248,6 +250,7 @@ const OnsenForm: React.FC<Props> = ({
         </div>
         <div>
           <Select
+            name="osmotic-pressure"
             label="浸透圧"
             options={osmoticPressureOptions}
             value={osmoticPressureCurrentValue}
@@ -260,6 +263,7 @@ const OnsenForm: React.FC<Props> = ({
         </div>
         <div>
           <Select
+            name="temperature"
             label="温度"
             options={temperatureOptions}
             value={temperatureCurrentValue}
@@ -272,6 +276,7 @@ const OnsenForm: React.FC<Props> = ({
         </div>
         <div>
           <Select
+            name="form"
             label="形態"
             options={formOptions}
             value={formCurrentValue}
