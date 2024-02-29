@@ -95,6 +95,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <Article emoji="♨" title="温泉一覧">
               <FilterContainer>
                 <Select
+                  name="chemicals"
                   label="成分タグ"
                   options={chemicalsValueOptions}
                   value={chemicalsCurrentValue}

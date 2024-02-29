@@ -11,7 +11,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     title: { control: "text" },
-    onClick: { action: "clicked" },
+    onClick: { action: "onClick" },
   },
 } satisfies Meta<typeof Button>;
 
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     title: "送信",
-    onClick: action("clicked"),
+    onClick: action("onClick"),
   },
 };
 
@@ -34,5 +34,5 @@ const FlexTemplate: StoryFn<typeof Button> = (args) => (
 export const Flex = FlexTemplate.bind({});
 Flex.args = {
   title: "送信",
-  onClick: action("clicked"),
+  onClick: action("onClick"),
 };
