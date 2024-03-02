@@ -46,7 +46,7 @@ describe("Select", () => {
     });
   });
 
-  describe("Mujlti", () => {
+  describe("Multi", () => {
     it("should call onChange when selected", async () => {
       render(
         <MySelect
