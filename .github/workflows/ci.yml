@@ -35,6 +35,7 @@ jobs:
           slug: konabe/onsen-tabi-web
       - name: Publish to Chromatic
         uses: chromaui/action@latest
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{secrets.CHROMATIC_PROJECT_TOKEN}}
