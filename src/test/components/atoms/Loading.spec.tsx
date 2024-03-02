@@ -19,21 +19,18 @@ describe("Loading", () => {
     act(() => {
       render(<Loading />);
     });
-    expect(screen.getByRole("loading-container").children[0].textContent).toBe(
-      " ローディング中 "
-    );
+    let target = screen.getByTestId("loading-container");
+    expect(target).toHaveTextContent("ローディング中");
     act(() => {
       vi.advanceTimersByTime(300);
     });
-    expect(screen.getByRole("loading-container").children[0].textContent).toBe(
-      ". ローディング中 ."
-    );
+    target = screen.getByTestId("loading-container");
+    expect(target).toHaveTextContent(". ローディング中 .");
     act(() => {
       vi.advanceTimersByTime(300);
     });
-    expect(screen.getByRole("loading-container").children[0].textContent).toBe(
-      ".. ローディング中 .."
-    );
+    target = screen.getByTestId("loading-container");
+    expect(target).toHaveTextContent(".. ローディング中 ..");
     Array(7)
       .fill(0)
       .forEach(() => {
@@ -41,26 +38,22 @@ describe("Loading", () => {
           vi.advanceTimersByTime(300);
         });
       });
-    expect(screen.getByRole("loading-container").children[0].textContent).toBe(
-      "......... ローディング中 ........."
-    );
+    target = screen.getByTestId("loading-container");
+    expect(target).toHaveTextContent("......... ローディング中 .........");
     act(() => {
       vi.advanceTimersByTime(300);
     });
-    expect(screen.getByRole("loading-container").children[0].textContent).toBe(
-      ".......... ローディング中 .........."
-    );
+    target = screen.getByTestId("loading-container");
+    expect(target).toHaveTextContent(".......... ローディング中 ..........");
     act(() => {
       vi.advanceTimersByTime(300);
     });
-    expect(screen.getByRole("loading-container").children[0].textContent).toBe(
-      " ローディング中 "
-    );
+    target = screen.getByTestId("loading-container");
+    expect(target).toHaveTextContent("ローディング中");
     act(() => {
       vi.advanceTimersByTime(300);
     });
-    expect(screen.getByRole("loading-container").children[0].textContent).toBe(
-      ". ローディング中 ."
-    );
+    target = screen.getByTestId("loading-container");
+    expect(target).toHaveTextContent(". ローディング中 .");
   });
 });

@@ -9,13 +9,21 @@ describe("Tag", () => {
     render(<Tag text="温泉" />);
     const target = screen.getByText("温泉");
     expect(target).toHaveTextContent("温泉");
-    expect(target).toHaveStyle(`background-color: ${mainColor}`);
+    expect(target).toHaveStyle({
+      backgroundColor: mainColor,
+      color: "white",
+      fontSize: "12px",
+    });
   });
 
   it("should be displayed when color is given", () => {
     render(<Tag text="温泉" hexColor="#112233" />);
     const target = screen.getByText("温泉");
     expect(target).toHaveTextContent("温泉");
-    expect(target).toHaveStyle("background-color: #112233");
+    expect(target).toHaveStyle({
+      backgroundColor: "#112233",
+      color: "white",
+      fontSize: "12px",
+    });
   });
 });

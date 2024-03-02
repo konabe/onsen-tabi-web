@@ -24,8 +24,8 @@ const Loading: React.FC = () => {
   };
 
   return (
-    <SContainer role="loading-container">
-      <SText>{`${periods} ${loadingText} ${periods}`}</SText>
+    <SContainer>
+      <SText data-testid="loading-container">{`${periods} ${loadingText} ${periods}`}</SText>
     </SContainer>
   );
 };
