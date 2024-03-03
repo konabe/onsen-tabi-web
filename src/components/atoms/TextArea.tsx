@@ -4,14 +4,14 @@ import { mainColor } from "./colors";
 type Props = {
   label?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {};
+  onChange: (e: string) => void;
 };
 
 const TextArea: React.FC<Props> = ({ label, value, onChange }) => {
   const textAreaEl = (
     <STextArea
       value={value}
-      onChange={(e) => onChange(e)}
+      onChange={(e) => onChange(e.target.value)}
       rows={10}
     ></STextArea>
   );

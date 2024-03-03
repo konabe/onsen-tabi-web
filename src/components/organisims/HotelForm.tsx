@@ -79,7 +79,7 @@ const HotelForm: React.FC<Props> = ({
           <TextArea
             label="説明"
             value={description}
-            onChange={async (e) => setDescription(e.target.value)}
+            onChange={async (v) => setDescription(v)}
           />
         </div>
         <Button title="送信" onClick={onClick} />

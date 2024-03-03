@@ -109,7 +109,7 @@ const AreaForm: React.FC<Props> = ({
           <TextArea
             label="説明"
             value={description}
-            onChange={async (v) => setDescription(v.target.value)}
+            onChange={async (v) => setDescription(v)}
           />
         </div>
         <Button title="送信" onClick={onClick} />
