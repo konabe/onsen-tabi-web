@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import selectEvent from "react-select-event";
-import userEvent from "@testing-library/user-event";
 import MySelect from "../../../components/atoms/Select";
 
 // see. https://testing-library.com/docs/ecosystem-react-select-event/

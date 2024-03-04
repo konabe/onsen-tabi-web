@@ -75,3 +75,32 @@ export const Multi: Story = {
     );
   },
 };
+
+export const NoLabel: Story = {
+  args: {
+    name: "road",
+    options: [
+      { label: "選択なし", value: undefined },
+      { label: "天国への道", value: "option1" },
+      { label: "地獄への道", value: "option2" },
+    ],
+    isMulti: false,
+    value: undefined,
+    defaultValue: undefined,
+  },
+  render: ({ ...args }) => {
+    const [value, setValue] = useState<string | undefined>(undefined);
+    return (
+      <div style={{ width: 300 }}>
+        <Select
+          {...{ ...args, isMulti: false }}
+          value={value}
+          onChange={(v: any) => {
+            setValue(v);
+            action("onChange")(v);
+          }}
+        />
+      </div>
+    );
+  },
+};

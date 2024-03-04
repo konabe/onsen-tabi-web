@@ -10,8 +10,8 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    title: { control: "text" },
-    onClick: { action: "onClick" },
+    title: { control: "text", description: "ボタンのタイトル" },
+    onClick: { action: "clicked", description: "クリック時のイベント" },
   },
 } satisfies Meta<typeof Button>;
 
