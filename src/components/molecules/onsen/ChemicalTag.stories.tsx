@@ -16,7 +16,6 @@ const meta = {
     },
     chemical: {
       control: { type: "object" },
-      description: "省略するかどうか",
     },
   },
 } satisfies Meta<typeof ChemicalTag>;
