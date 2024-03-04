@@ -9,7 +9,13 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    title: { control: "text" },
+    emoji: {
+      control: "radio",
+      options: ["📌", "🏕️", "♨", "🏞️"],
+      defaultValue: "♨",
+      description: "絵文字",
+    },
+    title: { control: "text", description: "ヘッダーテキスト" },
   },
 } satisfies Meta<typeof Head>;
 

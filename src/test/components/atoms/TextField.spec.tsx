@@ -26,4 +26,10 @@ describe("TextField", () => {
     expect(onChange).toHaveBeenNthCalledWith(7, "し");
     expect(onChange).toHaveBeenNthCalledWith(8, "い");
   });
+
+  it("displays something even if it has no label", async () => {
+    render(<TextField value="" onChange={onChange} />);
+    const target = screen.getByRole("textbox");
+    expect(target).toHaveStyle({ fontSize: "16px", outlineColor: mainColor });
+  });
 });

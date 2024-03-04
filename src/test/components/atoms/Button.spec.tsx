@@ -3,17 +3,17 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import Button from "../../../components/atoms/Button";
-import { mainColor, subColor } from "../../../components/atoms/colors";
+import { subColor } from "../../../components/atoms/colors";
 
 describe("Button", () => {
-  let onClick = vi.fn();
+  const onClick = vi.fn();
+  let user = userEvent.setup();
 
   beforeEach(() => {
     onClick.mockClear();
   });
 
   it("should fire onClick function when button is clicked", async () => {
-    const user = userEvent.setup();
     render(<Button title="送信" onClick={onClick}></Button>);
     const target = screen.getByRole("button", { name: "送信" });
     await user.click(target);
@@ -26,7 +26,6 @@ describe("Button", () => {
   });
 
   it("should change appearance when button is hovered", async () => {
-    const user = userEvent.setup();
     render(<Button title="送信" onClick={onClick}></Button>);
     const target = screen.getByRole("button", { name: "送信" });
     await user.hover(target);
