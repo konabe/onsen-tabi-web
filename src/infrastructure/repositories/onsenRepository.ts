@@ -30,18 +30,18 @@ export type OnsenRequest = {
   name: string;
   springQuality: string;
   chemicals: {
-    naIon: boolean;
-    caIon: boolean;
-    mgIon: boolean;
-    clIon: boolean;
-    hco3Ion: boolean;
-    so4Ion: boolean;
-    co2Ion: boolean;
-    feIon: boolean;
-    hIon: boolean;
-    iIon: boolean;
-    s: boolean;
-    rn: boolean;
+    naIon: number;
+    caIon: number;
+    mgIon: number;
+    clIon: number;
+    hco3Ion: number;
+    so4Ion: number;
+    co2Ion: number;
+    feIon: number;
+    hIon: number;
+    iIon: number;
+    s: number;
+    rn: number;
   } | null;
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
@@ -92,6 +92,34 @@ export class OnsenRepository implements IOnsenRepository {
   }
 
   private createRequest(onsen: OnsenEntity): OnsenRequest {
+    let chemicals = {
+      naIon: 0,
+      caIon: 0,
+      mgIon: 0,
+      clIon: 0,
+      hco3Ion: 0,
+      so4Ion: 0,
+      co2Ion: 0,
+      feIon: 0,
+      hIon: 0,
+      iIon: 0,
+      s: 0,
+      rn: 0,
+    };
+    onsen.chemicals.forEach((v, i) => {
+      if (v === "NaIon") chemicals.naIon = i + 1;
+      if (v === "CaIon") chemicals.caIon = i + 1;
+      if (v === "MgIon") chemicals.mgIon = i + 1;
+      if (v === "ClIon") chemicals.clIon = i + 1;
+      if (v === "HCO3Ion") chemicals.hco3Ion = i + 1;
+      if (v === "SO4Ion") chemicals.so4Ion = i + 1;
+      if (v === "CO2") chemicals.co2Ion = i + 1;
+      if (v === "FeIon") chemicals.feIon = i + 1;
+      if (v === "HIon") chemicals.hIon = i + 1;
+      if (v === "IIon") chemicals.iIon = i + 1;
+      if (v === "S") chemicals.s = i + 1;
+      if (v === "Rn") chemicals.rn = i + 1;
+    });
     return {
       ...onsen,
       liquid: onsen?.liquid ?? null,
@@ -99,20 +127,7 @@ export class OnsenRepository implements IOnsenRepository {
       osmoticPressure: onsen?.osmoticPressure ?? null,
       temperature: onsen?.temperature ?? null,
       springQuality: onsen.userSpringQuality,
-      chemicals: {
-        naIon: onsen.chemicals.includes("NaIon"),
-        caIon: onsen.chemicals.includes("CaIon"),
-        mgIon: onsen.chemicals.includes("MgIon"),
-        clIon: onsen.chemicals.includes("ClIon"),
-        hco3Ion: onsen.chemicals.includes("HCO3Ion"),
-        so4Ion: onsen.chemicals.includes("SO4Ion"),
-        co2Ion: onsen.chemicals.includes("CO2"),
-        feIon: onsen.chemicals.includes("FeIon"),
-        hIon: onsen.chemicals.includes("HIon"),
-        iIon: onsen.chemicals.includes("IIon"),
-        s: onsen.chemicals.includes("S"),
-        rn: onsen.chemicals.includes("Rn"),
-      },
+      chemicals,
       imgUrl: onsen.imgURL ?? null,
     };
   }
