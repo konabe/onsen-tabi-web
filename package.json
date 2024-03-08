@@ -15,6 +15,7 @@
     "chromatic": "npx chromatic --exit-zero-on-changes"
   },
   "devDependencies": {
+    "@codecov/vite-plugin": "^0.0.1-beta.4",
     "@sentry/cli": "^2.28.6",
     "@sentry/react": "^7.103.0",
     "@storybook/addon-actions": "^7.6.17",
