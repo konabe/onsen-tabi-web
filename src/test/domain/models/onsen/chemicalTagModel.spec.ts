@@ -55,20 +55,22 @@ describe("Chemical", () => {
 
   describe("#getImageColor", () => {
     it.each`
-      value        | expected
-      ${"NaIon"}   | ${"#007bff"}
-      ${"CaIon"}   | ${"#28a745"}
-      ${"MgIon"}   | ${"#17a2b8"}
-      ${"ClIon"}   | ${"#ffc107"}
-      ${"HCO3Ion"} | ${"#dc3545"}
-      ${"SO4Ion"}  | ${"#6610f2"}
-      ${"CO2"}     | ${"#6f42c1"}
-      ${"FeIon"}   | ${"#e83e8c"}
-      ${"HIon"}    | ${"#20c997"}
-      ${"IIon"}    | ${"#17a2b8"}
-      ${"S"}       | ${"#343a40"}
-      ${"Rn"}      | ${"#6c7500"}
-      ${"Simple"}  | ${"#6c757d"}
+      value           | expected
+      ${"NaIon"}      | ${"#915c8b"}
+      ${"CaIon"}      | ${"#00a497"}
+      ${"MgIon"}      | ${"#aacf53"}
+      ${"ClIon"}      | ${"#47885e"}
+      ${"HCO3Ion"}    | ${"#afafb0"}
+      ${"SO4Ion"}     | ${"#ebd842"}
+      ${"CO2"}        | ${"#595857"}
+      ${"FeIon"}      | ${"#f8b862"}
+      ${"HIon"}       | ${"#c1e4e9"}
+      ${"IIon"}       | ${"#bbbcde"}
+      ${"S"}          | ${"#ffdb4f"}
+      ${"Rn"}         | ${"#5b7e91"}
+      ${"Simple"}     | ${"#2b2b2b"}
+      ${"WeakRn"}     | ${"#6c848d"}
+      ${"StrongNaCl"} | ${"#727171"}
     `("should return $expected", ({ value, expected }) => {
       const chemical = new ChemicalTagModel(value);
       expect(chemical.getImageColor()).toBe(expected);

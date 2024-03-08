@@ -12,6 +12,8 @@ export type OnsenResponse = {
   quality?: {
     name: string;
     chemicals: ChemicalOption[];
+    isStrongNaCl: boolean;
+    isWeakRn: boolean;
   };
   name: string;
   springQuality: string;
@@ -101,10 +103,14 @@ export class OnsenRepository implements IOnsenRepository {
       so4Ion: 0,
       co2Ion: 0,
       feIon: 0,
+      alIon: 0,
+      cuIon: 0,
       hIon: 0,
       iIon: 0,
       s: 0,
       rn: 0,
+      isStrongNaCl: false,
+      isWeakRn: false,
     };
     onsen.chemicals.forEach((v, i) => {
       if (v === "NaIon") chemicals.naIon = i + 1;
@@ -115,11 +121,19 @@ export class OnsenRepository implements IOnsenRepository {
       if (v === "SO4Ion") chemicals.so4Ion = i + 1;
       if (v === "CO2") chemicals.co2Ion = i + 1;
       if (v === "FeIon") chemicals.feIon = i + 1;
+      if (v === "AlIon") chemicals.alIon = i + 1;
+      if (v === "CuIon") chemicals.cuIon = i + 1;
       if (v === "HIon") chemicals.hIon = i + 1;
       if (v === "IIon") chemicals.iIon = i + 1;
       if (v === "S") chemicals.s = i + 1;
       if (v === "Rn") chemicals.rn = i + 1;
     });
+    if (onsen.chemicals.includes("StrongNaCl")) {
+      chemicals.isStrongNaCl = true;
+    }
+    if (onsen.chemicals.includes("WeakRn")) {
+      chemicals.isWeakRn = true;
+    }
     return {
       ...onsen,
       liquid: onsen?.liquid ?? null,
@@ -133,9 +147,14 @@ export class OnsenRepository implements IOnsenRepository {
   }
 
   private createEntity(response: OnsenResponse): OnsenEntity {
+    let pureChemicals = response.quality?.chemicals ?? [];
     return new OnsenEntity({
       ...response,
-      chemicals: response.quality?.chemicals ?? [],
+      chemicals: [
+        ...pureChemicals,
+        ...(response.quality?.isStrongNaCl ? ["StrongNaCl"] : []),
+        ...(response.quality?.isWeakRn ? ["WeakRn"] : []),
+      ] as ChemicalOption[],
       generatedSpringQuality: response.quality?.name,
       userSpringQuality: response.springQuality,
       imgURL: response.imgUrl,

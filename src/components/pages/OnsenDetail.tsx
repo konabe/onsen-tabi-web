@@ -106,15 +106,15 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                           </InfoValueContainer>
                         </Info>
                         <Info>
-                          <InfoTitle>液性</InfoTitle>
-                          <InfoValueContainer>
-                            {onsen?.getLiquidText() ?? "情報なし"}
-                          </InfoValueContainer>
-                        </Info>
-                        <Info>
                           <InfoTitle>浸透圧</InfoTitle>
                           <InfoValueContainer>
                             {onsen?.getOsmoticPressureText() ?? "情報なし"}
+                          </InfoValueContainer>
+                        </Info>
+                        <Info>
+                          <InfoTitle>液性</InfoTitle>
+                          <InfoValueContainer>
+                            {onsen?.getLiquidText() ?? "情報なし"}
                           </InfoValueContainer>
                         </Info>
                         <Info>
