@@ -60,10 +60,14 @@ const OnsenForm: React.FC<Props> = ({
     { value: "SO4Ion", label: "硫酸イオン" },
     { value: "CO2", label: "二酸化炭素" },
     { value: "FeIon", label: "鉄イオン" },
+    { value: "AlIon", label: "アルミニウムイオン" },
+    { value: "CuIon", label: "銅イオン" },
     { value: "HIon", label: "水素イオン" },
     { value: "IIon", label: "ヨウ素イオン" },
     { value: "S", label: "硫黄" },
     { value: "Rn", label: "ラドン" },
+    { value: "StrongNaCl", label: "(強塩化物)" },
+    { value: "WeakRn", label: "(弱ラドン)" },
   ];
   const liquidValueOptions: {
     value: LiquidValueOption | undefined;

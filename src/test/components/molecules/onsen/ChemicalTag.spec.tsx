@@ -9,7 +9,7 @@ describe("ChemicalTag", () => {
     const target = screen.getByText("ナトリウムイオン");
     expect(target).toHaveTextContent("ナトリウムイオン");
     expect(target).toHaveStyle({
-      backgroundColor: "#007bff",
+      backgroundColor: "#915c8b",
       color: "white",
       fontSize: "12px",
     });
@@ -22,7 +22,7 @@ describe("ChemicalTag", () => {
     const target = screen.getByText("ナ");
     expect(target).toHaveTextContent("ナ");
     expect(target).toHaveStyle({
-      backgroundColor: "#007bff",
+      backgroundColor: "#915c8b",
       color: "white",
       fontSize: "12px",
     });
