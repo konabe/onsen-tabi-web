@@ -9,7 +9,7 @@ const Description: React.FC<Props> = ({ text }) => {
   const splittedDescription: string[] = (text ?? "").split("\n");
 
   return (
-    <DescriptionContainer>
+    <DescriptionContainer data-testid="description-container">
       {splittedDescription.map((v) => (
         <p key={v}>{v}</p>
       ))}
