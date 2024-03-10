@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import TextArea from "./TextArea";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
+
+import TextArea from "./TextArea";
 
 const meta = {
   title: "components/atoms/TextArea",

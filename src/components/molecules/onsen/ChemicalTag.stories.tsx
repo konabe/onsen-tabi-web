@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ChemicalTag from "./ChemicalTag";
+
 import { ChemicalTagModel } from "../../../domain/models/onsen/chemicalTagModel";
+import ChemicalTag from "./ChemicalTag";
 
 const meta = {
   title: "components/molecules/ChemicalTag",

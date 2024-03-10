@@ -1,20 +1,21 @@
+import { jwtDecode } from "jwt-decode";
+import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffectOnce } from "react-use";
+import styled from "styled-components";
+
+import NavBar from "./components/molecules/NavBar";
+import NavItem from "./components/molecules/NavItem";
+import Header from "./components/organisims/Header";
+import AreaDetail from "./components/pages/AreaDetail";
+import Error from "./components/pages/Error";
 import Home from "./components/pages/Home";
 import HotelDetail from "./components/pages/HotelDetail";
-import Onsen from "./components/pages/OnsenDetail";
-import styled from "styled-components";
-import NavItem from "./components/molecules/NavItem";
-import AreaDetail from "./components/pages/AreaDetail";
 import HotelList from "./components/pages/HotelList";
+import Onsen from "./components/pages/OnsenDetail";
 import OnsenList from "./components/pages/OnsenList";
 import Signin from "./components/pages/Signin";
-import Error from "./components/pages/Error";
-import React, { useState } from "react";
-import { useEffectOnce } from "react-use";
 import { getToken, setToken } from "./infrastructure/LocalStorage";
-import { jwtDecode } from "jwt-decode";
-import NavBar from "./components/molecules/NavBar";
-import Header from "./components/organisims/Header";
 
 export type CommonPageProps = {
   isSignedIn?: boolean;

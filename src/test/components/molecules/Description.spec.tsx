@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import Description from "../../../components/molecules/Description";
+
 import { grey1 } from "../../../components/atoms/colors";
+import Description from "../../../components/molecules/Description";
 
 describe("Description", () => {
   it("renders text", () => {

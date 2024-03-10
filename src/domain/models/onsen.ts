@@ -6,10 +6,7 @@ import {
   OsmoticPressure,
   OsmoticPressureOption,
 } from "./onsen/osmoticPressure";
-import {
-  Temperature,
-  TemperatureOption as TemperatureOption,
-} from "./onsen/temperature";
+import { Temperature, TemperatureOption } from "./onsen/temperature";
 
 export type OnsenEntityParameter = {
   id: number;

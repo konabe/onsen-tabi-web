@@ -1,11 +1,11 @@
-import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import { OnsenEntity } from "../../domain/models/onsen";
-import { APIClient } from "../api/ApiClient";
-import { LiquidValueOption } from "../../domain/models/onsen/liquid";
 import { FormOption } from "../../domain/models/onsen/businessForm";
-import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
+import { LiquidValueOption } from "../../domain/models/onsen/liquid";
+import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
 import { TemperatureOption } from "../../domain/models/onsen/temperature";
+import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
+import { APIClient } from "../api/ApiClient";
 
 export type OnsenResponse = {
   id: number;

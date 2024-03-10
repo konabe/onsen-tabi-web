@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { HotelEntity } from "../../domain/models/hotel";
-import TextArea from "../atoms/TextArea";
 import Button from "../atoms/Button";
-import TextField from "../atoms/TextField";
 import { subColor } from "../atoms/colors";
 import SingleCheckBox from "../atoms/SingleCheckBox";
+import TextArea from "../atoms/TextArea";
+import TextField from "../atoms/TextField";
 
 type Props = {
   formTitle?: string;

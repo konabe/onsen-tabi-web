@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import TextArea from "../../../components/atoms/TextArea";
 import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
 import { mainColor } from "../../../components/atoms/colors";
+import TextArea from "../../../components/atoms/TextArea";
 
 describe("TextArea", () => {
   const onChange = vi.fn();

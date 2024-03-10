@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import { subColor } from "../atoms/colors";
 import { ReactNode } from "react";
+import styled from "styled-components";
+
+import { subColor } from "../atoms/colors";
 
 type Props = {
   leftNav?: ReactNode;

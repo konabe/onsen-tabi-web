@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import NavItem from "../../../components/molecules/NavItem";
-import { subColor } from "../../../components/atoms/colors";
 import { MemoryRouter } from "react-router-dom";
+import { describe, expect, it } from "vitest";
+
+import { subColor } from "../../../components/atoms/colors";
+import NavItem from "../../../components/molecules/NavItem";
 
 describe("NavBar", () => {
   it("should be displayed", () => {

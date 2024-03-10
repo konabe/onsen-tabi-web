@@ -1,8 +1,11 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import "@testing-library/jest-dom";
-import Loading from "../../../components/atoms/Loading";
+
 import { act } from "react-dom/test-utils";
+
+import Loading from "../../../components/atoms/Loading";
 
 vi.useFakeTimers({ shouldAdvanceTime: true });
 

@@ -1,8 +1,10 @@
-import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+
 import "@testing-library/jest-dom";
-import Tag from "../../../components/atoms/Tag";
+
 import { mainColor } from "../../../components/atoms/colors";
+import Tag from "../../../components/atoms/Tag";
 
 describe("Tag", () => {
   it("should be displayed", () => {

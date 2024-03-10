@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Select from "./Select";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
+
+import Select from "./Select";
 
 const meta = {
   title: "components/atoms/Select",

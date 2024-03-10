@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import headerCoverJpg from "../../header_cover.jpg";
 
 const Header: React.FC = () => {

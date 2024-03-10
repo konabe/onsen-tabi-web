@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import SubHead from "../atoms/SubHead";
 
 const RelatedContents: React.FC<{

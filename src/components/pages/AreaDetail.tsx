@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
-import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
-import Description from "../molecules/Description";
+
 import { CommonPageProps } from "../../App";
 import { AreaEntity } from "../../domain/models/area";
-import AreaForm from "../organisims/AreaForm";
-import Tag from "../atoms/Tag";
-import RelatedContents from "../organisims/RelatedContents";
-import Article from "../organisims/Article";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
 import { OnsenEntity } from "../../domain/models/onsen";
+import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
 import {
   HotelRepository,
   HotelResponse,
 } from "../../infrastructure/repositories/hotelRepository";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import Loading from "../atoms/Loading";
+import Tag from "../atoms/Tag";
+import Description from "../molecules/Description";
+import AreaForm from "../organisims/AreaForm";
+import Article from "../organisims/Article";
+import RelatedContents from "../organisims/RelatedContents";
 
 const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const areaRepository = new AreaRepository();

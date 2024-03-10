@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { OsmoticPressure } from "../../../../domain/models/onsen/osmoticPressure";
 
 describe("OsmoticPressure", () => {

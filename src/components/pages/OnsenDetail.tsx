@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
-import styled from "styled-components";
-import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
-import Description from "../molecules/Description";
-import OnsenForm from "../organisims/OnsenForm";
-import { OnsenEntity } from "../../domain/models/onsen";
+import styled from "styled-components";
+
 import { CommonPageProps } from "../../App";
+import { OnsenEntity } from "../../domain/models/onsen";
+import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
+import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { grey2 } from "../atoms/colors";
+import Loading from "../atoms/Loading";
+import Description from "../molecules/Description";
 import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
+import OnsenForm from "../organisims/OnsenForm";
 import RelatedContents from "../organisims/RelatedContents";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
-import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
-import { grey2 } from "../atoms/colors";
 
 const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
   const onsenRepository = new OnsenRepository();

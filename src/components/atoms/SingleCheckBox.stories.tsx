@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import SingleCheckBox from "./SingleCheckBox";
 import { useState } from "react";
+
+import SingleCheckBox from "./SingleCheckBox";
 
 const meta = {
   title: "components/atoms/SingleCheckBox",
