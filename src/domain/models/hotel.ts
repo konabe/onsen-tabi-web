@@ -1,4 +1,4 @@
-type HotelEntityParameter = {
+export type HotelEntityParameter = {
   id: number;
   name: string;
   hasWashitsu: boolean;
