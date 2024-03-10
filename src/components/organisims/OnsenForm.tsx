@@ -18,7 +18,7 @@ import {
 
 type Props = {
   formTitle?: string;
-  value?: OnsenEntity;
+  value: OnsenEntity | undefined;
   onChange?: (onsen: OnsenEntity) => void;
   onSubmitClick?: (onsen: OnsenEntity) => Promise<void>;
 };
@@ -193,6 +193,7 @@ const OnsenForm: React.FC<Props> = ({
     quality,
     url,
     chemicals,
+    imgURL,
   ]);
 
   useEffect(() => {

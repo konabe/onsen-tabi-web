@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
 import { prefectures } from "../../share/prefecture";
 import OnsenAreaList from "../organisims/OnsenAreaList";
-import Head from "../atoms/Head";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import { CommonPageProps } from "../../App";
@@ -81,7 +80,7 @@ const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
       </div>
       {isSignedIn ? (
         <div>
-          <AreaForm onSubmitClick={onAreaSubmitClick} />
+          <AreaForm value={undefined} onSubmitClick={onAreaSubmitClick} />
         </div>
       ) : undefined}
     </SContents>

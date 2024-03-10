@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading from "../atoms/Loading";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
@@ -69,6 +69,7 @@ const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <div>
               <HotelForm
                 formTitle="ホテルの追加"
+                value={undefined}
                 onSubmitClick={onHotelSubmitClick}
               />
             </div>

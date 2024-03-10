@@ -126,6 +126,7 @@ const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
             <div>
               <OnsenForm
                 formTitle="温泉の追加"
+                value={undefined}
                 onSubmitClick={onOnsenSubmitClick}
               />
             </div>

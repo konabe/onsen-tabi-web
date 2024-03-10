@@ -1,0 +1,28 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - plugin:react/recommended
+  - plugin:react-hooks/recommended
+  - plugin:storybook/recommended
+  - prettier
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaVersion: latest
+  ecmaFeatures:
+    jsx: true
+  project: ./tsconfig.json
+  sourceType: module
+plugins:
+  - react
+  - react-hooks
+  - "@typescript-eslint"
+rules:
+  react-hooks/rules-of-hooks: off # Storybookでエラーが出るため
+  react-hooks/exhaustive-deps: warn
+  react/jsx-uses-react: off # React 17からimportが不要になったため
+  react/react-in-jsx-scope: off # React 17からimportが不要になったため
+  react/prop-types: off # TypeScriptで型定義しているため
+ignorePatterns:
+  - setupTests.ts
+  - vite.config.ts
