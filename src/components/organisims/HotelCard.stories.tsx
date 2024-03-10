@@ -7,11 +7,11 @@ const meta = {
   title: "components/organisms/HotelCard",
   component: HotelCard,
   parameters: {
-    layout: "centered",
+    layout: "padded",
   },
   tags: ["autodocs"],
   argTypes: {
-    hotel: { control: "text" },
+    hotel: { control: "object" },
   },
 } satisfies Meta<typeof HotelCard>;
 
@@ -29,4 +29,15 @@ export const Primary: Story = {
       url: "http://www.gorokaku.com/",
     }),
   },
+};
+
+export const Small: Story = {
+  args: {
+    hotel: { ...Primary.args.hotel },
+  },
+  decorators: (Story) => (
+    <div style={{ width: "300px" }}>
+      <Story />
+    </div>
+  ),
 };
