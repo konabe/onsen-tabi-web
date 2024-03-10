@@ -4,8 +4,10 @@ import ChemicalTag from "../../../../components/molecules/onsen/ChemicalTag";
 import { ChemicalTagModel } from "../../../../domain/models/onsen/chemicalTagModel";
 
 describe("ChemicalTag", () => {
-  it("should be tested", () => {
-    render(<ChemicalTag chemical={new ChemicalTagModel("NaIon")} />);
+  it("should be displayed", () => {
+    render(
+      <ChemicalTag chemical={new ChemicalTagModel("NaIon")} isOmitted={false} />
+    );
     const target = screen.getByText("ナトリウムイオン");
     expect(target).toHaveTextContent("ナトリウムイオン");
     expect(target).toHaveStyle({

@@ -1,6 +1,6 @@
 import { ValueObject } from "../../ddd";
 
-const chemicals = [
+export const chemicals = [
   "NaIon",
   "CaIon",
   "MgIon",
