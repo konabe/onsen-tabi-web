@@ -5,25 +5,24 @@ import styled from "styled-components";
 type ValueType = any;
 type Option = { key: string; value: string };
 
-type Props =
+type Props = {
+  label?: string;
+  name: string;
+  options: OptionsOrGroups<any, GroupBase<any>>;
+} & (
   | {
-      label?: string;
-      name: string;
-      options: OptionsOrGroups<any, GroupBase<any>>;
-    } & (
-      | {
-          isMulti: false;
-          value: ValueType;
-          defaultValue: ValueType;
-          onChange: (v: Option) => void;
-        }
-      | {
-          isMulti: true;
-          value: ValueType[];
-          defaultValue: ValueType[];
-          onChange: (v: Option[]) => void;
-        }
-    );
+      isMulti: false;
+      value: ValueType;
+      defaultValue: ValueType;
+      onChange: (v: Option) => void;
+    }
+  | {
+      isMulti: true;
+      value: ValueType[];
+      defaultValue: ValueType[];
+      onChange: (v: Option[]) => void;
+    }
+);
 
 const MySelect: React.FC<Props> = ({
   label,
