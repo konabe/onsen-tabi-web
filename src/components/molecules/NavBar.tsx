@@ -9,7 +9,7 @@ type Props = {
 
 const NavBar: React.FC<Props> = ({ leftNav, rightNav }) => {
   return (
-    <SNav>
+    <SNav data-testid="nav-bar">
       <SLeftNav>{leftNav}</SLeftNav>
       <SRightNav>{rightNav}</SRightNav>
     </SNav>
