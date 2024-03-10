@@ -1,26 +1,30 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { HotelEntity } from "../../domain/models/hotel";
-import HotelCard from "./HotelCard";
+import HotelForm from "./HotelForm";
 
 const meta = {
-  title: "components/organisms/HotelCard",
-  component: HotelCard,
+  title: "components/organisms/HotelForm",
+  component: HotelForm,
   parameters: {
     layout: "padded",
   },
   tags: ["autodocs"],
   argTypes: {
-    hotel: { control: "object" },
+    formTitle: { control: "text", description: "フォームのタイトル" },
+    value: { control: "object", description: "フォームの初期値" },
+    onChange: { description: "フォームの値の変更イベントハンドラー" },
+    onSubmitClick: { description: "送信の押下イベントハンドラー" },
   },
-} satisfies Meta<typeof HotelCard>;
+} satisfies Meta<typeof HotelForm>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    hotel: new HotelEntity({
+    formTitle: "ホテルフォーム",
+    value: new HotelEntity({
       id: 1,
       name: "伍楼閣",
       hasWashitsu: true,
@@ -31,13 +35,8 @@ export const Primary: Story = {
   },
 };
 
-export const Small: Story = {
+export const New: Story = {
   args: {
-    hotel: { ...Primary.args.hotel },
+    value: undefined,
   },
-  decorators: (Story) => (
-    <div style={{ width: "300px" }}>
-      <Story />
-    </div>
-  ),
 };
