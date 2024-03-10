@@ -5,6 +5,7 @@ trailingComma: "es5"
 semi: true
 importOrder:
   - "<BUILTIN_MODULES>"
+  - "<THIRD_PARTY_MODULES>"
   - ""
   - "^[.]"
 plugins:

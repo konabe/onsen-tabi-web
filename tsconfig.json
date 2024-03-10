@@ -13,6 +13,7 @@
     "resolveJsonModule": false, // jsonを使うことは推奨できないため
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["vitest/globals"],
     // 文法
     "strict": true,
     "noUnusedLocals": true,
@@ -25,5 +26,8 @@
     "isolatedModules": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src"]
+  "include": [
+    "./src",
+    "./setupTests.ts" // vitest.config.tsのsetupFilesに認識させるため
+  ]
 }

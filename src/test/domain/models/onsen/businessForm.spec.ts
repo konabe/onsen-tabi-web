@@ -1,5 +1,3 @@
-import { describe, expect, it } from "vitest";
-
 import { BusinessForm } from "../../../../domain/models/onsen/businessForm";
 
 describe("BussinessForm", () => {

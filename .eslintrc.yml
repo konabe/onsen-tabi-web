@@ -30,3 +30,4 @@ settings:
 ignorePatterns:
   - setupTests.ts
   - vite.config.ts
+  - vitest.config.ts

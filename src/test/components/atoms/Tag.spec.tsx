@@ -1,7 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-
-import "@testing-library/jest-dom";
 
 import { mainColor } from "../../../components/atoms/colors";
 import Tag from "../../../components/atoms/Tag";

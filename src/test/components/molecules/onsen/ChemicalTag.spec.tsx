@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
 
 import ChemicalTag from "../../../../components/molecules/onsen/ChemicalTag";
 import { ChemicalTagModel } from "../../../../domain/models/onsen/chemicalTagModel";

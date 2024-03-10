@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach } from "node:test";
-import { describe, expect, it, vi } from "vitest";
 
 import SingleCheckBox from "../../../components/atoms/SingleCheckBox";
 

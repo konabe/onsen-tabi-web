@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { mainColor } from "../../../components/atoms/colors";
 import TextField from "../../../components/atoms/TextField";
