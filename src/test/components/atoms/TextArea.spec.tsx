@@ -28,7 +28,7 @@ describe("TextArea", () => {
   });
 
   it("displays something even if it has no label", async () => {
-    render(<TextArea value="" onChange={onChange} />);
+    render(<TextArea label={undefined} value="" onChange={onChange} />);
     const target = screen.getByRole("textbox");
     expect(target).toHaveStyle({ fontSize: "16px", outlineColor: mainColor });
   });

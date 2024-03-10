@@ -7,11 +7,21 @@ import TextArea from "./TextArea";
 const meta = {
   title: "components/atoms/TextArea",
   component: TextArea,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
-  argTypes: {},
+  decorators: (Story: React.FC) => {
+    return (
+      <div style={{ width: 300 }}>
+        <Story />
+      </div>
+    );
+  },
+  argTypes: {
+    label: { control: "text", description: "ラベルテキスト" },
+    value: { control: "text", description: "入力値" },
+    onChange: {
+      description: "入力値変更イベントハンドラー",
+    },
+  },
 } satisfies Meta<typeof TextArea>;
 
 export default meta;
@@ -24,40 +34,37 @@ export const Primary: Story = {
     onChange: (_: string) => {},
   },
   render: ({ ...args }) => {
-    const [value, setValue] = useState<string>("");
+    const [value, setValue] = useState<string>(args.value);
     return (
-      <div style={{ width: 300 }}>
-        <TextArea
-          {...args}
-          value={value}
-          onChange={(v: any) => {
-            setValue(v);
-            action("onChange")(v);
-          }}
-        />
-      </div>
+      <TextArea
+        {...args}
+        value={value}
+        onChange={(v: any) => {
+          setValue(v);
+          action("onChange")(v);
+        }}
+      />
     );
   },
 };
 
 export const NoLabel: Story = {
   args: {
+    label: undefined,
     value: "",
     onChange: (_: string) => {},
   },
   render: ({ ...args }) => {
-    const [value, setValue] = useState<string>("");
+    const [value, setValue] = useState<string>(args.value);
     return (
-      <div style={{ width: 300 }}>
-        <TextArea
-          {...args}
-          value={value}
-          onChange={(v: any) => {
-            setValue(v);
-            action("onChange")(v);
-          }}
-        />
-      </div>
+      <TextArea
+        {...args}
+        value={value}
+        onChange={(v: any) => {
+          setValue(v);
+          action("onChange")(v);
+        }}
+      />
     );
   },
 };

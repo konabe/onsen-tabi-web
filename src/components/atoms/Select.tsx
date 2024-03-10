@@ -7,7 +7,7 @@ type ValueType = any;
 type Option = { key: string; value: string };
 
 type Props = {
-  label?: string;
+  label: string | undefined;
   name: string;
   options: OptionsOrGroups<any, GroupBase<any>>;
 } & (

@@ -4,7 +4,6 @@ import selectEvent from "react-select-event";
 import MySelect from "../../../components/atoms/Select";
 
 // see. https://testing-library.com/docs/ecosystem-react-select-event/
-
 describe("Select", () => {
   const onChange = vi.fn();
 

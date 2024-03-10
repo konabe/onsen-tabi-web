@@ -89,7 +89,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                 </a>
                 {area?.isNationalResort ?? false ? (
                   <STagContainer>
-                    <Tag text={"国民保養温泉地"} />
+                    <Tag text={"国民保養温泉地"} hexColor={undefined} />
                   </STagContainer>
                 ) : undefined}
                 <DescriptionContainer>

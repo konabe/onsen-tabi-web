@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { mainColor } from "./colors";
 
 type Props = {
-  label?: string;
+  label: string | undefined;
   value: boolean;
   onChange: (value: boolean) => void;
 };

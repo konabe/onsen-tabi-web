@@ -5,12 +5,9 @@ import SubHead from "./SubHead";
 const meta = {
   title: "components/atoms/SubHead",
   component: SubHead,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {
-    title: { control: "text" },
+    title: { control: "text", description: "サブヘッダーのタイトル" },
   },
 } satisfies Meta<typeof SubHead>;
 

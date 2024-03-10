@@ -28,8 +28,12 @@ describe("SingleCheckBox", () => {
     expect(onChange).not.toBeCalled();
   });
 
+  it.todo("should call onChange when checkbox is clicked");
+
   it("should draw checkbox even if it has not label", () => {
-    render(<SingleCheckBox value={false} onChange={onChange} />);
+    render(
+      <SingleCheckBox value={false} onChange={onChange} label={undefined} />
+    );
     const target = screen.getByRole("checkbox");
     expect(target).not.toBeChecked();
     expect(onChange).not.toBeCalled();
