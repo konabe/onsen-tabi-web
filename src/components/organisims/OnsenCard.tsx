@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { subColor } from "../atoms/colors";
+
 import { OnsenEntity } from "../../domain/models/onsen";
-import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import {
   ChemicalTagModel,
   ChemicalTagOption,
 } from "../../domain/models/onsen/chemicalTagModel";
+import { subColor } from "../atoms/colors";
 import Card from "../molecules/Card";
+import ChemicalTag from "../molecules/onsen/ChemicalTag";
 
 type Props = {
   onsen: OnsenEntity;

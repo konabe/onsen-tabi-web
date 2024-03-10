@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { MemoryRouter } from "react-router-dom";
+
+import { subColor } from "../../../components/atoms/colors";
 import NavBar from "../../../components/molecules/NavBar";
 import NavItem from "../../../components/molecules/NavItem";
-import { subColor } from "../../../components/atoms/colors";
-import { MemoryRouter } from "react-router-dom";
 
 describe("NavBar", () => {
   it("should be tested", () => {

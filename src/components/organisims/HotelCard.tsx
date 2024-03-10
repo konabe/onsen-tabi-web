@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { subColor } from "../atoms/colors";
+
 import { HotelEntity } from "../../domain/models/hotel";
+import { subColor } from "../atoms/colors";
 import Card from "../molecules/Card";
 
 type Props = {

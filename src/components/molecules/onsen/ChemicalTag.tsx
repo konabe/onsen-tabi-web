@@ -4,7 +4,7 @@ import Tag from "../../atoms/Tag";
 
 type Props = {
   chemical: ChemicalTagModel;
-  isOmitted?: boolean;
+  isOmitted: boolean;
 };
 
 const ChemicalTag: React.FC<Props> = ({ chemical, isOmitted }) => {

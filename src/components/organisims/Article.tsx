@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Head, { HeadEmoji } from "../atoms/Head";
 
 const Article: React.FC<{

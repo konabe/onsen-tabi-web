@@ -1,16 +1,28 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Select from "./Select";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
+
+import Select from "./Select";
 
 const meta = {
   title: "components/atoms/Select",
   component: Select,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
-  argTypes: {},
+  decorators: (Story: React.FC) => {
+    return (
+      <div style={{ width: 300 }}>
+        <Story />
+      </div>
+    );
+  },
+  argTypes: {
+    label: { control: "text", description: "ラベルテキスト" },
+    name: { control: "text", description: "name属性" },
+    options: { control: "object", description: "選択肢" },
+    isMulti: { control: "boolean", description: "複数選択可能か" },
+    value: { control: "object", description: "選択した値" },
+    defaultValue: { control: "object", description: "デフォルト値" },
+  },
 } satisfies Meta<typeof Select>;
 
 export default meta;
@@ -32,16 +44,14 @@ export const Single: Story = {
   render: ({ ...args }) => {
     const [value, setValue] = useState<string | undefined>(undefined);
     return (
-      <div style={{ width: 300 }}>
-        <Select
-          {...{ ...args, isMulti: false }}
-          value={value}
-          onChange={(v: any) => {
-            setValue(v);
-            action("onChange")(v);
-          }}
-        />
-      </div>
+      <Select
+        {...{ ...args, isMulti: false }}
+        value={value}
+        onChange={(v: any) => {
+          setValue(v);
+          action("onChange")(v);
+        }}
+      />
     );
   },
 };
@@ -62,45 +72,31 @@ export const Multi: Story = {
   render: ({ ...args }) => {
     const [value, setValue] = useState<string[]>([]);
     return (
-      <div style={{ width: 300 }}>
-        <Select
-          {...{ ...args, isMulti: true }}
-          value={value}
-          onChange={(v: any) => {
-            setValue(v);
-            action("onChange")(v);
-          }}
-        />
-      </div>
+      <Select
+        {...{ ...args, isMulti: true }}
+        value={value}
+        onChange={(v: any) => {
+          setValue(v);
+          action("onChange")(v);
+        }}
+      />
     );
   },
 };
 
 export const NoLabel: Story = {
-  args: {
-    name: "road",
-    options: [
-      { label: "選択なし", value: undefined },
-      { label: "天国への道", value: "option1" },
-      { label: "地獄への道", value: "option2" },
-    ],
-    isMulti: false,
-    value: undefined,
-    defaultValue: undefined,
-  },
+  args: { ...Single.args, label: undefined },
   render: ({ ...args }) => {
     const [value, setValue] = useState<string | undefined>(undefined);
     return (
-      <div style={{ width: 300 }}>
-        <Select
-          {...{ ...args, isMulti: false }}
-          value={value}
-          onChange={(v: any) => {
-            setValue(v);
-            action("onChange")(v);
-          }}
-        />
-      </div>
+      <Select
+        {...{ ...args, isMulti: false }}
+        value={value}
+        onChange={(v: any) => {
+          setValue(v);
+          action("onChange")(v);
+        }}
+      />
     );
   },
 };

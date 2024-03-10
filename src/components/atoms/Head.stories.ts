@@ -1,19 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import Head from "./Head";
 
 const meta = {
   title: "components/atoms/Head",
   component: Head,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {
     emoji: {
       control: "radio",
       options: ["📌", "🏕️", "♨", "🏞️"],
-      defaultValue: "♨",
-      description: "絵文字",
+      description: "絵文字アイコン",
     },
     title: { control: "text", description: "ヘッダーテキスト" },
   },

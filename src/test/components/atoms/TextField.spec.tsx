@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import TextField from "../../../components/atoms/TextField";
 import userEvent from "@testing-library/user-event";
+
 import { mainColor } from "../../../components/atoms/colors";
+import TextField from "../../../components/atoms/TextField";
 
 describe("TextField", () => {
   const onChange = vi.fn();
@@ -28,7 +28,7 @@ describe("TextField", () => {
   });
 
   it("displays something even if it has no label", async () => {
-    render(<TextField value="" onChange={onChange} />);
+    render(<TextField label={undefined} value="" onChange={onChange} />);
     const target = screen.getByRole("textbox");
     expect(target).toHaveStyle({ fontSize: "16px", outlineColor: mainColor });
   });

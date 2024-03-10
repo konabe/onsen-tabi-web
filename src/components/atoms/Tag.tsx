@@ -1,9 +1,10 @@
 import styled from "styled-components";
+
 import { mainColor } from "./colors";
 
 type Props = {
   text: string;
-  hexColor?: string;
+  hexColor: string | undefined;
 };
 
 const Tag: React.FC<Props> = ({ text, hexColor: color }) => {

@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import { Temperature } from "../../../../domain/models/onsen/temperature";
 
 describe("Temperature", () => {

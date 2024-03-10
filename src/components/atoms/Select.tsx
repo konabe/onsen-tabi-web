@@ -1,12 +1,13 @@
 import Select, { GroupBase, OptionsOrGroups } from "react-select";
-import { mainColor, subColor } from "./colors";
 import styled from "styled-components";
+
+import { mainColor, subColor } from "./colors";
 
 type ValueType = any;
 type Option = { key: string; value: string };
 
 type Props = {
-  label?: string;
+  label: string | undefined;
   name: string;
   options: OptionsOrGroups<any, GroupBase<any>>;
 } & (

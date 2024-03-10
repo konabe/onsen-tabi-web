@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import HotelCard from "./HotelCard";
+
 import { HotelEntity } from "../../domain/models/hotel";
+import HotelCard from "./HotelCard";
+
 const meta = {
-  title: "components/orgnaisms/HotelCard",
+  title: "components/organisms/HotelCard",
   component: HotelCard,
   parameters: {
     layout: "centered",

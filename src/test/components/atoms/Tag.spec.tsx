@@ -1,12 +1,11 @@
-import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Tag from "../../../components/atoms/Tag";
+
 import { mainColor } from "../../../components/atoms/colors";
+import Tag from "../../../components/atoms/Tag";
 
 describe("Tag", () => {
   it("should be displayed", () => {
-    render(<Tag text="温泉" />);
+    render(<Tag text="温泉" hexColor={undefined} />);
     const target = screen.getByText("温泉");
     expect(target).toHaveTextContent("温泉");
     expect(target).toHaveStyle({

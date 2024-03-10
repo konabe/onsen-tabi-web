@@ -1,8 +1,7 @@
-/// <reference types="vitest" />
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { codecovVitePlugin } from "@codecov/vite-plugin";
 import path from "path";
+import { codecovVitePlugin } from "@codecov/vite-plugin";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   appType: "spa",
@@ -21,14 +20,5 @@ export default defineConfig({
     open: true,
     port: 3000,
     strictPort: true,
-  },
-  test: {
-    globals: true,
-    environment: "happy-dom",
-    setupFiles: ["./setupTests.ts"],
-    include: ["src/test/**/*.spec.{js,ts,jsx,tsx}"],
-    alias: {
-      "@/": path.resolve(__dirname, "src"),
-    },
   },
 });

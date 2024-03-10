@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+
 import { getToken } from "../LocalStorage";
 
 export class APIClient {

@@ -1,5 +1,5 @@
-import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { AreaEntity } from "../../domain/models/area";
+import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { APIClient } from "../api/ApiClient";
 
 type AreaRequest = {

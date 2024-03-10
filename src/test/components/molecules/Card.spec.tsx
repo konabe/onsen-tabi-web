@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+
 import Card from "../../../components/molecules/Card";
 
 describe("Card", () => {
@@ -13,7 +13,7 @@ describe("Card", () => {
       "src",
       "https://placehold.jp/150x150.png"
     );
-    expect(screen.getByText("コンテンツ")).toHaveTextContent("コンテンツ");
+    expect(screen.getByText("コンテンツ")).toBeInTheDocument();
   });
 
   it("should display without cover image when imgUrl is not given", () => {
@@ -23,6 +23,6 @@ describe("Card", () => {
       </Card>
     );
     expect(screen.queryByRole("img")).toBeNull();
-    expect(screen.getByText("コンテンツ")).toHaveTextContent("コンテンツ");
+    expect(screen.getByText("コンテンツ")).toBeInTheDocument();
   });
 });

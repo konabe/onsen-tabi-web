@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+
 import { subColor } from "./colors";
 
 type Props = {

@@ -1,23 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import SingleCheckBox from "./SingleCheckBox";
 import { useState } from "react";
+
+import SingleCheckBox from "./SingleCheckBox";
 
 const meta = {
   title: "components/atoms/SingleCheckBox",
   component: SingleCheckBox,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    value: { control: "boolean", description: "チェック状態" },
+    label: { control: "text", description: "ラベルテキスト" },
+    onChange: { description: "チェック状態変更ハンドラ" },
+  },
 } satisfies Meta<typeof SingleCheckBox>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const On: Story = {
   args: {
-    value: false,
+    value: true,
+    label: "チェック",
   },
   render: ({ ...args }) => {
     const [value, setValue] = useState<boolean>(args.value);
@@ -25,15 +28,16 @@ export const Primary: Story = {
       <SingleCheckBox
         value={value}
         onChange={(v) => setValue(v)}
-        label="チェック"
+        label={args.label}
       />
     );
   },
 };
 
-export const On: Story = {
+export const Off: Story = {
   args: {
-    value: true,
+    value: false,
+    label: "チェック",
   },
   render: ({ ...args }) => {
     const [value, setValue] = useState<boolean>(args.value);
@@ -41,7 +45,7 @@ export const On: Story = {
       <SingleCheckBox
         value={value}
         onChange={(v) => setValue(v)}
-        label="チェック"
+        label={args.label}
       />
     );
   },

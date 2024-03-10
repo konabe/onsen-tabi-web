@@ -1,0 +1,27 @@
+import { Meta } from "@storybook/blocks";
+
+import {
+  ChemicalTagModel,
+  chemicalTags,
+} from "../../domain/models/onsen/chemicalTagModel";
+import ChemicalTag from "../molecules/onsen/ChemicalTag";
+
+<Meta title="components/molecules/ChemicalTagSample" />
+
+# ChemicalTagの一覧
+
+## 通常
+
+<div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+  {chemicalTags.map((chemical) => (
+    <ChemicalTag chemical={new ChemicalTagModel(chemical)} />
+  ))}
+</div>
+
+## 省略
+
+<div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+  {chemicalTags.map((chemical) => (
+    <ChemicalTag chemical={new ChemicalTagModel(chemical)} isOmitted={true} />
+  ))}
+</div>

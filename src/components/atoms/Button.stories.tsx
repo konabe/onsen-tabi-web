@@ -1,5 +1,6 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import type { Meta, StoryObj } from "@storybook/react";
+
 import Button from "./Button";
 
 const meta = {
@@ -11,7 +12,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     title: { control: "text", description: "ボタンのタイトル" },
-    onClick: { action: "clicked", description: "クリック時のイベント" },
+    onClick: { description: "クリック時のイベントハンドラー" },
   },
 } satisfies Meta<typeof Button>;
 
@@ -25,14 +26,36 @@ export const Primary: Story = {
   },
 };
 
-const FlexTemplate: StoryFn<typeof Button> = (args) => (
-  <div style={{ width: "300px", display: "flex", flexDirection: "column" }}>
-    <Button {...args} />
-  </div>
-);
+export const MultiLine: Story = {
+  args: {
+    ...Primary.args,
+    title:
+      "あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。",
+  },
+  parameters: {
+    layout: "centered",
+  },
+  decorators: [
+    (Story: React.FC) => (
+      <div style={{ width: "300px", display: "flex", flexDirection: "column" }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
 
-export const Flex = FlexTemplate.bind({});
-Flex.args = {
-  title: "送信",
-  onClick: action("onClick"),
+export const InColumnFlex: Story = {
+  args: {
+    ...Primary.args,
+  },
+  parameters: {
+    layout: "padded",
+  },
+  decorators: [
+    (Story: React.FC) => (
+      <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };

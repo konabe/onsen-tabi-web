@@ -13,6 +13,7 @@ parserOptions:
     jsx: true
   project: ./tsconfig.json
   sourceType: module
+  warnOnUnsupportedTypeScriptVersion: false # 最新バージョンで整合性がとれていないので、問題が起こるまで無効化しておく
 plugins:
   - react
   - react-hooks
@@ -23,6 +24,10 @@ rules:
   react/jsx-uses-react: off # React 17からimportが不要になったため
   react/react-in-jsx-scope: off # React 17からimportが不要になったため
   react/prop-types: off # TypeScriptで型定義しているため
+settings:
+  react:
+    version: detect
 ignorePatterns:
   - setupTests.ts
   - vite.config.ts
+  - vitest.config.ts

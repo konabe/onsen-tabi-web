@@ -1,4 +1,4 @@
-type AreaEntityParameter = {
+export type AreaEntityParameter = {
   id: number;
   name: string;
   prefecture: string;

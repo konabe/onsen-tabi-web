@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { grey1 } from "../atoms/colors";
 
 type Props = {

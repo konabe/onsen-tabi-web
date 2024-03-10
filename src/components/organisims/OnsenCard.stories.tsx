@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import OnsenCard from "./OnsenCard";
+
 import { OnsenEntity } from "../../domain/models/onsen";
+import OnsenCard from "./OnsenCard";
+
 const meta = {
-  title: "components/orgnaisms/OnsenCard",
+  title: "components/organisms/OnsenCard",
   component: OnsenCard,
   parameters: {
     layout: "centered",

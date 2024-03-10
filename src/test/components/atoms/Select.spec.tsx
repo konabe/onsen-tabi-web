@@ -1,10 +1,9 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import selectEvent from "react-select-event";
+
 import MySelect from "../../../components/atoms/Select";
 
 // see. https://testing-library.com/docs/ecosystem-react-select-event/
-
 describe("Select", () => {
   const onChange = vi.fn();
 

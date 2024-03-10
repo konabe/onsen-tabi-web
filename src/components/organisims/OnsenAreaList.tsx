@@ -1,8 +1,9 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Prefecture } from "../../share/prefecture";
+
 import { AreaEntity } from "../../domain/models/area";
-import React from "react";
+import { Prefecture } from "../../share/prefecture";
 
 type AreaLinkViewModel = { areaId: number; name: string };
 

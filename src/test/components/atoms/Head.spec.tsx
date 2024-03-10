@@ -1,8 +1,7 @@
-import { describe, expect, it } from "vitest";
-import Head from "../../../components/atoms/Head";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import { subColor } from "../../../components/atoms/colors";
+import Head from "../../../components/atoms/Head";
 
 describe("Head", () => {
   it("should be displayed", () => {

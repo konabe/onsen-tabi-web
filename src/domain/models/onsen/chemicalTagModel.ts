@@ -1,7 +1,8 @@
 import { ValueObject } from "../../ddd";
-import { Chemical, ChemicalOption } from "./chemical";
+import { Chemical, chemicals } from "./chemical";
 
-export type ChemicalTagOption = ChemicalOption | "Simple";
+export const chemicalTags = [...chemicals, "Simple"] as const;
+export type ChemicalTagOption = (typeof chemicalTags)[number];
 
 export class ChemicalTagModel extends ValueObject implements OmittableText {
   constructor(private readonly _value: ChemicalTagOption) {
@@ -40,7 +41,7 @@ export class ChemicalTagModel extends ValueObject implements OmittableText {
       CO2: "#595857",
       FeIon: "#f8b862",
       AlIon: "#d6c6af",
-      CuIon: "#c39143	",
+      CuIon: "#c39143",
       HIon: "#c1e4e9",
       IIon: "#bbbcde",
       S: "#ffdb4f",
