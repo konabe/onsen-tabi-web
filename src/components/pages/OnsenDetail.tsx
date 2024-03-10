@@ -94,6 +94,7 @@ const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
                                 .map((c) => (
                                   <ChemicalTag
                                     chemical={new ChemicalTagModel(c)}
+                                    isOmitted={false}
                                     key={c}
                                   />
                                 )) ?? "情報なし"}
