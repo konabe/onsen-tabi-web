@@ -6,6 +6,10 @@
 - `yarn start`: 開発サーバー
 - `yarn build`: 本番用ビルド
 
+## 定期メンテナンス
+
+- `yarn upgrade-interactive`
+
 ## 品質管理
 
 - [Storybook|main](https://onsen-tabi-web-storybook.vercel.app)
