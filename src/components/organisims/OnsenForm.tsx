@@ -193,6 +193,7 @@ const OnsenForm: React.FC<Props> = ({
     quality,
     url,
     chemicals,
+    imgURL,
   ]);
 
   useEffect(() => {

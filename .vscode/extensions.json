@@ -1,3 +1,10 @@
 {
-  "recommendations": ["unifiedjs.vscode-mdx"]
+  "recommendations": [
+    "unifiedjs.vscode-mdx",
+    "vitest.explorer",
+    "antfu.vite",
+    "ms-vscode.vscode-typescript-next",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
 }
