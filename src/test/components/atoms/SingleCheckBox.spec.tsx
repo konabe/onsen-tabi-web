@@ -28,8 +28,7 @@ describe("SingleCheckBox", () => {
     expect(onChange).not.toBeCalled();
   });
 
-  // FIXME: このテストは失敗する
-  it.fails("should call onChange when checkbox is clicked", async () => {
+  it("should call onChange when checkbox is checked", async () => {
     render(
       <SingleCheckBox label="チェックする" value={false} onChange={onChange} />
     );
@@ -37,8 +36,20 @@ describe("SingleCheckBox", () => {
     expect(target).not.toBeChecked();
     await userEvent.click(target);
     expect(onChange).toHaveBeenLastCalledWith(true);
+    // NOTE: ステートとして持っていないので二回目は確認できない
+    // NOTE: expect(target).toBeChecked(); も確認不可。
+  });
+
+  it("should call onChange when checkbox is unchecked", async () => {
+    render(
+      <SingleCheckBox label="チェックする" value={true} onChange={onChange} />
+    );
+    const target = screen.getByLabelText("チェックする");
+    expect(target).toBeChecked();
     await userEvent.click(target);
     expect(onChange).toHaveBeenLastCalledWith(false);
+    // NOTE: ステートとして持っていないので二回目は確認できない
+    // NOTE: expect(target).toBeChecked(); も確認不可。
   });
 
   it("should draw checkbox even if it has not label", () => {
