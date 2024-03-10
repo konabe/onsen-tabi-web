@@ -9,7 +9,7 @@ import { AreaEntity } from "../../domain/models/area";
 
 type Props = {
   formTitle?: string;
-  value?: AreaEntity;
+  value: AreaEntity | undefined;
   onChange?: (area: AreaEntity) => void;
   onSubmitClick?: (area: AreaEntity) => Promise<void>;
 };

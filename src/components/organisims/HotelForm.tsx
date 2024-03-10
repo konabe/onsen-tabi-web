@@ -9,7 +9,7 @@ import SingleCheckBox from "../atoms/SingleCheckBox";
 
 type Props = {
   formTitle?: string;
-  value?: HotelEntity;
+  value: HotelEntity | undefined;
   onChange?: (hotel: HotelEntity) => void;
   onSubmitClick?: (hotel: HotelEntity) => Promise<void>;
 };

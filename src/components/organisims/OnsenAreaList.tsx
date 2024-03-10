@@ -22,7 +22,7 @@ const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
       areasByPrefecture[area.prefecture] = [areaLinkViewModel];
       return;
     }
-    areasByPrefecture[area.prefecture].push(areaLinkViewModel);
+    areasByPrefecture[area.prefecture]?.push(areaLinkViewModel);
   });
 
   const AreaLink: React.FC<AreaLinkViewModel> = ({ areaId, name }) => {
