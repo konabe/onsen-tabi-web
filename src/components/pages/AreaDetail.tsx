@@ -6,12 +6,10 @@ import styled from "styled-components";
 import { CommonPageProps } from "../../App";
 import { AreaEntity } from "../../domain/models/area";
 import { OnsenEntity } from "../../domain/models/onsen";
-import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
-import {
-  HotelRepository,
-  HotelResponse,
-} from "../../infrastructure/repositories/hotelRepository";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
+import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
+import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
+import { HotelResponse } from "../../infrastructure/repositories/hotelRepository";
 import Loading from "../atoms/Loading";
 import Tag from "../atoms/Tag";
 import Description from "../molecules/Description";
@@ -19,11 +17,18 @@ import AreaForm from "../organisims/AreaForm";
 import Article from "../organisims/Article";
 import RelatedContents from "../organisims/RelatedContents";
 
-const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
-  const areaRepository = new AreaRepository();
-  const onsenRepository = new OnsenRepository();
-  const hoterRepository = new HotelRepository();
+type AreaDetailDependencies = {
+  dependencies: {
+    areaRepository: IAreaRepository;
+    onsenRepository: IOnsenRepository;
+    hotelRepository: IHotelRepository;
+  };
+};
 
+const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
+  isSignedIn,
+  dependencies: { areaRepository, onsenRepository, hotelRepository },
+}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +47,7 @@ const AreaDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
           setArea(areaEntity);
         })(),
         (async () => {
-          const hotels = await hoterRepository.readAll(Number(id));
+          const hotels = await hotelRepository.readAll(Number(id));
           setHotels(hotels);
         })(),
         (async () => {
