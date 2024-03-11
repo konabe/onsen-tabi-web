@@ -16,6 +16,9 @@ import Onsen from "./components/pages/OnsenDetail";
 import OnsenList from "./components/pages/OnsenList";
 import Signin from "./components/pages/Signin";
 import { getToken, setToken } from "./infrastructure/LocalStorage";
+import { AreaRepository } from "./infrastructure/repositories/areaRepository";
+import { HotelRepository } from "./infrastructure/repositories/hotelRepository";
+import { OnsenRepository } from "./infrastructure/repositories/onsenRepository";
 
 export type CommonPageProps = {
   isSignedIn?: boolean;
@@ -26,6 +29,9 @@ const App: React.FC = () => {
   const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
   const isSignedIn = accessToken !== undefined;
   const navigate = useNavigate();
+  const areaRepository = new AreaRepository();
+  const onsenRepository = new OnsenRepository();
+  const hotelRepository = new HotelRepository();
 
   const onChangeToken = (token: string | undefined) => {
     setAccessToken(token);
@@ -90,7 +96,16 @@ const App: React.FC = () => {
           />
           <Route
             path={"/area/:id"}
-            element={<AreaDetail isSignedIn={isSignedIn} />}
+            element={
+              <AreaDetail
+                isSignedIn={isSignedIn}
+                dependencies={{
+                  areaRepository,
+                  hotelRepository,
+                  onsenRepository,
+                }}
+              />
+            }
           />
           <Route
             path={"/signin"}

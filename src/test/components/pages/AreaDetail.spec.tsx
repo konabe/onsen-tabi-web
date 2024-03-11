@@ -1,0 +1,172 @@
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+
+import AreaDetail from "../../../components/pages/AreaDetail";
+import { AreaEntity } from "../../../domain/models/area";
+import {
+  AreaRepositoryMock,
+  HotelRepositoryMock,
+  OnsenRepositoryMock,
+} from "../../stubs/repositoryStubs";
+
+const useNavigateMock = vi.fn();
+vi.mock("react-router-dom", async (importOriginal) => {
+  const actual: any = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => useNavigateMock,
+  };
+});
+
+describe("AreaDetail", () => {
+  const areaRepository = AreaRepositoryMock();
+  const onsenRepository = OnsenRepositoryMock();
+  const hotelRepository = HotelRepositoryMock();
+
+  beforeEach(() => {
+    areaRepository.read = vi.fn().mockResolvedValue(
+      new AreaEntity({
+        id: 0,
+        name: "鳴子",
+        prefecture: "宮城県",
+        nationalResort: true,
+        village: "鳴子",
+        url: "https://www.welcome-naruko.jp/",
+        description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
+        onsenIds: [],
+      })
+    );
+    onsenRepository.readAll = vi.fn().mockResolvedValue([]);
+    hotelRepository.readAll = vi.fn().mockResolvedValue([]);
+  });
+
+  describe("@init", () => {
+    it("should render and if signed in", async () => {
+      render(
+        <MemoryRouter initialEntries={["/area/123"]}>
+          <Routes>
+            <Route
+              path="/area/:id"
+              element={
+                <AreaDetail
+                  isSignedIn={true}
+                  dependencies={{
+                    areaRepository,
+                    onsenRepository,
+                    hotelRepository,
+                  }}
+                />
+              }
+            />
+            <Route path={"/error"} element={<div>error</div>} />
+          </Routes>
+        </MemoryRouter>
+      );
+      expect(screen.getByText("ローディング中")).toBeInTheDocument();
+
+      await waitFor(() => expect(areaRepository.read).toBeCalled());
+      await waitFor(() => expect(onsenRepository.readAll).toBeCalled());
+      await waitFor(() => expect(hotelRepository.readAll).toBeCalled());
+      expect(areaRepository.read).toBeCalledTimes(1);
+      expect(areaRepository.read).toHaveBeenNthCalledWith(1, 123);
+      expect(onsenRepository.readAll).toBeCalledTimes(1);
+      expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(hotelRepository.readAll).toBeCalledTimes(1);
+      expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+
+      // loaded
+      expect(
+        screen.getByText("🏞️ 鳴子温泉 (鳴子温泉郷、宮城県)")
+      ).toBeInTheDocument();
+      expect(screen.getByText("リンク")).toHaveAttribute(
+        "href",
+        "https://www.welcome-naruko.jp/"
+      );
+      expect(screen.getAllByText("国民保養温泉地")[0]).toBeInTheDocument();
+      expect(
+        screen.getAllByText("鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。")[0]
+      ).toBeInTheDocument();
+      // TODO: ホテルと温泉が空のときにタイトルが出ているのは変なので修正 「なし」と表示するのか、表示しないのか。
+      expect(screen.getByText("ホテル")).toBeInTheDocument();
+      expect(screen.getByText("温泉")).toBeInTheDocument();
+      // form
+      expect(screen.getByLabelText("名前")).toHaveValue("鳴子");
+      expect(screen.getByLabelText("都道府県")).toHaveValue("宮城県");
+      expect(screen.getByLabelText("温泉郷")).toHaveValue("鳴子");
+      expect(screen.getByLabelText("URL")).toHaveValue(
+        "https://www.welcome-naruko.jp/"
+      );
+      expect(screen.getByLabelText("国民保養温泉地")).toBeChecked();
+      expect(screen.getByLabelText("説明")).toHaveValue(
+        "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。"
+      );
+
+      // submit
+      const submitButton = screen.getByText("送信");
+      userEvent.click(submitButton);
+
+      await waitFor(() => expect(areaRepository.update).toBeCalled());
+      expect(areaRepository.update).toBeCalledTimes(1);
+    });
+
+    it.todo("should render with onsen and hotel");
+
+    it("should render and if not signed in", async () => {
+      render(
+        <MemoryRouter initialEntries={["/area/123"]}>
+          <Routes>
+            <Route
+              path="/area/:id"
+              element={
+                <AreaDetail
+                  isSignedIn={false}
+                  dependencies={{
+                    areaRepository,
+                    onsenRepository,
+                    hotelRepository,
+                  }}
+                />
+              }
+            />
+            <Route path={"/error"} element={<div>error</div>} />
+          </Routes>
+        </MemoryRouter>
+      );
+      expect(screen.getByText("ローディング中")).toBeInTheDocument();
+
+      await waitFor(() => expect(areaRepository.read).toBeCalled());
+      await waitFor(() => expect(onsenRepository.readAll).toBeCalled());
+      await waitFor(() => expect(hotelRepository.readAll).toBeCalled());
+      expect(areaRepository.read).toBeCalledTimes(1);
+      expect(areaRepository.read).toHaveBeenNthCalledWith(1, 123);
+      expect(onsenRepository.readAll).toBeCalledTimes(1);
+      expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(hotelRepository.readAll).toBeCalledTimes(1);
+      expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+
+      // loaded
+      expect(
+        screen.getByText("🏞️ 鳴子温泉 (鳴子温泉郷、宮城県)")
+      ).toBeInTheDocument();
+      expect(screen.getByText("リンク")).toHaveAttribute(
+        "href",
+        "https://www.welcome-naruko.jp/"
+      );
+      expect(screen.getAllByText("国民保養温泉地")[0]).toBeInTheDocument();
+      expect(
+        screen.getAllByText("鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。")[0]
+      ).toBeInTheDocument();
+      // TODO: ホテルと温泉が空のときにタイトルが出ているのは変なので修正 「なし」と表示するのか、表示しないのか。
+      expect(screen.getByText("ホテル")).toBeInTheDocument();
+      expect(screen.getByText("温泉")).toBeInTheDocument();
+      // form
+      expect(screen.queryByLabelText("名前")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("@error", () => {
+    it.todo("should go error page if loading failed");
+    it.todo("should go error page if updating failed");
+  });
+});
