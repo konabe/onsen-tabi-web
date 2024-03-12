@@ -2,17 +2,24 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { UserRepository } from "../../infrastructure/repositories/userRepository";
+import { IUserRepository } from "../../domain/repositoryInterfaces/userRepositoryInterface";
 import Button from "../atoms/Button";
 import TextField from "../atoms/TextField";
+
+type SigninDependencies = {
+  dependencies: {
+    userRepository: IUserRepository;
+  };
+};
 
 type Props = {
   onChangeToken: (token: string | undefined) => void;
 };
 
-const Signin: React.FC<Props> = ({ onChangeToken }) => {
-  const userRepository = new UserRepository();
-
+const Signin: React.FC<Props & SigninDependencies> = ({
+  onChangeToken,
+  dependencies: { userRepository },
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();

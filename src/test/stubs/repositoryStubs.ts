@@ -1,6 +1,7 @@
 import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
+import { IUserRepository } from "../../domain/repositoryInterfaces/userRepositoryInterface";
 
 export const AreaRepositoryMock = (): IAreaRepository => ({
   read: vi.fn(),
@@ -19,4 +20,8 @@ export const HotelRepositoryMock = (): IHotelRepository => ({
   readAll: vi.fn(),
   create: vi.fn(),
   update: vi.fn(),
+});
+export const UserRepositoryMock = (): IUserRepository => ({
+  signIn: vi.fn(),
+  signUp: vi.fn(),
 });
