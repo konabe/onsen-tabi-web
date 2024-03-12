@@ -34,11 +34,13 @@ export const Primary: Story = {
       description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
       onsenIds: [],
     }),
+    onChange: () => {},
   },
 };
 
 export const New: Story = {
   args: {
     value: undefined,
+    onChange: () => {},
   },
 };

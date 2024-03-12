@@ -9292,7 +9292,7 @@ __metadata:
     react-select-event: "npm:^5.5.1"
     react-use: "npm:^17.5.0"
     storybook: "npm:^8.0.0"
-    storybook-addon-react-router-v6: "npm:^2.0.11"
+    storybook-addon-react-router-v6: "npm:^2.0.12"
     styled-components: "npm:^6.1.8"
     typescript: "npm:^5.4.2"
     vite: "npm:^5.1.5"
@@ -10927,9 +10927,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook-addon-react-router-v6@npm:^2.0.11":
-  version: 2.0.11
-  resolution: "storybook-addon-react-router-v6@npm:2.0.11"
+"storybook-addon-react-router-v6@npm:^2.0.12":
+  version: 2.0.12
+  resolution: "storybook-addon-react-router-v6@npm:2.0.12"
   dependencies:
     compare-versions: "npm:^6.0.0"
     react-inspector: "npm:6.0.2"
@@ -10949,7 +10949,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/30eb5040481a6736a206f931afea288ff523a13d3264e98c174d2ad87fc18aa5c56e73cdcfb550828f46560aebea9e33819b17a326c5d4337dab1980cdf289c0
+  checksum: 10c0/8426242986f31e1ef743254b4f55c97f31dd53ebdd8907f89163811fbd60ac5a0a747bffbc7b0dea80f5487c62149e8e4f75c4bd480c0a06ce70d6b030260f60
   languageName: node
   linkType: hard
 
