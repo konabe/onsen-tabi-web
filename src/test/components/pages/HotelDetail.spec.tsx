@@ -56,7 +56,7 @@ describe("HotelDetail", () => {
         name: "伍楼閣",
         hasWashitsu: true,
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される。",
-        url: "http://www.gorokaku.com/",
+        url: "https://www.gorokaku.com/",
       })
     );
     onsenRepository.readAll = vi.fn().mockResolvedValue([]);
@@ -86,7 +86,7 @@ describe("HotelDetail", () => {
       expect(screen.getAllByText("和室あり")[0]).toBeInTheDocument();
       expect(screen.getByText("リンク")).toHaveAttribute(
         "href",
-        "http://www.gorokaku.com/"
+        "https://www.gorokaku.com/"
       );
       expect(
         screen.getAllByText("まずはロビーの歴史を感じる雰囲気に圧倒される。")
@@ -98,7 +98,7 @@ describe("HotelDetail", () => {
       // FIXME: エラーになる
       // expect(screen.getAllByText("和室あり")[1]).toBeChecked();
       expect(screen.getByLabelText("URL")).toHaveValue(
-        "http://www.gorokaku.com/"
+        "https://www.gorokaku.com/"
       );
       expect(screen.getByLabelText("説明")).toHaveValue(
         "まずはロビーの歴史を感じる雰囲気に圧倒される。"
@@ -135,7 +135,7 @@ describe("HotelDetail", () => {
       expect(screen.getByText("和室あり")).toBeInTheDocument();
       expect(screen.getByText("リンク")).toHaveAttribute(
         "href",
-        "http://www.gorokaku.com/"
+        "https://www.gorokaku.com/"
       );
       expect(
         screen.getByText("まずはロビーの歴史を感じる雰囲気に圧倒される。")
