@@ -5,16 +5,23 @@ import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
 import { AreaEntity } from "../../domain/models/area";
-import { AreaRepository } from "../../infrastructure/repositories/areaRepository";
+import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { prefectures } from "../../share/prefecture";
 import Loading from "../atoms/Loading";
 import AreaForm from "../organisims/AreaForm";
 import Article from "../organisims/Article";
 import OnsenAreaList from "../organisims/OnsenAreaList";
 
-const Home: React.FC<CommonPageProps> = ({ isSignedIn }) => {
-  const areaRepository = new AreaRepository();
+type HomeDependencies = {
+  dependencies: {
+    areaRepository: IAreaRepository;
+  };
+};
 
+const Home: React.FC<CommonPageProps & HomeDependencies> = ({
+  isSignedIn,
+  dependencies: { areaRepository },
+}) => {
   const navigate = useNavigate();
   const [areas, setAreas] = useState<AreaEntity[]>([]);
   const [isLoading, setIsLoading] = useState(true);

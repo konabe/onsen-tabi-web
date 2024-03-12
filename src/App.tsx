@@ -19,6 +19,7 @@ import { getToken, setToken } from "./infrastructure/LocalStorage";
 import { AreaRepository } from "./infrastructure/repositories/areaRepository";
 import { HotelRepository } from "./infrastructure/repositories/hotelRepository";
 import { OnsenRepository } from "./infrastructure/repositories/onsenRepository";
+import { UserRepository } from "./infrastructure/repositories/userRepository";
 
 export type CommonPageProps = {
   isSignedIn?: boolean;
@@ -32,6 +33,7 @@ const App: React.FC = () => {
   const areaRepository = new AreaRepository();
   const onsenRepository = new OnsenRepository();
   const hotelRepository = new HotelRepository();
+  const userRepository = new UserRepository();
 
   const onChangeToken = (token: string | undefined) => {
     setAccessToken(token);
@@ -77,7 +79,17 @@ const App: React.FC = () => {
       <Header />
       <SMain>
         <Routes>
-          <Route path={"/"} element={<Home isSignedIn={isSignedIn} />} />
+          <Route
+            path={"/"}
+            element={
+              <Home
+                isSignedIn={isSignedIn}
+                dependencies={{
+                  areaRepository,
+                }}
+              />
+            }
+          />
           <Route
             path={"/hotels"}
             element={<HotelList isSignedIn={isSignedIn} />}
@@ -109,7 +121,12 @@ const App: React.FC = () => {
           />
           <Route
             path={"/signin"}
-            element={<Signin onChangeToken={onChangeToken} />}
+            element={
+              <Signin
+                onChangeToken={onChangeToken}
+                dependencies={{ userRepository }}
+              />
+            }
           />
           <Route path={"/error"} element={<Error />} />
         </Routes>
