@@ -24,6 +24,34 @@ describe("AreaDetail", () => {
   const onsenRepository = OnsenRepositoryMock();
   const hotelRepository = HotelRepositoryMock();
 
+  const renderAreaDetail = ({
+    path,
+    isSignedIn,
+  }: {
+    path: string;
+    isSignedIn: boolean;
+  }) => {
+    render(
+      <MemoryRouter initialEntries={[path]}>
+        <Routes>
+          <Route
+            path="/area/:id"
+            element={
+              <AreaDetail
+                isSignedIn={isSignedIn}
+                dependencies={{
+                  areaRepository,
+                  onsenRepository,
+                  hotelRepository,
+                }}
+              />
+            }
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+  };
+
   beforeEach(() => {
     areaRepository.read = vi.fn().mockResolvedValue(
       new AreaEntity({
@@ -39,30 +67,12 @@ describe("AreaDetail", () => {
     );
     onsenRepository.readAll = vi.fn().mockResolvedValue([]);
     hotelRepository.readAll = vi.fn().mockResolvedValue([]);
+    useNavigateMock.mockClear();
   });
 
   describe("@init", () => {
     it("should render and if signed in", async () => {
-      render(
-        <MemoryRouter initialEntries={["/area/123"]}>
-          <Routes>
-            <Route
-              path="/area/:id"
-              element={
-                <AreaDetail
-                  isSignedIn={true}
-                  dependencies={{
-                    areaRepository,
-                    onsenRepository,
-                    hotelRepository,
-                  }}
-                />
-              }
-            />
-            <Route path={"/error"} element={<div>error</div>} />
-          </Routes>
-        </MemoryRouter>
-      );
+      renderAreaDetail({ path: "/area/123", isSignedIn: true });
       expect(screen.getByText("ローディング中")).toBeInTheDocument();
 
       await waitFor(() => expect(areaRepository.read).toBeCalled());
@@ -113,26 +123,7 @@ describe("AreaDetail", () => {
     it.todo("should render with onsen and hotel");
 
     it("should render and if not signed in", async () => {
-      render(
-        <MemoryRouter initialEntries={["/area/123"]}>
-          <Routes>
-            <Route
-              path="/area/:id"
-              element={
-                <AreaDetail
-                  isSignedIn={false}
-                  dependencies={{
-                    areaRepository,
-                    onsenRepository,
-                    hotelRepository,
-                  }}
-                />
-              }
-            />
-            <Route path={"/error"} element={<div>error</div>} />
-          </Routes>
-        </MemoryRouter>
-      );
+      renderAreaDetail({ path: "/area/123", isSignedIn: false });
       expect(screen.getByText("ローディング中")).toBeInTheDocument();
 
       await waitFor(() => expect(areaRepository.read).toBeCalled());
@@ -166,7 +157,45 @@ describe("AreaDetail", () => {
   });
 
   describe("@error", () => {
-    it.todo("should go error page if loading failed");
-    it.todo("should go error page if updating failed");
+    it("should go error page if loading is failed", async () => {
+      areaRepository.read = vi.fn().mockRejectedValue(new Error("error"));
+      renderAreaDetail({ path: "/area/123", isSignedIn: false });
+      expect(screen.getByText("ローディング中")).toBeInTheDocument();
+
+      await waitFor(() => expect(areaRepository.read).toBeCalled());
+      await waitFor(() => expect(onsenRepository.readAll).toBeCalled());
+      await waitFor(() => expect(hotelRepository.readAll).toBeCalled());
+      expect(areaRepository.read).toBeCalledTimes(1);
+      expect(areaRepository.read).toHaveBeenNthCalledWith(1, 123);
+      expect(onsenRepository.readAll).toBeCalledTimes(1);
+      expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(hotelRepository.readAll).toBeCalledTimes(1);
+      expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+
+      expect(useNavigateMock).toBeCalledWith("/error");
+    });
+
+    it("should go error page if updating is failed", async () => {
+      areaRepository.update = vi.fn().mockRejectedValue(new Error("error"));
+      renderAreaDetail({ path: "/area/123", isSignedIn: true });
+      expect(screen.getByText("ローディング中")).toBeInTheDocument();
+
+      await waitFor(() => expect(areaRepository.read).toBeCalled());
+      await waitFor(() => expect(onsenRepository.readAll).toBeCalled());
+      await waitFor(() => expect(hotelRepository.readAll).toBeCalled());
+      expect(areaRepository.read).toBeCalledTimes(1);
+      expect(areaRepository.read).toHaveBeenNthCalledWith(1, 123);
+      expect(onsenRepository.readAll).toBeCalledTimes(1);
+      expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(hotelRepository.readAll).toBeCalledTimes(1);
+      expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+
+      const submitButton = screen.getByText("送信");
+      userEvent.click(submitButton);
+
+      await waitFor(() => expect(areaRepository.update).toBeCalled());
+      expect(areaRepository.update).toBeCalledTimes(1);
+      expect(useNavigateMock).toBeCalledWith("/error");
+    });
   });
 });
