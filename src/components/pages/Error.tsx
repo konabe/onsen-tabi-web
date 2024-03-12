@@ -1,5 +1,5 @@
-const Error: React.FC = () => {
+const ErrorPage: React.FC = () => {
   return <div>Error!</div>;
 };
 
-export default Error;
+export default ErrorPage;
