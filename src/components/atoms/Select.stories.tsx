@@ -40,6 +40,7 @@ export const Single: Story = {
     isMulti: false,
     value: undefined,
     defaultValue: undefined,
+    onChange: () => {},
   },
   render: ({ ...args }) => {
     const [value, setValue] = useState<string | undefined>(undefined);
@@ -68,6 +69,7 @@ export const Multi: Story = {
     isMulti: true,
     value: [],
     defaultValue: [],
+    onChange: () => {},
   },
   render: ({ ...args }) => {
     const [value, setValue] = useState<string[]>([]);
