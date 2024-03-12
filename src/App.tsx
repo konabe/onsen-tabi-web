@@ -8,7 +8,7 @@ import NavBar from "./components/molecules/NavBar";
 import NavItem from "./components/molecules/NavItem";
 import Header from "./components/organisims/Header";
 import AreaDetail from "./components/pages/AreaDetail";
-import Error from "./components/pages/Error";
+import ErrorPage from "./components/pages/Error";
 import Home from "./components/pages/Home";
 import HotelDetail from "./components/pages/HotelDetail";
 import HotelList from "./components/pages/HotelList";
@@ -133,7 +133,7 @@ const App: React.FC = () => {
               />
             }
           />
-          <Route path={"/error"} element={<Error />} />
+          <Route path={"/error"} element={<ErrorPage />} />
         </Routes>
       </SMain>
     </>

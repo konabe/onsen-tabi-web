@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 
 import Select from "./Select";
 
@@ -28,6 +28,20 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const SingleSelectComponent = ({ ...args }: ComponentProps<typeof Select>) => {
+  const [value, setValue] = useState<string | undefined>(undefined);
+  return (
+    <Select
+      {...{ ...args, isMulti: false }}
+      value={value}
+      onChange={(v: any) => {
+        setValue(v);
+        action("onChange")(v);
+      }}
+    />
+  );
+};
+
 export const Single: Story = {
   args: {
     label: "選択肢",
@@ -42,19 +56,21 @@ export const Single: Story = {
     defaultValue: undefined,
     onChange: () => {},
   },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string | undefined>(undefined);
-    return (
-      <Select
-        {...{ ...args, isMulti: false }}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-      />
-    );
-  },
+  render: ({ ...args }) => <SingleSelectComponent {...args} />,
+};
+
+const MultiSelectComponent = ({ ...args }: ComponentProps<typeof Select>) => {
+  const [value, setValue] = useState<string[]>([]);
+  return (
+    <Select
+      {...{ ...args, isMulti: true }}
+      value={value}
+      onChange={(v: any) => {
+        setValue(v);
+        action("onChange")(v);
+      }}
+    />
+  );
 };
 
 export const Multi: Story = {
@@ -71,34 +87,10 @@ export const Multi: Story = {
     defaultValue: [],
     onChange: () => {},
   },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string[]>([]);
-    return (
-      <Select
-        {...{ ...args, isMulti: true }}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-      />
-    );
-  },
+  render: ({ ...args }) => <MultiSelectComponent {...args} />,
 };
 
 export const NoLabel: Story = {
   args: { ...Single.args, label: undefined },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string | undefined>(undefined);
-    return (
-      <Select
-        {...{ ...args, isMulti: false }}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-      />
-    );
-  },
+  render: ({ ...args }) => <SingleSelectComponent {...args} />,
 };

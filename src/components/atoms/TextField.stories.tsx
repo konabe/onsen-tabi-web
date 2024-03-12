@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 
 import TextField from "./TextField";
 
@@ -35,47 +35,37 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const WrpapedComponent = ({ ...args }: ComponentProps<typeof TextField>) => {
+  const [value, setValue] = useState<string>("");
+  return (
+    <TextField
+      {...args}
+      value={value}
+      onChange={(v: any) => {
+        setValue(v);
+        action("onChange")(v);
+      }}
+    />
+  );
+};
+
 export const Primary: Story = {
   args: {
     label: "ラベル",
     value: "",
     onChange: (_: string) => {},
   },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string>("");
-    return (
-      <TextField
-        {...args}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-      />
-    );
-  },
+  render: ({ ...args }) => <WrpapedComponent {...args} />,
 };
 
 export const Password: Story = {
   args: {
     label: "パスワード",
     value: "",
+    isPassword: true,
     onChange: (_: string) => {},
   },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string>("");
-    return (
-      <TextField
-        {...args}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-        isPassword={true}
-      />
-    );
-  },
+  render: ({ ...args }) => <WrpapedComponent {...args} />,
 };
 
 export const NoLabel: Story = {
@@ -84,17 +74,5 @@ export const NoLabel: Story = {
     value: "",
     onChange: (_: string) => {},
   },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string>("");
-    return (
-      <TextField
-        {...args}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-      />
-    );
-  },
+  render: ({ ...args }) => <WrpapedComponent {...args} />,
 };

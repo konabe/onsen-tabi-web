@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 
 import TextArea from "./TextArea";
 
@@ -27,25 +27,27 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const WrpapedComponent = ({ ...args }: ComponentProps<typeof TextArea>) => {
+  const [value, setValue] = useState<string>(args.value);
+  return (
+    <TextArea
+      {...args}
+      value={value}
+      onChange={(v: any) => {
+        setValue(v);
+        action("onChange")(v);
+      }}
+    />
+  );
+};
+
 export const Primary: Story = {
   args: {
     label: "ラベル",
     value: "",
     onChange: (_: string) => {},
   },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string>(args.value);
-    return (
-      <TextArea
-        {...args}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-      />
-    );
-  },
+  render: ({ ...args }) => <WrpapedComponent {...args} />,
 };
 
 export const NoLabel: Story = {
@@ -54,17 +56,5 @@ export const NoLabel: Story = {
     value: "",
     onChange: (_: string) => {},
   },
-  render: ({ ...args }) => {
-    const [value, setValue] = useState<string>(args.value);
-    return (
-      <TextArea
-        {...args}
-        value={value}
-        onChange={(v: any) => {
-          setValue(v);
-          action("onChange")(v);
-        }}
-      />
-    );
-  },
+  render: ({ ...args }) => <WrpapedComponent {...args} />,
 };
