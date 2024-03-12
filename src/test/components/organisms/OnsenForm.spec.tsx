@@ -24,7 +24,7 @@ describe("OnsenForm", () => {
     expect(screen.getByText("温泉フォーム")).toBeInTheDocument();
     expect(screen.getByLabelText("名前")).toBeInTheDocument();
     expect(screen.getByLabelText("泉質")).toBeInTheDocument();
-    expect(screen.getByLabelText("日帰り入力あり")).toBeInTheDocument();
+    expect(screen.getByLabelText("日帰り入浴あり")).toBeInTheDocument();
     expect(screen.getByLabelText("URL")).toBeInTheDocument();
     expect(screen.getByLabelText("画像URL")).toBeInTheDocument();
     expect(screen.getByLabelText("説明")).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe("OnsenForm", () => {
     const liquidSelect = screen.getByLabelText("液性");
     const tempratureSelect = screen.getByLabelText("温度");
     const formSelect = screen.getByLabelText("形態");
-    const isDayUseCheckBox = screen.getByLabelText("日帰り入力あり");
+    const isDayUseCheckBox = screen.getByLabelText("日帰り入浴あり");
     const urlField = screen.getByLabelText("URL");
     const imgURLField = screen.getByLabelText("画像URL");
     const descriptionField = screen.getByLabelText("説明");
@@ -153,7 +153,7 @@ describe("OnsenForm", () => {
     // const liquidSelect = screen.getByLabelText("液性");
     // const tempratureSelect = screen.getByLabelText("温度");
     // const formSelect = screen.getByLabelText("形態");
-    const isDayUseCheckBox = screen.getByLabelText("日帰り入力あり");
+    const isDayUseCheckBox = screen.getByLabelText("日帰り入浴あり");
     const urlField = screen.getByLabelText("URL");
     const imgURLField = screen.getByLabelText("画像URL");
     const descriptionField = screen.getByLabelText("説明");

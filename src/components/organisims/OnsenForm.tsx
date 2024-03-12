@@ -293,7 +293,7 @@ const OnsenForm: React.FC<Props> = ({
         </div>
         <div>
           <SingleCheckBox
-            label="日帰り入力あり"
+            label="日帰り入浴あり"
             value={isDayUse}
             onChange={(v) => setIsDayUse(v)}
           />
