@@ -21,6 +21,7 @@ export const On: Story = {
   args: {
     value: true,
     label: "チェック",
+    onChange: () => {},
   },
   render: ({ ...args }) => {
     const [value, setValue] = useState<boolean>(args.value);
@@ -38,6 +39,7 @@ export const Off: Story = {
   args: {
     value: false,
     label: "チェック",
+    onChange: () => {},
   },
   render: ({ ...args }) => {
     const [value, setValue] = useState<boolean>(args.value);
