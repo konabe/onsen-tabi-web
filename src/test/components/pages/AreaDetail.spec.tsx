@@ -84,6 +84,7 @@ describe("AreaDetail", () => {
       expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
       expect(hotelRepository.readAll).toBeCalledTimes(1);
       expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(screen.queryByText("ローディング中")).not.toBeInTheDocument();
 
       // loaded
       expect(
@@ -135,6 +136,7 @@ describe("AreaDetail", () => {
       expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
       expect(hotelRepository.readAll).toBeCalledTimes(1);
       expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(screen.queryByText("ローディング中")).not.toBeInTheDocument();
 
       // loaded
       expect(
@@ -171,6 +173,7 @@ describe("AreaDetail", () => {
       expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
       expect(hotelRepository.readAll).toBeCalledTimes(1);
       expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(screen.queryByText("ローディング中")).not.toBeInTheDocument();
 
       expect(useNavigateMock).toBeCalledWith("/error");
     });
@@ -189,6 +192,7 @@ describe("AreaDetail", () => {
       expect(onsenRepository.readAll).toHaveBeenNthCalledWith(1, 123);
       expect(hotelRepository.readAll).toBeCalledTimes(1);
       expect(hotelRepository.readAll).toHaveBeenNthCalledWith(1, 123);
+      expect(screen.queryByText("ローディング中")).not.toBeInTheDocument();
 
       const submitButton = screen.getByText("送信");
       userEvent.click(submitButton);

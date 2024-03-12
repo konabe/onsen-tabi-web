@@ -77,7 +77,17 @@ const App: React.FC = () => {
       <Header />
       <SMain>
         <Routes>
-          <Route path={"/"} element={<Home isSignedIn={isSignedIn} />} />
+          <Route
+            path={"/"}
+            element={
+              <Home
+                isSignedIn={isSignedIn}
+                dependencies={{
+                  areaRepository,
+                }}
+              />
+            }
+          />
           <Route
             path={"/hotels"}
             element={<HotelList isSignedIn={isSignedIn} />}
