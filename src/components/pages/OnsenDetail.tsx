@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { CommonPageProps } from "../../App";
 import { OnsenEntity } from "../../domain/models/onsen";
 import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import { grey2 } from "../atoms/colors";
 import Loading from "../atoms/Loading";
 import Description from "../molecules/Description";
@@ -15,9 +15,14 @@ import Article from "../organisims/Article";
 import OnsenForm from "../organisims/OnsenForm";
 import RelatedContents from "../organisims/RelatedContents";
 
-const OnsenDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
-  const onsenRepository = new OnsenRepository();
+type OnsenDetailDependencies = {
+  dependencies: { onsenRepository: IOnsenRepository };
+};
 
+const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
+  isSignedIn,
+  dependencies: { onsenRepository },
+}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);

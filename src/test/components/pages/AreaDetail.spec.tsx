@@ -71,7 +71,7 @@ describe("AreaDetail", () => {
   });
 
   describe("@init", () => {
-    it("should render and if signed in", async () => {
+    it("should render if signed in", async () => {
       renderAreaDetail({ path: "/area/123", isSignedIn: true });
       expect(screen.getByText("ローディング中")).toBeInTheDocument();
 
