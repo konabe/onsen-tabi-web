@@ -92,7 +92,12 @@ const App: React.FC = () => {
           />
           <Route
             path={"/hotels"}
-            element={<HotelList isSignedIn={isSignedIn} />}
+            element={
+              <HotelList
+                isSignedIn={isSignedIn}
+                dependencies={{ hotelRepository }}
+              />
+            }
           />
           <Route
             path={"/hotel/:id"}
