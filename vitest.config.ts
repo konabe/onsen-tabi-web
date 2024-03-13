@@ -5,7 +5,12 @@ export default defineConfig({
   test: {
     coverage: {
       reporter: ["lcov"],
-      exclude: ["**/*.stories.ts", "**/*.stories.tsx"],
+      exclude: [
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+        ".storybook/**/*",
+        ".yarn/**/*",
+      ],
     },
     globals: true,
     environment: "happy-dom",
