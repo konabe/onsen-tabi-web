@@ -7,16 +7,23 @@ import { CommonPageProps } from "../../App";
 import { OnsenEntity } from "../../domain/models/onsen";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
 import { ChemicalTagOption } from "../../domain/models/onsen/chemicalTagModel";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import Loading from "../atoms/Loading";
 import Select from "../atoms/Select";
 import Article from "../organisims/Article";
 import OnsenCard from "../organisims/OnsenCard";
 import OnsenForm from "../organisims/OnsenForm";
 
-const OnsenList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
-  const onsenRepository = new OnsenRepository();
+type OnsenListDependencies = {
+  dependencies: {
+    onsenRepository: IOnsenRepository;
+  };
+};
 
+const OnsenList: React.FC<CommonPageProps & OnsenListDependencies> = ({
+  isSignedIn,
+  dependencies: { onsenRepository },
+}) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();

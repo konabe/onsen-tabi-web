@@ -110,7 +110,12 @@ const App: React.FC = () => {
           />
           <Route
             path={"/onsens"}
-            element={<OnsenList isSignedIn={isSignedIn} />}
+            element={
+              <OnsenList
+                isSignedIn={isSignedIn}
+                dependencies={{ onsenRepository }}
+              />
+            }
           />
           <Route
             path={"/onsen/:id"}
