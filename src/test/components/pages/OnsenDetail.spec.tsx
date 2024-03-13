@@ -63,6 +63,7 @@ describe("OnsenDetail", () => {
           "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。",
       })
     );
+    onsenRepository.update = vi.fn();
     useNavigateMock.mockClear();
   });
 
