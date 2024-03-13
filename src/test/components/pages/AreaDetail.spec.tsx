@@ -67,6 +67,7 @@ describe("AreaDetail", () => {
     );
     onsenRepository.readAll = vi.fn().mockResolvedValue([]);
     hotelRepository.readAll = vi.fn().mockResolvedValue([]);
+    areaRepository.update = vi.fn();
     useNavigateMock.mockClear();
   });
 

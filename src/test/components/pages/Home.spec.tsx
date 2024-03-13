@@ -81,7 +81,7 @@ describe("Home", () => {
         onsenIds: [],
       }),
     ]);
-    areaRepository.create = vi.fn().mockResolvedValue(undefined);
+    areaRepository.create = vi.fn();
     useNavigateMock.mockClear();
   });
 

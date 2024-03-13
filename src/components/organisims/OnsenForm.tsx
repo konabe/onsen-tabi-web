@@ -35,14 +35,10 @@ const OnsenForm: React.FC<Props> = ({
   const [quality, setQuality] = useState<string>("");
   const [chemicals, setChemicals] = useState<string[]>([]);
   const [osmoticPressure, setOsmoticPressure] = useState<
-    OsmoticPressureOption | undefined
-  >(undefined);
-  const [liquid, setLiquid] = useState<LiquidValueOption | undefined>(
-    undefined
-  );
-  const [temperature, setTemperature] = useState<TemperatureOption | undefined>(
-    undefined
-  );
+    OsmoticPressureOption | ""
+  >("");
+  const [liquid, setLiquid] = useState<LiquidValueOption | "">("");
+  const [temperature, setTemperature] = useState<TemperatureOption | "">("");
   const [form, setForm] = useState<FormOption>("sotoyu");
   const [isDayUse, setIsDayUse] = useState<boolean>(false);
   const [url, setURL] = useState<string>("");
@@ -71,19 +67,19 @@ const OnsenForm: React.FC<Props> = ({
     { value: "WeakRn", label: "(弱ラドン)" },
   ];
   const osmoticPressureOptions: {
-    value: OsmoticPressureOption | undefined;
+    value: OsmoticPressureOption | "";
     label: string;
   }[] = [
-    { value: undefined, label: "選択なし" },
+    { value: "", label: "選択なし" },
     { value: "hypotonic", label: "低張性" },
     { value: "isotonic", label: "等張性" },
     { value: "hypertonic", label: "高張性" },
   ];
   const liquidValueOptions: {
-    value: LiquidValueOption | undefined;
+    value: LiquidValueOption | "";
     label: string;
   }[] = [
-    { value: undefined, label: "選択なし" },
+    { value: "", label: "選択なし" },
     { value: "acidic", label: new Liquid("acidic").getTextWithInstruction() },
     {
       value: "mildly_acidic",
@@ -100,10 +96,10 @@ const OnsenForm: React.FC<Props> = ({
     },
   ];
   const temperatureOptions: {
-    value: TemperatureOption | undefined;
+    value: TemperatureOption | "";
     label: string;
   }[] = [
-    { value: undefined, label: "選択なし" },
+    { value: "", label: "選択なし" },
     { value: "hot", label: new Temperature("hot").getTextWithInstruction() },
     {
       value: "normal",
@@ -140,9 +136,9 @@ const OnsenForm: React.FC<Props> = ({
         generatedSpringQuality: quality,
         userSpringQuality: userQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
-        osmoticPressure,
-        liquid,
-        temperature,
+        osmoticPressure: osmoticPressure !== "" ? osmoticPressure : undefined,
+        liquid: liquid !== "" ? liquid : undefined,
+        temperature: temperature !== "" ? temperature : undefined,
         form,
         isDayUse,
         url,
@@ -154,9 +150,9 @@ const OnsenForm: React.FC<Props> = ({
     setUserQuality("");
     setQuality("");
     setChemicals([]);
-    setOsmoticPressure(undefined);
-    setLiquid(undefined);
-    setTemperature(undefined);
+    setOsmoticPressure("");
+    setLiquid("");
+    setTemperature("");
     setForm("sotoyu");
     setURL("");
     setImgURL("");
@@ -171,9 +167,9 @@ const OnsenForm: React.FC<Props> = ({
         generatedSpringQuality: quality,
         userSpringQuality: userQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
-        osmoticPressure,
-        liquid,
-        temperature,
+        osmoticPressure: osmoticPressure !== "" ? osmoticPressure : undefined,
+        liquid: liquid !== "" ? liquid : undefined,
+        temperature: temperature !== "" ? temperature : undefined,
         form,
         isDayUse,
         url,
@@ -202,9 +198,9 @@ const OnsenForm: React.FC<Props> = ({
     setChemicals(value?.chemicals ?? []);
     setUserQuality(value?.userSpringQuality ?? "");
     setQuality(value?.generatedSprintQuality ?? "");
-    setOsmoticPressure(value?.osmoticPressure);
-    setLiquid(value?.liquid);
-    setTemperature(value?.temperature);
+    setOsmoticPressure(value?.osmoticPressure ?? "");
+    setLiquid(value?.liquid ?? "");
+    setTemperature(value?.temperature ?? "");
     setForm(value?.form ?? "sotoyu");
     setIsDayUse(value?.isDayUse ?? false);
     setURL(value?.url ?? "");
@@ -250,7 +246,7 @@ const OnsenForm: React.FC<Props> = ({
             isMulti={false}
             defaultValue={undefined}
             onChange={(v) =>
-              setOsmoticPressure(v?.value as OsmoticPressureOption | undefined)
+              setOsmoticPressure((v?.value ?? "") as OsmoticPressureOption | "")
             }
           />
         </div>
@@ -263,7 +259,7 @@ const OnsenForm: React.FC<Props> = ({
             isMulti={false}
             defaultValue={undefined}
             onChange={(v) =>
-              setLiquid(v?.value as LiquidValueOption | undefined)
+              setLiquid((v?.value ?? "") as LiquidValueOption | "")
             }
           />
         </div>
@@ -276,7 +272,7 @@ const OnsenForm: React.FC<Props> = ({
             isMulti={false}
             defaultValue={undefined}
             onChange={(v) =>
-              setTemperature(v?.value as TemperatureOption | undefined)
+              setTemperature((v?.value ?? "") as TemperatureOption | "")
             }
           />
         </div>

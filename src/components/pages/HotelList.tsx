@@ -5,15 +5,22 @@ import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
 import { HotelEntity } from "../../domain/models/hotel";
-import { HotelRepository } from "../../infrastructure/repositories/hotelRepository";
+import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
 import Loading from "../atoms/Loading";
 import Article from "../organisims/Article";
 import HotelCard from "../organisims/HotelCard";
 import HotelForm from "../organisims/HotelForm";
 
-const HotelList: React.FC<CommonPageProps> = ({ isSignedIn }) => {
-  const hotelRepository = new HotelRepository();
+type HotelListDependencies = {
+  dependencies: {
+    hotelRepository: IHotelRepository;
+  };
+};
 
+const HotelList: React.FC<CommonPageProps & HotelListDependencies> = ({
+  isSignedIn,
+  dependencies: { hotelRepository },
+}) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
