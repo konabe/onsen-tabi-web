@@ -21,10 +21,10 @@ describe("OnsenList", () => {
 
   const renderOnsenList = ({ isSignedIn }: { isSignedIn: boolean }) => {
     render(
-      <MemoryRouter initialEntries={["/hotels"]}>
+      <MemoryRouter initialEntries={["/onsens"]}>
         <Routes>
           <Route
-            path="/hotels"
+            path="/onsens"
             element={
               <OnsenList
                 isSignedIn={isSignedIn}
