@@ -5,7 +5,10 @@ import { OnsenEntity } from "../../domain/models/onsen";
 import { FormOption } from "../../domain/models/onsen/businessForm";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
 import { Liquid, LiquidValueOption } from "../../domain/models/onsen/liquid";
-import { OsmoticPressureOption } from "../../domain/models/onsen/osmoticPressure";
+import {
+  OsmoticPressure,
+  OsmoticPressureOption,
+} from "../../domain/models/onsen/osmoticPressure";
 import {
   Temperature,
   TemperatureOption,
@@ -71,9 +74,18 @@ const OnsenForm: React.FC<Props> = ({
     label: string;
   }[] = [
     { value: "", label: "選択なし" },
-    { value: "hypotonic", label: "低張性" },
-    { value: "isotonic", label: "等張性" },
-    { value: "hypertonic", label: "高張性" },
+    {
+      value: "hypotonic",
+      label: new OsmoticPressure("hypotonic").getTextWithInstruction(),
+    },
+    {
+      value: "isotonic",
+      label: new OsmoticPressure("isotonic").getTextWithInstruction(),
+    },
+    {
+      value: "hypertonic",
+      label: new OsmoticPressure("hypertonic").getTextWithInstruction(),
+    },
   ];
   const liquidValueOptions: {
     value: LiquidValueOption | "";

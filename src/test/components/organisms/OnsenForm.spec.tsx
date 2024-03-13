@@ -77,7 +77,10 @@ describe("OnsenForm", () => {
     const submitButton = screen.getByRole("button", { name: "送信" });
     await userEvent.type(springField, "メモ");
     await selectEvent.select(chemicalsSelect, ["硫黄"]);
-    await selectEvent.select(osmoticPressureSelect, "低張性");
+    await selectEvent.select(
+      osmoticPressureSelect,
+      "低張性(溶存物質総量8g/kg未満, 凝固点-0.55℃以上)"
+    );
     await selectEvent.select(liquidSelect, "酸性(pH3未満)");
     await selectEvent.select(tempratureSelect, "高温泉(42℃以上)");
     await selectEvent.select(formSelect, "外湯");
@@ -124,6 +127,71 @@ describe("OnsenForm", () => {
       liquid: "mildly_alkaline",
       osmoticPressure: "isotonic",
       temperature: "hot",
+      form: "sotoyu",
+      isDayUse: true,
+      url: "https://onsen-kusatsu.com/ohtakinoyu/",
+      imgURL: "https://placehold.jp/150x150.png",
+      description:
+        "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。",
+    };
+    render(
+      <OnsenForm
+        formTitle="温泉フォーム"
+        value={
+          new OnsenEntity({
+            ...commonParams,
+          })
+        }
+        onChange={onChange}
+        onSubmitClick={onSubmitClick}
+      />
+    );
+    // 入力
+    const nameField = screen.getByLabelText("名前");
+    const springField = screen.getByLabelText("泉質");
+    // TODO: a11y & testablity <form>を経由して値を受け取るようにする
+    // https://testing-library.com/docs/ecosystem-react-select-event/
+    // const chemicalsSelect = screen.getByLabelText("成分");
+    // const osmoticPressureSelect = screen.getByLabelText("浸透圧");
+    // const liquidSelect = screen.getByLabelText("液性");
+    // const tempratureSelect = screen.getByLabelText("温度");
+    // const formSelect = screen.getByLabelText("形態");
+    const isDayUseCheckBox = screen.getByLabelText("日帰り入浴あり");
+    const urlField = screen.getByLabelText("URL");
+    const imgURLField = screen.getByLabelText("画像URL");
+    const descriptionField = screen.getByLabelText("説明");
+    const submitButton = screen.getByRole("button", { name: "送信" });
+    expect(nameField).toHaveValue("大滝乃湯");
+    expect(springField).toHaveValue("メタケイ酸泉");
+    // expect(chemicalsSelect).toHaveValue(["NaIon", "ClIon"]);
+    // expect(osmoticPressureSelect).to("isotonic");
+    // expect(liquidSelect).toHaveValue("mildly_alkaline");
+    // expect(tempratureSelect).toHaveValue("hot");
+    // expect(formSelect).toHaveValue("sotoyu");
+    expect(isDayUseCheckBox).toBeChecked();
+    expect(urlField).toHaveValue("https://onsen-kusatsu.com/ohtakinoyu/");
+    expect(imgURLField).toHaveValue("https://placehold.jp/150x150.png");
+    expect(descriptionField).toHaveValue(
+      "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。"
+    );
+    await userEvent.click(submitButton);
+    expect(onSubmitClick).toBeCalledWith(
+      new OnsenEntity({
+        ...commonParams,
+      })
+    );
+  });
+
+  it("should be updated with null value", async () => {
+    const commonParams: OnsenEntityParameter = {
+      id: -1,
+      name: "大滝乃湯",
+      generatedSpringQuality: "",
+      userSpringQuality: "メタケイ酸泉",
+      chemicals: [],
+      liquid: undefined,
+      osmoticPressure: undefined,
+      temperature: undefined,
       form: "sotoyu",
       isDayUse: true,
       url: "https://onsen-kusatsu.com/ohtakinoyu/",

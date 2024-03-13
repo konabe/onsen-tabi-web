@@ -34,6 +34,11 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: konabe/onsen-tabi-web
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Publish to Chromatic
         uses: chromaui/action@latest
         if: github.event_name == 'pull_request' && github.event.action == 'opened'

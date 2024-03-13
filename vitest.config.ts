@@ -3,6 +3,10 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
+    coverage: {
+      reporter: ["lcov"],
+      exclude: ["**/*.stories.ts", "**/*.stories.tsx"],
+    },
     globals: true,
     environment: "happy-dom",
     setupFiles: ["./setupTests.ts"],
@@ -10,5 +14,8 @@ export default defineConfig({
     alias: {
       "@/": path.resolve(__dirname, "src"),
     },
+    retry: 3,
+    reporters: ["default", "vitest-sonar-reporter"],
+    outputFile: "coverage/sonar-report.xml",
   },
 });
