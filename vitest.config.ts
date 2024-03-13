@@ -10,5 +10,7 @@ export default defineConfig({
     alias: {
       "@/": path.resolve(__dirname, "src"),
     },
+    reporters: ["default", "vitest-sonar-reporter"],
+    outputFile: "coverage/test-report-sonar.xml",
   },
 });
