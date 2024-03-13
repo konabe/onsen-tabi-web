@@ -93,7 +93,7 @@ describe("OnsenDetail", () => {
       expect(screen.getByText("ナトリウム塩化物泉")).toBeInTheDocument();
       expect(screen.getAllByText("ナトリウムイオン")).toHaveLength(2);
       expect(screen.getAllByText("塩化物イオン")).toHaveLength(2);
-      expect(screen.getAllByText("等張性")).toHaveLength(2);
+      expect(screen.getAllByText("等張性")).toHaveLength(1);
       expect(screen.getAllByText("弱アルカリ性")).toHaveLength(1);
       expect(screen.getAllByText("高温泉")).toHaveLength(1);
       expect(screen.getAllByText("外湯")).toHaveLength(2);

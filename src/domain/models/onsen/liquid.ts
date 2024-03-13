@@ -31,10 +31,6 @@ export class Liquid extends ValueObject implements OmittableText {
     }
   }
 
-  getTextWithInstruction(): string {
-    return `${this.getText()}(${this.getPhIntervalText()})`;
-  }
-
   getOmittedText(): string | undefined {
     switch (this._value) {
       case "acidic":
@@ -48,6 +44,10 @@ export class Liquid extends ValueObject implements OmittableText {
       case "alkaline":
         return "ア";
     }
+  }
+
+  getTextWithInstruction(): string {
+    return `${this.getText()}(${this.getPhIntervalText()})`;
   }
 
   equals(vo: Liquid): boolean {

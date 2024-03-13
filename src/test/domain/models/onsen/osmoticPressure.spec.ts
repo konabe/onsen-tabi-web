@@ -32,6 +32,18 @@ describe("OsmoticPressure", () => {
     });
   });
 
+  describe("#getTextWithInstruction", () => {
+    it.each`
+      value           | expected
+      ${"hypotonic"}  | ${"低張性(溶存物質総量8g/kg未満, 凝固点-0.55℃以上)"}
+      ${"isotonic"}   | ${"等張性(溶存物質総量8g/kg以上10g/kg未満, 凝固点-0.58℃以上-0.55℃未満)"}
+      ${"hypertonic"} | ${"高張性(溶存物質総量10g/kg以上, 凝固点-0.58℃未満)"}
+    `("should return $expected", ({ value, expected }) => {
+      const osmoticPressure = new OsmoticPressure(value);
+      expect(osmoticPressure.getTextWithInstruction()).toBe(expected);
+    });
+  });
+
   describe("#equals", () => {
     it("should return true", () => {
       const osmoticPressure1 = new OsmoticPressure("isotonic");

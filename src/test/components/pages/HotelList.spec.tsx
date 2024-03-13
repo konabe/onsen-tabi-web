@@ -62,9 +62,7 @@ describe("HotelList", () => {
       renderHotelList({ isSignedIn: true });
       expect(screen.getByText("ローディング中")).toBeInTheDocument();
 
-      await waitFor(() => {
-        expect(hotelRepository.readAll).toBeCalled();
-      });
+      await waitFor(() => expect(hotelRepository.readAll).toBeCalled());
       expect(hotelRepository.readAll).toBeCalledTimes(1);
       expect(screen.queryByText("ローディング中")).not.toBeInTheDocument();
 
@@ -138,9 +136,7 @@ describe("HotelList", () => {
         renderHotelList({ isSignedIn: false });
         expect(screen.getByText("ローディング中")).toBeInTheDocument();
 
-        await waitFor(() => {
-          expect(hotelRepository.readAll).toBeCalled();
-        });
+        await waitFor(() => expect(hotelRepository.readAll).toBeCalled());
         expect(hotelRepository.readAll).toBeCalledTimes(1);
         expect(screen.queryByText("ローディング中")).not.toBeInTheDocument();
 

@@ -77,7 +77,10 @@ describe("OnsenForm", () => {
     const submitButton = screen.getByRole("button", { name: "送信" });
     await userEvent.type(springField, "メモ");
     await selectEvent.select(chemicalsSelect, ["硫黄"]);
-    await selectEvent.select(osmoticPressureSelect, "低張性");
+    await selectEvent.select(
+      osmoticPressureSelect,
+      "低張性(溶存物質総量8g/kg未満, 凝固点-0.55℃以上)"
+    );
     await selectEvent.select(liquidSelect, "酸性(pH3未満)");
     await selectEvent.select(tempratureSelect, "高温泉(42℃以上)");
     await selectEvent.select(formSelect, "外湯");
