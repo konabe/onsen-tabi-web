@@ -96,7 +96,12 @@ const App: React.FC = () => {
           />
           <Route
             path={"/hotel/:id"}
-            element={<HotelDetail isSignedIn={isSignedIn} />}
+            element={
+              <HotelDetail
+                isSignedIn={isSignedIn}
+                dependencies={{ hotelRepository, onsenRepository }}
+              />
+            }
           />
           <Route
             path={"/onsens"}

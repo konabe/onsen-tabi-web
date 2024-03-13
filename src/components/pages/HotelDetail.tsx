@@ -6,18 +6,25 @@ import styled from "styled-components";
 import { CommonPageProps } from "../../App";
 import { HotelEntity } from "../../domain/models/hotel";
 import { OnsenEntity } from "../../domain/models/onsen";
-import { HotelRepository } from "../../infrastructure/repositories/hotelRepository";
-import { OnsenRepository } from "../../infrastructure/repositories/onsenRepository";
+import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
+import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import Loading from "../atoms/Loading";
 import Description from "../molecules/Description";
 import Article from "../organisims/Article";
 import HotelForm from "../organisims/HotelForm";
 import RelatedContents from "../organisims/RelatedContents";
 
-const HotelDetail: React.FC<CommonPageProps> = ({ isSignedIn }) => {
-  const onsenRepository = new OnsenRepository();
-  const hotelRepository = new HotelRepository();
+type HotelDetailDependencies = {
+  dependencies: {
+    onsenRepository: IOnsenRepository;
+    hotelRepository: IHotelRepository;
+  };
+};
 
+const HotelDetail: React.FC<CommonPageProps & HotelDetailDependencies> = ({
+  isSignedIn,
+  dependencies: { onsenRepository, hotelRepository },
+}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);

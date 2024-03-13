@@ -12,7 +12,7 @@ describe("HotelCard", () => {
             id: -1,
             name: "伍楼閣",
             hasWashitsu: true,
-            url: "http://www.gorokaku.com/",
+            url: "https://www.gorokaku.com/",
             description: "いい感じの温泉宿です。",
           })
         }
@@ -22,6 +22,6 @@ describe("HotelCard", () => {
     expect(screen.getByText("伍楼閣")).toBeInTheDocument();
     expect(screen.getByText("いい感じの温泉宿です。")).toBeInTheDocument();
     expect(link.tagName).toBe("A");
-    expect(link).toHaveAttribute("href", "http://www.gorokaku.com/");
+    expect(link).toHaveAttribute("href", "https://www.gorokaku.com/");
   });
 });

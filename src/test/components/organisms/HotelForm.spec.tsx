@@ -58,7 +58,7 @@ describe("HotelForm", () => {
     const descriptionField = screen.getByLabelText("説明");
     const submitButton = screen.getByRole("button", { name: "送信" });
     await userEvent.click(hasWashitsuCheckbox);
-    await userEvent.type(urlField, "http://www.gorokaku.com/");
+    await userEvent.type(urlField, "https://www.gorokaku.com/");
     await userEvent.type(
       descriptionField,
       "まずはロビーの歴史を感じる雰囲気に圧倒される"
@@ -70,7 +70,7 @@ describe("HotelForm", () => {
         ...commonParams,
         name: "伍楼閣",
         hasWashitsu: false,
-        url: "http://www.gorokaku.com/",
+        url: "https://www.gorokaku.com/",
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
       })
     );
@@ -85,7 +85,7 @@ describe("HotelForm", () => {
       id: -1,
       name: "伍楼閣",
       hasWashitsu: false,
-      url: "http://www.gorokaku.com/",
+      url: "https://www.gorokaku.com/",
       description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
     };
     render(
@@ -108,7 +108,7 @@ describe("HotelForm", () => {
     const submitButton = screen.getByRole("button", { name: "送信" });
     expect(nameField).toHaveValue("伍楼閣");
     expect(hasWashitsuCheckbox).not.toBeChecked();
-    expect(urlField).toHaveValue("http://www.gorokaku.com/");
+    expect(urlField).toHaveValue("https://www.gorokaku.com/");
     expect(descriptionField).toHaveValue(
       "まずはロビーの歴史を感じる雰囲気に圧倒される"
     );
@@ -118,7 +118,7 @@ describe("HotelForm", () => {
         ...commonParams,
         name: "伍楼閣",
         hasWashitsu: false,
-        url: "http://www.gorokaku.com/",
+        url: "https://www.gorokaku.com/",
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
       })
     );

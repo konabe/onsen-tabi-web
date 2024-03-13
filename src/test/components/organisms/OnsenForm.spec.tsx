@@ -82,7 +82,7 @@ describe("OnsenForm", () => {
     await selectEvent.select(tempratureSelect, "高温泉(42℃以上)");
     await selectEvent.select(formSelect, "外湯");
     await userEvent.click(isDayUseCheckBox);
-    await userEvent.type(urlField, "http://www.gorokaku.com/");
+    await userEvent.type(urlField, "https://www.gorokaku.com/");
     await userEvent.type(imgURLField, "https://placehold.jp/150x150.png");
     await userEvent.type(
       descriptionField,
@@ -103,7 +103,7 @@ describe("OnsenForm", () => {
         userSpringQuality: "メモ",
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
         isDayUse: true,
-        url: "http://www.gorokaku.com/",
+        url: "https://www.gorokaku.com/",
       })
     );
     expect(nameField).toHaveValue("");
