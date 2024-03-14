@@ -9,6 +9,7 @@ import { ChemicalOption } from "../../domain/models/onsen/chemical";
 import { ChemicalTagOption } from "../../domain/models/onsen/chemicalTagModel";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import Loading from "../atoms/Loading";
+import MyHelmet from "../atoms/MyHelmet";
 import Select from "../atoms/Select";
 import Article from "../organisims/Article";
 import OnsenCard from "../organisims/OnsenCard";
@@ -95,6 +96,7 @@ const OnsenList: React.FC<CommonPageProps & OnsenListDependencies> = ({
 
   return (
     <SContents>
+      <MyHelmet title="温泉一覧" />
       {isLoading ? (
         <Loading />
       ) : (

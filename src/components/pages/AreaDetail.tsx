@@ -11,6 +11,7 @@ import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelReposit
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import { HotelResponse } from "../../infrastructure/repositories/hotelRepository";
 import Loading from "../atoms/Loading";
+import MyHelmet from "../atoms/MyHelmet";
 import Tag from "../atoms/Tag";
 import Description from "../molecules/Description";
 import AreaForm from "../organisims/AreaForm";
@@ -79,6 +80,7 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
 
   return (
     <SContents>
+      <MyHelmet title={area !== undefined ? `${area?.name}温泉` : ""} />
       {isLoading ? (
         <Loading />
       ) : (
