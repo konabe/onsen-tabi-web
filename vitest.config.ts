@@ -7,9 +7,9 @@ export default defineConfig({
       reporter: ["lcov"],
       exclude: [
         "**/*.stories.ts",
-        "**/*.stories.tsx",
         ".storybook/**/*",
         ".yarn/**/*",
+        "**/*.stories.tsx",
       ],
     },
     globals: true,
