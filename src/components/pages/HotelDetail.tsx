@@ -9,6 +9,7 @@ import { OnsenEntity } from "../../domain/models/onsen";
 import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import Loading from "../atoms/Loading";
+import MyHelmet from "../atoms/MyHelmet";
 import Description from "../molecules/Description";
 import Article from "../organisims/Article";
 import HotelForm from "../organisims/HotelForm";
@@ -68,6 +69,7 @@ const HotelDetail: React.FC<CommonPageProps & HotelDetailDependencies> = ({
 
   return (
     <SContents>
+      <MyHelmet title={hotel !== undefined ? hotel.name : ""} />
       {isLoading ? (
         <Loading />
       ) : (

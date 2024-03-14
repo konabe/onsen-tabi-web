@@ -7,6 +7,7 @@ import { CommonPageProps } from "../../App";
 import { HotelEntity } from "../../domain/models/hotel";
 import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
 import Loading from "../atoms/Loading";
+import MyHelmet from "../atoms/MyHelmet";
 import Article from "../organisims/Article";
 import HotelCard from "../organisims/HotelCard";
 import HotelForm from "../organisims/HotelForm";
@@ -58,6 +59,7 @@ const HotelList: React.FC<CommonPageProps & HotelListDependencies> = ({
 
   return (
     <SContents>
+      <MyHelmet title={"宿一覧"} />
       {isLoading ? (
         <Loading />
       ) : (

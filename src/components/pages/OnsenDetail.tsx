@@ -9,6 +9,7 @@ import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import { grey2 } from "../atoms/colors";
 import Loading from "../atoms/Loading";
+import MyHelmet from "../atoms/MyHelmet";
 import Description from "../molecules/Description";
 import ChemicalTag from "../molecules/onsen/ChemicalTag";
 import Article from "../organisims/Article";
@@ -67,6 +68,7 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
 
   return (
     <SContents>
+      <MyHelmet title={onsen !== undefined ? onsen.name : ""} />
       {isLoading ? (
         <Loading />
       ) : (

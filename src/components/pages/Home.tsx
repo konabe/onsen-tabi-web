@@ -8,6 +8,7 @@ import { AreaEntity } from "../../domain/models/area";
 import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { prefectures } from "../../share/prefecture";
 import Loading from "../atoms/Loading";
+import MyHelmet from "../atoms/MyHelmet";
 import AreaForm from "../organisims/AreaForm";
 import Article from "../organisims/Article";
 import OnsenAreaList from "../organisims/OnsenAreaList";
@@ -65,6 +66,7 @@ const Home: React.FC<CommonPageProps & HomeDependencies> = ({
 
   return (
     <SContents>
+      <MyHelmet title={""} />
       <div>
         <Article emoji="📌" title="お知らせ">
           {noticeSentences.map((v, i) => (
