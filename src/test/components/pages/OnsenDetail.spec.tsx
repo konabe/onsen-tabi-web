@@ -50,7 +50,7 @@ describe("OnsenDetail", () => {
         id: 1,
         name: "大滝乃湯",
         generatedSpringQuality: "ナトリウム塩化物泉",
-        userSpringQuality: "",
+        otherSpringQuality: "",
         chemicals: ["NaIon", "ClIon"],
         liquid: "mildly_alkaline",
         osmoticPressure: "isotonic",

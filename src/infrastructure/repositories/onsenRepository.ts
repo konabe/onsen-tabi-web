@@ -9,15 +9,14 @@ import { APIClient } from "../api/ApiClient";
 
 export type OnsenResponse = {
   id: number;
+  name: string;
   quality?: {
     name: string;
     chemicals: ChemicalOption[];
     isStrongNaCl: boolean;
     isWeakRn: boolean;
   };
-  name: string;
-  springQuality: string;
-  springQualityUser: string;
+  otherSpringQuality: string;
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
   temperature: TemperatureOption | null;
@@ -30,7 +29,6 @@ export type OnsenResponse = {
 
 export type OnsenRequest = {
   name: string;
-  springQuality: string;
   chemicals: {
     naIon: number;
     caIon: number;
@@ -45,6 +43,7 @@ export type OnsenRequest = {
     s: number;
     rn: number;
   } | null;
+  otherSpringQuality: string;
   liquid: LiquidValueOption | null;
   osmoticPressure: OsmoticPressureOption | null;
   temperature: TemperatureOption | null;
@@ -140,7 +139,7 @@ export class OnsenRepository implements IOnsenRepository {
       form: onsen.form,
       osmoticPressure: onsen?.osmoticPressure ?? null,
       temperature: onsen?.temperature ?? null,
-      springQuality: onsen.userSpringQuality,
+      otherSpringQuality: onsen.otherSpringQuality,
       chemicals,
       imgUrl: onsen.imgURL ?? null,
     };
@@ -156,7 +155,7 @@ export class OnsenRepository implements IOnsenRepository {
         ...(response.quality?.isWeakRn ? ["WeakRn"] : []),
       ] as ChemicalOption[],
       generatedSpringQuality: response.quality?.name,
-      userSpringQuality: response.springQuality,
+      otherSpringQuality: response.otherSpringQuality,
       imgURL: response.imgUrl,
     });
   }

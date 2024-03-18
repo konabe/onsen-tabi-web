@@ -146,7 +146,7 @@ const OnsenForm: React.FC<Props> = ({
         id: -1,
         name,
         generatedSpringQuality: quality,
-        userSpringQuality: userQuality,
+        otherSpringQuality: userQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
         osmoticPressure: osmoticPressure !== "" ? osmoticPressure : undefined,
         liquid: liquid !== "" ? liquid : undefined,
@@ -177,7 +177,7 @@ const OnsenForm: React.FC<Props> = ({
         id: -1,
         name,
         generatedSpringQuality: quality,
-        userSpringQuality: userQuality,
+        otherSpringQuality: userQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
         osmoticPressure: osmoticPressure !== "" ? osmoticPressure : undefined,
         liquid: liquid !== "" ? liquid : undefined,
@@ -208,7 +208,7 @@ const OnsenForm: React.FC<Props> = ({
   useEffect(() => {
     setName(value?.name ?? "");
     setChemicals(value?.chemicals ?? []);
-    setUserQuality(value?.userSpringQuality ?? "");
+    setUserQuality(value?.otherSpringQuality ?? "");
     setQuality(value?.generatedSprintQuality ?? "");
     setOsmoticPressure(value?.osmoticPressure ?? "");
     setLiquid(value?.liquid ?? "");
