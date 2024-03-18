@@ -1,6 +1,7 @@
 import { ValueObject } from "../../ddd";
 
-export type FormOption = "uchiyu" | "sotoyu";
+export const FormOptions = ["uchiyu", "sotoyu"] as const;
+export type FormOption = (typeof FormOptions)[number];
 
 export class BusinessForm extends ValueObject implements OmittableText {
   constructor(private readonly _value: FormOption) {

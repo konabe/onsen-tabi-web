@@ -50,7 +50,7 @@ describe("OnsenDetail", () => {
         id: 1,
         name: "大滝乃湯",
         generatedSpringQuality: "ナトリウム塩化物泉",
-        userSpringQuality: "",
+        otherSpringQuality: "",
         chemicals: ["NaIon", "ClIon"],
         liquid: "mildly_alkaline",
         osmoticPressure: "isotonic",
@@ -103,7 +103,7 @@ describe("OnsenDetail", () => {
       ).toHaveAttribute("href", "https://onsen-kusatsu.com/ohtakinoyu/");
       // form
       expect(screen.getByLabelText("名前")).toHaveValue("大滝乃湯");
-      expect(screen.getByLabelText("泉質")).toHaveValue("");
+      expect(screen.getByLabelText("その他泉質")).toHaveValue("");
       // TODO: a11y & testablity <form>を経由して値を受け取るようにする
       // expect(screen.getByLabelText("浸透圧")).toHaveValue("isotonic");
       // expect(screen.getByLabelText("液性")).toHaveValue("mildly_alkaline");

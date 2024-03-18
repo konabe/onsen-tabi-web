@@ -1,6 +1,7 @@
 import { ValueObject } from "../../ddd";
 
-export type TemperatureOption = "hot" | "normal" | "cool" | "cold";
+export const TemperatureOptions = ["hot", "normal", "cool", "cold"] as const;
+export type TemperatureOption = (typeof TemperatureOptions)[number];
 
 export class Temperature extends ValueObject implements OmittableText {
   constructor(private readonly _value: TemperatureOption) {

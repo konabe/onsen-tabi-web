@@ -8,7 +8,7 @@ describe("Onsen", () => {
     id: 1,
     name: "大滝乃湯",
     generatedSpringQuality: "ナトリウム塩化物泉",
-    userSpringQuality: "ナトリウム塩化物泉",
+    otherSpringQuality: "ナトリウム塩化物泉",
     chemicals: ["NaIon", "ClIon"],
     liquid: "mildly_alkaline",
     osmoticPressure: "isotonic",
@@ -37,7 +37,7 @@ describe("Onsen", () => {
       expect(onsen.osmoticPressure).toBe("isotonic");
       expect(onsen.temperature).toBe("hot");
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
-      expect(onsen.userSpringQuality).toBe("ナトリウム塩化物泉");
+      expect(onsen.otherSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.imgURL).toBe("https://placehold.jp/150x150.png");
       expect(onsen).toBeDefined();
     });
@@ -48,12 +48,12 @@ describe("Onsen", () => {
       onsen.form = "uchiyu";
       onsen.osmoticPressure = "hypertonic";
       onsen.temperature = "cold";
-      onsen.userSpringQuality = "メタケイ酸泉";
+      onsen.otherSpringQuality = "メタケイ酸泉";
       expect(onsen.liquid).toBe("neutral");
       expect(onsen.form).toBe("uchiyu");
       expect(onsen.osmoticPressure).toBe("hypertonic");
       expect(onsen.temperature).toBe("cold");
-      expect(onsen.userSpringQuality).toBe("メタケイ酸泉");
+      expect(onsen.otherSpringQuality).toBe("メタケイ酸泉");
       expect(onsen).toBeDefined();
     });
 
@@ -84,7 +84,7 @@ describe("Onsen", () => {
       ({ userSpringQuality, generatedSpringQuality, expected }) => {
         const onsen = new OnsenEntity({
           ...commonParams,
-          userSpringQuality,
+          otherSpringQuality: userSpringQuality,
           generatedSpringQuality,
         });
         expect(onsen.getQualityText()).toBe(expected);

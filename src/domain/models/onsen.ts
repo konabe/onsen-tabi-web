@@ -11,9 +11,9 @@ import { Temperature, TemperatureOption } from "./onsen/temperature";
 export type OnsenEntityParameter = {
   id: number;
   name: string;
-  generatedSpringQuality: string | undefined;
-  userSpringQuality: string;
   chemicals: ChemicalOption[];
+  generatedSpringQuality: string | undefined;
+  otherSpringQuality: string;
   liquid: LiquidValueOption | undefined | null;
   osmoticPressure: OsmoticPressureOption | undefined | null;
   temperature: TemperatureOption | undefined | null;
@@ -28,7 +28,7 @@ export class OnsenEntity {
   readonly id: number;
   readonly name: string;
   _generatedSpringQuality: string | undefined;
-  _userSpringQuality: string;
+  _otherSpringQuality: string;
   _chemicals: ChemicalOption[];
   _liquid: Liquid | undefined;
   _osmoticPressure: OsmoticPressure | undefined;
@@ -43,7 +43,7 @@ export class OnsenEntity {
     id,
     name,
     generatedSpringQuality,
-    userSpringQuality,
+    otherSpringQuality,
     chemicals,
     liquid,
     osmoticPressure,
@@ -57,7 +57,7 @@ export class OnsenEntity {
     this.id = id;
     this.name = name;
     this._generatedSpringQuality = generatedSpringQuality;
-    this._userSpringQuality = userSpringQuality;
+    this._otherSpringQuality = otherSpringQuality;
     this._chemicals = chemicals;
     this._liquid = liquid != null ? new Liquid(liquid) : undefined;
     this._osmoticPressure =
@@ -104,11 +104,11 @@ export class OnsenEntity {
   get generatedSprintQuality(): string | undefined {
     return this._generatedSpringQuality;
   }
-  get userSpringQuality(): string {
-    return this._userSpringQuality;
+  get otherSpringQuality(): string {
+    return this._otherSpringQuality;
   }
-  set userSpringQuality(value: string) {
-    this._userSpringQuality = value;
+  set otherSpringQuality(value: string) {
+    this._otherSpringQuality = value;
   }
   get imgURL(): string | undefined {
     return this._imgURL;
@@ -116,9 +116,9 @@ export class OnsenEntity {
 
   getQualityText(): string {
     const altText =
-      this._userSpringQuality !== "" ? `(${this._userSpringQuality})` : "";
+      this._otherSpringQuality !== "" ? `(${this._otherSpringQuality})` : "";
     const separatedText =
-      this._userSpringQuality !== "" &&
+      this._otherSpringQuality !== "" &&
       this._generatedSpringQuality !== undefined
         ? " "
         : "";

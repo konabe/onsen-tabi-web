@@ -23,7 +23,7 @@ describe("OnsenForm", () => {
     );
     expect(screen.getByText("温泉フォーム")).toBeInTheDocument();
     expect(screen.getByLabelText("名前")).toBeInTheDocument();
-    expect(screen.getByLabelText("泉質")).toBeInTheDocument();
+    expect(screen.getByLabelText("その他泉質")).toBeInTheDocument();
     expect(screen.getByLabelText("日帰り入浴あり")).toBeInTheDocument();
     expect(screen.getByLabelText("URL")).toBeInTheDocument();
     expect(screen.getByLabelText("画像URL")).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe("OnsenForm", () => {
       id: -1,
       name: "",
       generatedSpringQuality: "",
-      userSpringQuality: "",
+      otherSpringQuality: "",
       chemicals: [],
       liquid: undefined,
       osmoticPressure: undefined,
@@ -64,7 +64,7 @@ describe("OnsenForm", () => {
         name: "大滝乃湯",
       })
     );
-    const springField = screen.getByLabelText("泉質");
+    const springField = screen.getByLabelText("その他泉質");
     const chemicalsSelect = screen.getByLabelText("成分");
     const osmoticPressureSelect = screen.getByLabelText("浸透圧");
     const liquidSelect = screen.getByLabelText("液性");
@@ -103,7 +103,7 @@ describe("OnsenForm", () => {
         temperature: "hot",
         form: "sotoyu",
         imgURL: "https://placehold.jp/150x150.png",
-        userSpringQuality: "メモ",
+        otherSpringQuality: "メモ",
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
         isDayUse: true,
         url: "https://www.gorokaku.com/",
@@ -122,7 +122,7 @@ describe("OnsenForm", () => {
       id: -1,
       name: "大滝乃湯",
       generatedSpringQuality: "",
-      userSpringQuality: "メタケイ酸泉",
+      otherSpringQuality: "メタケイ酸泉",
       chemicals: ["NaIon", "ClIon"],
       liquid: "mildly_alkaline",
       osmoticPressure: "isotonic",
@@ -148,7 +148,7 @@ describe("OnsenForm", () => {
     );
     // 入力
     const nameField = screen.getByLabelText("名前");
-    const springField = screen.getByLabelText("泉質");
+    const springField = screen.getByLabelText("その他泉質");
     // TODO: a11y & testablity <form>を経由して値を受け取るようにする
     // https://testing-library.com/docs/ecosystem-react-select-event/
     // const chemicalsSelect = screen.getByLabelText("成分");
@@ -187,7 +187,7 @@ describe("OnsenForm", () => {
       id: -1,
       name: "大滝乃湯",
       generatedSpringQuality: "",
-      userSpringQuality: "メタケイ酸泉",
+      otherSpringQuality: "メタケイ酸泉",
       chemicals: [],
       liquid: undefined,
       osmoticPressure: undefined,
@@ -213,7 +213,7 @@ describe("OnsenForm", () => {
     );
     // 入力
     const nameField = screen.getByLabelText("名前");
-    const springField = screen.getByLabelText("泉質");
+    const springField = screen.getByLabelText("その他泉質");
     // TODO: a11y & testablity <form>を経由して値を受け取るようにする
     // https://testing-library.com/docs/ecosystem-react-select-event/
     // const chemicalsSelect = screen.getByLabelText("成分");

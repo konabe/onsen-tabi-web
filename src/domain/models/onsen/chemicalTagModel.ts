@@ -1,7 +1,7 @@
 import { ValueObject } from "../../ddd";
-import { Chemical, chemicals } from "./chemical";
+import { Chemical, ChemicalsOptions } from "./chemical";
 
-export const chemicalTags = [...chemicals, "Simple"] as const;
+export const chemicalTags = [...ChemicalsOptions, "Simple"] as const;
 export type ChemicalTagOption = (typeof chemicalTags)[number];
 
 export class ChemicalTagModel extends ValueObject implements OmittableText {
