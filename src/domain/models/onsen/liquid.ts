@@ -1,11 +1,13 @@
 import { ValueObject } from "../../ddd";
 
-export type LiquidValueOption =
-  | "acidic"
-  | "mildly_acidic"
-  | "neutral"
-  | "mildly_alkaline"
-  | "alkaline";
+export const LiquidValueOptions = [
+  "acidic",
+  "mildly_acidic",
+  "neutral",
+  "mildly_alkaline",
+  "alkaline",
+] as const;
+export type LiquidValueOption = (typeof LiquidValueOptions)[number];
 
 export class Liquid extends ValueObject implements OmittableText {
   constructor(private readonly _value: LiquidValueOption) {

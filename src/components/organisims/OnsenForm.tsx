@@ -2,16 +2,30 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { OnsenEntity } from "../../domain/models/onsen";
-import { FormOption } from "../../domain/models/onsen/businessForm";
-import { ChemicalOption } from "../../domain/models/onsen/chemical";
-import { Liquid, LiquidValueOption } from "../../domain/models/onsen/liquid";
+import {
+  BusinessForm,
+  FormOption,
+  FormOptions,
+} from "../../domain/models/onsen/businessForm";
+import {
+  Chemical,
+  ChemicalOption,
+  ChemicalsOptions as chemicalsOptions,
+} from "../../domain/models/onsen/chemical";
+import {
+  Liquid,
+  LiquidValueOption,
+  LiquidValueOptions,
+} from "../../domain/models/onsen/liquid";
 import {
   OsmoticPressure,
   OsmoticPressureOption,
+  OsmoticPressureOptions,
 } from "../../domain/models/onsen/osmoticPressure";
 import {
   Temperature,
   TemperatureOption,
+  TemperatureOptions,
 } from "../../domain/models/onsen/temperature";
 import Button from "../atoms/Button";
 import { subColor } from "../atoms/colors";
@@ -34,9 +48,9 @@ const OnsenForm: React.FC<Props> = ({
   onChange,
 }) => {
   const [name, setName] = useState<string>("");
-  const [userQuality, setUserQuality] = useState<string>("");
   const [quality, setQuality] = useState<string>("");
   const [chemicals, setChemicals] = useState<string[]>([]);
+  const [otherSpringQuality, setOtherSpringQuality] = useState<string>("");
   const [osmoticPressure, setOsmoticPressure] = useState<
     OsmoticPressureOption | ""
   >("");
@@ -48,96 +62,57 @@ const OnsenForm: React.FC<Props> = ({
   const [imgURL, setImgURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  const chemicalsValueOptions: {
-    value: ChemicalOption;
-    label: string;
-  }[] = [
-    { value: "NaIon", label: "ナトリウムイオン" },
-    { value: "CaIon", label: "カルシウムイオン" },
-    { value: "MgIon", label: "マグネシウムイオン" },
-    { value: "ClIon", label: "塩化物イオン" },
-    { value: "HCO3Ion", label: "炭酸水素イオン" },
-    { value: "SO4Ion", label: "硫酸イオン" },
-    { value: "CO2", label: "二酸化炭素" },
-    { value: "FeIon", label: "鉄イオン" },
-    { value: "AlIon", label: "アルミニウムイオン" },
-    { value: "CuIon", label: "銅イオン" },
-    { value: "HIon", label: "水素イオン" },
-    { value: "IIon", label: "ヨウ素イオン" },
-    { value: "S", label: "硫黄" },
-    { value: "Rn", label: "ラドン" },
-    { value: "StrongNaCl", label: "(強塩化物)" },
-    { value: "WeakRn", label: "(弱ラドン)" },
-  ];
-  const osmoticPressureOptions: {
-    value: OsmoticPressureOption | "";
-    label: string;
-  }[] = [
-    { value: "", label: "選択なし" },
-    {
-      value: "hypotonic",
-      label: new OsmoticPressure("hypotonic").getTextWithInstruction(),
-    },
-    {
-      value: "isotonic",
-      label: new OsmoticPressure("isotonic").getTextWithInstruction(),
-    },
-    {
-      value: "hypertonic",
-      label: new OsmoticPressure("hypertonic").getTextWithInstruction(),
-    },
-  ];
-  const liquidValueOptions: {
-    value: LiquidValueOption | "";
-    label: string;
-  }[] = [
-    { value: "", label: "選択なし" },
-    { value: "acidic", label: new Liquid("acidic").getTextWithInstruction() },
-    {
-      value: "mildly_acidic",
-      label: new Liquid("mildly_acidic").getTextWithInstruction(),
-    },
-    { value: "neutral", label: new Liquid("neutral").getTextWithInstruction() },
-    {
-      value: "mildly_alkaline",
-      label: new Liquid("mildly_alkaline").getTextWithInstruction(),
-    },
-    {
-      value: "alkaline",
-      label: new Liquid("alkaline").getTextWithInstruction(),
-    },
-  ];
-  const temperatureOptions: {
-    value: TemperatureOption | "";
-    label: string;
-  }[] = [
-    { value: "", label: "選択なし" },
-    { value: "hot", label: new Temperature("hot").getTextWithInstruction() },
-    {
-      value: "normal",
-      label: new Temperature("normal").getTextWithInstruction(),
-    },
-    { value: "cool", label: new Temperature("cool").getTextWithInstruction() },
-    { value: "cold", label: new Temperature("cold").getTextWithInstruction() },
-  ];
-  const formOptions: {
-    value: FormOption;
-    label: string;
-  }[] = [
-    { value: "sotoyu", label: "外湯" },
-    { value: "uchiyu", label: "内湯" },
-  ];
-
+  const chemicalsValueOptions = chemicalsOptions.map((v) => ({
+    value: v,
+    label: new Chemical(v).getText(),
+  }));
   const chemicalsCurrentValue = chemicals?.map((v) =>
     chemicalsValueOptions.find((c) => c.value === v)
   );
-  const osmoticPressureCurrentValue = osmoticPressureOptions.find(
+
+  const osmoticPressureValueOptions = [
+    ...OsmoticPressureOptions,
+    "" as const,
+  ].map((v) => {
+    const label =
+      v === "" ? "選択なし" : new OsmoticPressure(v).getTextWithInstruction();
+    return {
+      value: v,
+      label,
+    };
+  });
+  const osmoticPressureCurrentValue = osmoticPressureValueOptions.find(
     (v) => v.value === osmoticPressure
   );
+
+  const liquidValueOptions = [...LiquidValueOptions, "" as const].map((v) => {
+    const label =
+      v === "" ? "選択なし" : new Liquid(v).getTextWithInstruction();
+    return {
+      value: v,
+      label,
+    };
+  });
   const liquidCurrentValue = liquidValueOptions.find((v) => v.value === liquid);
+
+  const temperatureOptions = [...TemperatureOptions, "" as const].map((v) => {
+    const label =
+      v === "" ? "選択なし" : new Temperature(v).getTextWithInstruction();
+    return {
+      value: v,
+      label,
+    };
+  });
   const temperatureCurrentValue = temperatureOptions.find(
     (v) => v.value === temperature
   );
+
+  const formOptions = [...FormOptions].map((v) => {
+    return {
+      value: v,
+      label: new BusinessForm(v).getText(),
+    };
+  });
   const formCurrentValue = formOptions.find((v) => v.value === form);
 
   const onClick = async () => {
@@ -146,7 +121,7 @@ const OnsenForm: React.FC<Props> = ({
         id: -1,
         name,
         generatedSpringQuality: quality,
-        otherSpringQuality: userQuality,
+        otherSpringQuality: otherSpringQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
         osmoticPressure: osmoticPressure !== "" ? osmoticPressure : undefined,
         liquid: liquid !== "" ? liquid : undefined,
@@ -159,7 +134,7 @@ const OnsenForm: React.FC<Props> = ({
       })
     );
     setName("");
-    setUserQuality("");
+    setOtherSpringQuality("");
     setQuality("");
     setChemicals([]);
     setOsmoticPressure("");
@@ -177,7 +152,7 @@ const OnsenForm: React.FC<Props> = ({
         id: -1,
         name,
         generatedSpringQuality: quality,
-        otherSpringQuality: userQuality,
+        otherSpringQuality: otherSpringQuality,
         chemicals: (chemicals ?? []) as ChemicalOption[],
         osmoticPressure: osmoticPressure !== "" ? osmoticPressure : undefined,
         liquid: liquid !== "" ? liquid : undefined,
@@ -198,7 +173,7 @@ const OnsenForm: React.FC<Props> = ({
     temperature,
     name,
     onChange,
-    userQuality,
+    otherSpringQuality,
     quality,
     url,
     chemicals,
@@ -208,7 +183,7 @@ const OnsenForm: React.FC<Props> = ({
   useEffect(() => {
     setName(value?.name ?? "");
     setChemicals(value?.chemicals ?? []);
-    setUserQuality(value?.otherSpringQuality ?? "");
+    setOtherSpringQuality(value?.otherSpringQuality ?? "");
     setQuality(value?.generatedSprintQuality ?? "");
     setOsmoticPressure(value?.osmoticPressure ?? "");
     setLiquid(value?.liquid ?? "");
@@ -232,13 +207,6 @@ const OnsenForm: React.FC<Props> = ({
           />
         </div>
         <div>
-          <TextField
-            label="泉質"
-            value={userQuality}
-            onChange={(value) => setUserQuality(value)}
-          />
-        </div>
-        <div>
           <Select
             name="chemicals"
             label="成分"
@@ -250,10 +218,17 @@ const OnsenForm: React.FC<Props> = ({
           />
         </div>
         <div>
+          <TextField
+            label="その他泉質"
+            value={otherSpringQuality}
+            onChange={(value) => setOtherSpringQuality(value)}
+          />
+        </div>
+        <div>
           <Select
             name="osmotic-pressure"
             label="浸透圧"
-            options={osmoticPressureOptions}
+            options={osmoticPressureValueOptions}
             value={osmoticPressureCurrentValue}
             isMulti={false}
             defaultValue={undefined}

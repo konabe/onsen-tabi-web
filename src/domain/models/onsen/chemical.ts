@@ -1,6 +1,6 @@
 import { ValueObject } from "../../ddd";
 
-export const chemicals = [
+export const ChemicalsOptions = [
   "NaIon",
   "CaIon",
   "MgIon",
@@ -18,7 +18,7 @@ export const chemicals = [
   "Rn",
   "WeakRn",
 ] as const;
-export type ChemicalOption = (typeof chemicals)[number];
+export type ChemicalOption = (typeof ChemicalsOptions)[number];
 
 export class Chemical extends ValueObject implements OmittableText {
   constructor(private readonly _value: ChemicalOption) {

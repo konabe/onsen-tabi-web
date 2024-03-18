@@ -1,6 +1,11 @@
 import { ValueObject } from "../../ddd";
 
-export type OsmoticPressureOption = "hypotonic" | "isotonic" | "hypertonic";
+export const OsmoticPressureOptions = [
+  "hypotonic",
+  "isotonic",
+  "hypertonic",
+] as const;
+export type OsmoticPressureOption = (typeof OsmoticPressureOptions)[number];
 
 export class OsmoticPressure extends ValueObject implements OmittableText {
   constructor(private readonly _value: OsmoticPressureOption) {

@@ -101,7 +101,7 @@ describe("OnsenList", () => {
       //form
       expect(screen.getByText("温泉の追加")).toBeInTheDocument();
       const nameField = screen.getByLabelText("名前");
-      const springField = screen.getByLabelText("泉質");
+      const springField = screen.getByLabelText("その他泉質");
       const chemicalsSelect = screen.getAllByLabelText("成分")[1];
       const osmoticPressureSelect = screen.getByLabelText("浸透圧");
       const liquidSelect = screen.getByLabelText("液性");
@@ -212,7 +212,7 @@ describe("OnsenList", () => {
       //form
       expect(screen.getByText("温泉の追加")).toBeInTheDocument();
       const nameField = screen.getByLabelText("名前");
-      const springField = screen.getByLabelText("泉質");
+      const springField = screen.getByLabelText("その他泉質");
       const chemicalsSelect = screen.getAllByLabelText("成分")[1];
       const osmoticPressureSelect = screen.getByLabelText("浸透圧");
       const liquidSelect = screen.getByLabelText("液性");
