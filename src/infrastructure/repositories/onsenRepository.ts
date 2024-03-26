@@ -14,6 +14,7 @@ export type OnsenResponse = {
     name: string;
     chemicals: ChemicalOption[];
     isStrongNaCl: boolean;
+    feType: string;
     isWeakRn: boolean;
   };
   otherSpringQuality: string;
@@ -38,10 +39,15 @@ export type OnsenRequest = {
     so4Ion: number;
     co2Ion: number;
     feIon: number;
+    alIon: number;
+    cuIon: number;
     hIon: number;
     iIon: number;
     s: number;
     rn: number;
+    isStrongNaCl: boolean;
+    feType: string;
+    isWeakRn: boolean;
   } | null;
   otherSpringQuality: string;
   liquid: LiquidValueOption | null;
@@ -93,7 +99,7 @@ export class OnsenRepository implements IOnsenRepository {
   }
 
   private createRequest(onsen: OnsenEntity): OnsenRequest {
-    let chemicals = {
+    let chemicals: OnsenRequest["chemicals"] = {
       naIon: 0,
       caIon: 0,
       mgIon: 0,
@@ -109,6 +115,7 @@ export class OnsenRepository implements IOnsenRepository {
       s: 0,
       rn: 0,
       isStrongNaCl: false,
+      feType: "",
       isWeakRn: false,
     };
     onsen.chemicals.forEach((v, i) => {
@@ -129,6 +136,15 @@ export class OnsenRepository implements IOnsenRepository {
     });
     if (onsen.chemicals.includes("StrongNaCl")) {
       chemicals.isStrongNaCl = true;
+    }
+    if (onsen.chemicals.includes("FeIon")) {
+      chemicals.feType = "Normal";
+    }
+    if (onsen.chemicals.includes("FeIon2")) {
+      chemicals.feType = "Two";
+    }
+    if (onsen.chemicals.includes("FeIon3")) {
+      chemicals.feType = "Three";
     }
     if (onsen.chemicals.includes("WeakRn")) {
       chemicals.isWeakRn = true;
@@ -153,6 +169,8 @@ export class OnsenRepository implements IOnsenRepository {
         ...pureChemicals,
         ...(response.quality?.isStrongNaCl ? ["StrongNaCl"] : []),
         ...(response.quality?.isWeakRn ? ["WeakRn"] : []),
+        ...(response.quality?.feType === "Two" ? ["FeIon2"] : []),
+        ...(response.quality?.feType === "Three" ? ["FeIon3"] : []),
       ] as ChemicalOption[],
       generatedSpringQuality: response.quality?.name,
       otherSpringQuality: response.otherSpringQuality,
