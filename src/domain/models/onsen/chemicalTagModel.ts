@@ -40,6 +40,8 @@ export class ChemicalTagModel extends ValueObject implements OmittableText {
       SO4Ion: "#ebd842",
       CO2: "#595857",
       FeIon: "#f8b862",
+      FeIon2: "#f8b862",
+      FeIon3: "#f8b862",
       AlIon: "#d6c6af",
       CuIon: "#c39143",
       HIon: "#c1e4e9",

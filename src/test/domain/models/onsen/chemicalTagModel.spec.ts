@@ -28,6 +28,8 @@ describe("ChemicalTagModel", () => {
       ${"Simple"}     | ${"単純温泉"}
       ${"WeakRn"}     | ${"(弱放射能泉)"}
       ${"StrongNaCl"} | ${"(強塩化物泉)"}
+      ${"FeIon2"}     | ${"(鉄イオン(Ⅱ))"}
+      ${"FeIon3"}     | ${"(鉄イオン(Ⅲ))"}
     `("should return $expected", ({ value, expected }) => {
       const chemical = new ChemicalTagModel(value);
       expect(chemical.getText()).toBe(expected);
@@ -54,6 +56,8 @@ describe("ChemicalTagModel", () => {
       ${"Simple"}     | ${"単"}
       ${"WeakRn"}     | ${"弱放射"}
       ${"StrongNaCl"} | ${"強塩"}
+      ${"FeIon2"}     | ${"鉄(Ⅱ)"}
+      ${"FeIon3"}     | ${"鉄(Ⅲ)"}
     `("should return $expected", ({ value, expected }) => {
       const chemical = new ChemicalTagModel(value);
       expect(chemical.getOmittedText()).toBe(expected);
@@ -80,6 +84,8 @@ describe("ChemicalTagModel", () => {
       ${"Simple"}     | ${"#2b2b2b"}
       ${"WeakRn"}     | ${"#6c848d"}
       ${"StrongNaCl"} | ${"#727171"}
+      ${"FeIon2"}     | ${"#f8b862"}
+      ${"FeIon3"}     | ${"#f8b862"}
     `("should return $expected", ({ value, expected }) => {
       const chemical = new ChemicalTagModel(value);
       expect(chemical.getImageColor()).toBe(expected);
