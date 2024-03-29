@@ -61,6 +61,7 @@ describe("OnsenDetail", () => {
         imgURL: "https://placehold.jp/150x150.png",
         description:
           "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。",
+        area: undefined,
       })
     );
     onsenRepository.update = vi.fn();
@@ -97,6 +98,7 @@ describe("OnsenDetail", () => {
       expect(screen.getAllByText("弱アルカリ性")).toHaveLength(1);
       expect(screen.getAllByText("高温泉")).toHaveLength(1);
       expect(screen.getAllByText("外湯")).toHaveLength(2);
+      expect(screen.getByText("紐づけなし")).toBeInTheDocument();
       expect(screen.getByText("あり")).toBeInTheDocument();
       expect(
         screen.getByText("https://onsen-kusatsu.com/ohtakinoyu/")

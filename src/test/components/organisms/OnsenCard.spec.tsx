@@ -23,6 +23,7 @@ describe("OnsenCard", () => {
             imgURL: "https://placehold.jp/150x150.png",
             description:
               "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。",
+            area: undefined,
           })
         }
       />

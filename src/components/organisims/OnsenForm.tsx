@@ -131,6 +131,7 @@ const OnsenForm: React.FC<Props> = ({
         url,
         imgURL: imgURL === "" ? null : imgURL,
         description,
+        area: undefined,
       })
     );
     setName("");
@@ -162,6 +163,7 @@ const OnsenForm: React.FC<Props> = ({
         url,
         imgURL: imgURL === "" ? null : imgURL,
         description,
+        area: undefined,
       })
     );
   }, [

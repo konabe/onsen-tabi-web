@@ -54,6 +54,7 @@ describe("OnsenList", () => {
         imgURL: "https://placehold.jp/150x150.png",
         description:
           "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。",
+        area: undefined,
       }),
       new OnsenEntity({
         id: 2,
@@ -69,6 +70,7 @@ describe("OnsenList", () => {
         url: "https://onsen-kusatsu.com/kotakinoyu/",
         imgURL: "https://placehold.jp/300x300.png",
         description: "小さい滝が流れている",
+        area: undefined,
       }),
     ]);
     useNavigateMock.mockClear();
@@ -146,6 +148,7 @@ describe("OnsenList", () => {
           description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
           isDayUse: true,
           url: "https://www.gorokaku.com/",
+          area: undefined,
         })
       );
       expect(nameField).toHaveValue("");
