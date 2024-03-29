@@ -33,6 +33,7 @@ describe("HotelForm", () => {
       id: -1,
       name: "",
       hasWashitsu: true,
+      soloAvailable: false,
       description: "",
       url: "",
     };
@@ -85,6 +86,7 @@ describe("HotelForm", () => {
       id: -1,
       name: "伍楼閣",
       hasWashitsu: false,
+      soloAvailable: true,
       url: "https://www.gorokaku.com/",
       description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
     };
@@ -118,6 +120,7 @@ describe("HotelForm", () => {
         ...commonParams,
         name: "伍楼閣",
         hasWashitsu: false,
+        soloAvailable: true,
         url: "https://www.gorokaku.com/",
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
       })

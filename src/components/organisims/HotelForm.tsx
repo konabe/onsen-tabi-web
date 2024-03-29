@@ -23,6 +23,7 @@ const HotelForm: React.FC<Props> = ({
 }) => {
   const [name, setName] = useState<string>("");
   const [hasWashitsu, setHasWashitsu] = useState<boolean>(true);
+  const [soloAvailable, setSoloAvailable] = useState<boolean>(false);
   const [url, setURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -31,6 +32,7 @@ const HotelForm: React.FC<Props> = ({
       id: -1,
       name,
       hasWashitsu,
+      soloAvailable,
       url,
       description,
     });
@@ -45,14 +47,16 @@ const HotelForm: React.FC<Props> = ({
       id: -1,
       name,
       hasWashitsu,
+      soloAvailable,
       url,
       description,
     });
-  }, [description, hasWashitsu, name, onChange, url]);
+  }, [description, hasWashitsu, soloAvailable, name, onChange, url]);
 
   useEffect(() => {
     setName(value?.name ?? "");
     setHasWashitsu(value?.hasWashitsu ?? true);
+    setSoloAvailable(value?.soloAvailable ?? false);
     setURL(value?.url ?? "");
     setDescription(value?.description ?? "");
   }, [value]);
@@ -70,6 +74,15 @@ const HotelForm: React.FC<Props> = ({
             value={hasWashitsu}
             onChange={(v) => {
               setHasWashitsu(v);
+            }}
+          />
+        </div>
+        <div>
+          <SingleCheckBox
+            label="おひとり様OK"
+            value={soloAvailable}
+            onChange={(v) => {
+              setSoloAvailable(v);
             }}
           />
         </div>
