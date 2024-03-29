@@ -26,6 +26,10 @@ export type OnsenResponse = {
   url: string;
   imgUrl: string | null;
   description: string;
+  area: {
+    id: number;
+    name: string;
+  } | null;
 };
 
 export type OnsenRequest = {

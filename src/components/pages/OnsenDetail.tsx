@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
@@ -143,6 +143,18 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
                             <InfoValueContainer>あり</InfoValueContainer>
                           </Info>
                         ) : undefined}
+                        <Info>
+                          <InfoTitle>温泉エリア</InfoTitle>
+                          <InfoValueContainer>
+                            {onsen?.area !== undefined ? (
+                              <Link to={`/area/${onsen?.area?.id}`}>
+                                {onsen?.area.name}
+                              </Link>
+                            ) : (
+                              "紐づけなし"
+                            )}
+                          </InfoValueContainer>
+                        </Info>
                         <Info>
                           <InfoTitle>外部サイト</InfoTitle>
                           <InfoValueContainer>

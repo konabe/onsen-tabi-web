@@ -22,6 +22,13 @@ export type OnsenEntityParameter = {
   url: string;
   imgURL: string | null;
   description: string;
+  area:
+    | {
+        id: number;
+        name: string;
+      }
+    | undefined
+    | null;
 };
 
 export class OnsenEntity {
@@ -38,6 +45,12 @@ export class OnsenEntity {
   readonly url: string;
   _imgURL: string | undefined;
   readonly description: string;
+  _area:
+    | {
+        id: number;
+        name: string;
+      }
+    | undefined;
 
   constructor({
     id,
@@ -53,6 +66,7 @@ export class OnsenEntity {
     url,
     imgURL,
     description,
+    area,
   }: OnsenEntityParameter) {
     this.id = id;
     this.name = name;
@@ -71,6 +85,7 @@ export class OnsenEntity {
     this.url = url;
     this._imgURL = imgURL ?? undefined;
     this.description = description;
+    this._area = area != undefined ? { ...area } : undefined;
   }
 
   get chemicals(): ChemicalOption[] {
@@ -112,6 +127,9 @@ export class OnsenEntity {
   }
   get imgURL(): string | undefined {
     return this._imgURL;
+  }
+  get area(): { id: number; name: string } | undefined {
+    return this._area;
   }
 
   getQualityText(): string {
