@@ -7,6 +7,7 @@ import App from "./App";
 import "./index.css";
 
 import * as Sentry from "@sentry/react";
+import ReactGA from "react-ga4";
 
 import reportWebVitals from "./reportWebVitals";
 
@@ -25,6 +26,7 @@ Sentry.init({
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 });
+ReactGA.initialize(import.meta.env.VITE_GTM_CONTAINER_ID);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

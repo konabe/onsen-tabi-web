@@ -9687,6 +9687,7 @@ __metadata:
     prettier: "npm:^3.2.5"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-ga4: "npm:^2.1.0"
     react-helmet: "npm:^6.1.0"
     react-router-dom: "npm:^6.22.3"
     react-select: "npm:^5.8.0"
@@ -10340,6 +10341,13 @@ __metadata:
   version: 3.2.2
   resolution: "react-fast-compare@npm:3.2.2"
   checksum: 10c0/0bbd2f3eb41ab2ff7380daaa55105db698d965c396df73e6874831dbafec8c4b5b08ba36ff09df01526caa3c61595247e3269558c284e37646241cba2b90a367
+  languageName: node
+  linkType: hard
+
+"react-ga4@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-ga4@npm:2.1.0"
+  checksum: 10c0/314aa86dd7cb868535f26bfb8b537d3b3c20649c66b2b942fba72e081295441446932a4ae96499231c8a4836ab0a222a97b1bd03633b8cc1477991efe93444cd
   languageName: node
   linkType: hard
 
