@@ -12,6 +12,7 @@ describe("HotelCard", () => {
             id: -1,
             name: "伍楼閣",
             hasWashitsu: true,
+            soloAvailable: false,
             url: "https://www.gorokaku.com/",
             description: "いい感じの温泉宿です。",
           })

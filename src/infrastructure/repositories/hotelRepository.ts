@@ -6,6 +6,7 @@ export type HotelResponse = {
   id: number;
   name: string;
   hasWashitsu: boolean;
+  soloAvailable: boolean;
   url: string;
   description: string;
 };
@@ -13,6 +14,7 @@ export type HotelResponse = {
 export type HotelRequest = {
   name: string;
   hasWashitsu: boolean;
+  soloAvailable: boolean;
   url: string;
   description: string;
 };

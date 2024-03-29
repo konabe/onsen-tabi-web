@@ -55,6 +55,7 @@ describe("HotelDetail", () => {
         id: 1,
         name: "伍楼閣",
         hasWashitsu: true,
+        soloAvailable: false,
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される。",
         url: "https://www.gorokaku.com/",
       })

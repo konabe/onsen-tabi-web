@@ -77,7 +77,8 @@ const HotelDetail: React.FC<CommonPageProps & HotelDetailDependencies> = ({
           <div>
             <Article emoji="🏕️" title={`${hotel?.name}`}>
               <div>
-                和室{hotel?.hasWashitsu ? "あり" : "なし"}
+                和室{hotel?.hasWashitsu ? "あり" : "なし"}{" "}
+                {hotel?.soloAvailable ? "おひとり様OK" : ""}{" "}
                 <a href={hotel?.url} target="_blank" rel="noreferrer">
                   リンク
                 </a>

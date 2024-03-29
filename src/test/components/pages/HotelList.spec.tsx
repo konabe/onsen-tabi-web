@@ -42,6 +42,7 @@ describe("HotelList", () => {
         id: 1,
         name: "伍楼閣",
         hasWashitsu: true,
+        soloAvailable: false,
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される。",
         url: "https://www.gorokaku.com/",
       }),
@@ -49,6 +50,7 @@ describe("HotelList", () => {
         id: 2,
         name: "ホテル２",
         hasWashitsu: true,
+        soloAvailable: true,
         description: "いい感じのホテル",
         url: "https://www.example.com/iikanji",
       }),
@@ -78,6 +80,7 @@ describe("HotelList", () => {
       expect(screen.getByText("ホテルの追加")).toBeInTheDocument();
       const nameField = screen.getByLabelText("名前");
       const hasWashitsuCheckbox = screen.getByLabelText("和室あり");
+      const soloAvailableCheckbox = screen.getByLabelText("おひとり様OK");
       const urlField = screen.getByLabelText("URL");
       const descriptionField = screen.getByLabelText("説明");
       const submitButton = screen.getByRole("button", { name: "送信" });
@@ -89,6 +92,7 @@ describe("HotelList", () => {
       //submit
       await userEvent.type(nameField, "新しいホテル");
       await userEvent.click(hasWashitsuCheckbox);
+      await userEvent.click(soloAvailableCheckbox);
       await userEvent.type(urlField, "https://www.example.com/new");
       await userEvent.type(descriptionField, "新しいホテルです。");
       await userEvent.click(submitButton);
@@ -98,6 +102,7 @@ describe("HotelList", () => {
           id: -1,
           name: "新しいホテル",
           hasWashitsu: false,
+          soloAvailable: true,
           description: "新しいホテルです。",
           url: "https://www.example.com/new",
         })

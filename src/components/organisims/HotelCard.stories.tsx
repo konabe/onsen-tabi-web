@@ -24,6 +24,7 @@ export const Primary: Story = {
       id: 1,
       name: "伍楼閣",
       hasWashitsu: true,
+      soloAvailable: false,
       description:
         "まずはロビーの歴史を感じる雰囲気に圧倒される。\n廊下が畳敷きになっていて、歩いていて非常に気持ちがよい。\n館内は比較的明るめで移動する楽しみがある。",
       url: "https://www.gorokaku.com/",
