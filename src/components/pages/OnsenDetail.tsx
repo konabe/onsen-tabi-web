@@ -147,11 +147,9 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
                         <Info>
                           <InfoTitle>温泉エリア</InfoTitle>
                           <InfoValueContainer>
-                            {onsen?.area !== undefined ? (
+                            {onsen?.displayingAreaName() !== undefined ? (
                               <Link to={`/area/${onsen?.area?.id}`}>
-                                {new AreaName(
-                                  onsen?.area?.name
-                                ).displayingName()}
+                                {onsen.displayingAreaName()}
                               </Link>
                             ) : (
                               "紐づけなし"
