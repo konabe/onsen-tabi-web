@@ -43,7 +43,7 @@ describe("Onsen", () => {
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.otherSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.imgURL).toBe("https://placehold.jp/150x150.png");
-      expect(onsen.area?.name).toBe("草津");
+      expect(onsen.area).toEqual({ id: 1, name: "草津" });
       expect(onsen).toBeDefined();
     });
 
@@ -68,11 +68,22 @@ describe("Onsen", () => {
         liquid: undefined,
         generatedSpringQuality: undefined,
         osmoticPressure: undefined,
+        area: undefined,
       });
       expect(onsen.chemicals).toEqual(["NaIon", "ClIon"]);
       expect(onsen.liquid).toBeUndefined();
       expect(onsen.osmoticPressure).toBeUndefined();
       expect(onsen.generatedSprintQuality).toBeUndefined();
+      expect(onsen.area).toBeUndefined();
+      expect(onsen).toBeDefined();
+    });
+
+    it("should return the value that was set with undefined", () => {
+      const onsen = new OnsenEntity(commonParams);
+      onsen.liquid = undefined;
+      onsen.osmoticPressure = undefined;
+      expect(onsen.liquid).toBeUndefined();
+      expect(onsen.osmoticPressure).toBeUndefined();
       expect(onsen).toBeDefined();
     });
   });
@@ -154,6 +165,16 @@ describe("Onsen", () => {
     it("should return ", () => {
       const onsen = new OnsenEntity(commonParams);
       expect(onsen.getSubText()).toBe("(等張性・弱アルカリ性・高温泉)");
+    });
+
+    it("should return if all is undefined", () => {
+      const onsen = new OnsenEntity({
+        ...commonParams,
+        liquid: undefined,
+        osmoticPressure: undefined,
+        temperature: undefined,
+      });
+      expect(onsen.getSubText()).toBe("(？・？・？)");
     });
   });
 
