@@ -4,6 +4,7 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
+import { AreaName } from "../../domain/models/area/areaName";
 import { OnsenEntity } from "../../domain/models/onsen";
 import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
@@ -148,7 +149,9 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
                           <InfoValueContainer>
                             {onsen?.area !== undefined ? (
                               <Link to={`/area/${onsen?.area?.id}`}>
-                                {`${onsen?.area.name}温泉`}
+                                {new AreaName(
+                                  onsen?.area?.name
+                                ).displayingName()}
                               </Link>
                             ) : (
                               "紐づけなし"

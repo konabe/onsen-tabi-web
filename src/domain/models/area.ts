@@ -1,3 +1,5 @@
+import { AreaName } from "./area/areaName";
+
 export type AreaEntityParameter = {
   id: number;
   name: string;
@@ -37,5 +39,9 @@ export class AreaEntity {
     this.url = url;
     this.description = description;
     this.onsenIds = onsenIds;
+  }
+
+  displayingName() {
+    return new AreaName(this.name).displayingName();
   }
 }

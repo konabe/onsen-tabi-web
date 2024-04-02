@@ -5,49 +5,43 @@ import styled from "styled-components";
 import { AreaEntity } from "../../domain/models/area";
 import { Prefecture } from "../../share/prefecture";
 
-type AreaLinkViewModel = { areaId: number; name: string };
-
 type Props = {
   areas: AreaEntity[];
   prefectures: Record<string, Prefecture>;
 };
 
 const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
-  let areasByPrefecture: Record<string, AreaLinkViewModel[]> = {};
+  let areasByPrefecture: Record<string, AreaEntity[]> = {};
   areas.forEach((area) => {
-    const areaLinkViewModel: AreaLinkViewModel = {
-      areaId: area.id,
-      name: area.name,
-    };
     if (areasByPrefecture[area.prefecture] === undefined) {
-      areasByPrefecture[area.prefecture] = [areaLinkViewModel];
+      areasByPrefecture[area.prefecture] = [area];
       return;
     }
-    areasByPrefecture[area.prefecture]?.push(areaLinkViewModel);
+    areasByPrefecture[area.prefecture]?.push(area);
   });
 
-  const AreaLink: React.FC<AreaLinkViewModel> = ({ areaId, name }) => {
+  const AreaLink: React.FC<{ area: AreaEntity }> = ({
+    area,
+  }: {
+    area: AreaEntity;
+  }) => {
     return (
       <div>
-        <Link to={`/area/${areaId}`}>{name}温泉</Link>
+        <Link to={`/area/${area.id}`}>{area.displayingName()}</Link>
       </div>
     );
   };
 
   const PrefectureRow: React.FC<{
     prefecture: string;
-    areaLinks: AreaLinkViewModel[];
-  }> = ({ prefecture, areaLinks }) => {
+    areas: AreaEntity[];
+  }> = ({ prefecture, areas }) => {
     return (
       <SPrefectureOnsenContainer>
         <SPrefectureContainer>{prefecture}</SPrefectureContainer>
         <SOnsenListContainer>
-          {areaLinks.map((areaLink) => (
-            <AreaLink
-              key={areaLink.areaId}
-              areaId={areaLink.areaId}
-              name={areaLink.name}
-            />
+          {areas.map((area: AreaEntity) => (
+            <AreaLink key={area.id} area={area} />
           ))}
         </SOnsenListContainer>
       </SPrefectureOnsenContainer>
@@ -64,7 +58,7 @@ const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
         return (
           <PrefectureRow
             prefecture={prefectureKey}
-            areaLinks={areaLinks}
+            areas={areaLinks}
             key={prefectureKey}
           />
         );

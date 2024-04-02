@@ -80,7 +80,7 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
 
   return (
     <SContents>
-      <MyHelmet title={area !== undefined ? `${area?.name}温泉` : ""} />
+      <MyHelmet title={area?.displayingName() ?? ""} />
       {isLoading ? (
         <Loading />
       ) : (
@@ -88,7 +88,7 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
           <div>
             <Article
               emoji="🏞️"
-              title={`${area?.name}温泉 (${villageText}${area?.prefecture})`}
+              title={`${area?.displayingName()} (${villageText}${area?.prefecture})`}
             >
               <div>
                 <a href={area?.url} target="_blank" rel="noreferrer">
