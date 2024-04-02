@@ -20,7 +20,7 @@ describe("Onsen", () => {
     description:
       "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。\nその独特の空気感はまさにテーマパークのよう。\n大浴場も広々としていて、まさに草津的な余裕感に癒される。\n白濁の日には清掃によって剥がされた湯の花が一斉に解き放たれる。贅沢な気分になりたいのであれば狙って通うとよい。",
     area: {
-      id: 1,
+      id: 2,
       name: "草津",
     },
   };
@@ -35,6 +35,7 @@ describe("Onsen", () => {
   describe("getter/setter", () => {
     it("should return the value", () => {
       const onsen = new OnsenEntity(commonParams);
+      expect(onsen.id).toBe(1);
       expect(onsen.chemicals).toEqual(["NaIon", "ClIon"]);
       expect(onsen.liquid).toBe("mildly_alkaline");
       expect(onsen.form).toBe("sotoyu");
@@ -43,7 +44,7 @@ describe("Onsen", () => {
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.otherSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.imgURL).toBe("https://placehold.jp/150x150.png");
-      expect(onsen.area).toEqual({ id: 1, name: "草津" });
+      expect(onsen.area).toEqual({ id: 2, name: "草津" });
       expect(onsen).toBeDefined();
     });
 

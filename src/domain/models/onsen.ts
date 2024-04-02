@@ -87,7 +87,9 @@ export class OnsenEntity {
     this._imgURL = imgURL ?? undefined;
     this.description = description;
     this._area =
-      area != undefined ? { id, name: new AreaName(area.name) } : undefined;
+      area != undefined
+        ? { id: area.id, name: new AreaName(area.name) }
+        : undefined;
   }
 
   get chemicals(): ChemicalOption[] {
