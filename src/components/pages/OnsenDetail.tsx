@@ -4,7 +4,6 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
-import { AreaName } from "../../domain/models/area/areaName";
 import { OnsenEntity } from "../../domain/models/onsen";
 import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
