@@ -1,3 +1,5 @@
+import { AreaName } from "./area/areaName";
+
 export type AreaEntityParameter = {
   id: number;
   name: string;
@@ -11,7 +13,7 @@ export type AreaEntityParameter = {
 
 export class AreaEntity {
   readonly id: number;
-  readonly name: string;
+  readonly _name: AreaName;
   readonly prefecture: string;
   readonly isNationalResort: boolean;
   readonly village: string | undefined;
@@ -30,12 +32,20 @@ export class AreaEntity {
     onsenIds,
   }: AreaEntityParameter) {
     this.id = id;
-    this.name = name;
+    this._name = new AreaName(name);
     this.prefecture = prefecture;
     this.isNationalResort = nationalResort;
     this.village = village;
     this.url = url;
     this.description = description;
     this.onsenIds = onsenIds;
+  }
+
+  get name() {
+    return this._name.value;
+  }
+
+  displayingName() {
+    return this._name.displayingName();
   }
 }

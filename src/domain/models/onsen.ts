@@ -1,3 +1,4 @@
+import { AreaName } from "./area/areaName";
 import { BusinessForm, FormOption } from "./onsen/businessForm";
 import { ChemicalOption } from "./onsen/chemical";
 import { ChemicalTagOption } from "./onsen/chemicalTagModel";
@@ -48,7 +49,7 @@ export class OnsenEntity {
   _area:
     | {
         id: number;
-        name: string;
+        name: AreaName;
       }
     | undefined;
 
@@ -85,7 +86,8 @@ export class OnsenEntity {
     this.url = url;
     this._imgURL = imgURL ?? undefined;
     this.description = description;
-    this._area = area != undefined ? { ...area } : undefined;
+    this._area =
+      area != undefined ? { id, name: new AreaName(area.name) } : undefined;
   }
 
   get chemicals(): ChemicalOption[] {
@@ -129,7 +131,9 @@ export class OnsenEntity {
     return this._imgURL;
   }
   get area(): { id: number; name: string } | undefined {
-    return this._area;
+    return this._area !== undefined
+      ? { id: this._area.id, name: this._area.name.value }
+      : undefined;
   }
 
   getQualityText(): string {
@@ -171,5 +175,9 @@ export class OnsenEntity {
     }
     let chemicals = this._chemicals.map((c) => c);
     return [...chemicals];
+  }
+
+  displayingAreaName(): string | undefined {
+    return this._area?.name.displayingName();
   }
 }

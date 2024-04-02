@@ -52,16 +52,18 @@ const AreaForm: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    onChange?.({
-      id: -1,
-      name,
-      prefecture,
-      isNationalResort: nationalResort,
-      village,
-      url,
-      description,
-      onsenIds: [],
-    });
+    onChange?.(
+      new AreaEntity({
+        id: -1,
+        name,
+        prefecture,
+        nationalResort,
+        village,
+        url,
+        description,
+        onsenIds: [],
+      })
+    );
   }, [description, nationalResort, village, prefecture, name, onChange, url]);
 
   useEffect(() => {

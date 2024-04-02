@@ -19,7 +19,10 @@ describe("Onsen", () => {
     imgURL: "https://placehold.jp/150x150.png",
     description:
       "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。\nその独特の空気感はまさにテーマパークのよう。\n大浴場も広々としていて、まさに草津的な余裕感に癒される。\n白濁の日には清掃によって剥がされた湯の花が一斉に解き放たれる。贅沢な気分になりたいのであれば狙って通うとよい。",
-    area: undefined,
+    area: {
+      id: 1,
+      name: "草津",
+    },
   };
 
   describe("#constructor", () => {
@@ -40,6 +43,7 @@ describe("Onsen", () => {
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.otherSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.imgURL).toBe("https://placehold.jp/150x150.png");
+      expect(onsen.area).toEqual({ id: 1, name: "草津" });
       expect(onsen).toBeDefined();
     });
 
@@ -64,11 +68,22 @@ describe("Onsen", () => {
         liquid: undefined,
         generatedSpringQuality: undefined,
         osmoticPressure: undefined,
+        area: undefined,
       });
       expect(onsen.chemicals).toEqual(["NaIon", "ClIon"]);
       expect(onsen.liquid).toBeUndefined();
       expect(onsen.osmoticPressure).toBeUndefined();
       expect(onsen.generatedSprintQuality).toBeUndefined();
+      expect(onsen.area).toBeUndefined();
+      expect(onsen).toBeDefined();
+    });
+
+    it("should return the value that was set with undefined", () => {
+      const onsen = new OnsenEntity(commonParams);
+      onsen.liquid = undefined;
+      onsen.osmoticPressure = undefined;
+      expect(onsen.liquid).toBeUndefined();
+      expect(onsen.osmoticPressure).toBeUndefined();
       expect(onsen).toBeDefined();
     });
   });
@@ -151,6 +166,16 @@ describe("Onsen", () => {
       const onsen = new OnsenEntity(commonParams);
       expect(onsen.getSubText()).toBe("(等張性・弱アルカリ性・高温泉)");
     });
+
+    it("should return if all is undefined", () => {
+      const onsen = new OnsenEntity({
+        ...commonParams,
+        liquid: undefined,
+        osmoticPressure: undefined,
+        temperature: undefined,
+      });
+      expect(onsen.getSubText()).toBe("(？・？・？)");
+    });
   });
 
   describe("#getChemicalTags", () => {
@@ -162,6 +187,13 @@ describe("Onsen", () => {
     it("should return simple if the chemical is empty", () => {
       const onsen = new OnsenEntity({ ...commonParams, chemicals: [] });
       expect(onsen.getChemicalTags()).toEqual(["Simple"]);
+    });
+  });
+
+  describe("displayingAreaName", () => {
+    it("should return the name with '温泉'", () => {
+      const onsen = new OnsenEntity(commonParams);
+      expect(onsen.displayingAreaName()).toBe("草津温泉");
     });
   });
 });
