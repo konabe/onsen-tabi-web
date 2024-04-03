@@ -258,7 +258,9 @@ const InfoTitle = styled.div`
   font-weight: 700;
 `;
 
-const InfoValueContainer = styled.div``;
+const InfoValueContainer = styled.div`
+  word-break: break-all;
+`;
 
 const ChemicalTagContainer = styled.div`
   display: flex;
