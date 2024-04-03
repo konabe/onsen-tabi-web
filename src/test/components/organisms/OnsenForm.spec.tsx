@@ -8,7 +8,7 @@ import {
   OnsenEntity,
   OnsenEntityParameter,
 } from "../../../domain/models/onsen";
-import { commonAreaParams } from "../../stubs/props";
+import { commonAreaProps } from "../../stubs/props";
 
 describe("OnsenForm", () => {
   const onChange = vi.fn();
@@ -21,12 +21,12 @@ describe("OnsenForm", () => {
         value={undefined}
         areas={[
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 2,
             name: "東鳴子",
           }),
@@ -52,12 +52,12 @@ describe("OnsenForm", () => {
         value={undefined}
         areas={[
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 2,
             name: "東鳴子",
           }),
@@ -186,12 +186,12 @@ describe("OnsenForm", () => {
         }
         areas={[
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 2,
             name: "東鳴子",
           }),
@@ -260,12 +260,12 @@ describe("OnsenForm", () => {
         }
         areas={[
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonAreaParams(),
+            ...commonAreaProps(),
             id: 2,
             name: "東鳴子",
           }),

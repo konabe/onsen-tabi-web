@@ -1,6 +1,6 @@
 import { AreaEntityParameter } from "../../domain/models/area";
 
-export const commonAreaParams = (): AreaEntityParameter => ({
+export const commonAreaProps = (): AreaEntityParameter => ({
   id: 0,
   name: "鳴子",
   prefecture: "宮城県",

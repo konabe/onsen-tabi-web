@@ -4,8 +4,9 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import selectEvent from "react-select-event";
 
 import OnsenList from "../../../components/pages/OnsenList";
-import { AreaEntity, AreaEntityParameter } from "../../../domain/models/area";
+import { AreaEntity } from "../../../domain/models/area";
 import { OnsenEntity } from "../../../domain/models/onsen";
+import { commonAreaProps } from "../../stubs/props";
 import {
   AreaRepositoryMock,
   OnsenRepositoryMock,
@@ -23,16 +24,6 @@ vi.mock("react-router-dom", async (importOriginal) => {
 describe("OnsenList", () => {
   const onsenRepository = OnsenRepositoryMock();
   const areaRepository = AreaRepositoryMock();
-  const commonArea: AreaEntityParameter = {
-    id: 0,
-    name: "鳴子",
-    prefecture: "宮城県",
-    nationalResort: true,
-    village: "鳴子温泉",
-    url: "https://www.welcome-naruko.jp/",
-    description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
-    onsenIds: [],
-  };
 
   const renderOnsenList = ({ isSignedIn }: { isSignedIn: boolean }) => {
     render(
@@ -90,17 +81,15 @@ describe("OnsenList", () => {
     ]);
     areaRepository.readAll = vi.fn().mockResolvedValue([
       new AreaEntity({
-        ...commonArea,
+        ...commonAreaProps(),
         id: 1,
         name: "鳴子",
-        prefecture: "宮城県",
         onsenIds: [1, 2, 3],
       }),
       new AreaEntity({
-        ...commonArea,
+        ...commonAreaProps(),
         id: 2,
         name: "東鳴子",
-        prefecture: "宮城県",
         onsenIds: [4, 5],
       }),
     ]);

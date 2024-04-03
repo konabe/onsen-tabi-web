@@ -3,8 +3,9 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
 import OnsenDetail from "../../../components/pages/OnsenDetail";
-import { AreaEntity, AreaEntityParameter } from "../../../domain/models/area";
+import { AreaEntity } from "../../../domain/models/area";
 import { OnsenEntity } from "../../../domain/models/onsen";
+import { commonAreaProps } from "../../stubs/props";
 import {
   AreaRepositoryMock,
   OnsenRepositoryMock,
@@ -22,17 +23,6 @@ vi.mock("react-router-dom", async (importOriginal) => {
 describe("OnsenDetail", () => {
   const onsenRepository = OnsenRepositoryMock();
   const areaRepository = AreaRepositoryMock();
-  const commonArea: AreaEntityParameter = {
-    id: 0,
-    name: "鳴子",
-    prefecture: "宮城県",
-    nationalResort: true,
-    village: "鳴子温泉",
-    url: "https://www.welcome-naruko.jp/",
-    description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
-    onsenIds: [],
-  };
-
   const renderOnsenDetail = ({
     path,
     isSignedIn,
@@ -86,17 +76,15 @@ describe("OnsenDetail", () => {
     onsenRepository.update = vi.fn();
     areaRepository.readAll = vi.fn().mockResolvedValue([
       new AreaEntity({
-        ...commonArea,
+        ...commonAreaProps(),
         id: 1,
         name: "鳴子",
-        prefecture: "宮城県",
         onsenIds: [1, 2, 3],
       }),
       new AreaEntity({
-        ...commonArea,
+        ...commonAreaProps(),
         id: 2,
         name: "東鳴子",
-        prefecture: "宮城県",
         onsenIds: [4, 5],
       }),
     ]);
@@ -141,11 +129,6 @@ describe("OnsenDetail", () => {
       // form
       expect(screen.getByLabelText("名前")).toHaveValue("大滝乃湯");
       expect(screen.getByLabelText("その他泉質")).toHaveValue("");
-      // TODO: a11y & testablity <form>を経由して値を受け取るようにする
-      // expect(screen.getByLabelText("浸透圧")).toHaveValue("isotonic");
-      // expect(screen.getByLabelText("液性")).toHaveValue("mildly_alkaline");
-      // expect(screen.getByLabelText("温度")).toHaveValue("hot");
-      // expect(screen.getByLabelText("形態")).toHaveValue("sotoyu");
       expect(screen.getByLabelText("日帰り入浴あり")).toBeChecked();
       expect(screen.getByLabelText("URL")).toHaveValue(
         "https://onsen-kusatsu.com/ohtakinoyu/"
@@ -156,6 +139,14 @@ describe("OnsenDetail", () => {
       expect(screen.getByLabelText("説明")).toHaveValue(
         "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。"
       );
+      expect(screen.getByTestId("form")).toHaveFormValues({
+        chemicals: ["NaIon", "ClIon"],
+        "osmotic-pressure": "isotonic",
+        liquid: "mildly_alkaline",
+        temperature: "hot",
+        form: "sotoyu",
+        area: "1",
+      });
       // submit
       const submitButton = screen.getByRole("button", { name: "送信" });
       await userEvent.click(submitButton);
