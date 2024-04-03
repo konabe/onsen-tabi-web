@@ -3,25 +3,16 @@ import userEvent from "@testing-library/user-event";
 import selectEvent from "react-select-event";
 
 import OnsenForm from "../../../components/organisims/OnsenForm";
-import { AreaEntity, AreaEntityParameter } from "../../../domain/models/area";
+import { AreaEntity } from "../../../domain/models/area";
 import {
   OnsenEntity,
   OnsenEntityParameter,
 } from "../../../domain/models/onsen";
+import { commonAreaParams } from "../../stubs/props";
 
 describe("OnsenForm", () => {
   const onChange = vi.fn();
   const onSubmitClick = vi.fn();
-  const commonArea: AreaEntityParameter = {
-    id: 0,
-    name: "鳴子",
-    prefecture: "宮城県",
-    nationalResort: true,
-    village: "鳴子温泉",
-    url: "https://www.welcome-naruko.jp/",
-    description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
-    onsenIds: [],
-  };
 
   it("should be rendered when initialized", () => {
     render(
@@ -30,12 +21,12 @@ describe("OnsenForm", () => {
         value={undefined}
         areas={[
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 2,
             name: "東鳴子",
           }),
@@ -61,12 +52,12 @@ describe("OnsenForm", () => {
         value={undefined}
         areas={[
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 2,
             name: "東鳴子",
           }),
@@ -192,12 +183,12 @@ describe("OnsenForm", () => {
         }
         areas={[
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 2,
             name: "東鳴子",
           }),
@@ -265,12 +256,12 @@ describe("OnsenForm", () => {
         }
         areas={[
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 1,
             name: "鳴子",
           }),
           new AreaEntity({
-            ...commonArea,
+            ...commonAreaParams(),
             id: 2,
             name: "東鳴子",
           }),
