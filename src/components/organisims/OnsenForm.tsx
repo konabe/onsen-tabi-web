@@ -138,7 +138,6 @@ const OnsenForm: React.FC<Props> = ({
             name: selectedArea.name,
           }
         : undefined;
-    console.log(selectedAreaProp);
     await onSubmitClick?.(
       new OnsenEntity({
         id: -1,
@@ -224,128 +223,132 @@ const OnsenForm: React.FC<Props> = ({
 
   return (
     <SCreateCormContainer>
-      <SFieldSet>
-        {formTitle !== undefined ? <legend>{formTitle}</legend> : undefined}
-        <div>
-          <TextField
-            label="名前"
-            value={name}
-            onChange={(value) => setName(value)}
-          />
-        </div>
-        <div>
-          <Select
-            name="chemicals"
-            label="成分"
-            options={chemicalsValueOptions}
-            value={chemicalsCurrentValue}
-            isMulti={true}
-            defaultValue={[]}
-            onChange={(v) => setChemicals(v.map((c: any) => c.value))}
-          />
-        </div>
-        <div>
-          <TextField
-            label="その他泉質"
-            value={otherSpringQuality}
-            onChange={(value) => setOtherSpringQuality(value)}
-          />
-        </div>
-        <div>
-          <Select
-            name="osmotic-pressure"
-            label="浸透圧"
-            options={osmoticPressureValueOptions}
-            value={osmoticPressureCurrentValue}
-            isMulti={false}
-            defaultValue={undefined}
-            onChange={(v) =>
-              setOsmoticPressure((v?.value ?? "") as OsmoticPressureOption | "")
-            }
-          />
-        </div>
-        <div>
-          <Select
-            name="liquid"
-            label="液性"
-            options={liquidValueOptions}
-            value={liquidCurrentValue}
-            isMulti={false}
-            defaultValue={undefined}
-            onChange={(v) =>
-              setLiquid((v?.value ?? "") as LiquidValueOption | "")
-            }
-          />
-        </div>
-        <div>
-          <Select
-            name="temperature"
-            label="温度"
-            options={temperatureOptions}
-            value={temperatureCurrentValue}
-            isMulti={false}
-            defaultValue={undefined}
-            onChange={(v) =>
-              setTemperature((v?.value ?? "") as TemperatureOption | "")
-            }
-          />
-        </div>
-        <div>
-          <Select
-            name="form"
-            label="形態"
-            options={formOptions}
-            value={formCurrentValue}
-            isMulti={false}
-            defaultValue={formOptions[0]}
-            onChange={(v) => setForm(v.value as FormOption)}
-          />
-        </div>
-        <div>
-          <SingleCheckBox
-            label="日帰り入浴あり"
-            value={isDayUse}
-            onChange={(v) => setIsDayUse(v)}
-          />
-        </div>
-        <div>
-          <Select
-            name="area"
-            label="エリア"
-            options={areaOptions}
-            value={areaCurrentValue}
-            isMulti={false}
-            defaultValue={undefined}
-            onChange={(v) => {
-              const areaId = v.value;
-              const numAreaId = Number(areaId);
-              setAreaId(numAreaId);
-            }}
-          />
-        </div>
-        <div>
-          <TextField
-            label="URL"
-            value={url}
-            onChange={(value) => setURL(value)}
-          />
-        </div>
-        <div>
-          <TextField
-            label="画像URL"
-            value={imgURL}
-            onChange={(value) => setImgURL(value)}
-          />
-        </div>
-        <div>
-          <TextArea
-            label="説明"
-            value={description}
-            onChange={async (v) => setDescription(v)}
-          />
-        </div>
-        <Button title="送信" onClick={onClick} />
-      </SFieldSet>
+      <form data-testid="form">
+        <SFieldSet>
+          {formTitle !== undefined ? <legend>{formTitle}</legend> : undefined}
+          <div>
+            <TextField
+              label="名前"
+              value={name}
+              onChange={(value) => setName(value)}
+            />
+          </div>
+          <div>
+            <Select
+              name="chemicals"
+              label="成分"
+              options={chemicalsValueOptions}
+              value={chemicalsCurrentValue}
+              isMulti={true}
+              defaultValue={[]}
+              onChange={(v) => setChemicals(v.map((c: any) => c.value))}
+            />
+          </div>
+          <div>
+            <TextField
+              label="その他泉質"
+              value={otherSpringQuality}
+              onChange={(value) => setOtherSpringQuality(value)}
+            />
+          </div>
+          <div>
+            <Select
+              name="osmotic-pressure"
+              label="浸透圧"
+              options={osmoticPressureValueOptions}
+              value={osmoticPressureCurrentValue}
+              isMulti={false}
+              defaultValue={undefined}
+              onChange={(v) =>
+                setOsmoticPressure(
+                  (v?.value ?? "") as OsmoticPressureOption | ""
+                )
+              }
+            />
+          </div>
+          <div>
+            <Select
+              name="liquid"
+              label="液性"
+              options={liquidValueOptions}
+              value={liquidCurrentValue}
+              isMulti={false}
+              defaultValue={undefined}
+              onChange={(v) =>
+                setLiquid((v?.value ?? "") as LiquidValueOption | "")
+              }
+            />
+          </div>
+          <div>
+            <Select
+              name="temperature"
+              label="温度"
+              options={temperatureOptions}
+              value={temperatureCurrentValue}
+              isMulti={false}
+              defaultValue={undefined}
+              onChange={(v) =>
+                setTemperature((v?.value ?? "") as TemperatureOption | "")
+              }
+            />
+          </div>
+          <div>
+            <Select
+              name="form"
+              label="形態"
+              options={formOptions}
+              value={formCurrentValue}
+              isMulti={false}
+              defaultValue={formOptions[0]}
+              onChange={(v) => setForm(v.value as FormOption)}
+            />
+          </div>
+          <div>
+            <SingleCheckBox
+              label="日帰り入浴あり"
+              value={isDayUse}
+              onChange={(v) => setIsDayUse(v)}
+            />
+          </div>
+          <div>
+            <Select
+              name="area"
+              label="エリア"
+              options={areaOptions}
+              value={areaCurrentValue}
+              isMulti={false}
+              defaultValue={undefined}
+              onChange={(v) => {
+                const areaId = v.value;
+                const numAreaId = Number(areaId);
+                setAreaId(numAreaId);
+              }}
+            />
+          </div>
+          <div>
+            <TextField
+              label="URL"
+              value={url}
+              onChange={(value) => setURL(value)}
+            />
+          </div>
+          <div>
+            <TextField
+              label="画像URL"
+              value={imgURL}
+              onChange={(value) => setImgURL(value)}
+            />
+          </div>
+          <div>
+            <TextArea
+              label="説明"
+              value={description}
+              onChange={async (v) => setDescription(v)}
+            />
+          </div>
+          <Button title="送信" onClick={onClick} />
+        </SFieldSet>
+      </form>
     </SCreateCormContainer>
   );
 };
