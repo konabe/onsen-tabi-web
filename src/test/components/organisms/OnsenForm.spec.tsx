@@ -145,7 +145,7 @@ describe("OnsenForm", () => {
     expect(urlField).toHaveValue("");
     expect(imgURLField).toHaveValue("");
     expect(descriptionField).toHaveValue("");
-    expect(screen.getByRole("form")).toHaveFormValues({
+    expect(screen.getByTestId("form")).toHaveFormValues({
       chemicals: "",
       "osmotic-pressure": "",
       liquid: "",
@@ -207,7 +207,7 @@ describe("OnsenForm", () => {
     const submitButton = screen.getByRole("button", { name: "送信" });
     expect(nameField).toHaveValue("大滝乃湯");
     expect(springField).toHaveValue("メタケイ酸泉");
-    expect(screen.getByRole("form")).toHaveFormValues({
+    expect(screen.getByTestId("form")).toHaveFormValues({
       chemicals: ["NaIon", "ClIon"],
       "osmotic-pressure": "isotonic",
       liquid: "mildly_alkaline",
@@ -280,7 +280,7 @@ describe("OnsenForm", () => {
     const submitButton = screen.getByRole("button", { name: "送信" });
     expect(nameField).toHaveValue("大滝乃湯");
     expect(springField).toHaveValue("メタケイ酸泉");
-    expect(screen.getByRole("form")).toHaveFormValues({
+    expect(screen.getByTestId("form")).toHaveFormValues({
       chemicals: "",
       "osmotic-pressure": "",
       liquid: "",

@@ -223,7 +223,7 @@ const OnsenForm: React.FC<Props> = ({
 
   return (
     <SCreateCormContainer>
-      <form>
+      <form data-testid="form">
         <SFieldSet>
           {formTitle !== undefined ? <legend>{formTitle}</legend> : undefined}
           <div>
