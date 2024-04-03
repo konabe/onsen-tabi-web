@@ -33,15 +33,11 @@ describe("OnsenForm", () => {
             ...commonArea,
             id: 1,
             name: "鳴子",
-            prefecture: "宮城県",
-            onsenIds: [1, 2, 3],
           }),
           new AreaEntity({
             ...commonArea,
             id: 2,
             name: "東鳴子",
-            prefecture: "宮城県",
-            onsenIds: [4, 5],
           }),
         ]}
         onChange={onChange}
@@ -59,22 +55,6 @@ describe("OnsenForm", () => {
   });
 
   it("should be able to input and submit", async () => {
-    const commonParams: OnsenEntityParameter = {
-      id: -1,
-      name: "",
-      generatedSpringQuality: "",
-      otherSpringQuality: "",
-      chemicals: [],
-      liquid: undefined,
-      osmoticPressure: undefined,
-      temperature: undefined,
-      form: "sotoyu",
-      isDayUse: false,
-      url: "",
-      imgURL: null,
-      description: "",
-      area: undefined,
-    };
     render(
       <OnsenForm
         formTitle="温泉フォーム"
@@ -84,15 +64,11 @@ describe("OnsenForm", () => {
             ...commonArea,
             id: 1,
             name: "鳴子",
-            prefecture: "宮城県",
-            onsenIds: [1, 2, 3],
           }),
           new AreaEntity({
             ...commonArea,
             id: 2,
             name: "東鳴子",
-            prefecture: "宮城県",
-            onsenIds: [4, 5],
           }),
         ]}
         onChange={onChange}
@@ -104,8 +80,20 @@ describe("OnsenForm", () => {
     await userEvent.type(nameField, "大滝乃湯");
     expect(onChange).toHaveBeenLastCalledWith(
       new OnsenEntity({
-        ...commonParams,
-        name: "大滝乃湯",
+        id: -1,
+        name: "大滝乃湯", // ここだけ変わっていることを確認する
+        generatedSpringQuality: "",
+        otherSpringQuality: "",
+        chemicals: [],
+        liquid: undefined,
+        osmoticPressure: undefined,
+        temperature: undefined,
+        form: "sotoyu",
+        isDayUse: false,
+        url: "",
+        imgURL: null,
+        description: "",
+        area: undefined,
       })
     );
     const springField = screen.getByLabelText("その他泉質");
@@ -141,8 +129,9 @@ describe("OnsenForm", () => {
     await userEvent.click(submitButton);
     expect(onSubmitClick).toBeCalledWith(
       new OnsenEntity({
-        ...commonParams,
+        id: -1,
         name: "大滝乃湯",
+        generatedSpringQuality: "",
         chemicals: ["S"],
         osmoticPressure: "hypotonic",
         liquid: "acidic",
@@ -165,6 +154,14 @@ describe("OnsenForm", () => {
     expect(urlField).toHaveValue("");
     expect(imgURLField).toHaveValue("");
     expect(descriptionField).toHaveValue("");
+    expect(screen.getByRole("form")).toHaveFormValues({
+      chemicals: "",
+      "osmotic-pressure": "",
+      liquid: "",
+      temperature: "",
+      form: "sotoyu",
+      area: "",
+    });
   });
 
   it("should be updated with initial value", async () => {
@@ -198,15 +195,11 @@ describe("OnsenForm", () => {
             ...commonArea,
             id: 1,
             name: "鳴子",
-            prefecture: "宮城県",
-            onsenIds: [1, 2, 3],
           }),
           new AreaEntity({
             ...commonArea,
             id: 2,
             name: "東鳴子",
-            prefecture: "宮城県",
-            onsenIds: [4, 5],
           }),
         ]}
         onChange={onChange}
@@ -216,13 +209,6 @@ describe("OnsenForm", () => {
     // 入力
     const nameField = screen.getByLabelText("名前");
     const springField = screen.getByLabelText("その他泉質");
-    // TODO: a11y & testablity <form>を経由して値を受け取るようにする
-    // https://testing-library.com/docs/ecosystem-react-select-event/
-    // const chemicalsSelect = screen.getByLabelText("成分");
-    // const osmoticPressureSelect = screen.getByLabelText("浸透圧");
-    // const liquidSelect = screen.getByLabelText("液性");
-    // const tempratureSelect = screen.getByLabelText("温度");
-    // const formSelect = screen.getByLabelText("形態");
     const isDayUseCheckBox = screen.getByLabelText("日帰り入浴あり");
     const urlField = screen.getByLabelText("URL");
     const imgURLField = screen.getByLabelText("画像URL");
@@ -230,11 +216,13 @@ describe("OnsenForm", () => {
     const submitButton = screen.getByRole("button", { name: "送信" });
     expect(nameField).toHaveValue("大滝乃湯");
     expect(springField).toHaveValue("メタケイ酸泉");
-    // expect(chemicalsSelect).toHaveValue(["NaIon", "ClIon"]);
-    // expect(osmoticPressureSelect).to("isotonic");
-    // expect(liquidSelect).toHaveValue("mildly_alkaline");
-    // expect(tempratureSelect).toHaveValue("hot");
-    // expect(formSelect).toHaveValue("sotoyu");
+    expect(screen.getByRole("form")).toHaveFormValues({
+      chemicals: ["NaIon", "ClIon"],
+      "osmotic-pressure": "isotonic",
+      liquid: "mildly_alkaline",
+      temperature: "hot",
+      form: "sotoyu",
+    });
     expect(isDayUseCheckBox).toBeChecked();
     expect(urlField).toHaveValue("https://onsen-kusatsu.com/ohtakinoyu/");
     expect(imgURLField).toHaveValue("https://placehold.jp/150x150.png");
@@ -280,15 +268,11 @@ describe("OnsenForm", () => {
             ...commonArea,
             id: 1,
             name: "鳴子",
-            prefecture: "宮城県",
-            onsenIds: [1, 2, 3],
           }),
           new AreaEntity({
             ...commonArea,
             id: 2,
             name: "東鳴子",
-            prefecture: "宮城県",
-            onsenIds: [4, 5],
           }),
         ]}
         onChange={onChange}
@@ -298,13 +282,6 @@ describe("OnsenForm", () => {
     // 入力
     const nameField = screen.getByLabelText("名前");
     const springField = screen.getByLabelText("その他泉質");
-    // TODO: a11y & testablity <form>を経由して値を受け取るようにする
-    // https://testing-library.com/docs/ecosystem-react-select-event/
-    // const chemicalsSelect = screen.getByLabelText("成分");
-    // const osmoticPressureSelect = screen.getByLabelText("浸透圧");
-    // const liquidSelect = screen.getByLabelText("液性");
-    // const tempratureSelect = screen.getByLabelText("温度");
-    // const formSelect = screen.getByLabelText("形態");
     const isDayUseCheckBox = screen.getByLabelText("日帰り入浴あり");
     const urlField = screen.getByLabelText("URL");
     const imgURLField = screen.getByLabelText("画像URL");
@@ -312,11 +289,13 @@ describe("OnsenForm", () => {
     const submitButton = screen.getByRole("button", { name: "送信" });
     expect(nameField).toHaveValue("大滝乃湯");
     expect(springField).toHaveValue("メタケイ酸泉");
-    // expect(chemicalsSelect).toHaveValue(["NaIon", "ClIon"]);
-    // expect(osmoticPressureSelect).to("isotonic");
-    // expect(liquidSelect).toHaveValue("mildly_alkaline");
-    // expect(tempratureSelect).toHaveValue("hot");
-    // expect(formSelect).toHaveValue("sotoyu");
+    expect(screen.getByRole("form")).toHaveFormValues({
+      chemicals: "",
+      "osmotic-pressure": "",
+      liquid: "",
+      temperature: "",
+      form: "sotoyu",
+    });
     expect(isDayUseCheckBox).toBeChecked();
     expect(urlField).toHaveValue("https://onsen-kusatsu.com/ohtakinoyu/");
     expect(imgURLField).toHaveValue("https://placehold.jp/150x150.png");
