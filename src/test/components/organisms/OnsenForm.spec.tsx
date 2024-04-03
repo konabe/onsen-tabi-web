@@ -171,7 +171,10 @@ describe("OnsenForm", () => {
       imgURL: "https://placehold.jp/150x150.png",
       description:
         "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。",
-      area: undefined,
+      area: {
+        id: 1,
+        name: "鳴子",
+      },
     };
     render(
       <OnsenForm
@@ -213,6 +216,7 @@ describe("OnsenForm", () => {
       liquid: "mildly_alkaline",
       temperature: "hot",
       form: "sotoyu",
+      area: "1",
     });
     expect(isDayUseCheckBox).toBeChecked();
     expect(urlField).toHaveValue("https://onsen-kusatsu.com/ohtakinoyu/");
@@ -286,6 +290,7 @@ describe("OnsenForm", () => {
       liquid: "",
       temperature: "",
       form: "sotoyu",
+      area: "",
     });
     expect(isDayUseCheckBox).toBeChecked();
     expect(urlField).toHaveValue("https://onsen-kusatsu.com/ohtakinoyu/");
