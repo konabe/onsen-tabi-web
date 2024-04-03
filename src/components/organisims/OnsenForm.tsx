@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { AreaEntity } from "../../domain/models/area";
 import { OnsenEntity } from "../../domain/models/onsen";
 import {
   BusinessForm,
@@ -37,6 +38,7 @@ import TextField from "../atoms/TextField";
 type Props = {
   formTitle?: string;
   value: OnsenEntity | undefined;
+  areas: AreaEntity[];
   onChange?: (onsen: OnsenEntity) => void;
   onSubmitClick?: (onsen: OnsenEntity) => Promise<void>;
 };
@@ -44,6 +46,7 @@ type Props = {
 const OnsenForm: React.FC<Props> = ({
   formTitle,
   value,
+  areas,
   onSubmitClick,
   onChange,
 }) => {
@@ -58,6 +61,7 @@ const OnsenForm: React.FC<Props> = ({
   const [temperature, setTemperature] = useState<TemperatureOption | "">("");
   const [form, setForm] = useState<FormOption>("sotoyu");
   const [isDayUse, setIsDayUse] = useState<boolean>(false);
+  const [areaId, setAreaId] = useState<number | undefined>(undefined);
   const [url, setURL] = useState<string>("");
   const [imgURL, setImgURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -115,7 +119,26 @@ const OnsenForm: React.FC<Props> = ({
   });
   const formCurrentValue = formOptions.find((v) => v.value === form);
 
+  const areaOptions = [...areas, undefined].map((v) => {
+    const label = v?.name ?? "選択なし";
+    return {
+      value: v?.id,
+      label,
+    };
+  });
+  const areaCurrentValue = areaOptions.find((v) => v.value === areaId);
+
   const onClick = async () => {
+    const selectedArea =
+      areaId !== undefined ? areas.find((v) => v.id === areaId) : undefined;
+    const selectedAreaProp =
+      selectedArea !== undefined
+        ? {
+            id: selectedArea.id,
+            name: selectedArea.name,
+          }
+        : undefined;
+    console.log(selectedAreaProp);
     await onSubmitClick?.(
       new OnsenEntity({
         id: -1,
@@ -131,7 +154,7 @@ const OnsenForm: React.FC<Props> = ({
         url,
         imgURL: imgURL === "" ? null : imgURL,
         description,
-        area: undefined,
+        area: selectedAreaProp,
       })
     );
     setName("");
@@ -142,6 +165,7 @@ const OnsenForm: React.FC<Props> = ({
     setLiquid("");
     setTemperature("");
     setForm("sotoyu");
+    setAreaId(undefined);
     setURL("");
     setImgURL("");
     setDescription("");
@@ -192,6 +216,7 @@ const OnsenForm: React.FC<Props> = ({
     setTemperature(value?.temperature ?? "");
     setForm(value?.form ?? "sotoyu");
     setIsDayUse(value?.isDayUse ?? false);
+    setAreaId(value?.area?.id ?? undefined);
     setURL(value?.url ?? "");
     setImgURL(value?.imgURL ?? "");
     setDescription(value?.description ?? "");
@@ -281,6 +306,21 @@ const OnsenForm: React.FC<Props> = ({
             label="日帰り入浴あり"
             value={isDayUse}
             onChange={(v) => setIsDayUse(v)}
+          />
+        </div>
+        <div>
+          <Select
+            name="area"
+            label="エリア"
+            options={areaOptions}
+            value={areaCurrentValue}
+            isMulti={false}
+            defaultValue={undefined}
+            onChange={(v) => {
+              const areaId = v.value;
+              const numAreaId = Number(areaId);
+              setAreaId(numAreaId);
+            }}
           />
         </div>
         <div>

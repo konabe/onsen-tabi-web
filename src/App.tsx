@@ -113,7 +113,7 @@ const App: React.FC = () => {
             element={
               <OnsenList
                 isSignedIn={isSignedIn}
-                dependencies={{ onsenRepository }}
+                dependencies={{ onsenRepository, areaRepository }}
               />
             }
           />
@@ -122,7 +122,7 @@ const App: React.FC = () => {
             element={
               <Onsen
                 isSignedIn={isSignedIn}
-                dependencies={{ onsenRepository }}
+                dependencies={{ onsenRepository, areaRepository }}
               />
             }
           />
