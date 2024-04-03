@@ -62,6 +62,7 @@ export type OnsenRequest = {
   url: string;
   imgUrl: string | null;
   description: string;
+  areaId: number | null;
 };
 
 export class OnsenRepository implements IOnsenRepository {
@@ -162,6 +163,7 @@ export class OnsenRepository implements IOnsenRepository {
       otherSpringQuality: onsen.otherSpringQuality,
       chemicals,
       imgUrl: onsen.imgURL ?? null,
+      areaId: onsen.area?.id ?? null,
     };
   }
 

@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import selectEvent from "react-select-event";
 
 import OnsenForm from "../../../components/organisims/OnsenForm";
+import { AreaEntity, AreaEntityParameter } from "../../../domain/models/area";
 import {
   OnsenEntity,
   OnsenEntityParameter,
@@ -11,12 +12,38 @@ import {
 describe("OnsenForm", () => {
   const onChange = vi.fn();
   const onSubmitClick = vi.fn();
+  const commonArea: AreaEntityParameter = {
+    id: 0,
+    name: "鳴子",
+    prefecture: "宮城県",
+    nationalResort: true,
+    village: "鳴子温泉",
+    url: "https://www.welcome-naruko.jp/",
+    description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
+    onsenIds: [],
+  };
 
   it("should be rendered when initialized", () => {
     render(
       <OnsenForm
         formTitle="温泉フォーム"
         value={undefined}
+        areas={[
+          new AreaEntity({
+            ...commonArea,
+            id: 1,
+            name: "鳴子",
+            prefecture: "宮城県",
+            onsenIds: [1, 2, 3],
+          }),
+          new AreaEntity({
+            ...commonArea,
+            id: 2,
+            name: "東鳴子",
+            prefecture: "宮城県",
+            onsenIds: [4, 5],
+          }),
+        ]}
         onChange={onChange}
         onSubmitClick={onSubmitClick}
       />
@@ -52,6 +79,22 @@ describe("OnsenForm", () => {
       <OnsenForm
         formTitle="温泉フォーム"
         value={undefined}
+        areas={[
+          new AreaEntity({
+            ...commonArea,
+            id: 1,
+            name: "鳴子",
+            prefecture: "宮城県",
+            onsenIds: [1, 2, 3],
+          }),
+          new AreaEntity({
+            ...commonArea,
+            id: 2,
+            name: "東鳴子",
+            prefecture: "宮城県",
+            onsenIds: [4, 5],
+          }),
+        ]}
         onChange={onChange}
         onSubmitClick={onSubmitClick}
       />
@@ -72,6 +115,7 @@ describe("OnsenForm", () => {
     const tempratureSelect = screen.getByLabelText("温度");
     const formSelect = screen.getByLabelText("形態");
     const isDayUseCheckBox = screen.getByLabelText("日帰り入浴あり");
+    const areaField = screen.getByLabelText("エリア");
     const urlField = screen.getByLabelText("URL");
     const imgURLField = screen.getByLabelText("画像URL");
     const descriptionField = screen.getByLabelText("説明");
@@ -86,6 +130,7 @@ describe("OnsenForm", () => {
     await selectEvent.select(tempratureSelect, "高温泉(42℃以上)");
     await selectEvent.select(formSelect, "外湯");
     await userEvent.click(isDayUseCheckBox);
+    await selectEvent.select(areaField, "鳴子");
     await userEvent.type(urlField, "https://www.gorokaku.com/");
     await userEvent.type(imgURLField, "https://placehold.jp/150x150.png");
     await userEvent.type(
@@ -108,6 +153,10 @@ describe("OnsenForm", () => {
         description: "まずはロビーの歴史を感じる雰囲気に圧倒される",
         isDayUse: true,
         url: "https://www.gorokaku.com/",
+        area: {
+          id: 1,
+          name: "鳴子",
+        },
       })
     );
     expect(nameField).toHaveValue("");
@@ -144,6 +193,22 @@ describe("OnsenForm", () => {
             ...commonParams,
           })
         }
+        areas={[
+          new AreaEntity({
+            ...commonArea,
+            id: 1,
+            name: "鳴子",
+            prefecture: "宮城県",
+            onsenIds: [1, 2, 3],
+          }),
+          new AreaEntity({
+            ...commonArea,
+            id: 2,
+            name: "東鳴子",
+            prefecture: "宮城県",
+            onsenIds: [4, 5],
+          }),
+        ]}
         onChange={onChange}
         onSubmitClick={onSubmitClick}
       />
@@ -210,6 +275,22 @@ describe("OnsenForm", () => {
             ...commonParams,
           })
         }
+        areas={[
+          new AreaEntity({
+            ...commonArea,
+            id: 1,
+            name: "鳴子",
+            prefecture: "宮城県",
+            onsenIds: [1, 2, 3],
+          }),
+          new AreaEntity({
+            ...commonArea,
+            id: 2,
+            name: "東鳴子",
+            prefecture: "宮城県",
+            onsenIds: [4, 5],
+          }),
+        ]}
         onChange={onChange}
         onSubmitClick={onSubmitClick}
       />

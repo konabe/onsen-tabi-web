@@ -4,8 +4,10 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
+import { AreaEntity } from "../../domain/models/area";
 import { OnsenEntity } from "../../domain/models/onsen";
 import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
+import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import { grey2 } from "../atoms/colors";
 import Loading from "../atoms/Loading";
@@ -17,18 +19,22 @@ import OnsenForm from "../organisims/OnsenForm";
 import RelatedContents from "../organisims/RelatedContents";
 
 type OnsenDetailDependencies = {
-  dependencies: { onsenRepository: IOnsenRepository };
+  dependencies: {
+    onsenRepository: IOnsenRepository;
+    areaRepository: IAreaRepository;
+  };
 };
 
 const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
   isSignedIn,
-  dependencies: { onsenRepository },
+  dependencies: { onsenRepository, areaRepository },
 }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const [onsen, setOnsen] = useState<OnsenEntity | undefined>(undefined);
+  const [areas, setAreas] = useState<AreaEntity[]>([]);
   const simillarSearchLink = `/onsens?chemicals=${onsen
     ?.getChemicalTags()
     .join(",")}`;
@@ -42,6 +48,10 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
         (async () => {
           const onsenEntity = await onsenRepository.read(Number(id));
           setOnsen(onsenEntity);
+        })(),
+        (async () => {
+          const areas = await areaRepository.readAll();
+          setAreas(areas);
         })(),
       ]);
     } catch {
@@ -180,7 +190,11 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
           </div>
           {isSignedIn ? (
             <div>
-              <OnsenForm value={onsen} onSubmitClick={onOnsenSubmitClick} />
+              <OnsenForm
+                value={onsen}
+                onSubmitClick={onOnsenSubmitClick}
+                areas={areas}
+              />
             </div>
           ) : undefined}
         </>

@@ -4,9 +4,11 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
+import { AreaEntity } from "../../domain/models/area";
 import { OnsenEntity } from "../../domain/models/onsen";
 import { ChemicalOption } from "../../domain/models/onsen/chemical";
 import { ChemicalTagOption } from "../../domain/models/onsen/chemicalTagModel";
+import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import Loading from "../atoms/Loading";
 import MyHelmet from "../atoms/MyHelmet";
@@ -18,18 +20,20 @@ import OnsenForm from "../organisims/OnsenForm";
 type OnsenListDependencies = {
   dependencies: {
     onsenRepository: IOnsenRepository;
+    areaRepository: IAreaRepository;
   };
 };
 
 const OnsenList: React.FC<CommonPageProps & OnsenListDependencies> = ({
   isSignedIn,
-  dependencies: { onsenRepository },
+  dependencies: { onsenRepository, areaRepository },
 }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [onsens, setOnsens] = useState<OnsenEntity[]>([]);
+  const [areas, setAreas] = useState<AreaEntity[]>([]);
 
   const [chemicals, setChemicals] = useState<ChemicalTagOption[]>([]);
   const chemicalsValueOptions: {
@@ -67,6 +71,10 @@ const OnsenList: React.FC<CommonPageProps & OnsenListDependencies> = ({
         (async () => {
           const onsens = await onsenRepository.readAll();
           setOnsens(onsens);
+        })(),
+        (async () => {
+          const areas = await areaRepository.readAll();
+          setAreas(areas);
         })(),
       ]);
     } catch {
@@ -137,6 +145,7 @@ const OnsenList: React.FC<CommonPageProps & OnsenListDependencies> = ({
               <OnsenForm
                 formTitle="温泉の追加"
                 value={undefined}
+                areas={areas}
                 onSubmitClick={onOnsenSubmitClick}
               />
             </div>
