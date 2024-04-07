@@ -5,11 +5,11 @@ import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
 import { AreaEntity } from "../../domain/models/area";
-import { OnsenEntity } from "../../domain/models/onsen";
+import { HotelEntity, HotelID } from "../../domain/models/hotel";
+import { OnsenEntity, OnsenID } from "../../domain/models/onsen";
 import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
-import { HotelResponse } from "../../infrastructure/repositories/hotelRepository";
 import Loading from "../atoms/Loading";
 import MyHelmet from "../atoms/MyHelmet";
 import Tag from "../atoms/Tag";
@@ -35,7 +35,7 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   const [area, setArea] = useState<AreaEntity | undefined>(undefined);
-  const [hotels, setHotels] = useState<HotelResponse[] | undefined>(undefined);
+  const [hotels, setHotels] = useState<HotelEntity[] | undefined>(undefined);
   const [onsens, setOnsens] = useState<OnsenEntity[] | undefined>(undefined);
 
   const villageText = area?.village != null ? `${area.village}温泉郷、` : "";
@@ -78,6 +78,16 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
     })();
   });
 
+  const HotelLink = ({ hotel }: { hotel: HotelEntity }) => {
+    const hotelID: HotelID = hotel.id;
+    return <a href={`/hotel/${hotelID.value}`}>{hotel.name}</a>;
+  };
+
+  const OnsenLink = ({ onsen }: { onsen: OnsenEntity }) => {
+    const onsenID: OnsenID = onsen.id;
+    return <a href={`/onsen/${onsenID.value}`}>{onsen.name}</a>;
+  };
+
   return (
     <SContents>
       <MyHelmet title={area?.displayingName() ?? ""} />
@@ -109,8 +119,8 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
             <RelatedContents title="ホテル">
               <div>
                 {hotels?.map((hotel) => (
-                  <div key={hotel.id}>
-                    <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
+                  <div key={hotel.id.value}>
+                    <HotelLink hotel={hotel} />
                   </div>
                 ))}
               </div>
@@ -120,8 +130,8 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
             <RelatedContents title="温泉">
               <div>
                 {onsens?.map((onsen) => (
-                  <div key={onsen.id}>
-                    <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+                  <div key={onsen.id.value}>
+                    <OnsenLink onsen={onsen} />
                   </div>
                 ))}
               </div>

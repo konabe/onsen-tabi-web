@@ -4,7 +4,7 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
-import { AreaEntity } from "../../domain/models/area";
+import { AreaEntity, AreaID } from "../../domain/models/area";
 import { OnsenEntity } from "../../domain/models/onsen";
 import { ChemicalTagModel } from "../../domain/models/onsen/chemicalTagModel";
 import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
@@ -41,6 +41,13 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
   const imageURL = onsen?.imgURL ?? "/img/onsen_default.png";
   const imageAlt =
     onsen?.imgURL !== undefined ? onsen.name + "の画像" : "温泉のイメージ画像";
+
+  const OnsenAreaLink = ({ onsen }: { onsen: OnsenEntity }) => {
+    const areaID: AreaID | undefined = onsen.area?.id;
+    return (
+      <Link to={`/area/${areaID?.value}`}>{onsen.displayingAreaName()}</Link>
+    );
+  };
 
   const loadPage = async () => {
     try {
@@ -156,10 +163,8 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
                         <Info>
                           <InfoTitle>温泉エリア</InfoTitle>
                           <InfoValueContainer>
-                            {onsen?.displayingAreaName() !== undefined ? (
-                              <Link to={`/area/${onsen?.area?.id}`}>
-                                {onsen.displayingAreaName()}
-                              </Link>
+                            {onsen?.area !== undefined ? (
+                              <OnsenAreaLink onsen={onsen} />
                             ) : (
                               "紐づけなし"
                             )}

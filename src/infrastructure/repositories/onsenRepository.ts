@@ -163,7 +163,7 @@ export class OnsenRepository implements IOnsenRepository {
       otherSpringQuality: onsen.otherSpringQuality,
       chemicals,
       imgUrl: onsen.imgURL ?? null,
-      areaId: onsen.area?.id ?? null,
+      areaId: onsen.area?.id?.value ?? null,
     };
   }
 

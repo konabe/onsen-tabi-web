@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { AreaEntity } from "../../domain/models/area";
+import { AreaEntity, AreaID } from "../../domain/models/area";
 import { Prefecture } from "../../share/prefecture";
 
 type Props = {
@@ -25,9 +25,10 @@ const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
   }: {
     area: AreaEntity;
   }) => {
+    const areaID: AreaID = area.id;
     return (
       <div>
-        <Link to={`/area/${area.id}`}>{area.displayingName()}</Link>
+        <Link to={`/area/${areaID.value}`}>{area.displayingName()}</Link>
       </div>
     );
   };
@@ -41,7 +42,7 @@ const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
         <SPrefectureContainer>{prefecture}</SPrefectureContainer>
         <SOnsenListContainer>
           {areas.map((area: AreaEntity) => (
-            <AreaLink key={area.id} area={area} />
+            <AreaLink key={area.id.value} area={area} />
           ))}
         </SOnsenListContainer>
       </SPrefectureOnsenContainer>

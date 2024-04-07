@@ -68,7 +68,7 @@ describe("OnsenDetail", () => {
         description:
           "徐々に体を慣らしながら熱いお湯に浸かるための合わせ湯を楽しむことができる。",
         area: {
-          id: 1,
+          id: 100,
           name: "草津",
         },
       })
@@ -85,6 +85,12 @@ describe("OnsenDetail", () => {
         ...commonAreaProps(),
         id: 2,
         name: "東鳴子",
+        onsenIds: [4, 5],
+      }),
+      new AreaEntity({
+        ...commonAreaProps(),
+        id: 100,
+        name: "草津",
         onsenIds: [4, 5],
       }),
     ]);
@@ -121,7 +127,7 @@ describe("OnsenDetail", () => {
       expect(screen.getAllByText("弱アルカリ性")).toHaveLength(1);
       expect(screen.getAllByText("高温泉")).toHaveLength(1);
       expect(screen.getAllByText("外湯")).toHaveLength(2);
-      expect(screen.getByText("草津温泉")).toBeInTheDocument();
+      expect(screen.getByText("草津温泉")).toHaveAttribute("href", "/area/100");
       expect(screen.getByText("あり")).toBeInTheDocument();
       expect(
         screen.getByText("https://onsen-kusatsu.com/ohtakinoyu/")
@@ -145,7 +151,7 @@ describe("OnsenDetail", () => {
         liquid: "mildly_alkaline",
         temperature: "hot",
         form: "sotoyu",
-        area: "1",
+        area: "100",
       });
       // submit
       const submitButton = screen.getByRole("button", { name: "送信" });

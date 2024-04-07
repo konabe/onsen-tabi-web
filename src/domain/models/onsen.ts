@@ -1,3 +1,4 @@
+import { AreaID } from "./area";
 import { AreaName } from "./area/areaName";
 import { BusinessForm, FormOption } from "./onsen/businessForm";
 import { ChemicalOption } from "./onsen/chemical";
@@ -8,6 +9,20 @@ import {
   OsmoticPressureOption,
 } from "./onsen/osmoticPressure";
 import { Temperature, TemperatureOption } from "./onsen/temperature";
+
+export class OnsenID {
+  _onsenIdBrand: unknown;
+
+  constructor(private _value: number) {}
+
+  get value() {
+    return this._value;
+  }
+
+  copy() {
+    return new OnsenID(this._value);
+  }
+}
 
 export type OnsenEntityParameter = {
   id: number;
@@ -33,7 +48,7 @@ export type OnsenEntityParameter = {
 };
 
 export class OnsenEntity {
-  readonly id: number;
+  readonly _id: OnsenID;
   readonly name: string;
   _generatedSpringQuality: string | undefined;
   _otherSpringQuality: string;
@@ -48,7 +63,7 @@ export class OnsenEntity {
   readonly description: string;
   _area:
     | {
-        id: number;
+        id: AreaID;
         name: AreaName;
       }
     | undefined;
@@ -69,7 +84,7 @@ export class OnsenEntity {
     description,
     area,
   }: OnsenEntityParameter) {
-    this.id = id;
+    this._id = new OnsenID(id);
     this.name = name;
     this._generatedSpringQuality = generatedSpringQuality;
     this._otherSpringQuality = otherSpringQuality;
@@ -88,8 +103,12 @@ export class OnsenEntity {
     this.description = description;
     this._area =
       area != undefined
-        ? { id: area.id, name: new AreaName(area.name) }
+        ? { id: new AreaID(area.id), name: new AreaName(area.name) }
         : undefined;
+  }
+
+  get id() {
+    return this._id.copy();
   }
 
   get chemicals(): ChemicalOption[] {
@@ -132,7 +151,7 @@ export class OnsenEntity {
   get imgURL(): string | undefined {
     return this._imgURL;
   }
-  get area(): { id: number; name: string } | undefined {
+  get area(): { id: AreaID; name: string } | undefined {
     return this._area !== undefined
       ? { id: this._area.id, name: this._area.name.value }
       : undefined;

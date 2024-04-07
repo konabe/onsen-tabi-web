@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { CommonPageProps } from "../../App";
 import { HotelEntity } from "../../domain/models/hotel";
-import { OnsenEntity } from "../../domain/models/onsen";
+import { OnsenEntity, OnsenID } from "../../domain/models/onsen";
 import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
 import Loading from "../atoms/Loading";
@@ -67,6 +67,11 @@ const HotelDetail: React.FC<CommonPageProps & HotelDetailDependencies> = ({
     })();
   });
 
+  const OnsenLink = ({ onsen }: { onsen: OnsenEntity }) => {
+    const onsenID: OnsenID = onsen.id;
+    return <a href={`/onsen/${onsenID.value}`}>{onsen.name}</a>;
+  };
+
   return (
     <SContents>
       <MyHelmet title={hotel !== undefined ? hotel.name : ""} />
@@ -91,8 +96,8 @@ const HotelDetail: React.FC<CommonPageProps & HotelDetailDependencies> = ({
           <div>
             <RelatedContents title="温泉">
               {onsens?.map((onsen) => (
-                <div key={onsen.id}>
-                  <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+                <div key={onsen.id.value}>
+                  <OnsenLink onsen={onsen} />
                 </div>
               ))}
               {isSignedIn ? (

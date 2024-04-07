@@ -1,6 +1,8 @@
+import { AreaID } from "../../../domain/models/area";
 import {
   OnsenEntity,
   OnsenEntityParameter,
+  OnsenID,
 } from "../../../domain/models/onsen";
 
 describe("Onsen", () => {
@@ -35,7 +37,7 @@ describe("Onsen", () => {
   describe("getter/setter", () => {
     it("should return the value", () => {
       const onsen = new OnsenEntity(commonParams);
-      expect(onsen.id).toBe(1);
+      expect(onsen.id).toEqual(new OnsenID(1));
       expect(onsen.chemicals).toEqual(["NaIon", "ClIon"]);
       expect(onsen.liquid).toBe("mildly_alkaline");
       expect(onsen.form).toBe("sotoyu");
@@ -44,7 +46,7 @@ describe("Onsen", () => {
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.otherSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.imgURL).toBe("https://placehold.jp/150x150.png");
-      expect(onsen.area).toEqual({ id: 2, name: "草津" });
+      expect(onsen.area).toEqual({ id: new AreaID(2), name: "草津" });
       expect(onsen).toBeDefined();
     });
 

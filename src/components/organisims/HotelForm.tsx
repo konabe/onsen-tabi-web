@@ -28,14 +28,16 @@ const HotelForm: React.FC<Props> = ({
   const [description, setDescription] = useState<string>("");
 
   const onClick = async () => {
-    await onSubmitClick?.({
-      id: -1,
-      name,
-      hasWashitsu,
-      soloAvailable,
-      url,
-      description,
-    });
+    await onSubmitClick?.(
+      new HotelEntity({
+        id: -1,
+        name,
+        hasWashitsu,
+        soloAvailable,
+        url,
+        description,
+      })
+    );
     setName("");
     setHasWashitsu(true);
     setURL("");
@@ -43,14 +45,16 @@ const HotelForm: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    onChange?.({
-      id: -1,
-      name,
-      hasWashitsu,
-      soloAvailable,
-      url,
-      description,
-    });
+    onChange?.(
+      new HotelEntity({
+        id: -1,
+        name,
+        hasWashitsu,
+        soloAvailable,
+        url,
+        description,
+      })
+    );
   }, [description, hasWashitsu, soloAvailable, name, onChange, url]);
 
   useEffect(() => {

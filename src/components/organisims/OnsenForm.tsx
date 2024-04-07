@@ -122,7 +122,7 @@ const OnsenForm: React.FC<Props> = ({
   const areaOptions = [...areas, undefined].map((v) => {
     const label = v?.name ?? "選択なし";
     return {
-      value: v?.id,
+      value: v?.id?.value,
       label,
     };
   });
@@ -130,11 +130,13 @@ const OnsenForm: React.FC<Props> = ({
 
   const onClick = async () => {
     const selectedArea =
-      areaId !== undefined ? areas.find((v) => v.id === areaId) : undefined;
+      areaId !== undefined
+        ? areas.find((v) => v.id.value === areaId)
+        : undefined;
     const selectedAreaProp =
       selectedArea !== undefined
         ? {
-            id: selectedArea.id,
+            id: selectedArea.id.value,
             name: selectedArea.name,
           }
         : undefined;
@@ -215,7 +217,7 @@ const OnsenForm: React.FC<Props> = ({
     setTemperature(value?.temperature ?? "");
     setForm(value?.form ?? "sotoyu");
     setIsDayUse(value?.isDayUse ?? false);
-    setAreaId(value?.area?.id ?? undefined);
+    setAreaId(value?.area?.id?.value ?? undefined);
     setURL(value?.url ?? "");
     setImgURL(value?.imgURL ?? "");
     setDescription(value?.description ?? "");

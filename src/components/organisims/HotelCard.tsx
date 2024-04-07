@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { HotelEntity } from "../../domain/models/hotel";
+import { HotelEntity, HotelID } from "../../domain/models/hotel";
 import { subColor } from "../atoms/colors";
 import Card from "../molecules/Card";
 
@@ -9,12 +9,17 @@ type Props = {
 };
 
 const HotelCard: React.FC<Props> = ({ hotel }) => {
+  const HotelLink = ({ hotel }: { hotel: HotelEntity }) => {
+    const hotelID: HotelID = hotel.id;
+    return <a href={`/hotel/${hotelID.value}`}>{hotel.name}</a>;
+  };
+
   return (
     <Card>
       <Container>
         <Header>
           <NameContainer>
-            <a href={`/hotel/${hotel.id}`}>{hotel.name}</a>
+            <HotelLink hotel={hotel} />
           </NameContainer>
           <LinkContainer>
             {hotel.url !== "" ? <a href={hotel.url}>🔗</a> : undefined}
