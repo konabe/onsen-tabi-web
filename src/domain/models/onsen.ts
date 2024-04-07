@@ -1,3 +1,4 @@
+import { AreaID } from "./area";
 import { AreaName } from "./area/areaName";
 import { BusinessForm, FormOption } from "./onsen/businessForm";
 import { ChemicalOption } from "./onsen/chemical";
@@ -48,7 +49,7 @@ export class OnsenEntity {
   readonly description: string;
   _area:
     | {
-        id: number;
+        id: AreaID;
         name: AreaName;
       }
     | undefined;
@@ -88,7 +89,7 @@ export class OnsenEntity {
     this.description = description;
     this._area =
       area != undefined
-        ? { id: area.id, name: new AreaName(area.name) }
+        ? { id: new AreaID(area.id), name: new AreaName(area.name) }
         : undefined;
   }
 
@@ -132,7 +133,7 @@ export class OnsenEntity {
   get imgURL(): string | undefined {
     return this._imgURL;
   }
-  get area(): { id: number; name: string } | undefined {
+  get area(): { id: AreaID; name: string } | undefined {
     return this._area !== undefined
       ? { id: this._area.id, name: this._area.name.value }
       : undefined;

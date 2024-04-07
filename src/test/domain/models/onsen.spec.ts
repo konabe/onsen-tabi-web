@@ -1,3 +1,4 @@
+import { AreaID } from "../../../domain/models/area";
 import {
   OnsenEntity,
   OnsenEntityParameter,
@@ -44,7 +45,7 @@ describe("Onsen", () => {
       expect(onsen.generatedSprintQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.otherSpringQuality).toBe("ナトリウム塩化物泉");
       expect(onsen.imgURL).toBe("https://placehold.jp/150x150.png");
-      expect(onsen.area).toEqual({ id: 2, name: "草津" });
+      expect(onsen.area).toEqual({ id: new AreaID(2), name: "草津" });
       expect(onsen).toBeDefined();
     });
 

@@ -11,8 +11,22 @@ export type AreaEntityParameter = {
   onsenIds: number[];
 };
 
+export class AreaID {
+  _areaIdBrand: unknown;
+
+  constructor(private _value: number) {}
+
+  get value() {
+    return this._value;
+  }
+
+  copy() {
+    return new AreaID(this._value);
+  }
+}
+
 export class AreaEntity {
-  readonly id: number;
+  readonly _id: AreaID;
   readonly _name: AreaName;
   readonly prefecture: string;
   readonly isNationalResort: boolean;
@@ -31,7 +45,7 @@ export class AreaEntity {
     description,
     onsenIds,
   }: AreaEntityParameter) {
-    this.id = id;
+    this._id = new AreaID(id);
     this._name = new AreaName(name);
     this.prefecture = prefecture;
     this.isNationalResort = nationalResort;
@@ -39,6 +53,10 @@ export class AreaEntity {
     this.url = url;
     this.description = description;
     this.onsenIds = onsenIds;
+  }
+
+  get id() {
+    return this._id.copy();
   }
 
   get name() {
