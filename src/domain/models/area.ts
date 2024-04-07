@@ -1,16 +1,5 @@
 import { AreaName } from "./area/areaName";
 
-export type AreaEntityParameter = {
-  id: number;
-  name: string;
-  prefecture: string;
-  nationalResort: boolean;
-  village: string | undefined;
-  url: string;
-  description: string;
-  onsenIds: number[];
-};
-
 export class AreaID {
   _areaIdBrand: unknown;
 
@@ -24,6 +13,17 @@ export class AreaID {
     return new AreaID(this._value);
   }
 }
+
+export type AreaEntityParameter = {
+  id: number;
+  name: string;
+  prefecture: string;
+  nationalResort: boolean;
+  village: string | undefined;
+  url: string;
+  description: string;
+  onsenIds: number[];
+};
 
 export class AreaEntity {
   readonly _id: AreaID;

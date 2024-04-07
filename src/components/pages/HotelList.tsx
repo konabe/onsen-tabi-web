@@ -68,7 +68,7 @@ const HotelList: React.FC<CommonPageProps & HotelListDependencies> = ({
             <Article emoji="🏕️" title="宿一覧">
               <SListContainer>
                 {hotels.map((v) => (
-                  <SListItemContainer key={v.id}>
+                  <SListItemContainer key={v.id.value}>
                     <HotelCard hotel={v} />
                   </SListItemContainer>
                 ))}
