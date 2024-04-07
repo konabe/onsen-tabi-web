@@ -133,7 +133,7 @@ const OnsenList: React.FC<CommonPageProps & OnsenListDependencies> = ({
               </FilterContainer>
               <SListContainer>
                 {displayingOnsens.map((v) => (
-                  <SListItemContainer key={v.id}>
+                  <SListItemContainer key={v.id.value}>
                     <OnsenCard onsen={v} />
                   </SListItemContainer>
                 ))}

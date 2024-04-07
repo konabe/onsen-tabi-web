@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { CommonPageProps } from "../../App";
 import { AreaEntity } from "../../domain/models/area";
 import { HotelEntity, HotelID } from "../../domain/models/hotel";
-import { OnsenEntity } from "../../domain/models/onsen";
+import { OnsenEntity, OnsenID } from "../../domain/models/onsen";
 import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { IHotelRepository } from "../../domain/repositoryInterfaces/hotelRepositoryInterface";
 import { IOnsenRepository } from "../../domain/repositoryInterfaces/onsenRepositoryInterface";
@@ -83,6 +83,11 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
     return <a href={`/hotel/${hotelID.value}`}>{hotel.name}</a>;
   };
 
+  const OnsenLink = ({ onsen }: { onsen: OnsenEntity }) => {
+    const onsenID: OnsenID = onsen.id;
+    return <a href={`/onsen/${onsenID.value}`}>{onsen.name}</a>;
+  };
+
   return (
     <SContents>
       <MyHelmet title={area?.displayingName() ?? ""} />
@@ -125,8 +130,8 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
             <RelatedContents title="温泉">
               <div>
                 {onsens?.map((onsen) => (
-                  <div key={onsen.id}>
-                    <a href={`/onsen/${onsen.id}`}>{onsen.name}</a>
+                  <div key={onsen.id.value}>
+                    <OnsenLink onsen={onsen} />
                   </div>
                 ))}
               </div>

@@ -10,6 +10,20 @@ import {
 } from "./onsen/osmoticPressure";
 import { Temperature, TemperatureOption } from "./onsen/temperature";
 
+export class OnsenID {
+  _onsenIdBrand: unknown;
+
+  constructor(private _value: number) {}
+
+  get value() {
+    return this._value;
+  }
+
+  copy() {
+    return new OnsenID(this._value);
+  }
+}
+
 export type OnsenEntityParameter = {
   id: number;
   name: string;
@@ -34,7 +48,7 @@ export type OnsenEntityParameter = {
 };
 
 export class OnsenEntity {
-  readonly id: number;
+  readonly _id: OnsenID;
   readonly name: string;
   _generatedSpringQuality: string | undefined;
   _otherSpringQuality: string;
@@ -70,7 +84,7 @@ export class OnsenEntity {
     description,
     area,
   }: OnsenEntityParameter) {
-    this.id = id;
+    this._id = new OnsenID(id);
     this.name = name;
     this._generatedSpringQuality = generatedSpringQuality;
     this._otherSpringQuality = otherSpringQuality;
@@ -91,6 +105,10 @@ export class OnsenEntity {
       area != undefined
         ? { id: new AreaID(area.id), name: new AreaName(area.name) }
         : undefined;
+  }
+
+  get id() {
+    return this._id.copy();
   }
 
   get chemicals(): ChemicalOption[] {

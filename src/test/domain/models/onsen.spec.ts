@@ -2,6 +2,7 @@ import { AreaID } from "../../../domain/models/area";
 import {
   OnsenEntity,
   OnsenEntityParameter,
+  OnsenID,
 } from "../../../domain/models/onsen";
 
 describe("Onsen", () => {
@@ -36,7 +37,7 @@ describe("Onsen", () => {
   describe("getter/setter", () => {
     it("should return the value", () => {
       const onsen = new OnsenEntity(commonParams);
-      expect(onsen.id).toBe(1);
+      expect(onsen.id).toEqual(new OnsenID(1));
       expect(onsen.chemicals).toEqual(["NaIon", "ClIon"]);
       expect(onsen.liquid).toBe("mildly_alkaline");
       expect(onsen.form).toBe("sotoyu");
