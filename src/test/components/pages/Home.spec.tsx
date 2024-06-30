@@ -37,11 +37,13 @@ describe("Home", () => {
     const commonArea: AreaEntityParameter = {
       id: 0,
       name: "鳴子",
+      kana: "なるこ",
       prefecture: "宮城県",
       nationalResort: true,
       village: "鳴子温泉",
       url: "https://www.welcome-naruko.jp/",
       description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
+      access: "鳴子温泉へのアクセス",
       onsenIds: [],
     };
     areaRepository.readAll = vi.fn().mockResolvedValue([
@@ -116,15 +118,19 @@ describe("Home", () => {
       await waitFor(() => expect(areaRepository.readAll).toBeCalled());
 
       const nameInput = screen.getByLabelText("名前");
+      const kanaInput = screen.getByLabelText("カナ");
       const prefectureInput = screen.getByLabelText("都道府県");
       const villageInput = screen.getByLabelText("温泉郷");
       const urlInput = screen.getByLabelText("URL");
       const descriptionInput = screen.getByLabelText("説明");
+      const accessInput = screen.getByLabelText("アクセス");
       await userEvent.type(nameInput, "新しい");
+      await userEvent.type(kanaInput, "あたらしい");
       await userEvent.type(prefectureInput, "新潟県");
       await userEvent.type(villageInput, "素晴らし");
       await userEvent.type(urlInput, "https://www.example.com/");
       await userEvent.type(descriptionInput, "最高の温泉街です。");
+      await userEvent.type(accessInput, "新しい温泉街へのアクセス");
       await userEvent.click(screen.getByText("送信"));
 
       expect(areaRepository.create).toBeCalledTimes(1);
@@ -168,15 +174,19 @@ describe("Home", () => {
       await waitFor(() => expect(areaRepository.readAll).toBeCalled());
 
       const nameInput = screen.getByLabelText("名前");
+      const kanaInput = screen.getByLabelText("カナ");
       const prefectureInput = screen.getByLabelText("都道府県");
       const villageInput = screen.getByLabelText("温泉郷");
       const urlInput = screen.getByLabelText("URL");
       const descriptionInput = screen.getByLabelText("説明");
+      const accessInput = screen.getByLabelText("アクセス");
       await userEvent.type(nameInput, "新しい");
+      await userEvent.type(kanaInput, "あたらしい");
       await userEvent.type(prefectureInput, "新潟県");
       await userEvent.type(villageInput, "素晴らし");
       await userEvent.type(urlInput, "https://www.example.com/");
       await userEvent.type(descriptionInput, "最高の温泉街です。");
+      await userEvent.type(accessInput, "新しい温泉街へのアクセス");
       await userEvent.click(screen.getByText("送信"));
 
       expect(areaRepository.create).toBeCalledTimes(1);

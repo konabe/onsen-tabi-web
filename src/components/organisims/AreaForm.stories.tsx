@@ -27,11 +27,13 @@ export const Primary: Story = {
     value: new AreaEntity({
       id: 0,
       name: "鳴子",
+      kana: "なるこ",
       prefecture: "宮城県",
       nationalResort: true,
       village: "鳴子温泉",
       url: "https://www.welcome-naruko.jp/",
       description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
+      access: "JR東日本東北本線・鳴子温泉駅から徒歩約10分",
       onsenIds: [],
     }),
     onChange: () => {},

@@ -22,11 +22,13 @@ const AreaForm: React.FC<Props> = ({
   onChange,
 }) => {
   const [name, setName] = useState<string>("");
+  const [kana, setKana] = useState<string>("");
   const [prefecture, setPrefecture] = useState<string>("");
   const [nationalResort, setNationalResort] = useState<boolean>(false);
   const [village, setVillage] = useState<string>();
   const [url, setURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [access, setAccess] = useState<string>("");
 
   const onClick = async () => {
     const villageResult: string | undefined =
@@ -35,20 +37,24 @@ const AreaForm: React.FC<Props> = ({
       new AreaEntity({
         id: -1,
         name,
+        kana,
         prefecture,
         nationalResort,
         village: villageResult,
         url,
         description,
+        access,
         onsenIds: [],
       })
     );
     setName("");
+    setKana("");
     setPrefecture("");
     setNationalResort(false);
     setVillage("");
     setURL("");
     setDescription("");
+    setAccess("");
   };
 
   useEffect(() => {
@@ -56,23 +62,37 @@ const AreaForm: React.FC<Props> = ({
       new AreaEntity({
         id: -1,
         name,
+        kana,
         prefecture,
         nationalResort,
         village,
         url,
         description,
+        access,
         onsenIds: [],
       })
     );
-  }, [description, nationalResort, village, prefecture, name, onChange, url]);
+  }, [
+    description,
+    access,
+    nationalResort,
+    village,
+    prefecture,
+    name,
+    kana,
+    onChange,
+    url,
+  ]);
 
   useEffect(() => {
     setName(value?.name ?? "");
+    setKana(value?.kana ?? "");
     setPrefecture(value?.prefecture ?? "");
     setNationalResort(value?.isNationalResort ?? false);
     setVillage(value?.village ?? "");
     setURL(value?.url ?? "");
     setDescription(value?.description ?? "");
+    setAccess(value?.access ?? "");
   }, [value]);
 
   return (
@@ -81,6 +101,9 @@ const AreaForm: React.FC<Props> = ({
         {formTitle !== undefined ? <legend>{formTitle}</legend> : undefined}
         <div>
           <TextField label="名前" value={name} onChange={(v) => setName(v)} />
+        </div>
+        <div>
+          <TextField label="カナ" value={kana} onChange={(v) => setKana(v)} />
         </div>
         <div>
           <TextField
@@ -113,6 +136,13 @@ const AreaForm: React.FC<Props> = ({
             label="説明"
             value={description}
             onChange={async (v) => setDescription(v)}
+          />
+        </div>
+        <div>
+          <TextArea
+            label="アクセス"
+            value={access}
+            onChange={async (v) => setAccess(v)}
           />
         </div>
         <Button title="送信" onClick={onClick} />
