@@ -1,5 +1,3 @@
-import { a } from "vitest/dist/suite-a18diDsI.js";
-
 import { AreaEntity } from "../../domain/models/area";
 import { IAreaRepository } from "../../domain/repositoryInterfaces/areaRepositoryInterface";
 import { APIClient } from "../api/ApiClient";
