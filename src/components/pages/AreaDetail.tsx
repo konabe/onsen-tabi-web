@@ -112,6 +112,11 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
                 <DescriptionContainer>
                   <Description text={area?.description ?? ""} />
                 </DescriptionContainer>
+                {area?.access ? (
+                  <DescriptionContainer>
+                    <Description text={area?.access ?? ""} />
+                  </DescriptionContainer>
+                ) : undefined}
               </div>
             </Article>
           </div>

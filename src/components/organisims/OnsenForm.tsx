@@ -66,6 +66,16 @@ const OnsenForm: React.FC<Props> = ({
   const [imgURL, setImgURL] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+  const areasSortedByKana = areas.sort((a, b) => {
+    if (a.kana < b.kana) {
+      return -1;
+    }
+    if (a.kana > b.kana) {
+      return 1;
+    }
+    return 0;
+  });
+
   const chemicalsValueOptions = chemicalsOptions.map((v) => ({
     value: v,
     label: new Chemical(v).getText(),
@@ -119,7 +129,7 @@ const OnsenForm: React.FC<Props> = ({
   });
   const formCurrentValue = formOptions.find((v) => v.value === form);
 
-  const areaOptions = [...areas, undefined].map((v) => {
+  const areaOptions = [...areasSortedByKana, undefined].map((v) => {
     const label = v?.name ?? "選択なし";
     return {
       value: v?.id?.value,

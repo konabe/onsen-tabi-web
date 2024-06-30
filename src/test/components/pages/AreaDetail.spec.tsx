@@ -57,11 +57,13 @@ describe("AreaDetail", () => {
       new AreaEntity({
         id: 0,
         name: "鳴子",
+        kana: "なるこ",
         prefecture: "宮城県",
         nationalResort: true,
         village: "鳴子",
         url: "https://www.welcome-naruko.jp/",
         description: "鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。",
+        access: "鳴子温泉へのアクセス",
         onsenIds: [],
       })
     );
@@ -98,6 +100,9 @@ describe("AreaDetail", () => {
       expect(screen.getAllByText("国民保養温泉地")[0]).toBeInTheDocument();
       expect(
         screen.getAllByText("鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。")[0]
+      ).toBeInTheDocument();
+      expect(
+        screen.getAllByText("鳴子温泉へのアクセス")[0]
       ).toBeInTheDocument();
       // TODO: ホテルと温泉が空のときにタイトルが出ているのは変なので修正 「なし」と表示するのか、表示しないのか。
       expect(screen.getByText("ホテル")).toBeInTheDocument();
@@ -150,6 +155,9 @@ describe("AreaDetail", () => {
       expect(screen.getAllByText("国民保養温泉地")[0]).toBeInTheDocument();
       expect(
         screen.getAllByText("鳴子温泉は、宮城県大崎市鳴子温泉にある温泉。")[0]
+      ).toBeInTheDocument();
+      expect(
+        screen.getAllByText("鳴子温泉へのアクセス")[0]
       ).toBeInTheDocument();
       // TODO: ホテルと温泉が空のときにタイトルが出ているのは変なので修正 「なし」と表示するのか、表示しないのか。
       expect(screen.getByText("ホテル")).toBeInTheDocument();
