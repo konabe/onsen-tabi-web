@@ -11,7 +11,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     children: { description: "コンテンツ要素" },
-    imgUrl: { description: "カードの画像URL" },
+    img: { description: "カードの画像に関するオブジェクト", control: "object" },
   },
 } satisfies Meta<typeof Card>;
 
@@ -37,6 +37,9 @@ export const Image: Story = {
         <p>Hello, World!</p>
       </div>
     ),
-    imgUrl: "https://placehold.jp/150x150.png",
+    img: {
+      url: "https://placehold.jp/150x150.png",
+      link: "https://placehold.jp/150x150.png",
+    },
   },
 };

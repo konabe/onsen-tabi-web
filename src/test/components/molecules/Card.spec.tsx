@@ -5,7 +5,7 @@ import Card from "../../../components/molecules/Card";
 describe("Card", () => {
   it("should be displayed", () => {
     render(
-      <Card imgUrl="https://placehold.jp/150x150.png">
+      <Card img={{ url: "https://placehold.jp/150x150.png" }}>
         <div>コンテンツ</div>
       </Card>
     );

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import selectEvent from "react-select-event";
 
@@ -14,26 +14,28 @@ describe("OnsenForm", () => {
   const onChange = vi.fn();
   const onSubmitClick = vi.fn();
 
-  it("should be rendered when initialized", () => {
-    render(
-      <OnsenForm
-        formTitle="温泉フォーム"
-        value={undefined}
-        areas={[
-          new AreaEntity({
-            ...commonAreaProps(),
-            id: 1,
-            name: "鳴子",
-          }),
-          new AreaEntity({
-            ...commonAreaProps(),
-            id: 2,
-            name: "東鳴子",
-          }),
-        ]}
-        onChange={onChange}
-        onSubmitClick={onSubmitClick}
-      />
+  it("should be rendered when initialized", async () => {
+    await act(async () =>
+      render(
+        <OnsenForm
+          formTitle="温泉フォーム"
+          value={undefined}
+          areas={[
+            new AreaEntity({
+              ...commonAreaProps(),
+              id: 1,
+              name: "鳴子",
+            }),
+            new AreaEntity({
+              ...commonAreaProps(),
+              id: 2,
+              name: "東鳴子",
+            }),
+          ]}
+          onChange={onChange}
+          onSubmitClick={onSubmitClick}
+        />
+      )
     );
     expect(screen.getByText("温泉フォーム")).toBeInTheDocument();
     expect(screen.getByLabelText("名前")).toBeInTheDocument();

@@ -14,13 +14,15 @@ type Props = {
 };
 
 const OnsenCard: React.FC<Props> = ({ onsen }) => {
+  const imgUrl = onsen.imgURL ?? "/img/onsen_default.png";
+
+  const createOnsenLink = () => `/onsen/${onsen.id.value}`;
   const OnsenLink = ({ onsen }: { onsen: OnsenEntity }) => {
-    const onsenID = onsen.id;
-    return <a href={`/onsen/${onsenID.value}`}>{onsen.name}</a>;
+    return <a href={createOnsenLink()}>{onsen.name}</a>;
   };
 
   return (
-    <Card imgUrl={onsen.imgURL ?? "/img/onsen_default.png"}>
+    <Card img={{ url: imgUrl, link: createOnsenLink() }}>
       <Container>
         <Header>
           <NameContainer>
