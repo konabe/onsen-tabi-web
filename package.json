@@ -21,7 +21,7 @@
     "chromatic": "npx chromatic --exit-zero-on-changes"
   },
   "devDependencies": {
-    "@codecov/vite-plugin": "^0.0.1-beta.5",
+    "@codecov/vite-plugin": "^1.9.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
     "@sentry/cli": "^2.31.0",
     "@sentry/react": "^7.109.0",
