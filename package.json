@@ -12,6 +12,7 @@
     "serve": "vite preview",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
+    "test:codecov:analytics": "vitest --reporter=junit --outputFile=test-report.junit.xml",
     "lint": "eslint . --ext .ts,.tsx src/",
     "lintfix": "npm run lint -- --fix",
     "format": "prettier --write \"**/*.+(js|json|yml|ts|tsx)\"",
