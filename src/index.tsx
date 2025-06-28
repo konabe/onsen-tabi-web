@@ -9,8 +9,6 @@ import "./index.css";
 import * as Sentry from "@sentry/react";
 import ReactGA from "react-ga4";
 
-import reportWebVitals from "./reportWebVitals";
-
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [
@@ -38,5 +36,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-reportWebVitals();
