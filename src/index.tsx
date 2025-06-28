@@ -12,15 +12,14 @@ import ReactGA from "react-ga4";
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [
-    Sentry.browserTracingIntegration({
-      tracePropagationTargets: ["localhost", import.meta.env.VITE_BASE_URL!],
-    }),
+    Sentry.browserTracingIntegration(),
     Sentry.replayIntegration(),
     Sentry.feedbackIntegration({
       colorScheme: "system",
     }),
   ],
   tracesSampleRate: 1.0,
+  tracePropagationTargets: ["localhost", import.meta.env.VITE_BASE_URL!],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 });
