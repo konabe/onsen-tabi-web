@@ -11,7 +11,7 @@ type Props = {
 };
 
 const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
-  let areasByPrefecture: Record<string, AreaEntity[]> = {};
+  const areasByPrefecture: Record<string, AreaEntity[]> = {};
   areas.forEach((area) => {
     if (areasByPrefecture[area.prefecture] === undefined) {
       areasByPrefecture[area.prefecture] = [area];

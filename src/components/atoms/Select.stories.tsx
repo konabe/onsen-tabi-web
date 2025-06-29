@@ -34,6 +34,7 @@ const SingleSelectComponent = ({ ...args }: ComponentProps<typeof Select>) => {
     <Select
       {...{ ...args, isMulti: false }}
       value={value}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
       onChange={(v: any) => {
         setValue(v);
         action("onChange")(v);
@@ -65,6 +66,7 @@ const MultiSelectComponent = ({ ...args }: ComponentProps<typeof Select>) => {
     <Select
       {...{ ...args, isMulti: true }}
       value={value}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
       onChange={(v: any) => {
         setValue(v);
         action("onChange")(v);

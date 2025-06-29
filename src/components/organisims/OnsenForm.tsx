@@ -253,6 +253,7 @@ const OnsenForm: React.FC<Props> = ({
               value={chemicalsCurrentValue}
               isMulti={true}
               defaultValue={[]}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
               onChange={(v) => setChemicals(v.map((c: any) => c.value))}
             />
           </div>

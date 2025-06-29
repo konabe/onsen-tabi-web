@@ -104,7 +104,7 @@ export class OnsenRepository implements IOnsenRepository {
   }
 
   private createRequest(onsen: OnsenEntity): OnsenRequest {
-    let chemicals: OnsenRequest["chemicals"] = {
+    const chemicals: OnsenRequest["chemicals"] = {
       naIon: 0,
       caIon: 0,
       mgIon: 0,
@@ -168,7 +168,7 @@ export class OnsenRepository implements IOnsenRepository {
   }
 
   private createEntity(response: OnsenResponse): OnsenEntity {
-    let pureChemicals = response.quality?.chemicals ?? [];
+    const pureChemicals = response.quality?.chemicals ?? [];
     return new OnsenEntity({
       ...response,
       chemicals: [

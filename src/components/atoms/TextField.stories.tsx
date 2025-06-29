@@ -41,6 +41,7 @@ const WrpapedComponent = ({ ...args }: ComponentProps<typeof TextField>) => {
     <TextField
       {...args}
       value={value}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
       onChange={(v: any) => {
         setValue(v);
         action("onChange")(v);

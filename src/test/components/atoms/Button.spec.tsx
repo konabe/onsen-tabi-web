@@ -6,7 +6,7 @@ import { subColor } from "../../../components/atoms/colors";
 
 describe("Button", () => {
   const onClick = vi.fn();
-  let user = userEvent.setup();
+  const user = userEvent.setup();
 
   beforeEach(() => {
     onClick.mockClear();

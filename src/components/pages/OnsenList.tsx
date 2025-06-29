@@ -120,12 +120,14 @@ const OnsenList: React.FC<CommonPageProps & OnsenListDependencies> = ({
                   isMulti={true}
                   defaultValue={[]}
                   onChange={(v) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
                     setChemicals(v.map((c: any) => c.value));
                     if (v.length === 0) {
                       setSearchParams({});
                       return;
                     }
                     setSearchParams({
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
                       chemicals: v.map((c: any) => c.value).join(","),
                     });
                   }}

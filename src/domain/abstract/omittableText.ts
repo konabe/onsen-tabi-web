@@ -1,4 +1,4 @@
-interface OmittableText {
+export interface OmittableText {
   getText(): string | undefined;
   getOmittedText(): string | undefined;
 }

@@ -194,7 +194,7 @@ export class OnsenEntity {
     if (this._chemicals.length === 0) {
       return ["Simple"];
     }
-    let chemicals = this._chemicals.map((c) => c);
+    const chemicals = this._chemicals.map((c) => c);
     return [...chemicals];
   }
 
