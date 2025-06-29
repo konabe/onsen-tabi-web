@@ -1,13 +1,13 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 
 import HotelList from "../../../components/pages/HotelList";
 import { HotelEntity } from "../../../domain/models/hotel";
 import { HotelRepositoryMock } from "../../stubs/repositoryStubs";
 
 const useNavigateMock = vi.fn();
-vi.mock("react-router-dom", async (importOriginal) => {
+vi.mock("react-router", async (importOriginal) => {
   const actual: any = await importOriginal();
   return {
     ...actual,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
@@ -104,7 +104,7 @@ const AreaDetail: React.FC<CommonPageProps & AreaDetailDependencies> = ({
                 <a href={area?.url} target="_blank" rel="noreferrer">
                   リンク
                 </a>
-                {area?.isNationalResort ?? false ? (
+                {(area?.isNationalResort ?? false) ? (
                   <STagContainer>
                     <Tag text={"国民保養温泉地"} hexColor={undefined} />
                   </STagContainer>

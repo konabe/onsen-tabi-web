@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
@@ -154,7 +154,7 @@ const OnsenDetail: React.FC<CommonPageProps & OnsenDetailDependencies> = ({
                             {onsen?.getFormText() ?? "情報なし"}
                           </InfoValueContainer>
                         </Info>
-                        {onsen?.isDayUse ?? false ? (
+                        {(onsen?.isDayUse ?? false) ? (
                           <Info>
                             <InfoTitle>日帰り入浴</InfoTitle>
                             <InfoValueContainer>あり</InfoValueContainer>

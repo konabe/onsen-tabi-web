@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   reactRouterParameters,
   withRouter,
-} from "storybook-addon-react-router-v6";
+} from "storybook-addon-remix-react-router";
 
 import NavBar from "./NavBar";
 import NavItem from "./NavItem";
