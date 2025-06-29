@@ -2059,21 +2059,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.0.0":
+"@types/node@npm:^20.0.0, @types/node@npm:^20.19.2":
   version: 20.19.2
   resolution: "@types/node@npm:20.19.2"
   dependencies:
     undici-types: "npm:~6.21.0"
   checksum: 10c0/85195d2435a215c886b3dabb2a93c557397e2b933a18803c6dd4fb3f87c3de9c8290fe78f08b52ebeb3b14063a00b217f66b4f9c0192581dc7a677c4f8663a9c
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^20.11.30":
-  version: 20.11.30
-  resolution: "@types/node@npm:20.11.30"
-  dependencies:
-    undici-types: "npm:~5.26.4"
-  checksum: 10c0/867cfaf969c6d8850d8d7304e7ab739898a50ecb1395b61ff2335644f5f48d7a46fbc4a14cee967aed65ec134b61a746edae70d1f32f11321ccf29165e3bc4e6
   languageName: node
   linkType: hard
 
@@ -3086,9 +3077,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:^11.2.0":
-  version: 11.2.0
-  resolution: "chromatic@npm:11.2.0"
+"chromatic@npm:^13.0.1":
+  version: 13.0.1
+  resolution: "chromatic@npm:13.0.1"
   peerDependencies:
     "@chromatic-com/cypress": ^0.*.* || ^1.0.0
     "@chromatic-com/playwright": ^0.*.* || ^1.0.0
@@ -3101,7 +3092,7 @@ __metadata:
     chroma: dist/bin.js
     chromatic: dist/bin.js
     chromatic-cli: dist/bin.js
-  checksum: 10c0/dbccc584bc145ba91ba56b87ea739feb9fa1d9a308645a4f2b61d697e6891133336a8604c9c269bef32027810a3d6de6d64b38da822e8170feb09bbdc6998b3e
+  checksum: 10c0/0f0a59964a5ec8b1550247e196ab3f85e84470e2275e44c2d4200e2c0a6f1734e4538d563fff788b126f44e868c16a6af6ebe1f5aefe781ff77b777b6bcb8b47
   languageName: node
   linkType: hard
 
@@ -6354,7 +6345,7 @@ __metadata:
     "@testing-library/react": "npm:^16.3.0"
     "@testing-library/user-event": "npm:^14.6.1"
     "@types/eslint": "npm:^9.6.1"
-    "@types/node": "npm:^20.11.30"
+    "@types/node": "npm:^20.19.2"
     "@types/react": "npm:^18.2.74"
     "@types/react-dom": "npm:^18.2.24"
     "@types/react-helmet": "npm:^6.1.11"
@@ -6364,7 +6355,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.6.0"
     "@vitest/coverage-v8": "npm:^3.2.4"
     axios: "npm:^1.10.0"
-    chromatic: "npm:^11.2.0"
+    chromatic: "npm:^13.0.1"
     eslint: "npm:^9.30.0"
     eslint-config-prettier: "npm:^10.1.5"
     eslint-plugin-import: "npm:^2.32.0"
@@ -6388,7 +6379,7 @@ __metadata:
     storybook: "npm:^9.0.14"
     storybook-addon-remix-react-router: "npm:^5.0.0"
     styled-components: "npm:^6.1.8"
-    typescript: "npm:^5.4.4"
+    typescript: "npm:^5.8.3"
     vite: "npm:^7.0.0"
     vitest: "npm:^3.2.4"
     vitest-sonar-reporter: "npm:^2.0.1"
@@ -8257,23 +8248,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.4.4":
-  version: 5.4.4
-  resolution: "typescript@npm:5.4.4"
+"typescript@npm:^5.8.3":
+  version: 5.8.3
+  resolution: "typescript@npm:5.8.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/4d8de0291204ed61ca97ad0cba2ce064e09c4988ca1c451c787e4653ba76296ba35177a52694e8a00cf4ef899d0ee83338663b926d8b7d55167ff0ba81549999
+  checksum: 10c0/5f8bb01196e542e64d44db3d16ee0e4063ce4f3e3966df6005f2588e86d91c03e1fb131c2581baf0fb65ee79669eea6e161cd448178986587e9f6844446dbb48
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.4.4#optional!builtin<compat/typescript>":
-  version: 5.4.4
-  resolution: "typescript@patch:typescript@npm%3A5.4.4#optional!builtin<compat/typescript>::version=5.4.4&hash=d69c25"
+"typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>":
+  version: 5.8.3
+  resolution: "typescript@patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=d69c25"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/413a0714a2b554bef8d39a386e5d25df22c625dd677d7260c1a08625016e46ce5f79dae0812641a22ab37c905370b407dc6838e11d4f10845821127d42221876
+  checksum: 10c0/92ea03509e06598948559ddcdd8a4ae5a7ab475766d5589f1b796f5731b3d631a4c7ddfb86a3bd44d58d10102b132cd4b4994dda9b63e6273c66d77d6a271dbd
   languageName: node
   linkType: hard
 
@@ -8298,13 +8289,6 @@ __metadata:
     has-symbols: "npm:^1.1.0"
     which-boxed-primitive: "npm:^1.1.1"
   checksum: 10c0/7dbd35ab02b0e05fe07136c72cb9355091242455473ec15057c11430129bab38b7b3624019b8778d02a881c13de44d63cd02d122ee782fb519e1de7775b5b982
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~5.26.4":
-  version: 5.26.5
-  resolution: "undici-types@npm:5.26.5"
-  checksum: 10c0/bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
   languageName: node
   linkType: hard
 
