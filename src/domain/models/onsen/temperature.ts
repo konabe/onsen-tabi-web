@@ -1,3 +1,4 @@
+import { OmittableText } from "../../abstract/omittableText";
 import { ValueObject } from "../../ddd";
 
 export const TemperatureOptions = ["hot", "normal", "cool", "cold"] as const;

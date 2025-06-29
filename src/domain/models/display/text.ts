@@ -1,3 +1,5 @@
+import { OmittableText } from "../../abstract/omittableText";
+
 export const text = (
   omittable: OmittableText,
   isOmitted: boolean
