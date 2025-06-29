@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 
 import OnsenDetail from "../../../components/pages/OnsenDetail";
 import { AreaEntity } from "../../../domain/models/area";
@@ -12,7 +12,7 @@ import {
 } from "../../stubs/repositoryStubs";
 
 const useNavigateMock = vi.fn();
-vi.mock("react-router-dom", async (importOriginal) => {
+vi.mock("react-router", async (importOriginal) => {
   const actual: any = await importOriginal();
   return {
     ...actual,

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { AreaEntity, AreaEntityParameter } from "../../domain/models/area";
 import { OnsenEntity } from "../../domain/models/onsen";

@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import React, { useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router";
 import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ChemicalTagModel } from "../../../domain/models/onsen/chemicalTagModel";
 import ChemicalTag from "./ChemicalTag";

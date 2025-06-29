@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import styled from "styled-components";
 
 import { mainColor, subColor } from "../atoms/colors";

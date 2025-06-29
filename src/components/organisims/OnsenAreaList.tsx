@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import styled from "styled-components";
 
 import { AreaEntity, AreaID } from "../../domain/models/area";
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const OnsenAreaList: React.FC<Props> = ({ areas, prefectures }) => {
-  let areasByPrefecture: Record<string, AreaEntity[]> = {};
+  const areasByPrefecture: Record<string, AreaEntity[]> = {};
   areas.forEach((area) => {
     if (areasByPrefecture[area.prefecture] === undefined) {
       areasByPrefecture[area.prefecture] = [area];

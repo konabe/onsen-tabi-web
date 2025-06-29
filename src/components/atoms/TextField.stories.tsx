@@ -1,6 +1,6 @@
-import { action } from "@storybook/addon-actions";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ComponentProps, useState } from "react";
+import { action } from "storybook/actions";
 
 import TextField from "./TextField";
 
@@ -41,6 +41,7 @@ const WrpapedComponent = ({ ...args }: ComponentProps<typeof TextField>) => {
     <TextField
       {...args}
       value={value}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
       onChange={(v: any) => {
         setValue(v);
         action("onChange")(v);

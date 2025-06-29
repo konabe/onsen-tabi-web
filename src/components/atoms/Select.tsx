@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 import { mainColor, subColor } from "./colors";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
 type ValueType = any;
 type Option = { key: string; value: string };
 
 type Props = {
   label: string | undefined;
   name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: 型情報を定義したい
   options: OptionsOrGroups<any, GroupBase<any>>;
 } & (
   | {
